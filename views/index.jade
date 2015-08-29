@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  button.btn(id="script").
+  each record, index in results 
+   p= record.Name
+   
