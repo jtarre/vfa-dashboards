@@ -23,6 +23,12 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
   // logged in user property
   console.log("User ID: " + userInfo.id);
   console.log("Org ID: " + userInfo.organizationId);
+  var date = new Date();
+  console.log("day of week: " + date.getDay() + " month: " + date.getMonth()+1);
+  var newDate = new Date(2015, date.getMonth() - 2, date.getDate() - 5)
+  console.log("new date: " + new Date() );
+  console.log("new diff date: " + newDate);
+  console.log("date: " + jsforce.Date.toDateLiteral(date));
 });
  var salesforceRecords = conn.sobject("Account")
   .find(
