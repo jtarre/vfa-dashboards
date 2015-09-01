@@ -48,6 +48,8 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
   console.log("new diff date: " + newDate);
   console.log("date: " + jsforce.Date.toDateLiteral(date));
 });
+ var companyRecord;
+ var jobHistoryRecord;
  var salesforceRecords = conn.sobject("Account")
   .find(
     // conditions in JSON object
@@ -67,12 +69,12 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
   //.skip(10)
   .execute(function(err, records) {
     if (err) { return console.error(err); }
+    companyRecord = records;
     console.log(records);
     console.log("fetched : " + records.length);
-    res.render('index', { title: 'Express', results: records });
+    //res.render('index', { title: 'Express', results: records });
     //return records;
-  });
-  var jobHistory = conn.sobject("Job_History__c")
+      var jobHistory = conn.sobject("Job_History__c")
   .find(
     // conditions in JSON object
     "",
@@ -83,20 +85,25 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
   //.skip(10)
   .execute(function(err, records) {
     if (err) { return console.error(err); }
+    jobHistoryRecord = records;
     console.log(records);
     console.log("fetched : " + records.length);
     //res.render('index', { title: 'Express', results: records });
     //return records;
-  });
-  conn.sobject("Job_History__c").create(
+      conn.sobject("Job_History__c").create(
     { 
-      Name : 'Job 3', 
+      Name : 'Startup Partnerships Manager', 
       Account__c : 'Venture for America',
       Contact__c : '003d000000mHoUy'  }, function(err, ret) {
-  if (err || !ret.success) { return console.error(err, ret); }
-  console.log("Created record id : " + ret.id);
-  // ...
+      if (err || !ret.success) { return console.error(err, ret); }
+      res.render('index', { title: 'Express', results: companyRecord, jobHistory: jobHistoryRecord });
+      console.log("Created record id : " + ret.id);
+      // ...
+  });
+
 });
+  });
+
   /*
   var salesforce = "";
 
