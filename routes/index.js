@@ -20,10 +20,28 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
   console.log('accessToken: ' + conn.accessToken);
   console.log('instanceUrl: ' + conn.instanceUrl);
   console.log('refresh: ' + conn.refreshToken);
+  var monthDays = 
+    {
+      1 : 31, 
+      2 : 27,
+      3 : 31,
+      4 : 30,
+      5 : 31,
+      6 : 30,
+      7 : 31,
+      8 : 31,
+      9 : 30,
+      10 : 31,
+      11 : 30, 
+      12 : 31,
+    };
+
   // logged in user property
   console.log("User ID: " + userInfo.id);
   console.log("Org ID: " + userInfo.organizationId);
   var date = new Date();
+  console.log("month number: " + date.getMonth()+1);
+  console.log("days in month: " + monthDays[date.getMonth()+1]);
   console.log("day of week: " + date.getDay() + " month: " + date.getMonth()+1);
   var newDate = new Date(2015, date.getMonth() - 2, date.getDate() - 5)
   console.log("new date: " + new Date() );
@@ -54,6 +72,31 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
     res.render('index', { title: 'Express', results: records });
     //return records;
   });
+  var jobHistory = conn.sobject("Job_History__c")
+  .find(
+    // conditions in JSON object
+    "",
+    "*"
+  )
+  //.sort({ CreatedDate: -1, Name : 1 })
+  //.limit(5)
+  //.skip(10)
+  .execute(function(err, records) {
+    if (err) { return console.error(err); }
+    console.log(records);
+    console.log("fetched : " + records.length);
+    //res.render('index', { title: 'Express', results: records });
+    //return records;
+  });
+  conn.sobject("Job_History__c").create(
+    { 
+      Name : 'Job 3', 
+      Account__c : 'Venture for America',
+      Contact__c : '003d000000mHoUy'  }, function(err, ret) {
+  if (err || !ret.success) { return console.error(err, ret); }
+  console.log("Created record id : " + ret.id);
+  // ...
+});
   /*
   var salesforce = "";
 
