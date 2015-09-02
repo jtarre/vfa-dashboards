@@ -92,7 +92,7 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
     //return records;
       conn.sobject("Job_History__c").create(
     { 
-      Name : 'Startup Partnerships Manager', 
+      Name : 'Partnerships Manager', 
       Account__c : 'Venture for America',
       Contact__c : '003d000000mHoUy'  }, function(err, ret) {
       if (err || !ret.success) { return console.error(err, ret); }
