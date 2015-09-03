@@ -88,8 +88,22 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
     jobHistoryRecord = records;
     console.log(records);
     console.log("fetched : " + records.length);
+    var fellows = 
+    {   
+  "Drake Berglund": "003d000001iT8qt",
+  "Joan Thompson":  "003d000001hvUni",
+  "Harrison Tan": "003d000001hvpC5",
+  "Benjamin Platta":  "003d000001hvTyX"
+    };   
+    res.render('index', 
+      { 
+      title: 'Express', 
+      results: companyRecord, 
+      jobHistory: jobHistoryRecord,
+      fellowList: fellows });
     //res.render('index', { title: 'Express', results: records });
     //return records;
+      /*
       conn.sobject("Job_History__c").create(
     { 
       Name : 'Startup Partnerships Manager', 
@@ -100,6 +114,7 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
       console.log("Created record id : " + ret.id);
       // ...
   });
+  */
 
 });
   });
