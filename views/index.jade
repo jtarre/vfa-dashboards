@@ -5,15 +5,20 @@ block content
 	p Welcome to #{title}
 	button.btn(id="script").
 	h2= "Select Fellow"
-	select
+	select#fellow
 		each user, name in fellowList
-			option(class=user) #{name} #{user}
-	ul#users
-		each user, name in fellowList
-			li(class=user) #{name} #{user}
+			option(id=user) #{name} #{user}
 	h2= "CoPa Potential Partners"
 	each record, index in results 
 		p= record.Name
 	h2= "Jason's Jobs"
 	each record, index in jobHistory
 		p= record.Name
+	script.
+		$("#fellow").change(function(e){
+			console.log("Here!");
+			//e.preventDefault();
+			var teamId = $(this).find('option:selected').attr("id");
+			console.log(teamId);
+		})
+
