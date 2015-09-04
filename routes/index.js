@@ -4,7 +4,7 @@ var jsforce = require('jsforce');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	
+	console.log('get the home page!');
 	  var conn = new jsforce.Connection({
     // you can change loginUrl to connect to sandbox or prerelease env.
     loginUrl : 'https://login.salesforce.com/',
