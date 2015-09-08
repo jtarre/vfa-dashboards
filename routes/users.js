@@ -6,14 +6,10 @@ router.get('/', function(req, res, next) {
   console.log("get!");
   var id = req.param('id');
   console.log("id: " + id);
-  var body = req.body;
-  var bodyJ = JSON.stringify(body)
-  console.log("body: " + bodyJ);
-  for (data in bodyJ) {
-  	console.log("body: " + data);
-  }
-  
-  res.render('users');
+  res.render('users', 
+  	{
+  		test : id
+  	});
   //res.send('respond with a resource');
 });
 
