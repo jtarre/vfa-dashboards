@@ -3,9 +3,15 @@ extends layout
 block content
 	h1= title
 	p Welcome to #{title}
-	textarea
+	label Subject
+	input(id="subject")
 	br
-	input
+	label Notes 
+	textarea(id="notes")
+	br
+	br
+	button#logNotes Log Notes
+	br
 	h2= "Select Fellow"
 	select#fellow
 		each user, name in fellowList
@@ -24,5 +30,13 @@ block content
 				console.log("data: " + data)
 				$('#results').html(data);
 			});
+		})
+	script.
+		$("#logNotes").click(function(e){
+			console.log("clicked!");
+			var subject = $("#subject").val();
+			console.log("subject: " + subject);
+			var notes = $("#notes").val();
+			console.log("notes: " + notes);
 		})
 
