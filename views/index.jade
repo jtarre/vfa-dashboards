@@ -3,7 +3,9 @@ extends layout
 block content
 	h1= title
 	p Welcome to #{title}
-	button.btn(id="script").
+	textarea
+	br
+	input
 	h2= "Select Fellow"
 	select#fellow
 		each user, name in fellowList
@@ -16,9 +18,9 @@ block content
 		$("#fellow").change(function(e){
 			console.log("Here!");
 			//e.preventDefault();
-			var teamId = $(this).find('option:selected').attr("id");
+			var sfId = $(this).find('option:selected').attr("id");
 			console.log(teamId);
-			$.get("users", {id: teamId}, function ( data ) {
+			$.get("users", {id: sfId}, function ( data ) {
 				console.log("data: " + data)
 				$('#results').html(data);
 			});
