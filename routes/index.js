@@ -97,7 +97,7 @@ conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userIn
     };   
     res.render('index', 
       { 
-      title: 'Express', 
+      title: 'Fellow Dashboard', 
       results: companyRecord, 
       jobHistory: jobHistoryRecord,
       fellowList: fellows });

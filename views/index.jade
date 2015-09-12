@@ -2,7 +2,6 @@ extends layout
 
 block content
 	h1= title
-	p Welcome to #{title}
 	label Subject
 	input(id="subject")
 	br
@@ -42,8 +41,7 @@ block content
 			$.post("lognotes", {
 				subject     : subject, 
 				description : notes
-			})
-			.done( function (data) {
+			}, function (data) {
 				alert("notes logged!");
 			})
 		})
