@@ -11,6 +11,7 @@ block content
 	br
 	br
 	button#logNotes Log Notes
+	p#noteSubmission
 	br
 	h2= "Select Fellow"
 	select#fellow
@@ -38,5 +39,12 @@ block content
 			console.log("subject: " + subject);
 			var notes = $("#notes").val();
 			console.log("notes: " + notes);
+			$.post("lognotes", {
+				subject     : subject, 
+				description : notes
+			})
+			.done( function (data) {
+				alert("notes logged!");
+			})
 		})
 
