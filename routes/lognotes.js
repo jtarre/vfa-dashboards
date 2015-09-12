@@ -11,6 +11,8 @@ router.post("/", function(req, res, next) {
 	
 	var subject      = req.param('subject');
 	var description  = req.param('description');
+	var fellowId     = req.param('fellowId');
+	var vfaId        = req.param('vfaId');
 
 	console.log('subject + description: ' + subject + "\n\n" + description);
 
@@ -29,8 +31,8 @@ router.post("/", function(req, res, next) {
 	conn.sobject("Task").create({
 		Subject      : subject,
 		Description  : description,
-		OwnerId      : "005d0000001OzTa",
-		WhoId        : "003d000000mHoUy",
+		OwnerId      : vfaId,
+		WhoId        : fellowId,
 		Status       : "Completed",
 		Priority     : "Normal",
 		ActivityDate : jsforce.Date.toDateTimeLiteral(new Date(2015, 8, 5))

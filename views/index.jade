@@ -42,11 +42,22 @@ block content
 	script.
 		$("#logNotes").click(function(e){
 			console.log("clicked!");
-			var subject = $("#subject").val();
+
+			var fellowId = $("#fellow").find('option:selected').attr("id");
+			console.log("fellow salesforce id: " + fellowId);
+			
+			var subject   = $("#subject").val();
+			var notes     = $("#notes").val();
+			var vfaId     = $("#vfaList").find('option:selected').attr("id");
+			
 			console.log("subject: " + subject);
-			var notes = $("#notes").val();
 			console.log("notes: " + notes);
+			console.log("vfa id: " + vfaId);
+			console.log("fellow id: ")
+
 			$.post("lognotes", {
+				fellowId    : fellowId,
+				vfaId       : vfaId,   
 				subject     : subject, 
 				description : notes
 			}, function (data) {
