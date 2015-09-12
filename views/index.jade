@@ -2,20 +2,28 @@ extends layout
 
 block content
 	h1= title
+	h2= "Select Fellow"
+	select#fellow
+		each id, name in fellowList
+			option(id=id) #{name}
+	br
+	br
+	h2= "Log Notes"
 	label Subject
 	input(id="subject")
 	br
 	label Notes 
 	textarea(id="notes")
 	br
+	label User 
+	select#vfaList
+		each id, name in vfaList
+			option(id=id) #{name}
+	br
 	br
 	button#logNotes Log Notes
 	p#noteSubmission
 	br
-	h2= "Select Fellow"
-	select#fellow
-		each user, name in fellowList
-			option(id=user) #{name} #{user}
 	h2= "CoPa Potential Partners"
 	each record, index in results 
 		p= record.Name
@@ -25,7 +33,7 @@ block content
 			console.log("Here!");
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
-			console.log(teamId);
+			console.log(sfId);
 			$.get("users", {id: sfId}, function ( data ) {
 				console.log("data: " + data)
 				$('#results').html(data);
