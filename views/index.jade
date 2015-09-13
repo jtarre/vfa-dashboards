@@ -7,9 +7,8 @@ block content
 		each id, name in fellowList
 			option(id=id) #{name}
 	br
-	br
 	h2= "Log Notes"
-	label Subject
+	label Subject 
 	input(id="subject")
 	br
 	label Notes 
@@ -23,11 +22,10 @@ block content
 	br
 	button#logNotes Log Notes
 	p#noteSubmission
-	br
+	p#results
 	h2= "CoPa Potential Partners"
 	each record, index in results 
 		p= record.Name
-	p#results
 	script.
 		$("#fellow").change(function(e){
 			console.log("Here!");
@@ -60,7 +58,7 @@ block content
 				vfaId       : vfaId,   
 				subject     : subject, 
 				description : notes
-			}, function (data) {
+			}, function ( data ) {
 				alert("notes logged!");
 			})
 		})

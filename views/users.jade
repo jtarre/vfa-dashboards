@@ -1,5 +1,20 @@
-h2= test
-	//each record, index in jobHistory
-	//	p= record.Name
-	//p#results
-	//*/
+h2= "Fellow Info"
+h3= "Contact Info"
+ul#fellowInfo
+	each data in contactInfo
+		li= data
+h3= "Company Info"
+ul#companyInfo
+	each data in companyInfo
+		li= data
+h4= "Supervisor"
+ul#supervisorInfo
+	each data in supervisorInfo
+		li= data
+h3= "Personal Info"
+
+h2= "Fellow Most Recent SurveyGizmo"
+//each record, index in jobHistory
+//	p= record.Name
+//p#results
+//*/
