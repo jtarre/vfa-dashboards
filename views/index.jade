@@ -3,19 +3,20 @@ extends layout
 block content
 	h1= title
 	h2= "Select Fellow"
-	select#fellow.chosen-select(data-placeholder="Select a Fellow")
+	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
+		option(value="")
 		each id, name in fellowList
 			option(id=id) #{name}
 	br
 	h2= "Log Notes"
 	label Subject 
-	input(id="subject")
+	input(id="subject")(style="width: 250px")
 	br
 	label Notes 
-	textarea(id="notes")
+	textarea(id="notes" style="width: 250px; height: 75px")
 	br
 	label User 
-	select#vfaList
+	select#vfaList.chosen-select(data-placeholder="Choose Yourself")
 		each id, name in vfaList
 			option(id=id) #{name}
 	br
@@ -27,7 +28,7 @@ block content
 	//each record, index in results 
 		//p= record.Name
 	script.
-		$(".chosen-select").chosen();
+			$(".chosen-select").chosen();
 	script.
 		$("#fellow").change(function(e){
 			console.log("Here!");

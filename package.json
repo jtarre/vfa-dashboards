@@ -1,6 +1,6 @@
 {
   "name": "sf-express-test",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
@@ -11,7 +11,7 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "jade": "~1.11.0",
-    "jsforce": "git://github.com/jtarre/jsforce",
+    "jsforce": "git://github.com/jsforce/jsforce",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
   }
