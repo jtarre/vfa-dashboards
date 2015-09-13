@@ -26,6 +26,7 @@ router.get('/', function(req, res, next) {
 	// get contact info
 	conn.sobject("Contact").retrieve(fellowId, function(err, contact) {
 		if (err) { return console.error(err); }
+		
 		console.log("Fellow Contact Data\n\n");
 		for (data in contact) {
 			console.log("key: " + data + " value: " + contact[data]);
@@ -76,13 +77,52 @@ router.get('/', function(req, res, next) {
 			email        : "Email: " + supervisorEmail
 		};
 
-		res.render('users', 
-		{
-			test           : fellowId,
-			contactInfo    : contactInfo,
-			companyInfo    : companyInfo,
-			supervisorInfo : supervisorInfo
+		conn.sobject("SurveyGizmo__c")
+			.find(
+			{
+				Contact__c : "003d000000wj9QY"
+			},
+			"*"
+			)
+			.sort( { CreatedDate : -1 } )
+			.limit(5)
+			.execute( function(err, surveys) {
+				if (err) { return console.error(err); }
+				
+				for (var i = 0; i < surveys.length; ++i) {
+					// COMPANY PARTNER SURVEY // 
+						// QUANT // 
+						var overall         = surveys[i].CPS_Overall__c;
+						var problemSolving  = surveys[i].CPS_Problem_Solving__c;
+						var professionalism = surveys[i].CPS_Professionalism__c;
+						var hardSkills      = surveys[i].CPS_Hard_Skills__c;
+						var communication   = surveys[i].CPS_Communication__c;
+						var teamFit         = surveys[i].CPS_Team_Fit__c;
+
+						// LONG FORM // 
+						var improvement     = surveys[i].CPS_Improvement__c;
+						var strength        = surveys[i].CPS_Strengths__c;
+
+					// SELF-EVALUATION SURVEY // 
+						// QUANT //
+						var performance     = surveys[i].FSE_Job_Performance__c;
+
+						// LONG FORM //
+						var workStrengh     = surveys[i].FSE_Did_Well_at_Work__c;
+						var workImprove     = surveys[i].FSE_Improve_at_Work__c;
+
+				}
+				
+				console.log(surveys);
+				res.render('users', 
+				{
+					test           : fellowId,
+					contactInfo    : contactInfo,
+					companyInfo    : companyInfo,
+					supervisorInfo : supervisorInfo
+				});			
 		});
+
 	});
 
 	// here is where i send the data
