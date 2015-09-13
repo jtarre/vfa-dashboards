@@ -14,7 +14,15 @@ ul#supervisorInfo
 h3= "Personal Info"
 
 h2= "Fellow Most Recent SurveyGizmo"
-//each record, index in jobHistory
-//	p= record.Name
-//p#results
-//*/
+h3= "Company Partner Quant"
+	each data in companyPartnerQuant
+		li= data
+h3= "Fellow Self-Evaluation Job"
+	each data in selfEvaluationJobQuant
+		li= data
+h3= "Company Partner Long-Form"
+	each data in companyPartnerLongForm
+		li= data
+h3= "Fellow Long-Form"
+	each data in selfEvaluationJobLongForm
+		li= data
