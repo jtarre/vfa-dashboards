@@ -156,13 +156,9 @@ router.get('/', function(req, res, next) {
 
 							var overall         = surveys[i].FSE_Overall__c;
 					}
-					
-					if (selfEvalCount == 1 && companyPartnerCount == 1) {
-
-					} 
 
 					if (companyPartnerCount == 1) {
-						console.log("both = 1!!!!");
+						companyPartnerCount = companyPartnerCount + 1;
 						// DATA OBJECTS: PREP FOR WEBSITE // 
 						console.log("company info: " + companyInfo);
 						for (data in companyInfo) {
@@ -185,7 +181,14 @@ router.get('/', function(req, res, next) {
 							improvement     : "Areas for Improvement:\n" + improvement
 
 						};
-
+						
+						companyInfo.salary  = "Salary: " + salary;
+						companyInfo.equity 	= "Equity: " + equity; 
+							
+					}
+					
+					if (selfEvalCount == 1) {
+						selfEvalCount = selfEvalCount + 1;
 						var selfEvaluationJobQuant = 
 						{
 							selfEvalDate    : "Self Eval Date Submitted: " + selfEvalCreatedDate,
@@ -209,12 +212,8 @@ router.get('/', function(req, res, next) {
 							workImprove     : "Areas to Improve at Work:\n\n" + workImprove,
 							workChallenge   : "Areas of Challenge:\n\n" + workChallenge
 						};
-						
-						companyInfo.salary  = "Salary: " + salary;
-						companyInfo.equity 	= "Equity: " + equity; 
-							
-						break;	
 					}
+
 				}
 
 				if (typeof companyPartnerQuant === "undefined") {
