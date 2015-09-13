@@ -158,6 +158,10 @@ router.get('/', function(req, res, next) {
 					}
 					
 					if (selfEvalCount == 1 && companyPartnerCount == 1) {
+
+					} 
+
+					if (companyPartnerCount == 1) {
 						console.log("both = 1!!!!");
 						// DATA OBJECTS: PREP FOR WEBSITE // 
 						console.log("company info: " + companyInfo);
@@ -165,14 +169,9 @@ router.get('/', function(req, res, next) {
 							console.log("company info data: " + data + " " + companyInfo[data]);
 						}
 
-						var surveyDates =
-						{
-							companyEvalDate : "Company Partner Date Submitted: " + companyPartnerCreated,
-							selfEvalDate    : "Self Eval Date Submitted: " + selfEvalCreatedDate
-						};
-
 						var companyPartnerQuant = 
 						{
+							companyEvalDate : "Company Partner Date Submitted: " + companyPartnerCreated,
 							overall         : "Overall: " + overall,
 							teamFit         : "Team Fit / Hustle: " + teamFit,
 							problemSolving  : "Problem Solving: " + problemSolving,
@@ -189,6 +188,7 @@ router.get('/', function(req, res, next) {
 
 						var selfEvaluationJobQuant = 
 						{
+							selfEvalDate    : "Self Eval Date Submitted: " + selfEvalCreatedDate,
 							overall         : "Overall Satisfaction: " + overall,
 							performance     : "Job Performance: " + performance,
 							jobHappiness    : "Job Happiness: " + jobHappiness,
@@ -212,17 +212,33 @@ router.get('/', function(req, res, next) {
 						
 						companyInfo.salary  = "Salary: " + salary;
 						companyInfo.equity 	= "Equity: " + equity; 
-						
+							
 						break;	
 					}
-				}	
+				}
+
+				if (typeof companyPartnerQuant === "undefined") {
+					console.log("company objects undefined");
+					var companyPartnerQuant = {noSurvey: "No Company Partner Survey Found"};
+					var companyPartnerLongForm = {};
+				}
+
+				if (typeof selfEvaluationJobQuant === "undefined") {
+					console.log("self eval objects undefined");
+					var selfEvaluationJobQuant = { noSurvey : "No Self Eval Found"};
+					var selfEvaluationLifeQuant = {};
+					var selfEvaluationJobLongForm = {};
+				}
+
+				console.log("cp quant: " + companyPartnerQuant);
+				console.log("self eval quant: " + selfEvaluationJobQuant);
+				
 				res.render('users', 
 				{
 					test                      : fellowId,
 					contactInfo               : contactInfo,
 					companyInfo               : companyInfo,
 					supervisorInfo            : supervisorInfo,
-					surveyDates               : surveyDates,
 					companyPartnerQuant       : companyPartnerQuant,
 					companyPartnerLongForm    : companyPartnerLongForm,
 					selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
