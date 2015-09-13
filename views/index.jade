@@ -3,7 +3,7 @@ extends layout
 block content
 	h1= title
 	h2= "Select Fellow"
-	select#fellow
+	select#fellow.chosen-select(data-placeholder="Select a Fellow")
 		each id, name in fellowList
 			option(id=id) #{name}
 	br
@@ -23,9 +23,11 @@ block content
 	button#logNotes Log Notes
 	p#noteSubmission
 	p#results
-	h2= "CoPa Potential Partners"
-	each record, index in results 
-		p= record.Name
+	//h2= "CoPa Potential Partners"
+	//each record, index in results 
+		//p= record.Name
+	script.
+		$(".chosen-select").chosen();
 	script.
 		$("#fellow").change(function(e){
 			console.log("Here!");
@@ -62,4 +64,6 @@ block content
 				alert("notes logged!");
 			})
 		})
+
+
 
