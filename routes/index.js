@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
     clientId: '3MVG9rFJvQRVOvk6KGm7WX.DOBEBOr701sDMIfbMTc24Y9Dzy2lVHwadn.FsVxVXXWhL5s7Jje0tS063s_gQV',
     instanceUrl: 'https://na14.salesforce.com'
   });
-  conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userInfo) {
+  conn.login("jason@ventureforamerica.org", process.env.PASSWORD, function(err, userInfo) {
     if (err) { return console.error(err); }
     res.render('index', 
       { 
