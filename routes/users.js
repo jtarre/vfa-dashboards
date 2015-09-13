@@ -80,7 +80,7 @@ router.get('/', function(req, res, next) {
 		conn.sobject("SurveyGizmo__c")
 			.find(
 			{
-				Contact__c : "003d000000wj9QY"
+				Contact__c : fellowId
 			},
 			"*"
 			)
@@ -92,13 +92,15 @@ router.get('/', function(req, res, next) {
 				console.log("We returned surveys!!!!");
 				console.log("surveys.length: " + surveys.length);
 
+				var companyPartnerCount = 0;
+				var companyPartnerRecordId = "012d0000000SwwyAAC";
+
+				var selfEvalCount       = 0;
+				var selfEvalRecordId    = "012d0000000SxCNAA0";
+				
 				for (var i = 0; i < surveys.length; ++i) {
 					console.log("we've gone through: " + i + " surveys");
-					var companyPartnerCount = 0;
-					var companyPartnerRecordId = "012d0000000SwwyAAC";
 
-					var selfEvalCount       = 0;
-					var selfEvalRecordId    = "012d0000000SxCNAA0";
 
 					console.log("on pass " + i + " recordtypeid = " + surveys[i].RecordTypeId);
 					console.log("for the record, company record id = " + companyPartnerRecordId);
@@ -140,6 +142,7 @@ router.get('/', function(req, res, next) {
 							var jobChallenge    = surveys[i].FSE_Job_Challenge__c;
 
 							var salary         = surveys[i].FSE_Salary__c;
+							var equity         = surveys[i].FSE_Equity__c;
 
 							// LONG FORM JOB //
 							var workStrengh     = surveys[i].FSE_Did_Well_at_Work__c;
@@ -155,10 +158,19 @@ router.get('/', function(req, res, next) {
 					}
 					
 					if (selfEvalCount == 1 && companyPartnerCount == 1) {
+						console.log("both = 1!!!!");
 						// DATA OBJECTS: PREP FOR WEBSITE // 
-						companyInfo.salary  = salary;
-						companyInfo.equity 	= equity; 
-						
+						console.log("company info: " + companyInfo);
+						for (data in companyInfo) {
+							console.log("company info data: " + data + " " + companyInfo[data]);
+						}
+
+						var surveyDates =
+						{
+							companyEvalDate : "Company Partner Date Submitted: " + companyPartnerCreated,
+							selfEvalDate    : "Self Eval Date Submitted: " + selfEvalCreatedDate
+						};
+
 						var companyPartnerQuant = 
 						{
 							overall         : "Overall: " + overall,
@@ -189,29 +201,34 @@ router.get('/', function(req, res, next) {
 							socialLife      : "Social Life: " + socialLife,
 							extracurricular : "Extracurriculars: " + extracurricular
 
-						}
+						};
 
 						var selfEvaluationJobLongForm = 
 						{
-							workStrengh     : "Work Strengths:\n" + workStrengh,
-							workImprove     : "Areas to Improve at Work:\n" + workImprove,
-							workChallenge   : "Areas of Challenge:\n" + workChallenge
-						}
-						res.render('users', 
-						{
-							test                      : fellowId,
-							contactInfo               : contactInfo,
-							companyInfo               : companyInfo,
-							supervisorInfo            : supervisorInfo,
-							companyPartnerQuant       : companyPartnerQuant,
-							companyPartnerLongForm    : companyPartnerLongForm,
-							selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
-							selfEvaluationJobQuant    : selfEvaluationJobQuant,
-							selfEvaluationJobLongForm : selfEvaluationJobLongForm, 
-						});	
+							workStrengh     : "Work Strengths:\n\n" + workStrengh,
+							workImprove     : "Areas to Improve at Work:\n\n" + workImprove,
+							workChallenge   : "Areas of Challenge:\n\n" + workChallenge
+						};
+						
+						companyInfo.salary  = "Salary: " + salary;
+						companyInfo.equity 	= "Equity: " + equity; 
+						
+						break;	
 					}
 				}	
-							
+				res.render('users', 
+				{
+					test                      : fellowId,
+					contactInfo               : contactInfo,
+					companyInfo               : companyInfo,
+					supervisorInfo            : supervisorInfo,
+					surveyDates               : surveyDates,
+					companyPartnerQuant       : companyPartnerQuant,
+					companyPartnerLongForm    : companyPartnerLongForm,
+					selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
+					selfEvaluationJobQuant    : selfEvaluationJobQuant,
+					selfEvaluationJobLongForm : selfEvaluationJobLongForm, 
+				});	
 		});
 
 	});
