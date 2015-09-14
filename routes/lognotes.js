@@ -26,24 +26,22 @@ router.post("/", function(req, res, next) {
 	conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
 		if ( err ) { return console.error(err); }
 		console.log("Authenticated!");
-	});
-	
-	conn.sobject("Task").create({
-		Subject      : subject,
-		Description  : description,
-		OwnerId      : vfaId,
-		WhoId        : fellowId,
-		Status       : "Completed",
-		Priority     : "Normal",
-		ActivityDate : jsforce.Date.toDateTimeLiteral(new Date(2015, 8, 5))
- 
-	}, function(err, ret) {
-		if ( err ) { return console.error(err); }
-		console.log("Id!");
-		//res.send("Notes logged!");
-	})
-	
 
+		conn.sobject("Task").create({
+			Subject      : subject,
+			Description  : description,
+			OwnerId      : vfaId,
+			WhoId        : fellowId,
+			Status       : "Completed",
+			Priority     : "Normal",
+			ActivityDate : jsforce.Date.toDateTimeLiteral(new Date(2015, 8, 5)) 
+		}, function(err, ret) {
+			if ( err ) { return console.error(err); }
+			console.log("Id!");
+			//res.send("Notes logged!");
+		});
+	
+	});
 })
 
 module.exports = router;
