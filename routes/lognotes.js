@@ -23,7 +23,7 @@ router.post("/", function(req, res, next) {
 	    redirectUri: 'http://localhost:3000/oauth/_callback',
 	    instanceUrl: 'https://na14.salesforce.com'
 	}); 
-	conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userInfo) {
+	conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
 		if ( err ) { return console.error(err); }
 		console.log("Authenticated!");
 	});
