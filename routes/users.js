@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 	// todo: get the data
 
 	var conn = new jsforce.Connection({
-		loginUrl : 'https://login.salesforce.com/',
+			loginUrl : 'https://login.salesforce.com/',
 		clientSecret: '4767192206007523209', 
 		clientId: '3MVG9rFJvQRVOvk6KGm7WX.DOBEBOr701sDMIfbMTc24Y9Dzy2lVHwadn.FsVxVXXWhL5s7Jje0tS063s_gQV',
 		redirectUri: 'http://localhost:3000/oauth/_callback',
@@ -19,7 +19,11 @@ router.get('/', function(req, res, next) {
 	
 	// login to salesforce. after this, can run all functions
 	conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
-		if ( err ) { return console.error(err); }
+		if ( err ) {
+			// add code here not to just return an error console, but to send a response
+			// view back to the browser that says try again...or something 
+			return console.error(err); 
+		}
 		console.log("Authenticated!");
 
 		conn.sobject("Contact").retrieve(fellowId, function(err, contact) {

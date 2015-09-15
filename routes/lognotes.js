@@ -34,7 +34,7 @@ router.post("/", function(req, res, next) {
 			WhoId        : fellowId,
 			Status       : "Completed",
 			Priority     : "Normal",
-			ActivityDate : jsforce.Date.toDateTimeLiteral(new Date(2015, 8, 5)) 
+			ActivityDate : jsforce.Date.toDateTimeLiteral(new Date()) 
 		}, function(err, ret) {
 			if ( err ) { return console.error(err); }
 			console.log("Id!");
