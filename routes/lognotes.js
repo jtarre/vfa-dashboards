@@ -24,7 +24,13 @@ router.post("/", function(req, res, next) {
 	    instanceUrl: 'https://na14.salesforce.com'
 	}); 
 	conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
-		if ( err ) { return console.error(err); }
+		if ( err ) { 
+			console.error(err); 
+			res.render('success',
+			{
+				result : "Unsuccessful salesforce connection. Don't worry. Try again!"
+			})
+		}
 		console.log("Authenticated!");
 
 		conn.sobject("Task").create({
@@ -36,8 +42,18 @@ router.post("/", function(req, res, next) {
 			Priority     : "Normal",
 			ActivityDate : jsforce.Date.toDateTimeLiteral(new Date()) 
 		}, function(err, ret) {
-			if ( err ) { return console.error(err); }
+			if ( err ) { 
+				console.error(err); 
+				res.render('success',
+				{
+					result : "Unsuccessful logging notes. Don't worry. Click button again!"
+				})
+			}
 			console.log("Id!");
+			res.render('success',
+			{
+				result : "Successfully logged notes! Feel free to check out your handiwork in Salesforce :)"
+			})
 			//res.send("Notes logged!");
 		});
 	

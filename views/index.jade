@@ -2,6 +2,7 @@ extends layout
 
 block content
 	h1= title
+	p#responseResult
 	h2= "Select Fellow"
 	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
 		option(value="")
@@ -61,9 +62,12 @@ block content
 				vfaId       : vfaId,   
 				subject     : subject, 
 				description : notes
-			}, function ( data ) {
-				alert("notes logged!");
 			})
+			 .done( function ( data ) {
+				//alert("Data loaded!: " + data);
+				console.log( data );
+				$('#responseResult').html(data);
+			});
 		})
 
 

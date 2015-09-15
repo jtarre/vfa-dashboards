@@ -22,12 +22,22 @@ router.get('/', function(req, res, next) {
 		if ( err ) {
 			// add code here not to just return an error console, but to send a response
 			// view back to the browser that says try again...or something 
-			return console.error(err); 
+			console.error(err); 
+			res.render("success",
+			{
+				result : "Unsuccessful salesforce login. Don't worry. Try again!"
+			})
 		}
 		console.log("Authenticated!");
 
 		conn.sobject("Contact").retrieve(fellowId, function(err, contact) {
-			if (err) { return console.error(err); }
+			if (err) { 
+				console.error(err);
+				res.render("success",
+				{
+					result : "Unable to retrieve contact info. Don't worry. Try again!"
+				}) 
+			}
 			
 			console.log("Fellow Contact Data\n\n");
 			for (data in contact) {

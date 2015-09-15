@@ -14,7 +14,12 @@ router.get('/', function(req, res, next) {
     instanceUrl: 'https://na14.salesforce.com'
   });
   conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
-    if (err) { return console.error(err); }
+    if (err) { 
+        console.error(err); 
+        res.send('indux',
+        {
+            result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
+        })}
     res.render('index', 
       { 
       title      : 'Fellow Dashboard', 
