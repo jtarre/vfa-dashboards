@@ -52,7 +52,7 @@ router.post("/", function(req, res, next) {
 			console.log("Id!");
 			res.render('success',
 			{
-				result : "Successfully logged notes! Feel free to check out your handiwork in Salesforce :)"
+				result : "Successfully logged notes! Feel free to check out your handywork in Salesforce :)"
 			})
 			//res.send("Notes logged!");
 		});
