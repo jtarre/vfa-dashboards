@@ -1,6 +1,7 @@
 var express = require('express');
 var router  = express.Router();
 var jsforce = require('jsforce');
+var Slack   = require('slack-node');
 
 
 router.post("/", function(req, res, next) {
@@ -50,6 +51,31 @@ router.post("/", function(req, res, next) {
 				})
 			}
 			console.log("Id!");
+			console.log("logged note data: " + ret.id);
+
+			// SLACK TIME // 
+
+			var editedBody = description.substring(0, 200); 
+			var noteSlug   = ret.id;
+			var sfUrl      = "https://na14.salesforce.com";
+
+			var slackBody  = editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|See more>" 
+			var slack = new Slack();
+
+			var webhookUri = "https://hooks.slack.com/services/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";
+
+
+			slack = new Slack();
+			slack.setWebhook(webhookUri);
+
+			slack.webhook({
+			  channel: "fellow-workflows",
+			  username: "webhookbot",
+			  text: slackBody,
+			}, function(err, response) {
+			  console.log(response);
+			});
+
 			res.render('success',
 			{
 				result : "Successfully logged notes! Feel free to check out your handywork in Salesforce :)"
