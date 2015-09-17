@@ -16,6 +16,8 @@ block content
 	label Notes 
 	textarea(id="notes" style="width: 250px; height: 75px")
 	br
+	p#cases
+	br
 	label User 
 	select#vfaList.chosen-select(data-placeholder="Choose Yourself")
 		each id, name in vfaList
@@ -36,8 +38,12 @@ block content
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log(sfId);
+			$.get("cases"), {id: sfId}, function ( data ) {
+				console.log("case data: " + data);
+				$("relatedToList").html(data);
+			});
 			$.get("users", {id: sfId}, function ( data ) {
-				console.log("data: " + data)
+				console.log("data: " + data);
 				$('#results').html(data);
 			});
 		})
