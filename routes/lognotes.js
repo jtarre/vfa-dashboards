@@ -15,6 +15,10 @@ router.post("/", function(req, res, next) {
 	var fellowId     = req.param('fellowId');
 	var vfaId        = req.param('vfaId');
 
+	// FOR SLACK // 
+	var fellow       = req.param('fellowName');
+	var user         = req.param('userName');
+
 	console.log('subject + description: ' + subject + "\n\n" + description);
 
 	var conn = new jsforce.Connection({
@@ -58,8 +62,17 @@ router.post("/", function(req, res, next) {
 			var editedBody = description.substring(0, 200); 
 			var noteSlug   = ret.id;
 			var sfUrl      = "https://na14.salesforce.com";
+			var slackBody  = "";
+			
+			if (description.length >= 200 ) {
+				slackBody  = "Fellow: " + fellowName + "\n" + "Note author: " + userName + "\n"
+				 + "Notes: " + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 
-			var slackBody  = editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|See more>" 
+			} else {
+				slackBody  = "Fellow: " + fellowName + "\n" + "Note author: " + userName + "\n"
+				 + "Notes: " + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
+			}
+
 			var slack = new Slack();
 
 			var webhookUri = "https://hooks.slack.com/services/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";
@@ -78,7 +91,7 @@ router.post("/", function(req, res, next) {
 
 			res.render('success',
 			{
-				result : "Successfully logged notes! Feel free to check out your handywork in Salesforce :)"
+				result : "Successfully logged notes in Salesforce! Slack update sent to fellow-workflows too. Feel free to check out your handywork :)"
 			})
 			//res.send("Notes logged!");
 		});
