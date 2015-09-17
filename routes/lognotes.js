@@ -66,11 +66,11 @@ router.post("/", function(req, res, next) {
 			
 			if (description.length >= 200 ) {
 				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
-				 + "Notes: " + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
+				 + "Notes:\n" + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 
 			} else {
 				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
-				 + "Notes: " + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
+				 + "Notes:\n" + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 			}
 
 			var slack = new Slack();
@@ -83,7 +83,7 @@ router.post("/", function(req, res, next) {
 
 			slack.webhook({
 			  channel: "fellow-workflows",
-			  username: "webhookbot",
+			  username: "logged-notes-bot",
 			  text: slackBody,
 			}, function(err, response) {
 			  console.log(response);
@@ -93,7 +93,6 @@ router.post("/", function(req, res, next) {
 			{
 				result : "Successfully logged notes in Salesforce! Slack update sent to fellow-workflows too. Feel free to check out your handywork :)"
 			})
-			//res.send("Notes logged!");
 		});
 	
 	});
