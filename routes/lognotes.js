@@ -65,11 +65,11 @@ router.post("/", function(req, res, next) {
 			var slackBody  = "";
 			
 			if (description.length >= 200 ) {
-				slackBody  = "Fellow: " + fellowName + "\n" + "Note author: " + userName + "\n"
+				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
 				 + "Notes: " + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 
 			} else {
-				slackBody  = "Fellow: " + fellowName + "\n" + "Note author: " + userName + "\n"
+				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
 				 + "Notes: " + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 			}
 
