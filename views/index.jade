@@ -36,6 +36,7 @@ block content
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log(sfId);
+			$('#results').html("Loading...");
 			$.get("users", {id: sfId}, function ( data ) {
 				console.log("data: " + data)
 				$('#results').html(data);
