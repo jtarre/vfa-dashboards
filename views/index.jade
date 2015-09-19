@@ -37,14 +37,12 @@ block content
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log(sfId);
-			
-			$.get("cases"), {id: sfId}, function ( data ) {
-				console.log("case data: " + data);
-				$("relatedToList").html(data);
-			});
-			$.get("users", {id: sfId}, function ( data ) {
-				console.log("data: " + data);
 
+			$.get("cases", {id: sfId}, function ( data ) {
+				console.log("case data: " + data);
+				//$("relatedToList").html(data);
+			});
+			
 			var loadingCounter = 1;
 			$('#selectedFellow').html("<h4>Loading.</h4>");
 			var interval = setInterval( function() {
@@ -73,7 +71,7 @@ block content
 				$("#selectedFellow").html("");
 				$('#results').html(data);
 			});
-		})
+		});
 	script.
 		$("#logNotes").click(function(e){
 			console.log("clicked!");
