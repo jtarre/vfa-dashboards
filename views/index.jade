@@ -2,13 +2,12 @@ extends layout
 
 block content
 	h1= title
-	p#responseResult
 	h2= "Select Fellow"
 	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
 		option(value="")
 		each id, name in fellowList
 			option(id=id) #{name}
-	br
+	p#selectedFellow
 	h2= "Log Notes"
 	label Subject 
 	input(id="subject")(style="width: 250px")
@@ -23,7 +22,7 @@ block content
 	br
 	br
 	button#logNotes Log Notes
-	p#noteSubmission
+	p#responseResult
 	p#results
 	//h2= "CoPa Potential Partners"
 	//each record, index in results 
@@ -36,9 +35,33 @@ block content
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log(sfId);
-			$('#results').html("Loading...");
+			
+			var loadingCounter = 1;
+			$('#selectedFellow').html("<h4>Loading.</h4>");
+			var interval = setInterval( function() {
+				console.log("loading counter at start: " + loadingCounter);
+				loadingCounter        = loadingCounter + 1;
+				console.log("loading counter increment: " + loadingCounter);
+				loadingCounterModulo  = loadingCounter % 3;
+				console.log("modulo loading counter: " + loadingCounterModulo);
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#selectedFellow').html("<h4>Loading...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#selectedFellow').html("<h4>Loading.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#selectedFellow').html("<h4>Loading..</h4");
+				}
+			}, 600);
+
 			$.get("users", {id: sfId}, function ( data ) {
 				console.log("data: " + data)
+				clearInterval(interval);
+				$("#selectedFellow").html("");
 				$('#results').html(data);
 			});
 		})
@@ -62,6 +85,25 @@ block content
 			console.log("vfa id: " + vfaId);
 			console.log("fellow id: ")
 
+			var loadingCounter = 1;
+			$("#responseResult").html("<h4>Creating.</h4>");
+			var interval = setInterval( function() {
+				loadingCounter        = loadingCounter + 1;
+				loadingCounterModulo  = loadingCounter % 3;
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#responseResult').html("<h4>Creating...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#responseResult').html("<h4>Creating.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#responseResult').html("<h4>Creating..</h4");
+				}
+			}, 600);
+
 			$.post("lognotes", {
 				fellowId    : fellowId,
 				vfaId       : vfaId,   
@@ -73,7 +115,21 @@ block content
 			 .done( function ( data ) {
 				//alert("Data loaded!: " + data);
 				console.log( data );
+				clearInterval(interval);
 				$('#responseResult').html(data);
+
+				var responseCounter = 0;
+				var responseAlert = function () {
+					responseCounter = responseCounter + 1;
+					if (responseCounter == 1) {
+						return $("#responseResult").html("");
+					}
+
+					if (responseCounter == 2) {
+						clearInterval(responseInterval);
+					}
+				};
+				var responseInterval = setInterval(responseAlert, 2000);
 			});
 		})
 
