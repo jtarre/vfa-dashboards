@@ -1,22 +1,30 @@
 var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
+require('dotenv').load();
 
 /* GET home page. */
+// no seriously get the home page
+// get it
 router.get('/', function(req, res, next) {
 	console.log('get the home page!');
+    console.log("login: " + process.env.LOGIN_URL);
+    console.log("secret: " + process.env.CLIENT_SECRET);
+    console.log("id: " + process.env.CLIENT_ID);    
+    console.log("instanceUrl: " + process.env.INSTANCE_URL);
+    console.log("user: " + process.env.USER);
   var conn = new jsforce.Connection({
     // you can change loginUrl to connect to sandbox or prerelease env.
-    loginUrl : 'https://login.salesforce.com/',
-    clientSecret: '4767192206007523209', 
-    redirectUri: 'http://localhost:3000/oauth/_callback',
-    clientId: '3MVG9rFJvQRVOvk6KGm7WX.DOBEBOr701sDMIfbMTc24Y9Dzy2lVHwadn.FsVxVXXWhL5s7Jje0tS063s_gQV',
-    instanceUrl: 'https://na14.salesforce.com'
+    loginUrl : process.env.LOGIN_URL,
+    clientSecret: process.env.CLIENT_SECRET, 
+    redirectUri: process.env.REDIRECT_URI,
+    clientId: process.env.CLIENT_ID,
+    instanceUrl: process.env.INSTANCE_URL
   });
-  conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
+  conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
     if (err) { 
         console.error(err); 
-        res.send('indux',
+        res.send('sucess',
         {
             result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
         })}
@@ -29,6 +37,8 @@ router.get('/', function(req, res, next) {
       fellowList : fellowList 
     });  
   });
+
+  // testing commit
 
   var vfaList = 
   { 

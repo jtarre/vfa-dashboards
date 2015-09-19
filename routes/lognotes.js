@@ -22,13 +22,13 @@ router.post("/", function(req, res, next) {
 	console.log('subject + description: ' + subject + "\n\n" + description);
 
 	var conn = new jsforce.Connection({
-		loginUrl : 'https://login.salesforce.com/',
-	    clientSecret: '4767192206007523209', 
-	    clientId: '3MVG9rFJvQRVOvk6KGm7WX.DOBEBOr701sDMIfbMTc24Y9Dzy2lVHwadn.FsVxVXXWhL5s7Jje0tS063s_gQV',
-	    redirectUri: 'http://localhost:3000/oauth/_callback',
-	    instanceUrl: 'https://na14.salesforce.com'
+	    loginUrl : process.env.LOGIN_URL,
+	    clientSecret: process.env.CLIENT_SECRET, 
+	    redirectUri: process.env.REDIRECT_URI,
+	    clientId: process.env.CLIENT_ID,
+	    instanceUrl: process.env.INSTANCE_URL
 	}); 
-	conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
+	conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 		if ( err ) { 
 			console.error(err); 
 			res.render('success',
@@ -65,12 +65,12 @@ router.post("/", function(req, res, next) {
 			var slackBody  = "";
 			
 			if (description.length >= 200 ) {
-				slackBody  = "Fellow: " + fellowName + "\n" + "Note author: " + userName + "\n"
-				 + "Notes: " + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
+				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
+				 + "Notes:\n" + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 
 			} else {
-				slackBody  = "Fellow: " + fellowName + "\n" + "Note author: " + userName + "\n"
-				 + "Notes: " + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
+				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
+				 + "Notes:\n" + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 			}
 
 			var slack = new Slack();
@@ -83,7 +83,7 @@ router.post("/", function(req, res, next) {
 
 			slack.webhook({
 			  channel: "fellow-workflows",
-			  username: "webhookbot",
+			  username: "logged-notes-bot",
 			  text: slackBody,
 			}, function(err, response) {
 			  console.log(response);
@@ -93,7 +93,6 @@ router.post("/", function(req, res, next) {
 			{
 				result : "Successfully logged notes in Salesforce! Slack update sent to fellow-workflows too. Feel free to check out your handywork :)"
 			})
-			//res.send("Notes logged!");
 		});
 	
 	});
