@@ -4,6 +4,8 @@ var jsforce = require('jsforce');
 require('dotenv').load();
 
 /* GET home page. */
+// no seriously get the home page
+// get it
 router.get('/', function(req, res, next) {
 	console.log('get the home page!');
     console.log("login: " + process.env.LOGIN_URL);
