@@ -9,16 +9,16 @@ router.get('/', function(req, res, next) {
 	console.log("id: " + fellowId);
 	// todo: get the data
 
-	var conn = new jsforce.Connection({
-			loginUrl : 'https://login.salesforce.com/',
-		clientSecret: '4767192206007523209', 
-		clientId: '3MVG9rFJvQRVOvk6KGm7WX.DOBEBOr701sDMIfbMTc24Y9Dzy2lVHwadn.FsVxVXXWhL5s7Jje0tS063s_gQV',
-		redirectUri: 'http://localhost:3000/oauth/_callback',
-		instanceUrl: 'https://na14.salesforce.com'
+	var conn = new jsforce.Connection({    
+		loginUrl : process.env.LOGIN_URL,
+	    clientSecret: process.env.CLIENT_SECRET, 
+	    redirectUri: process.env.REDIRECT_URI,
+	    clientId: process.env.CLIENT_ID,
+	    instanceUrl: process.env.INSTANCE_URL
 	}); 
 	
 	// login to salesforce. after this, can run all functions
-	conn.login("jason@ventureforamerica.org", "1010Boobooboo!!", function(err, userInfo) {
+	conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 		if ( err ) {
 			// add code here not to just return an error console, but to send a response
 			// view back to the browser that says try again...or something 
