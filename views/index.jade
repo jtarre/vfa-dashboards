@@ -37,6 +37,14 @@ block content
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log("SALESFORCE ID WITHIN CASE CALL: " + sfId);
+			$.get("tasks", {id: sfId});
+		});
+	script.
+		$("#fellow").change(function(e){
+			console.log("Here in cases!");
+			//e.preventDefault();
+			var sfId = $(this).find('option:selected').attr("id");
+			console.log("SALESFORCE ID WITHIN CASE CALL: " + sfId);
 			$.get("cases", {id: sfId}, function ( data ) {
 				console.log("SUCESSFULLY RAN GET FUNCTION FOR CASES");
 				//console.log("case data: " + data);
@@ -89,6 +97,7 @@ block content
 			var subject    = $("#subject").val();
 			var notes      = $("#notes").val();
 			var vfaId      = $("#vfaList").find('option:selected').attr("id");
+			var relatedTo  = $("#relatedToList").find('option:selected').attr("id");
 
 			// FOR SLACK // 
 			var fellowName = $("#fellow").find('option:selected').val();
@@ -123,6 +132,7 @@ block content
 				vfaId       : vfaId,   
 				subject     : subject, 
 				description : notes,
+				relatedTo   : relatedTo,
 				fellowName  : fellowName, 
 				userName    : userName
 			})

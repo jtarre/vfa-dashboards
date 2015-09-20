@@ -14,6 +14,7 @@ router.post("/", function(req, res, next) {
 	var description  = req.param('description');
 	var fellowId     = req.param('fellowId');
 	var vfaId        = req.param('vfaId');
+	var relatedTo    = req.param('relatedTo');
 
 	// FOR SLACK // 
 	var fellow       = req.param('fellowName');
@@ -45,6 +46,7 @@ router.post("/", function(req, res, next) {
 			WhoId        : fellowId,
 			Status       : "Completed",
 			Priority     : "Normal",
+			WhatId       : relatedTo,
 			ActivityDate : jsforce.Date.toDateTimeLiteral(new Date()) 
 		}, function(err, ret) {
 			if ( err ) { 
@@ -55,6 +57,8 @@ router.post("/", function(req, res, next) {
 				})
 			}
 			console.log("Id!");
+			console.log("WHAT DOES A TASK LOOK LIKE");
+			console.log(ret);
 			console.log("logged note data: " + ret.id);
 
 			// SLACK TIME // 
@@ -93,9 +97,9 @@ router.post("/", function(req, res, next) {
 			{
 				result : "Successfully logged notes in Salesforce! Slack update sent to fellow-workflows too. Feel free to check out your handywork :)"
 			})
-		});
+		}); // task brackets
 	
-	});
-})
+	}); // login brackets 
+}) // router brackets
 
 module.exports = router;
