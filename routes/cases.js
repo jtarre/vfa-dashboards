@@ -42,21 +42,51 @@ router.get('/', function(req, res, next) {
 			}
 			// TODO: GRAB DATA
 			console.log("////////////// CASES /////////////");
-			console.log(cases);
-			// how do i get the case object into
-			/*
+			//console.log(cases);
+			
+			//var caseList = {};
+			var fellowCase = {};
 			var caseList = {};
-			for ( row in cases ) {
-				caseList[row.subject] = cases[row.id]; // need to clean this up
-				// basically pseudo code in its present state
-				console.log("key: " caseList[row.subject] + " value: " + cases[row.id]); // this also is pseudo code and definitely not correct
+			console.log("//////////// MAKING CASES ////////////");
+			console.log("cases length: " + cases.length);
+			for ( var i = 0; i < cases.length; ++i ) {
+				// GET CASE URL, DESCRIPTION, AND CREATED DATE // 
+				//console.log("I = " + i);
+				//console.log("cases length inside for loop: " + cases.length);
+				var id          = cases[i].Id;
+				var createdDate = cases[i].CreatedDate;
+				var url         = process.env.INSTANCE_URL + id;
+				var description = cases[i].Description;
+				var subject     = cases[i].Subject;
+
+				console.log("///////// ADDING CASE /////////");
+				console.log(subject);
+				
+				fellowCase = {
+						createdDate : "CreatedDate: " + createdDate,
+						url         : "URL: " + url,
+						description : "Description: " + description 
+					};
+				(function () {
+					caseList[subject] = fellowCase;
+				})();
+			}
+			/*
+			console.log("\n\nCases: ");
+			
+			for ( row in caseList ) {
+				console.log("Row");
+				console.log("object id: " + row);
+				for (object in caseList[row]) {
+					console.log("object props: " + object + " object value: " + caseList[row][object]);
+				}
 			}
 			*/
 			// TODO: RENDER WEBSITE
 			/*
 			res.render("cases",
 			{
-				caseList : {"Jason" : "1234" }
+				caseList : caseList
 			});
 			*/
 		});

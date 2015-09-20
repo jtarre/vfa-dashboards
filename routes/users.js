@@ -41,7 +41,7 @@ router.get('/', function(req, res, next) {
 			
 			console.log("Fellow Contact Data\n\n");
 			for (data in contact) {
-				console.log("key: " + data + " value: " + contact[data]);
+				//console.log("key: " + data + " value: " + contact[data]);
 			};
 
 			// CONTACT INFO // 
@@ -100,7 +100,7 @@ router.get('/', function(req, res, next) {
 				.limit(5)
 				.execute( function(err, surveys) {
 					if (err) { return console.error(err); }
-					console.log(surveys);
+					//console.log(surveys);
 					console.log("We returned surveys!!!!");
 					console.log("surveys.length: " + surveys.length);
 
@@ -111,6 +111,7 @@ router.get('/', function(req, res, next) {
 					var selfEvalRecordId    = "012d0000000SxCNAA0";
 					
 					for (var i = 0; i < surveys.length; ++i) {
+						/*
 						console.log("we've gone through: " + i + " surveys");
 
 
@@ -119,6 +120,7 @@ router.get('/', function(req, res, next) {
 						console.log("for the record, fellow record id = " + selfEvalRecordId);
 						console.log("on pass " + i + " companyPartnerCount = " + companyPartnerCount);
 						console.log("on pass " + i + " selfEvalCount = " + selfEvalCount);	
+						*/
 						if (companyPartnerCount == 0) {
 							console.log("Made it passed first conditional!");
 							if (surveys[i].RecordTypeId.toString() == companyPartnerRecordId) {
