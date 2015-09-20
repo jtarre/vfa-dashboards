@@ -30,3 +30,9 @@ h3= "Fellow Long-Form"
 ul#fellowLongForm
 	each data in selfEvaluationJobLongForm
 		li= data
+h2= "Recent Cases"
+ul#fellowCaseList
+	each subject, name in caseList
+		h3= name
+		each prop in subject
+			li= prop

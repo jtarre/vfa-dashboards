@@ -245,19 +245,65 @@ router.get('/', function(req, res, next) {
 
 					console.log("cp quant: " + companyPartnerQuant);
 					console.log("self eval quant: " + selfEvaluationJobQuant);
-					
-					res.render('users', 
-					{
-						test                      : fellowId,
-						contactInfo               : contactInfo,
-						companyInfo               : companyInfo,
-						supervisorInfo            : supervisorInfo,
-						companyPartnerQuant       : companyPartnerQuant,
-						companyPartnerLongForm    : companyPartnerLongForm,
-						selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
-						selfEvaluationJobQuant    : selfEvaluationJobQuant,
-						selfEvaluationJobLongForm : selfEvaluationJobLongForm, 
-					});	
+					conn.sobject("Case")
+						.find(
+						{
+							ContactId : fellowId
+						},
+						"*")
+						.sort( { CreatedDate: -1 } )
+						.limit(5)
+						.execute( function(err, cases) {
+							if ( err ) {
+								// add code here not to just return an error console, but to send a response
+								// view back to the browser that says try again...or something 
+								return console.error(err); 
+							}
+							// TODO: GRAB DATA
+							console.log("////////////// CASES /////////////");
+							//console.log(cases);
+							
+							//var caseList = {};
+							var fellowCase = {};
+							var caseList = {};
+							console.log("//////////// MAKING CASES ////////////");
+							console.log("cases length: " + cases.length);
+							for ( var i = 0; i < cases.length; ++i ) {
+								// GET CASE URL, DESCRIPTION, AND CREATED DATE // 
+								//console.log("I = " + i);
+								//console.log("cases length inside for loop: " + cases.length);
+								var id          = cases[i].Id;
+								var createdDate = cases[i].CreatedDate;
+								var url         = process.env.INSTANCE_URL + id;
+								var description = cases[i].Description;
+								var subject     = cases[i].Subject;
+
+								console.log("///////// ADDING CASE /////////");
+								console.log(subject);
+								
+								fellowCase = {
+										createdDate : "CreatedDate: " + createdDate,
+										url         : "URL: " + url,
+										description : "Description: " + description 
+									};
+								(function () {
+									caseList[subject] = fellowCase;
+								})();
+							}
+							res.render('users', 
+							{
+								test                      : fellowId,
+								caseList                  : caseList,
+								contactInfo               : contactInfo,
+								companyInfo               : companyInfo,
+								supervisorInfo            : supervisorInfo,
+								companyPartnerQuant       : companyPartnerQuant,
+								companyPartnerLongForm    : companyPartnerLongForm,
+								selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
+								selfEvaluationJobQuant    : selfEvaluationJobQuant,
+								selfEvaluationJobLongForm : selfEvaluationJobLongForm, 
+							});
+						});	
 			});
 
 		});
