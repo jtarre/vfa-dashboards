@@ -33,15 +33,22 @@ block content
 			$(".chosen-select").chosen();
 	script.
 		$("#fellow").change(function(e){
+			console.log("Here in cases!");
+			//e.preventDefault();
+			var sfId = $(this).find('option:selected').attr("id");
+			console.log("SALESFORCE ID WITHIN CASE CALL: " + sfId);
+			$.get("cases", {id: sfId}, function ( data ) {
+				console.log("SUCESSFULLY RAN GET FUNCTION FOR CASES");
+				//console.log("case data: " + data);
+				$("#cases").html(data);
+			});
+		});
+	script.
+		$("#fellow").change(function(e){
 			console.log("Here!");
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log(sfId);
-
-			$.get("cases", {id: sfId}, function ( data ) {
-				console.log("case data: " + data);
-				//$("relatedToList").html(data);
-			});
 			
 			var loadingCounter = 1;
 			$('#selectedFellow').html("<h4>Loading.</h4>");
@@ -66,7 +73,7 @@ block content
 			}, 600);
 
 			$.get("users", {id: sfId}, function ( data ) {
-				console.log("data: " + data)
+				//console.log("data: " + data)
 				clearInterval(interval);
 				$("#selectedFellow").html("");
 				$('#results').html(data);
