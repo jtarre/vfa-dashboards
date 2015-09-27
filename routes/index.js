@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
   conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
     if (err) { 
         console.error(err); 
-        res.send('sucess',
+        res.send('success',
         {
             result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
         })}

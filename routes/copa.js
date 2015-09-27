@@ -4,7 +4,8 @@ var jsforce = require('jsforce');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	res.render("copa");
+	
+  res.render("copa");
 
 	// todo: get the data
 
