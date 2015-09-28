@@ -4,106 +4,216 @@ var jsforce = require('jsforce');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	
-  res.render("copa");
+	// create connection
+  // login
+  // display dashboard
+  // get potential partner companies
+  // get partner companies
+  var conn = new jsforce.Connection({
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    loginUrl : process.env.LOGIN_URL,
+    clientSecret: process.env.CLIENT_SECRET, 
+    redirectUri: process.env.REDIRECT_URI,
+    clientId: process.env.CLIENT_ID,
+    instanceUrl: process.env.INSTANCE_URL
+  });
+  
+  conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+    if (err) { 
+        console.error(err); 
+        res.send('success',
+        {
+            result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
+        }
+    )}
 
-	// todo: get the data
-
-	/*
-	var conn = new jsforce.Connection({
-		loginUrl : 'https://login.salesforce.com/',
-		clientSecret: '4767192206007523209', 
-		clientId: '3MVG9rFJvQRVOvk6KGm7WX.DOBEBOr701sDMIfbMTc24Y9Dzy2lVHwadn.FsVxVXXWhL5s7Jje0tS063s_gQV',
-		redirectUri: 'http://localhost:3000/oauth/_callback',
-		instanceUrl: 'https://na14.salesforce.com'
-	}); 
-	
-	// login to salesforce. after this, can run all functions
-	conn.login("jason@ventureforamerica.org", "5588Boobooboo!", function(err, userInfo) {
-		if ( err ) { return console.error(err); }
-		console.log("Authenticated!");
-	});
-*/
-});
-
-module.exports = router;
-
-/*
-  // Now you can get the access token and instance URL information.
-  // Save them to establish connection next time.
-  console.log('accessToken: ' + conn.accessToken);
-  console.log('instanceUrl: ' + conn.instanceUrl);
-  console.log('refresh: ' + conn.refreshToken);
-  var monthDays = 
-    {
-      1 : 31, 
-      2 : 27,
-      3 : 31,
-      4 : 30,
-      5 : 31,
-      6 : 30,
-      7 : 31,
-      8 : 31,
-      9 : 30,
-      10 : 31,
-      11 : 30, 
-      12 : 31,
+    var cityCountsTotal = {
+      "Baltimore"    : 0,
+      "Birmingham"   : 0,
+      "Cincinnati"   : 0,
+      "Charlotte"    : 0,
+      "Cleveland"    : 0,
+      "Columbus"     : 0,
+      "Denver"       : 0,
+      "Detroit"      : 0,
+      "Miami"        : 0,
+      "Nashville"    : 0,
+      "New Orleans"  : 0,
+      "Pittsburgh"   : 0,
+      "Philadelphia" : 0,
+      "Providence"   : 0,
+      "San Antonio"  : 0,
+      "St. Louis"    : 0,
+      "Other"        : 0,
+      "Kansas City"  : 0,
+      "San Francisco Bay Area" : 0
     };
 
-  // logged in user property
-  console.log("User ID: " + userInfo.id);
-  console.log("Org ID: " + userInfo.organizationId);
-  var date = new Date();
-  console.log("month number: " + date.getMonth()+1);
-  console.log("days in month: " + monthDays[date.getMonth()+1]);
-  console.log("day of week: " + date.getDay() + " month: " + date.getMonth()+1);
-  var newDate = new Date(2015, date.getMonth() - 2, date.getDate() - 5)
-  console.log("new date: " + new Date() );
-  console.log("new diff date: " + newDate);
-  console.log("date: " + jsforce.Date.toDateLiteral(date));
-});
- var companyRecord;
- var jobHistoryRecord;
- var salesforceRecords = conn.sobject("Account")
-  .find(
-    // conditions in JSON object
-    { 
-      CoPa_Association__c :  "Potential Company Partner" ,
-      CreatedDate: { $gte : jsforce.Date.toDateTimeLiteral("2015-08-20") },
+    var cityCountsPotential = {
+      "Baltimore"    : 0,
+      "Birmingham"   : 0,
+      "Cincinnati"   : 0,
+      "Charlotte"    : 0,
+      "Cleveland"    : 0,
+      "Columbus"     : 0,
+      "Denver"       : 0,
+      "Detroit"      : 0,
+      "Miami"        : 0,
+      "Nashville"    : 0,
+      "New Orleans"  : 0,
+      "Pittsburgh"   : 0,
+      "Philadelphia" : 0,
+      "Providence"   : 0,
+      "San Antonio"  : 0,
+      "St. Louis"    : 0,
+      "Other"        : 0,
+      "Kansas City"  : 0,
+      "San Francisco Bay Area" : 0
+    };
 
-    },
-    // fields in JSON object
-    { Id: 1,
-      Name: 1,
-      CoPa_Association__c: 1,
-      CreatedDate: 1 }
-  )
-  .sort({ CreatedDate: -1, Name : 1 })
-  .limit(5)
-  //.skip(10)
-  .execute(function(err, records) {
-    if (err) { return console.error(err); }
-    companyRecord = records;
-    console.log(records);
-    console.log("fetched : " + records.length);
-    //res.render('index', { title: 'Express', results: records });
-    //return records;
-      var jobHistory = conn.sobject("Job_History__c")
-  .find(
-    // conditions in JSON object
-    "",
-    "*"
-  )
-  //.sort({ CreatedDate: -1, Name : 1 })
-  //.limit(5)
-  //.skip(10)
-  .execute(function(err, records) {
-    if (err) { return console.error(err); }
-    jobHistoryRecord = records;
-    console.log(records);
-    console.log("fetched : " + records.length);
+    var cityCountsPartner = {
+      "Baltimore"    : 0,
+      "Birmingham"   : 0,
+      "Cincinnati"   : 0,
+      "Charlotte"    : 0,
+      "Cleveland"    : 0,
+      "Columbus"     : 0,
+      "Denver"       : 0,
+      "Detroit"      : 0,
+      "Miami"        : 0,
+      "Nashville"    : 0,
+      "New Orleans"  : 0,
+      "Pittsburgh"   : 0,
+      "Philadelphia" : 0,
+      "Providence"   : 0,
+      "San Antonio"  : 0,
+      "St. Louis"    : 0,
+      "Other"        : 0
+    };
 
-});
+    var cityCountsThisMonth = {
+      "Baltimore"    : 0,
+      "Birmingham"   : 0,
+      "Cincinnati"   : 0,
+      "Charlotte"    : 0,
+      "Cleveland"    : 0,
+      "Columbus"     : 0,
+      "Denver"       : 0,
+      "Detroit"      : 0,
+      "Miami"        : 0,
+      "Nashville"    : 0,
+      "New Orleans"  : 0,
+      "Pittsburgh"   : 0,
+      "Philadelphia" : 0,
+      "Providence"   : 0,
+      "San Antonio"  : 0,
+      "St. Louis"    : 0,
+      "Other"        : 0
+    };
+
+    console.log("\n\ncopa dashboard");
+    conn.sobject("Account")
+        .find(
+        {
+          CoPa_Association__c : "Potential Company Partner"
+        },
+        "VFA_City__c")
+        .execute( function ( err, potentials ) {
+          if (err) { return console.error(err); }
+          
+          var city;
+          //console.log('running for loop...');
+          //console.log('potentials length' + potentials.length);
+          // COUNT POTENTIAL TOTALS //
+          for ( var i = 0; i < potentials.length; ++i ) {
+            //console.log('inside for loop...')
+            city = potentials[i].VFA_City__c;
+            // ADD TO TOTAL LIST //
+            cityCountsTotal[city]++;
+            //console.log("[Total] " + city + " : " + cityCountsTotal[city]);
+
+            // ADD TO POTENTIAL LIST //
+            cityCountsPotential[city]++
+            //console.log("[Potential] " + city + " : " + cityCountsPotential[city]);
+          }
+
+          // EXISTING COMPANY PARTNERS
+          conn.sobject("Account")
+              .find(
+              {
+                CoPa_Association__c : "Company Partner"
+              },
+              "VFA_City__c")
+              .execute( function (err, partners) {
+
+                var partnerCity;
+                // COUNT PARTNER TOTALS //
+                for ( var j = 0; j < partners.length; ++j ) {
+
+                  partnerCity = partners[j].VFA_City__c;
+                  // ADD TO TOTAL LIST // 
+                  cityCountsTotal[partnerCity];
+
+                  // ADD TO PARTNER LIST // 
+                  cityCountsPartner[partnerCity]++;
+                }
+
+                var today      = new Date();
+                var thisMonth  = today.getMonth();
+                var thisYear   = today.getFullYear();
+                conn.sobject("Account")
+                    .find(
+                    {
+                      CoPa_Association__c    : "Potential Company Partner",
+                      CreatedDate            : { "$gte" : jsforce.Date.toDateTimeLiteral(new Date(thisYear, thisMonth, 1)) }
+                    },
+                    "VFA_City__c")
+                    .execute( function ( err, newPotentials ) {
+                      if (err) {return console.error(err); }
+                      console.log("\n\nnewPotentials length: " + newPotentials.length);
+                      var citiesThisMonth;
+                      for ( var d = 0; d < newPotentials.length; ++d ) {
+                        citiesThisMonth = newPotentials[d].VFA_City__c;
+                        // ADD TO THIS MONTH TOTALS //
+                        cityCountsThisMonth[citiesThisMonth]++;
+                      }
+
+                      conn.sobject("Account")
+                          .find(
+                          {
+                            CoPa_Association__c   : "Company Partner",
+                            CreatedDate           : { "$gte" : jsforce.Date.toDateTimeLiteral(new Date(thisYear, thisMonth, 1)) }
+                          },
+                          "VFA_City__c")
+                          .execute( function( err, newPartners ) {
+                            if (err) { return console.error(err);}
+                            console.log("newPartners length: " + newPartners.length);
+                            var partnersInCitiesThisMonth;
+                            for ( var e = 0; e < newPartners.length; ++e ) {
+                              partnersInCitiesThisMonth = newPartners[e].VFA_City__c;
+                              // ADD TO THIS MONTH TOTALS //
+                              cityCountsThisMonth[partnersInCitiesThisMonth]++;
+                              console.log(partnersInCitiesThisMonth + " : " + cityCountsThisMonth[partnersInCitiesThisMonth]);
+                            }
+
+                            console.log("\n\nPotentials All: " + cityCountsPotential);
+                            console.log("Partners All: " + cityCountsPartner);
+                            console.log("Total: " + cityCountsTotal);
+                            console.log("This Month: " + cityCountsThisMonth);
+                            // RENDER THE COPA DASHBOARD //
+                            res.render("copa", 
+                              {
+                                totalCount      : cityCountsTotal,
+                                partnerCount    : cityCountsPartner,
+                                potentialCount  : cityCountsPotential,
+                                thisMonth       : cityCountsThisMonth
+                              });
+                          });
+                        });
+                    }); 
+              });
+        });
   });
 
- */
+
+module.exports = router;

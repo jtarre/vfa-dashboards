@@ -2,6 +2,18 @@ extends layout
 
 block content
 	h1= "CoPa Dashboard"
-	h2= "Select Account"
-	h2= "Account Info"
-	h2= "Account Contacts"
+	h2= "New Accounts Created This Month"
+		each number, city in thisMonth
+			li #{city}: #{number}
+	h2= "Total Accounts Per City"
+		each number, city in totalCount
+			li #{city}: #{number}
+	h2= "Total Active Partner Accounts Per City"
+		each number, city in partnerCount
+			li #{city}: #{number}
+	h2= "Total Active Potential Accounts Per City"
+		each number, city in potentialCount
+			li #{city}: #{number}
+	//h2= "Select Account"
+	//h2= "Account Info"
+	//h2= "Account Contacts"
