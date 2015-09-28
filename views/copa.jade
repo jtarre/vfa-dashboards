@@ -2,6 +2,15 @@ extends layout
 
 block content
 	h1= "CoPa Dashboard"
+	h2= "D3"
+	script(type="text/javascript").
+		//D3
+		var dataset = [ 5, 10, 15, 20, 25 ];
+		d3.select("body").selectAll("div")
+			.data(dataset)
+			.enter()
+			.append("div")
+			.attr("class", "bar");
 	h2= "New Accounts Created This Month"
 		each number, city in thisMonth
 			li #{city}: #{number}
@@ -14,6 +23,7 @@ block content
 	h2= "Total Active Potential Accounts Per City"
 		each number, city in potentialCount
 			li #{city}: #{number}
+	p= "fun"
 	//h2= "Select Account"
 	//h2= "Account Info"
 	//h2= "Account Contacts"
