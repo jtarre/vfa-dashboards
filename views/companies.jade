@@ -4,14 +4,28 @@ block content
 	// dropdown of accounts
 	h2= "Companies Dashboard"
 	label Companies
-	select#accounts
+	select#accounts.chosen-select(data-placeholder="Choose Company")
 		each id, name in accounts
 			option(id=id) #{name}
+	hr
+	// LOGGING CALL NOTES // 
+	Label Log Company Call Notes
 	br
+	input#companyNotes(type=textarea)(style="width: 250px; height: 75px")
+	br
+	br
+	Label User
+	br
+	select#vfaList.chosen-select(data-placeholder="Choose Yourself")
+		each id, name in vfaList
+			option(id=id) #{name}
+	br
+	br
+	button#logNotes Log Notes
 	hr
 	// ACCOUNT ATTRIBUTES // 
 	label VFA City
-	select#city(value="VFA_City__c")
+	select#city.chosen-select(data-placeholder="Choose City")(value="VFA_City__c")
 		each id, name in city
 			option(id=id) #{name}
 	br
@@ -51,17 +65,14 @@ block content
 		option(id="true") Yes
 		option(id="false") No
 	hr
-	Accont Notes
+	p Account Notes
+	script.
+		$(".chosen-select").chosen();
 	script.
 		// when accounts value changed
-		$("#accounts").change( function () {
-
+		$("#accounts").change( function (e) {
+			console.log("Account changed. let's grab values");
+			var id = $(this).find('option:selected').attr("id");
+			$.get("company-info", { id : id });
 		});
-		// get id value
-		$("accounts").getValue();
-		// send get request to company-info
-		// render page
-		$.get("company-info", { id : id}, function () {
-
-		})
 		
