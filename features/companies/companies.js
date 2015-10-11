@@ -7,24 +7,31 @@ router.get('/', function( req, res, next) {
 		clientSecret: process.env.CLIENT_SECRET,
 		clientId:     process.env.CLIENT_ID,
 		loginUrl:     process.env.LOGIN_URL,
-		instanceUrl:  process.env.INSTANCE_URL
+		instanceUrl:  process.env.INSTANCE_URL,
+		redirectUri: process.env.REDIRECT_URI
 	});
 
-	conn.login(process.env.USER_EMAIL, process.env.USER_PASSWORD, function(err, userInfo) {
+	conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 		if (err) { return console.error(err); }
 		conn.sobject('Account')
 			.find(
 			{
-				X
+				"Department__c" : "Company Partnerships"
 			},
-			{
-
-			})
-			//.sort({ name : -1 })
+			'Name, Id')
+			.sort({ Name : 1 }) // Sort Alphabetically A->Z
 			.execute( function ( err, accounts ) {
-
-				res.render({
-					accounts: accounts
+				var companies = {};
+				console.log("///// ACCOUNTS ////")
+				for ( var i = 0; i < accounts.length; ++i) {
+					companies[accounts[i].Name] = accounts[i].Id;
+					console.log("// companies[i] //");
+					console.log("Key: " + accounts[i].Name);
+					console.log("Value: " + companies[accounts[i].Name]);
+				}
+				res.render('companies', 
+				{
+					accounts: companies
 				});
 			});
 	});
