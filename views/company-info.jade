@@ -1,3 +1,41 @@
-extends layout
-
-block content
+// ACCOUNT ATTRIBUTES // 
+label VFA City
+	select#city.chosen-select(data-placeholder="Choose City")(value="VFA_City__c")
+		each id, name in city
+			option(id=id) #{name}
+	br
+	label Year Founded
+	input#yearFounded(type="number")(value="Year_Founded__c")
+	br
+	label Number of Employees
+	input#employees(type="number")(value="NumberOfEmployees")
+	br
+	label Funding Amount
+	select#fundingAmount(value="Funding_Amount__c")
+		each id, name in fundingAmount
+			option(id=id) #{name}
+	br
+	label Company Type
+	select#companyType(value="Company_Type__c")
+		each id, name in companyType
+			option(id=id) #{name}
+	br
+	label Customer Type
+	select#customerType(value="Customer_Type__c")
+		each id, name in customerType
+			option(id=id) #{name}
+	br
+	label Product Type
+	select#productType(value="Product_Type__c")
+		each id, name in productType
+			option(id=id) #{name}
+	br
+	label Female Founder
+	select#femaleFounder(value="Female_Founder__c")
+		option(id="true") Yes
+		option(id="false") No
+	br
+	label URM Founder
+	select#femaleFounder(value="URM_Founder__c")
+		option(id="true") Yes
+		option(id="false") No

@@ -65,7 +65,7 @@ block content
 		option(id="true") Yes
 		option(id="false") No
 	hr
-	p Account Notes
+	p#accountNotes Account Notes
 	script.
 		$(".chosen-select").chosen();
 	script.
@@ -74,5 +74,8 @@ block content
 			console.log("Account changed. let's grab values");
 			var id = $(this).find('option:selected').attr("id");
 			$.get("company-info", { id : id });
+				//.done(function ( data ) {
+				//	console.log(data);
+				//});
 		});
 		

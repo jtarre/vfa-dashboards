@@ -11,6 +11,7 @@ var users      = require('./routes/users');
 var lognotes   = require('./routes/lognotes');
 var copa       = require('./routes/copa');
 var companies  = require('./features/companies/companies');
+var companyInfo= require('./features/companies/company-info');
 var cases      = require('./routes/cases');
 var tasks      = require('./routes/tasks');
 
@@ -33,6 +34,7 @@ app.use('/users', users);
 app.use('/lognotes', lognotes);
 app.use('/copa', copa);
 app.use('/companies', companies);
+app.use('/company-info', companyInfo);
 app.use('/cases', cases);
 app.use('/tasks', tasks);
 
