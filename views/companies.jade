@@ -73,9 +73,8 @@ block content
 		$("#accounts").change( function (e) {
 			console.log("Account changed. let's grab values");
 			var id = $(this).find('option:selected').attr("id");
-			$.get("company-info", { id : id });
-				//.done(function ( data ) {
-				//	console.log(data);
-				//});
+			$.get("company-info", { id : id }, function ( data ) {
+				console.log(data);
+			});
 		});
 		

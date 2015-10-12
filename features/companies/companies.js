@@ -23,7 +23,7 @@ router.get('/', function( req, res, next) {
 			.execute( function ( err, accounts ) {
 				
 				// PULL COMPANIES IN DEPARTMENT COMPANY PARTNERSHIPS // 
-				var companies = {};
+				var companies = {"" : ""};
 				console.log("///// ACCOUNTS ////")
 				for ( var i = 0; i < accounts.length; ++i) {
 					companies[accounts[i].Name] = accounts[i].Id;
@@ -39,7 +39,7 @@ router.get('/', function( req, res, next) {
 				  console.log('Num of Fields : ' + meta.fields.length);
 				  
 				  // ACCOUNT META-DATA //
-				  var city            = {};
+				  var city            = {"" : ""};
 				  var fundingAmount   = {};
 				  var companyType     = {};
 				  var customerType    = {};
