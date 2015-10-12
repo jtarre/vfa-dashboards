@@ -40,10 +40,10 @@ router.get('/', function( req, res, next) {
 				  
 				  // ACCOUNT META-DATA //
 				  var city            = {"" : ""};
-				  var fundingAmount   = {};
-				  var companyType     = {};
-				  var customerType    = {};
-				  var productType     = {};
+				  var fundingAmount   = {"" : ""};
+				  var companyType     = {"" : ""};
+				  var customerType    = {"" : ""};
+				  var productType     = {"" : ""};
 
 				  // pull metafields
 				  for (var j = 0; j < meta.fields.length; ++j) {

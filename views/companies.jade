@@ -75,6 +75,10 @@ block content
 			var id = $(this).find('option:selected').attr("id");
 			$.get("company-info", { id : id }, function ( data ) {
 				console.log(data);
+				for (key in data) {
+					$(key).val(data[key]);
+				}
+				
 			});
 		});
 		
