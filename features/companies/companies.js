@@ -57,9 +57,9 @@ router.get('/', function( req, res, next) {
 				  		console.log(currentField);
 				  		for (var o = 0; o < currentField.picklistValues.length; ++o) {
 				  			city[currentField.picklistValues[o].label] = currentField.picklistValues[o].value;
-				  			console.log("CITY AT: " + o);
-				  			console.log("KEY: " + currentField.picklistValues[o].label);
-				  			console.log("VALUE: " + currentField.picklistValues[o].value);
+				  			//console.log("CITY AT: " + o);
+				  			//console.log("KEY: " + currentField.picklistValues[o].label);
+				  			//console.log("VALUE: " + currentField.picklistValues[o].value);
 				  		}
 				  	}
 
@@ -67,16 +67,16 @@ router.get('/', function( req, res, next) {
 				  	// FUNDING AMOUNT // 
 				  	
 				  	if (meta.fields[j].name == "Funding_Amount__c") {
-				  		console.log("// funding amount meta-field api name //");
-				  		console.log(meta.fields[j]);
+				  		//console.log("// funding amount meta-field api name //");
+				  		//console.log(meta.fields[j]);
 				  		var fundingPicklist = meta.fields[j].picklistValues;
-				  		console.log(meta.fields[j].picklistValues);
+				  		//console.log(meta.fields[j].picklistValues);
 				  		for (var k = 0; k < fundingPicklist.length; ++k) {
-				  			console.log("\nfunding picklist at: " + k);
-				  			console.log(fundingPicklist[k].value);
+				  		//	console.log("\nfunding picklist at: " + k);
+				  		//	console.log(fundingPicklist[k].value);
 				  			fundingAmount[fundingPicklist[k].label] = fundingPicklist[k].value;
-				  			console.log("Key: " + fundingPicklist[k].label);
-							console.log("Value: " + fundingAmount[fundingPicklist[k].label]);
+				  		//	console.log("Key: " + fundingPicklist[k].label);
+						//	console.log("Value: " + fundingAmount[fundingPicklist[k].label]);
 				  		}
 				  	}
 
@@ -132,9 +132,9 @@ router.get('/', function( req, res, next) {
 				  		console.log(currentField);
 				  		for (var n =0; n < currentField.picklistValues.length; ++n) {
 				  			productType[currentField.picklistValues[n].label] = currentField.picklistValues[n].value;
-				  			console.log("PRODUCT TYPE AT: " + n);
-				  			console.log("KEY: " + currentField.picklistValues[n].label);
-				  			console.log("VALUE: " + currentField.picklistValues[n].value);	
+				  			//console.log("PRODUCT TYPE AT: " + n);
+				  			//console.log("KEY: " + currentField.picklistValues[n].label);
+				  			//console.log("VALUE: " + currentField.picklistValues[n].value);	
 				  		}
 				  	}
 				  }

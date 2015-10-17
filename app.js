@@ -13,6 +13,7 @@ var copa             = require('./routes/copa');
 var companies        = require('./features/companies/companies');
 var companyInfo      = require('./features/companies/company-info');
 var lognotesCompany  = require('./features/companies/lognotes-company');
+var updateCompany    = require('./features/companies/company-update');
 var cases            = require('./routes/cases');
 var tasks            = require('./routes/tasks');
 
@@ -37,6 +38,7 @@ app.use('/copa', copa);
 app.use('/companies', companies);
 app.use('/company-info', companyInfo);
 app.use('/lognotes-company', lognotesCompany);
+app.use('/company-update', updateCompany);
 app.use('/cases', cases);
 app.use('/tasks', tasks);
 

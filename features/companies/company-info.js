@@ -32,10 +32,9 @@ router.get("/", function(req, res, next) {
 
 			_.each(account, function (value, key, list) {
 				accountData["#" + key] = value;
-				console.log("account key: " + key + " value: " + accountData[key]);
+			//	console.log("account key: " + key + " value: " + accountData[key]);
 			});
 
-			var test = { "#employees" : 25};
 			res.jsonp(accountData);	
 		});
 		

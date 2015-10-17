@@ -25,10 +25,13 @@ block content
 			option(id=id) #{name}
 	br
 	br
-	button#logNotes Log Notes & Update Account
+	button#logNotes Log Notes
 	p#responseResult
 	hr
 	// ACCOUNT ATTRIBUTES // 
+	button#updateAccount Update Account
+	br
+	br
 	label VFA City 
 	select#VFA_City__c(value="VFA_City__c")
 		each id, name in city
@@ -106,7 +109,53 @@ block content
 			});
 		});
 	script.
-		// for logging notes and updating account
+		// to update account
+		$("#updateAccount").click( function (e) {
+			console.log("Let's update account.");
+			// need account Id and account name
+			// slash need ALL the data I'm going to update
+
+			var accountId    = $("#accounts").find('option:selected').attr("id");
+			var companyName  = $("#accounts").find('option:selected').val();
+
+			var userName     = $("#vfaList").find('option:selected').val();
+			var city         = $("#VFA_City__c").find('option:selected').val();
+			var website      = $("#Website").val();
+			var employees    = $("#NumberOfEmployees").val();
+			var yearFounded  = $("#Year_Founded__c").val();
+			var fundingAmount= $("#Funding_Amount__c").find('option:selected').val();
+			var customerType = $("#Customer_Type__c").find('option:selected').val();
+			var companyType  = $("#Company_Type__c").find('option:selected').val();
+			var productType  = $("#Product_Type__c").find('option:selected').val();
+			var femaleFounder= $("#Female_Founder__c").find('option:selected').val();
+			var urmFounder   = $("#URM_Founder__c").find('option:selected').val();
+			var description  = $("#Description").val();
+			var longDescription= $("#Long_Description__c").val();
+
+			var accountInfo = {
+				Id                  : accountId,
+				Name                : companyName,
+				VFA_City__c         : city,
+				Description         : description,
+				Long_Description__c : longDescription,
+				NumberOfEmployees   : employees,
+				Year_Founded__c     : yearFounded,
+				Funding_Amount__c   : fundingAmount,
+				Company_Type__c     : companyType,
+				Customer_Type__c    : customerType,
+				Product_Type__c     : productType,
+				Female_Founder__c   : femaleFounder,
+				URM_Founder__c      : urmFounder,
+				Website             : website
+			};
+
+			$.post("company-update", accountInfo);
+			//	.done( function ( data ) {
+			//		console.log(data);
+			//	});
+		});
+	script.
+		// for logging notes
 		$("#logNotes").click( function (e) {
 			console.log("Note button clicked. Lets add to salesforce!");
 
