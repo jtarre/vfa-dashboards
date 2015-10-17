@@ -21,51 +21,63 @@ block content
 			option(id=id) #{name}
 	br
 	br
-	button#logNotes Log Notes
+	button#logNotes Log Notes & Update Account
 	hr
 	// ACCOUNT ATTRIBUTES // 
-	label VFA City
+	label VFA City 
 	select#VFA_City__c(value="VFA_City__c")
 		each id, name in city
 			option(id=id)(value=id) #{name}
 	br
-	label Year Founded
+	label Website 
+	input#Website(type="url")
+	br
+	label Short Description
+	br
+	textarea#Description(style="width:250px; height: 25px")
+	br
+	label Long Description
+	br
+	textarea#Long_Description__c(style="width: 250px; height: 75px")
+	hr
+	label Year Founded 
 	input#Year_Founded__c(type="number")(value="Year_Founded__c")
 	br
 	label Number of Employees
 	input#NumberOfEmployees(type="number")(value="NumberOfEmployees")
 	br
-	label Funding Amount
+	label Funding Amount  
 	select#Funding_Amount__c(value="Funding_Amount__c")
 		each id, name in fundingAmount
 			option(id=id) #{name}
 	br
-	label Company Type
+	label Company Type 
 	select#Company_Type__c(value="Company_Type__c")
 		each id, name in companyType
 			option(id=id) #{name}
 	br
-	label Customer Type
+	label Customer Type 
 	select#Customer_Type__c(value="Customer_Type__c")
 		each id, name in customerType
 			option(id=id) #{name}
 	br
-	label Product Type
+	label Product Type 
 	select#Product_Type__c(value="Product_Type__c")
 		each id, name in productType
 			option(id=id) #{name}
 	br
-	label Female Founder
+	label Industry 
+	br
+	label Female Founder 
 	select#Female_Founder__c(value="Female_Founder__c")
 		option(value="true") Yes
 		option(value="false") No
 	br
-	label URM Founder
+	label URM Founder 
 	select#URM_Founder__c(value="URM_Founder__c")
 		option(value="true") Yes
 		option(value="false") No
 	hr
-	p#accountNotes Account Notes
 	script.
 		$(".chosen-select").chosen();
 	script.
@@ -77,14 +89,11 @@ block content
 				console.log(data);
 				for (key in data) {
 					if($(key).length) {
-						console.log($(key)[0].tagName);
-						
-						if($(key)[0].tagName == "INPUT") {
-							$(key).val(data[key]);
-						} else if ($(key)[0].tagName == "SELECT") {
-							console.log("Key: " + key + " value: " + data[key]);
+						if(data[key] !== null) {
+							console.log($(key)[0].tagName);
 							$(key).val(data[key].toString());
-
+						} else {
+							$(key).val("");
 						}
 					}
 				}
