@@ -6,14 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('dotenv').load();
 
-var routes     = require('./routes/index');
-var users      = require('./routes/users');
-var lognotes   = require('./routes/lognotes');
-var copa       = require('./routes/copa');
-var companies  = require('./features/companies/companies');
-var companyInfo= require('./features/companies/company-info');
-var cases      = require('./routes/cases');
-var tasks      = require('./routes/tasks');
+var routes           = require('./routes/index');
+var users            = require('./routes/users');
+var lognotes         = require('./routes/lognotes');
+var copa             = require('./routes/copa');
+var companies        = require('./features/companies/companies');
+var companyInfo      = require('./features/companies/company-info');
+var lognotesCompany  = require('./features/companies/lognotes-company');
+var cases            = require('./routes/cases');
+var tasks            = require('./routes/tasks');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/lognotes', lognotes);
 app.use('/copa', copa);
 app.use('/companies', companies);
 app.use('/company-info', companyInfo);
+app.use('/lognotes-company', lognotesCompany);
 app.use('/cases', cases);
 app.use('/tasks', tasks);
 

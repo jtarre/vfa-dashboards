@@ -12,12 +12,11 @@ router.post("/", function(req, res, next) {
 	
 	var subject      = req.param('subject');
 	var description  = req.param('description');
-	var fellowId     = req.param('fellowId');
 	var vfaId        = req.param('vfaId');
-	var relatedTo    = req.param('relatedTo');
+	var accountId    = req.param('accountId');
 
 	// FOR SLACK // 
-	var fellow       = req.param('fellowName');
+	var accountName  = req.param('accountName');
 	var user         = req.param('userName');
 
 	console.log('subject + description: ' + subject + "\n\n" + description);
@@ -39,10 +38,9 @@ router.post("/", function(req, res, next) {
 			Subject      : subject,
 			Description  : description,
 			OwnerId      : vfaId,
-			WhoId        : fellowId,
 			Status       : "Completed",
 			Priority     : "Normal",
-			WhatId       : relatedTo,
+			WhatId       : accountId,
 			ActivityDate : jsforce.Date.toDateTimeLiteral(new Date()) 
 		}, function(err, ret) {
 			if ( err ) { 
@@ -52,10 +50,6 @@ router.post("/", function(req, res, next) {
 					result : "Unsuccessful logging notes. Don't worry. Click button again!"
 				})
 			}
-			console.log("Id!");
-			console.log("WHAT DOES A TASK LOOK LIKE");
-			console.log(ret);
-			console.log("logged note data: " + ret.id);
 
 			// SLACK TIME // 
 
@@ -65,11 +59,11 @@ router.post("/", function(req, res, next) {
 			var slackBody  = "";
 			
 			if (description.length >= 200 ) {
-				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
+				slackBody  = "Company: " + accountName + "\n" + "Note author: " + user + "\n"
 				 + "Notes:\n" + editedBody + "..." + "<" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 
 			} else {
-				slackBody  = "Fellow: " + fellow + "\n" + "Note author: " + user + "\n"
+				slackBody  = "Company: " + accountName + "\n" + "Note author: " + user + "\n"
 				 + "Notes:\n" + editedBody + "  <" + sfUrl + "/" +noteSlug + "|View in Salesforce>" 
 			}
 

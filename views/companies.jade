@@ -9,9 +9,13 @@ block content
 			option(id=id) #{name}
 	hr
 	// LOGGING CALL NOTES // 
+	label Subject
+	br
+	input#subject(type=text)(style="width: 250px")
+	br
 	Label Log Company Call Notes
 	br
-	input#companyNotes(type=textarea)(style="width: 250px; height: 75px")
+	textarea#companyNotes(style="width: 250px; height: 75px")
 	br
 	br
 	Label User
@@ -22,6 +26,7 @@ block content
 	br
 	br
 	button#logNotes Log Notes & Update Account
+	p#responseResult
 	hr
 	// ACCOUNT ATTRIBUTES // 
 	label VFA City 
@@ -98,6 +103,73 @@ block content
 					}
 				}
 				
+			});
+		});
+	script.
+		// for logging notes and updating account
+		$("#logNotes").click( function (e) {
+			console.log("Note button clicked. Lets add to salesforce!");
+
+			var accountId = $("#accounts").find('option:selected').attr("id");
+			console.log("company salesforce id: " + accountId);
+			
+			var subject      = $("#subject").val();
+			var notes = $("#companyNotes").val();
+			var vfaId        = $("#vfaList").find('option:selected').attr("id");
+			var relatedTo    = $("#relatedToList").find('option:selected').attr("id");
+
+			// FOR SLACK // 
+			var companyName = $("#accounts").find('option:selected').val();
+			var userName   = $("#vfaList").find('option:selected').val();
+			
+			console.log("subject: " + subject);
+			console.log("notes: " + notes);
+			console.log("vfa id: " + vfaId);
+
+			var loadingCounter = 1;
+			$("#responseResult").html("<h4>Creating & Updating.</h4>");
+			var interval = setInterval( function() {
+				loadingCounter        = loadingCounter + 1;
+				loadingCounterModulo  = loadingCounter % 3;
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#responseResult').html("<h4>Creating & Updating...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#responseResult').html("<h4>Creating & Updating.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#responseResult').html("<h4>Creating & Updating..</h4");
+				}
+			}, 600);
+
+			$.post("lognotes-company", {
+				vfaId       : vfaId,   
+				subject     : subject, 
+				description : notes,
+				accountId   : accountId,
+				companyName : companyName, 
+				userName    : userName
+			})
+			 .done( function ( data ) {
+				console.log( data );
+				clearInterval(interval);
+				$('#responseResult').html(data);
+
+				var responseCounter = 0;
+				var responseAlert = function () {
+					responseCounter = responseCounter + 1;
+					if (responseCounter == 1) {
+						return $("#responseResult").html("");
+					}
+
+					if (responseCounter == 2) {
+						clearInterval(responseInterval);
+					}
+				};
+				var responseInterval = setInterval(responseAlert, 2000);
 			});
 		});
 		
