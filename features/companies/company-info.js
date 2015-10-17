@@ -1,3 +1,4 @@
+var _         = require('underscore');
 var express   = require('express');
 var router    = express.Router();
 var jsforce   = require('jsforce');
@@ -5,7 +6,9 @@ var jsforce   = require('jsforce');
 router.get("/", function(req, res, next) {
 
 	var accountId = req.param("id");
+	var account   = req.params.id;
 	console.log("\nACCOUNT ID: " + accountId);
+	console.log("4.0 api ref id: " + account);
 
 	var conn = new jsforce.Connection({
 		instanceUrl:   process.env.INSTANCE_URL,
@@ -23,8 +26,19 @@ router.get("/", function(req, res, next) {
 	  // logged in user property
 		console.log("User ID: " + userInfo.id);
 		console.log("Org ID: " + userInfo.organizationId);
-		var test = { "#employees" : 25};
-		res.jsonp(test);
+		conn.sobject("Account").retrieve(accountId, function(err, account) {
+			if (err) { return console.error(err); }
+			var accountData = {};
+
+			_.each(account, function (value, key, list) {
+				accountData["#" + key] = value;
+				console.log("account key: " + key + " value: " + accountData[key]);
+			});
+
+			var test = { "#employees" : 25};
+			res.jsonp(accountData);	
+		});
+		
 	});
 });
 

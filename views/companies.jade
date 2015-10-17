@@ -25,15 +25,15 @@ block content
 	hr
 	// ACCOUNT ATTRIBUTES // 
 	label VFA City
-	select#city.chosen-select(data-placeholder="Choose City")(value="VFA_City__c")
+	select#VFA_City__c.chosen-select(data-placeholder="Choose City")(value="VFA_City__c")
 		each id, name in city
 			option(id=id) #{name}
 	br
 	label Year Founded
-	input#yearFounded(type="number")(value="Year_Founded__c")
+	input#Year_Founded__c(type="number")(value="Year_Founded__c")
 	br
 	label Number of Employees
-	input#employees(type="number")(value="NumberOfEmployees")
+	input#NumberOfEmployees(type="number")(value="NumberOfEmployees")
 	br
 	label Funding Amount
 	select#fundingAmount(value="Funding_Amount__c")
@@ -76,7 +76,10 @@ block content
 			$.get("company-info", { id : id }, function ( data ) {
 				console.log(data);
 				for (key in data) {
-					$(key).val(data[key]);
+					if($(key).length) {
+
+						console.log($(key)[0].tagName);
+					}
 				}
 				
 			});
