@@ -53,11 +53,6 @@ block content
 	br
 	textarea#Long_Description__c(style="width: 250px; height: 75px")
 	hr
-	label Industry
-	select#Industry_USE__c
-		each id, name in industry
-			option(id=id)(value=id) #{name}
-	br
 	label Year Founded 
 	input#Year_Founded__c(type="number")(value="Year_Founded__c")
 	br
@@ -89,7 +84,10 @@ block content
 		each id, name in productType
 			option(id=id) #{name}
 	br
-	label Industry 
+	label Industry
+	select#Industry_USE__c
+		each id, name in industry
+			option(id=id)(value=id) #{name}
 	br
 	label Female Founder 
 	select#Female_Founder__c(value="Female_Founder__c")
