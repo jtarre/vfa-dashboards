@@ -139,6 +139,7 @@ block content
 			 .done( function ( data ) {
 				//alert("Data loaded!: " + data);
 				console.log( data );
+
 				clearInterval(interval);
 				$('#responseResult').html(data);
 
@@ -154,6 +155,8 @@ block content
 					}
 				};
 				var responseInterval = setInterval(responseAlert, 2000);
+				$("#subject").val("");
+				$("#notes").val("");
 			});
 		})
 
