@@ -149,10 +149,46 @@ block content
 				Website             : website
 			};
 
-			$.post("company-update", accountInfo);
-			//	.done( function ( data ) {
-			//		console.log(data);
-			//	});
+			var loadingCounter = 1;
+			$("#responseResult").html("<h4>Updating.</h4>");
+			var interval = setInterval( function() {
+				loadingCounter        = loadingCounter + 1;
+				loadingCounterModulo  = loadingCounter % 3;
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#responseResult').html("<h4>Updating...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#responseResult').html("<h4>Updating.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#responseResult').html("<h4>Updating..</h4");
+				}
+			}, 600);
+
+			$.post("company-update", accountInfo)
+				.done( function ( data ) {
+					//console.log( data );
+					clearInterval(interval);
+					$('#responseResult').html("<p>Account successfully updated! You can see the changes in Salesforce and the company-notifications Slack Channel :)</p>");
+
+					var responseCounter = 0;
+					var responseAlert = function () {
+						responseCounter = responseCounter + 1;
+						if (responseCounter == 1) {
+							return $("#responseResult").html("");
+						}
+
+						if (responseCounter == 2) {
+							clearInterval(responseInterval);
+						}
+					};
+					var responseInterval = setInterval(responseAlert, 3000);
+					$("#subject").val("");
+					$("#companyNotes").val("");
+				});
 		});
 	script.
 		// for logging notes
@@ -176,21 +212,21 @@ block content
 			console.log("vfa id: " + vfaId);
 
 			var loadingCounter = 1;
-			$("#responseResult").html("<h4>Creating & Updating.</h4>");
+			$("#responseResult").html("<h4>Logging.</h4>");
 			var interval = setInterval( function() {
 				loadingCounter        = loadingCounter + 1;
 				loadingCounterModulo  = loadingCounter % 3;
 
 				if ( loadingCounterModulo == 0 ) {
-					return $('#responseResult').html("<h4>Creating & Updating...</h4");
+					return $('#responseResult').html("<h4>Logging...</h4");
 				}
 
 				if ( loadingCounterModulo == 1 ) {
-					return $('#responseResult').html("<h4>Creating & Updating.</h4");
+					return $('#responseResult').html("<h4>Logging.</h4");
 				}
 
 				if ( loadingCounterModulo == 2 ) {
-					return $('#responseResult').html("<h4>Creating & Updating..</h4");
+					return $('#responseResult').html("<h4>Logging..</h4");
 				}
 			}, 600);
 
@@ -218,7 +254,7 @@ block content
 						clearInterval(responseInterval);
 					}
 				};
-				var responseInterval = setInterval(responseAlert, 2000);
+				var responseInterval = setInterval(responseAlert, 3000);
 				$("#subject").val("");
 				$("#companyNotes").val("");
 			});

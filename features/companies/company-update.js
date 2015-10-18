@@ -26,6 +26,7 @@ router.post("/", function(req, res, next) {
   			if (err) { return console.error(err); }
   			console.log('Updated Successfully : ' + ret.id);
   			// ...
+  			res.send(ret);
 		});	
 	});
 });
