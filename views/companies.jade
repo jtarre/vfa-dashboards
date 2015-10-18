@@ -32,6 +32,11 @@ block content
 	button#updateAccount Update Account
 	br
 	br
+	label CoPa Association 
+	select#CoPa_Association__c
+		each id, name in association
+			option(id=id)(value=id) #{name}
+	br
 	label VFA City 
 	select#VFA_City__c(value="VFA_City__c")
 		each id, name in city
@@ -48,13 +53,23 @@ block content
 	br
 	textarea#Long_Description__c(style="width: 250px; height: 75px")
 	hr
+	label Industry
+	select#Industry_USE__c
+		each id, name in industry
+			option(id=id)(value=id) #{name}
+	br
 	label Year Founded 
 	input#Year_Founded__c(type="number")(value="Year_Founded__c")
 	br
 	label Number of Employees
 	input#NumberOfEmployees(type="number")(value="NumberOfEmployees")
 	br
-	label Funding Amount  
+	label Funding Type 	
+	select#Funding_Type__c
+		each id, name in fundingType
+			option(id=id)(value=id) #{name}
+	br
+	label Funding Amount 
 	select#Funding_Amount__c(value="Funding_Amount__c")
 		each id, name in fundingAmount
 			option(id=id) #{name}
@@ -118,11 +133,14 @@ block content
 			var accountId    = $("#accounts").find('option:selected').attr("id");
 			var companyName  = $("#accounts").find('option:selected').val();
 
+			var association  = $("#CoPa_Association").find('option:selected').val();
 			var userName     = $("#vfaList").find('option:selected').val();
 			var city         = $("#VFA_City__c").find('option:selected').val();
+			var industry     = $("#Industry_USE__c").find('option:selected').val();
 			var website      = $("#Website").val();
 			var employees    = $("#NumberOfEmployees").val();
 			var yearFounded  = $("#Year_Founded__c").val();
+			var fundingType  = $("#Funding_Type__c").find('option:selected').val();
 			var fundingAmount= $("#Funding_Amount__c").find('option:selected').val();
 			var customerType = $("#Customer_Type__c").find('option:selected').val();
 			var companyType  = $("#Company_Type__c").find('option:selected').val();
@@ -135,11 +153,14 @@ block content
 			var accountInfo = {
 				Id                  : accountId,
 				Name                : companyName,
+				CoPa_Association__c : association,
 				VFA_City__c         : city,
 				Description         : description,
 				Long_Description__c : longDescription,
+				Industry_USE__c     : industry,
 				NumberOfEmployees   : employees,
 				Year_Founded__c     : yearFounded,
+				Funding_Type__c     : fundingType,
 				Funding_Amount__c   : fundingAmount,
 				Company_Type__c     : companyType,
 				Customer_Type__c    : customerType,

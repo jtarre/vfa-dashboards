@@ -1,6 +1,7 @@
 var express = require('express');
 var router  = express.Router();
 var jsforce = require('jsforce');
+var _       = require('underscore');
 
 router.get('/', function( req, res, next) {
 	var conn = new jsforce.Connection({
@@ -39,7 +40,10 @@ router.get('/', function( req, res, next) {
 				  console.log('Num of Fields : ' + meta.fields.length);
 				  
 				  // ACCOUNT META-DATA //
+				  var association     = {"" : ""};
 				  var city            = {"" : ""};
+				  var industry        = {"" : ""};
+				  var fundingType     = {"" : ""};
 				  var fundingAmount   = {"" : ""};
 				  var companyType     = {"" : ""};
 				  var customerType    = {"" : ""};
@@ -50,6 +54,13 @@ router.get('/', function( req, res, next) {
 				  	
 				  	var currentField = meta.fields[j];
 				  	
+				  	// COPA ASSOCIATION //
+				  	if(currentField.name == "CoPa_Association__c") {
+				  		var picklist = currentField.picklistValues;
+				  		_.each(picklist, function(element, index, list) {
+				  			association[picklist[index].label] = picklist[index].value;
+				  		})
+				  	}
 
 				  	// CITY // 
 				  	if (currentField.name == "VFA_City__c") {
@@ -63,6 +74,22 @@ router.get('/', function( req, res, next) {
 				  		}
 				  	}
 
+
+				  	// INDUSTRY //
+				  	if (currentField.name == "Industry_USE__c") {
+				  		var picklist = currentField.picklistValues;
+				  		_.each(picklist, function(element, index, list) {
+				  			industry[picklist[index].label] = picklist[index].value;
+				  		});
+				  	}
+
+				  	// FUNDING TYPE //
+				  	if (currentField.name == "Funding_Type__c") {
+				  		var picklist= currentField.picklistValues;
+				  		_.each(picklist, function(element, index, list) {
+				  			fundingType[picklist[index].label] = picklist[index].value;
+				  		})
+				  	}
 
 				  	// FUNDING AMOUNT // 
 				  	
@@ -143,7 +170,10 @@ router.get('/', function( req, res, next) {
 				  res.render('companies', 
 					{
 						accounts:       companies,
+						association:    association,
 						city:           city,
+						industry:       industry,
+						fundingType:    fundingType,
 						fundingAmount:  fundingAmount,
 						companyType:    companyType,
 						customerType:   customerType,
