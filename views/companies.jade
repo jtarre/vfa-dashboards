@@ -88,6 +88,18 @@ block content
 	select#Industry_USE__c
 		each id, name in industry
 			option(id=id value=id) #{name}
+	br 
+	label 2012 Hires
+	input#X2012_Hires__c(type="number")
+	br 
+	label 2013 Hires
+	input#X2013_Hires__c(type="number")
+	br 
+	label 2014 Hires
+	input#X2014_Hires__c(type="number")
+	br 
+	label 2015 Hires
+	input#X2015_Hires__c(type="number")
 	br
 	label Female Founder 
 	select#Female_Founder__c(value="Female_Founder__c")
@@ -137,6 +149,10 @@ block content
 			var industry     = $("#Industry_USE__c").find('option:selected').val();
 			var website      = $("#Website").val();
 			var employees    = $("#NumberOfEmployees").val();
+			var x2012Employees= $("#X2012_Hires__c").val();
+			var x2013Employees= $("#X2013_Hires__c").val();
+			var x2014Employees= $("#X2014_Hires__c").val();
+			var x2015Employees= $("#X2015_Hires__c").val();
 			var yearFounded  = $("#Year_Founded__c").val();
 			var fundingType  = $("#Funding_Type__c").find('option:selected').val();
 			var fundingAmount= $("#Funding_Amount__c").find('option:selected').val();
@@ -165,7 +181,11 @@ block content
 				Product_Type__c     : productType,
 				Female_Founder__c   : femaleFounder,
 				URM_Founder__c      : urmFounder,
-				Website             : website
+				Website             : website,
+				X2012_Hires__c      : x2012Employees,
+				X2013_Hires__c      : x2013Employees,
+				X2014_Hires__c      : x2014Employees,
+				X2015_Hires__c      : x2015Employees
 			};
 
 			var loadingCounter = 1;
