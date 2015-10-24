@@ -2,13 +2,14 @@ extends layout
 
 block content
 	h1= title
-	h2= "Select Fellow"
+	h2 Select Fellow
 	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
 		option(value="")
 		each id, name in fellowList
 			option(id=id) #{name}
 	p#selectedFellow
-	h2= "Log Notes"
+	hr
+	h2 Log Notes
 	label Subject 
 	input(id="subject")(style="width: 250px")
 	br
@@ -23,11 +24,12 @@ block content
 			option(id=id) #{name}
 	br
 	br
-	button#logNotes Log Notes
+	button#logNotes(type="button" class="btn btn-success") Log Notes
 	p#responseResult
 	p#results
 	// line break
 	hr
+	button#updateAccount(type="button" class="btn btn-success") Update Account
 	h2 Fellow Info
 	h3 Contact Info
 	label Email 
@@ -49,6 +51,9 @@ block content
 	br
 	label Location 
 	// figure out chosen select
+	br
+	label Job Title
+	input#Title(type="text")
 	h4 Supervisor
 	label Manager's First Name
 	input#Supervisor_First_Name__c(type="text")
@@ -61,8 +66,42 @@ block content
 	hr
 	h3 SurveyGizmo Performance Data
 	script.
-			$(".chosen-select").chosen();
+		$(".chosen-select").chosen();
 	script.
+		// update account data
+		$("#updateAccount").click( function(e) {
+			// get the id
+
+			var id     = $(#fellow).find('option:selected').attr("id");
+			var email  = $("#Email").val();
+			var bio    = $("#Description").val();
+			var company= $("#Account_Name_for_SurveyGizmo__c").val();
+			var website= $("#Account_Website__c").val();
+			var title  = $("#Title").val();
+			
+			var supervisorFirst = $("#Supervisor_First_Name__c").val();
+			var supervisorLast  = $("#Supervisor_Last_Name__c").val();
+			var supervisorEmail = $("#Supervisor_Email__c").val();
+
+			var fellowData = 
+			{
+				Id                      : id,
+				Email                   : email, 
+				Description             : bio,
+				Account_Name_for_SurveyGizmo__c : company,
+				Account_Website__c      : website,
+				Title                   : title,
+				Supervisor_First_Name__c: supervisorFirst,
+				Supervisor_Last_Name__c : supervisorLast,
+				Supervisor_Email__c     : supervisorEmail,
+
+			};
+			// store all the data in a variable that can go 
+			// right into salesforce
+			$.post("fellow-update", { fellowData : fellowData });
+		}); 
+	script.
+		// activity history / cases
 		$("#fellow").change(function(e){
 			console.log("Here in cases!");
 			//e.preventDefault();
@@ -71,6 +110,7 @@ block content
 			$.get("tasks", {id: sfId});
 		});
 	script.
+		// cases 
 		$("#fellow").change(function(e){
 			console.log("Here in cases!");
 			//e.preventDefault();
@@ -83,6 +123,7 @@ block content
 			});
 		});
 	script.
+		// account data
 		$("#fellow").change(function(e){
 			console.log("Here!");
 			//e.preventDefault();
@@ -111,11 +152,18 @@ block content
 				}
 			}, 600);
 
-			$.get("users", {id: sfId}, function ( data ) {
+			$.get("fellows", {id: sfId}, function ( data ) {
 				//console.log("data: " + data)
 				clearInterval(interval);
-				$("#selectedFellow").html("");
-				$('#results').html(data);
+				for (key in data) {
+					if ($(key).length) {
+						if(data[key] !== null) { // make sure we're not trying to input null values
+							$(key).val(data[key].toString());
+						} else {
+							$(key).val("");
+						}
+					}		
+				}
 			});
 		});
 	script.
