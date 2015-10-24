@@ -1,0 +1,60 @@
+extends layout
+
+	// left nav
+	div(class="col-md-6")
+	
+	// stats
+	// what if for each of these
+	// we could do it programmatically? 
+	// doesn't really matter. job done is important
+
+	// 2012 fellows count
+	// 2013 fellows count
+	// 2014 fellows count
+	// 2015 fellows count
+	// 2016 fellows count	
+
+	// filters and navs 
+		// filter by year
+			// need picklist of fellow year values
+			// could also do manual because so few
+			//select#fellowClassYears
+				//for each key, value in fellowClassYears
+					//option(value=value id=key) #{value}
+		
+		// filter by city
+			// need picklist of city values
+			// need to get these values on first call
+			// to fellow dashboard
+			//select#vfaCities
+				//for each key, value in vfaCities
+					//option(value=value id=key) #{value}
+
+	// middle newsfeed
+	div(class="col-md-3")
+		// pull in fellow data into hear
+		for each key, value in fellows
+			// layout table rows 
+			p(id=value.fellowId) - #{value.name} #{value.city} #{value.company}
+			button#fellowInfo(type="button" class="btn btn-info" id=value.fellowId)
+	// right detail panel
+	div(class="col-md-3")
+	// see more
+	script.
+		// chosen select multi-select 
+	script.
+		// You clicked on See More
+		$("#fellowInfo").click( function(e) {
+			// grab id
+			var id = $(this).attr("id");
+			// post fellow-data v2 to get info
+			// what to do about activities, cases, etc. 
+			// need to build the box
+		})
+	script.
+		// You clicked on a city filter (might be changed)
+		$("#vfaCities").change( function (e) {
+			// get the fellow dashboard
+			// i guess with jquery we're going to update each time
+			// long term game plan, angular
+		})
