@@ -96,9 +96,46 @@ block content
 				Supervisor_Email__c     : supervisorEmail,
 
 			};
+
+			// Start a counter to update every 600 milliseconds...
+			var interval = setInterval( function() {
+				loadingCounter        = loadingCounter + 1;
+				loadingCounterModulo  = loadingCounter % 3;
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#responseResult').html("<h4>Updating...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#responseResult').html("<h4>Updating.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#responseResult').html("<h4>Updating..</h4");
+				}
+			}, 600);
+
 			// store all the data in a variable that can go 
 			// right into salesforce
-			$.post("fellow-update", { fellowData : fellowData });
+			$.post("fellow-update", { fellowData : fellowData })
+				.done( function ( data ) {
+				 // Loading / Complete activity
+				 clearInterval(interval);
+					$('#responseResult').html("<p>Fellow info successfully updated! You can see the changes in Salesforce and the fellow-notifications Slack Channel :)</p>");
+
+					var responseCounter = 0;
+					var responseAlert = function () {
+						responseCounter = responseCounter + 1;
+						if (responseCounter == 1) {
+							return $("#responseResult").html("");
+						}
+
+						if (responseCounter == 2) {
+							clearInterval(responseInterval);
+						}
+					};
+					var responseInterval = setInterval(responseAlert, 3000);
+				});
 		}); 
 	script.
 		// activity history / cases
