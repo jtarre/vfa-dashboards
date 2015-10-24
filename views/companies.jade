@@ -25,11 +25,11 @@ block content
 			option(id=id) #{name}
 	br
 	br
-	button#logNotes Log Notes
+	button#logNotes(type="button" class="btn btn-success") Log Notes
 	p#responseResult
 	hr
 	// ACCOUNT ATTRIBUTES // 
-	button#updateAccount Update Account
+	button#updateAccount(type="button" class="btn btn-success") Update Account
 	br
 	br
 	label CoPa Association 
@@ -46,13 +46,14 @@ block content
 	input#Website(type="url")
 	br
 	label Twitter 
-	input#Twitter_Handle__c(type="text") // get correct api
+	// get correct api
+	input#Twitter_Handle__c(type="text")
 	br
 	label AngelList 
-	input#AngelList_Link__c(type="text") // get correct api
+	input#AngelList_Link__c(type="text")
 	br
 	label Blog
-	input#Blog_Link__c(type="text") // get correct api
+	input#Blog_Link__c(type="text")
 	hr
 	label Short Description
 	br
