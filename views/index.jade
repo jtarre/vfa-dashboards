@@ -189,7 +189,7 @@ block content
 				}
 			}, 600);
 
-			$.get("fellows", {id: sfId}, function ( data ) {
+			$.get("fellow-data", {id: sfId}, function ( data ) {
 				//console.log("data: " + data)
 				clearInterval(interval);
 				for (key in data) {

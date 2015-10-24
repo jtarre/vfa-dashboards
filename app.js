@@ -8,7 +8,7 @@ require('dotenv').load();
 
 var routes           = require('./routes/index');
 var users            = require('./routes/users');
-var fellows          = require('./routes/fellows');
+var fellowData       = require('./routes/fellow-data');
 var updateFellow     = require('./routes/fellow-update');
 var lognotes         = require('./routes/lognotes');
 var copa             = require('./routes/copa');
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/fellows', fellows);
+app.use('/fellow-data', fellowData);
 app.use('/fellow-update', updateFellow);
 app.use('/lognotes', lognotes);
 app.use('/copa', copa);
