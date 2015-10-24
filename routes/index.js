@@ -1,20 +1,15 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
 var jsforce = require('jsforce');
+var _       = require('underscore');
 require('dotenv').load();
 
 /* GET home page. */
 // no seriously get the home page
 // get it
 router.get('/', function(req, res, next) {
-	/*
-    console.log('get the home page!');
-    console.log("login: " + process.env.LOGIN_URL);
-    console.log("secret: " + process.env.CLIENT_SECRET);
-    console.log("id: " + process.env.CLIENT_ID);    
-    console.log("instanceUrl: " + process.env.INSTANCE_URL);
-    */
-    console.log("user: " + process.env.USER);
+	
+    // console.log("user: " + process.env);
   var conn = new jsforce.Connection({
     // you can change loginUrl to connect to sandbox or prerelease env.
     loginUrl : process.env.LOGIN_URL,
@@ -26,18 +21,29 @@ router.get('/', function(req, res, next) {
   conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
     if (err) { 
         console.error(err); 
-        res.send('success',
+    }
+    conn.sobject("Contact")
+        .find(
         {
-            result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
-        })}
-    res.render('index', 
-      { 
-      title      : 'Fellow Dashboard', 
-      //results    : companyRecord, 
-      //jobHistory : jobHistoryRecord,
-      vfaList    : vfaList,
-      fellowList : fellowList 
-    });  
+            "Association__c" : "Fellow"
+        },
+        'Name, Id')
+        .sort( {Name: 1} ) // Sort Alphabetically A->Z
+        .execute( function (err, fellows) {
+            var fellowData = {};
+
+            _.each(fellows, function(element, index, list) {
+                fellowData[element.Name] = element.Id;
+            })
+            res.render('index', 
+            { 
+              title      : 'Fellow Dashboard', 
+              //results    : companyRecord, 
+              //jobHistory : jobHistoryRecord,
+              vfaList    : vfaList,
+              fellowList : fellowData 
+            });
+        })  
   });
 
   // testing commit

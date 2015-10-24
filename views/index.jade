@@ -26,9 +26,40 @@ block content
 	button#logNotes Log Notes
 	p#responseResult
 	p#results
-	//h2= "CoPa Potential Partners"
-	//each record, index in results 
-		//p= record.Name
+	// line break
+	hr
+	h2 Fellow Info
+	h3 Contact Info
+	label Email 
+	input#Email(type="text")
+	br
+	label Phone 
+	input#Phone(type="text")
+	br
+	label Bio 
+	textarea#Description
+	// figure out Birthdate
+	hr
+	h3 Company Info
+	label Company 
+	input#Account_Name_for_SurveyGizmo__c("type=text")
+	br
+	label Website 
+	input#Account_Website__c(type="url")
+	br
+	label Location 
+	// figure out chosen select
+	h4 Supervisor
+	label Manager's First Name
+	input#Supervisor_First_Name__c(type="text")
+	br
+	label Manager's Last Name
+	input#Supervisor_Last_Name__c(type="text")
+	br
+	label Manager's Email
+	input#Supervisor_Email__c("type=text")
+	hr
+	h3 SurveyGizmo Performance Data
 	script.
 			$(".chosen-select").chosen();
 	script.

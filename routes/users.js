@@ -1,6 +1,7 @@
 var express   = require('express');
 var router    = express.Router();
 var jsforce   = require('jsforce');
+var _         = require('underscore');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -22,22 +23,19 @@ router.get('/', function(req, res, next) {
 		if ( err ) {
 			// add code here not to just return an error console, but to send a response
 			// view back to the browser that says try again...or something 
-			console.error(err); 
-			res.render("success",
-			{
-				result : "Unsuccessful salesforce login. Don't worry. Try again!"
-			})
+			return console.error(err); 
 		}
 		console.log("Authenticated!");
 
 		conn.sobject("Contact").retrieve(fellowId, function(err, contact) {
 			if (err) { 
-				console.error(err);
-				res.render("success",
-				{
-					result : "Unable to retrieve contact info. Don't worry. Try again!"
-				}) 
+				return console.error(err);
 			}
+
+			var fellowDataInJQueryForm = {};
+			_.each(contact, function(value, key, list) {
+				fellowDataInJQueryForm["#" + key] = value;
+			})
 			
 			console.log("Fellow Contact Data\n\n");
 			for (data in contact) {
@@ -50,6 +48,7 @@ router.get('/', function(req, res, next) {
 			var description     = contact.Description;
 
 			var birthdate       = contact.Birthdate;
+			
 			// COMPANY INFORMATION //
 			var company         = contact.Account_Name_for_SurveyGizmo__c;
 			var companyWebsite  = contact.Account_Website__c;
