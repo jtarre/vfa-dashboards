@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 require('dotenv').load();
 
 var routes           = require('./routes/index');
+var fellowDashboard  = require('./features/fellows/fellow-dashboard');
 var users            = require('./routes/users');
 var fellowData       = require('./routes/fellow-data');
 var updateFellow     = require('./routes/fellow-update');
@@ -34,6 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/fellow-dashboard', fellowDashboard);
 app.use('/users', users);
 app.use('/fellow-data', fellowData);
 app.use('/fellow-update', updateFellow);

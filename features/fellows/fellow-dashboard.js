@@ -8,6 +8,8 @@ router.get('/', function (req, res, next) {
 	// have to grab any filters on the page
 	// some sort of if statement
 	/*
+		// also to note no filter == all data
+		// filters = only show the filters
 		if (req.body contains filters) // pseudo-code
 		_.each(filters, function...)
 		_.where(...) // a chain of filters
@@ -75,14 +77,15 @@ router.get('/', function (req, res, next) {
 
 					res.jsonp(
 					{
-						fellows : fellows,
-						//vfaCities  : vfaCities,
+						fellows            : fellows,
+						//fellowCountPerYear : fellowCountPerYear,
+						//vfaCities        : vfaCities,
 						//fellowClassYears : vfaClassYears
 					})
 				})
 			});
 
-	})
+	});
 });
 
 module.exports = router;
