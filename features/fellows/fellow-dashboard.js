@@ -5,25 +5,16 @@ var _       = require('underscore');
 
 router.get('/', function (req, res, next) {
 
+	// FILTERS //
 	var vfaCitiesToFilterOn = req.param("vfaCitiesToFilterOn");
 	var vfaCitiesForFiltering = { Account_VFA_City__c : vfaCitiesToFilterOn }; 
-	// double check api
-	// would the above work if it's an array? i'll have to test
-	// what's the for of cities to filter on?
-	// say we're starting with one value...
-	// it's going to be a number.
-	// year = vfacities..
-	// have to grab any filters on the page
-	// some sort of if statement
-	// version 1...1 filter
-	/*
-		// also to note no filter == all data
-		// filters = only show the filters
-		if (req.body contains filters) // pseudo-code
-		_.each(filters, function...)
-		_.where(...) // a chain of filters
-	 */
+	// have to check if cities for filtering object
+	// will work if there are array of cities
 
+	// SELECTED FELLOW //
+	// if the user has already selected a Fellow 
+	// ...
+	//var selectedFellowId = req.param("selectedFellowId");
 	var conn = new jsforce.Connection(
 	{
 		loginUrl    : process.env.LOGIN_URL,
@@ -53,14 +44,8 @@ router.get('/', function (req, res, next) {
 				// filter for city
 				var filteredFellows = _.where(fellows, vfaCitiesForFiltering);
 				//filteredFellows     = _.where(filteredFellows, vfaClassYearsForFiltering);
-				
-				// will the above work if there are no filters?
-				// it seems like it would, will have to test.
-				// otherwise will need an if statement.
-				// not the end of the world
-				// this is going to suck to debug
-				// will need to comment out all but the essentials on each 
-				// successive round
+				// will need to test if it works when filter is empty
+
 
 				conn.sobject("Contact").describe( function (err, fellowMetaData) {
 					if (err) { return console.error(err); }
@@ -103,7 +88,8 @@ router.get('/', function (req, res, next) {
 						fellows            : filteredFellows,
 						//fellowCountPerYear : fellowCountPerYear,
 						//vfaCities        : vfaCitiesToFilterOn,
-						//fellowClassYears : vfaClassYears
+						//fellowClassYears : vfaClassYears,
+						//selectedFellowId   : selectedFellowId
 					});
 				});
 			});

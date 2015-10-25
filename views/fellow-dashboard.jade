@@ -32,16 +32,36 @@ extends layout
 			//for each key, value in vfaCities
 				//option(value=value id=key) #{value}
 
+
+	// so how can i separate this middle newsfeed into a separate view
+	// that i can avoid having to re-render filters each time
+	// i click a filter change
+	// i would need to render 
+	// goes back to the includes. 
+	// then let's say i add a filter and re-render the dashboard
+	// will i lose the fellow i've clicked on? 
+	// i'd like that to persist too
+	// have to account for a handful of states
+	// hmmm do i have to pass in fellow variable too?
+	// beginning to look a lot like the old vfa match
+	// variables to pass in
+	// filters, selected filters, list of (filtered) fellows, selected Fellows
+	// that's not terrible	 
+	// how do I know which Fellow is selected?
+
 	// middle newsfeed
 	div(class="col-md-3")
-		// pull in fellow data into hear
+		// pull in fellow data into here
 		for each key, value in fellows
 			// layout table rows 
 			p(id=value.fellowId) - #{value.name} #{value.city} #{value.company}
-			button#fellowInfo(type="button" class="btn btn-info" id=value.fellowId)
+			button#fellowInfo(type="button" class="btn btn-info" id=value.fellowId) See More / Log Notes
 	// right detail panel
 	div(class="col-md-3")
 	// see more
+	//div#renderFellowPanel
+	//div#fellowId(value=id)
+	// the div fellow id would be how i store fellow variable. hacky
 	script.
 		// chosen select multi-select 
 	script.
@@ -77,13 +97,24 @@ extends layout
 			$.get("fellow-dashboard",
 			{
 				vfaCitiesToFilterOn        : vfaCitiesToFilterOn, 
-				//fellowClassYearsToFilterOn : fellowClassYearsToFilterOn
-			})
-			.done( function (data) {
-				// i need to make sure the filters persist on the rerender
+				//fellowClassYearsToFilterOn : fellowClassYearsToFilterOn,
+				//fellowToSeeMore            : fellowtoSeeMore
 			});
+			// don't think i'll need a done method if i'm 
+			// sending back a rendered template
+			// we'll see
+			// i may still need the done (if it's available)
+			// to select the filters
+			//.done( function (data) {
+				// i need to make sure the filters persist on the rerender
+			//});
 		});
 		*/
+	script.
+		// when fellow year changes
+		$('#fellowClassYears').change( function(e) {
+			// call and render
+		})
 
 
 
