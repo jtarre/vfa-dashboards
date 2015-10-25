@@ -25,7 +25,7 @@ router.get('/', function (req, res, next) {
 			});
 
 			// change the below from sending back json 
-			//to rending the fellow-data-v2 jade
+			//to rendering the fellow-data-v2 jade
 			res.jsonp( 
 			{
 				fellowData : fellowDataForJQuery

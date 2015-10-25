@@ -65,17 +65,19 @@ extends layout
 			// if multiple options selected
 
 			// also need to get any year filters
+			/*
 			var fellowClassYearsToFilterOn;
 			if ($(#fellowClassYears).find("option:selected").val() !== null) {
 				// grab the values
 				fellowClassYearsToFilterOn = $(#fellowClassYears).find("option:selected").val();
 			}
+			*/
 
 			// send both possible filters to the server
 			$.get("fellow-dashboard",
 			{
 				vfaCitiesToFilterOn        : vfaCitiesToFilterOn, 
-				fellowClassYearsToFilterOn : fellowClassYearsToFilterOn
+				//fellowClassYearsToFilterOn : fellowClassYearsToFilterOn
 			})
 			.done( function (data) {
 				// i need to make sure the filters persist on the rerender

@@ -5,8 +5,17 @@ var _       = require('underscore');
 
 router.get('/', function (req, res, next) {
 
+	var vfaCitiesToFilterOn = req.param("vfaCitiesToFilterOn");
+	var vfaCitiesForFiltering = { Account_VFA_City__c : vfaCitiesToFilterOn }; 
+	// double check api
+	// would the above work if it's an array? i'll have to test
+	// what's the for of cities to filter on?
+	// say we're starting with one value...
+	// it's going to be a number.
+	// year = vfacities..
 	// have to grab any filters on the page
 	// some sort of if statement
+	// version 1...1 filter
 	/*
 		// also to note no filter == all data
 		// filters = only show the filters
@@ -32,7 +41,7 @@ router.get('/', function (req, res, next) {
 			{
 				"VFA_Association__c"  : "Fellow"
 			},
-			'Name, Id, Year, Account_Name_for_SurveyGizmo__c')
+			'Name, Id, Year, Account_Name_for_SurveyGizmo__c, Account_VFA_City__c')
 			.sort( { Name: 1} )
 			.execute( function (err, fellows) {
 				console.log("Fellows retrieved from call: " + fellows.length);
@@ -40,6 +49,18 @@ router.get('/', function (req, res, next) {
 				// on the left nav, we'll have number of 2013, 14, etc.
 				// in the middle, we'll have list of names
 				// how to deliver data
+
+				// filter for city
+				var filteredFellows = _.where(fellows, vfaCitiesForFiltering);
+				//filteredFellows     = _.where(filteredFellows, vfaClassYearsForFiltering);
+				
+				// will the above work if there are no filters?
+				// it seems like it would, will have to test.
+				// otherwise will need an if statement.
+				// not the end of the world
+				// this is going to suck to debug
+				// will need to comment out all but the essentials on each 
+				// successive round
 
 				conn.sobject("Contact").describe( function (err, fellowMetaData) {
 					if (err) { return console.error(err); }
@@ -75,14 +96,16 @@ router.get('/', function (req, res, next) {
 						return obj.value["Year__c"];
 					})
 
-					res.jsonp(
+					// instead of sending json, i may need to render
+					// and send the filters, fellows, and stats to the client
+					res.render("fellow-dashboard",
 					{
-						fellows            : fellows,
+						fellows            : filteredFellows,
 						//fellowCountPerYear : fellowCountPerYear,
-						//vfaCities        : vfaCities,
+						//vfaCities        : vfaCitiesToFilterOn,
 						//fellowClassYears : vfaClassYears
-					})
-				})
+					});
+				});
 			});
 
 	});
