@@ -5,8 +5,8 @@ block content
 	h2= "Select Fellow"
 	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
 		option(value="")
-		each id, name in fellowList
-			option(id=id) #{name}
+		each fellow, index in fellowList
+			option(id=fellow.id) #{fellow.name}
 	p#selectedFellow
 	h2= "Log Notes"
 	label Subject 
