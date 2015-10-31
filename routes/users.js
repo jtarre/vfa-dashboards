@@ -109,6 +109,8 @@ router.get('/', function(req, res, next) {
 
 					var selfEvalCount       = 0;
 					var selfEvalRecordId    = "012d0000000SxCNAA0";
+
+					/// TODO: 2016 FORM SURVEY ////
 					
 					for (var i = 0; i < surveys.length; ++i) {
 						/*
@@ -290,19 +292,40 @@ router.get('/', function(req, res, next) {
 									caseList[subject] = fellowCase;
 								})();
 							}
-							res.render('users', 
-							{
-								test                      : fellowId,
-								caseList                  : caseList,
-								contactInfo               : contactInfo,
-								companyInfo               : companyInfo,
-								supervisorInfo            : supervisorInfo,
-								companyPartnerQuant       : companyPartnerQuant,
-								companyPartnerLongForm    : companyPartnerLongForm,
-								selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
-								selfEvaluationJobQuant    : selfEvaluationJobQuant,
-								selfEvaluationJobLongForm : selfEvaluationJobLongForm, 
-							});
+
+							conn.sobject("Task")
+								.find(
+								{
+									WhoId  : fellowId
+								},
+								"*")
+								.sort( { CreatedDate: -1 } )
+								.limit(5)
+								.execute( function (err, activities) {
+									var activitiesList = {};
+
+									_.each(activities, function (element, index, list) {
+										activitiesList[element.Subject] = 
+										{
+											createdDate : element.CreatedDate,
+											url         : process.env.INSTANCE_URL + element.Id,
+											description : element.Description
+										};
+									});
+									res.render('users', 
+									{
+										test                      : fellowId,
+										caseList                  : caseList,
+										contactInfo               : contactInfo,
+										companyInfo               : companyInfo,
+										supervisorInfo            : supervisorInfo,
+										companyPartnerQuant       : companyPartnerQuant,
+										companyPartnerLongForm    : companyPartnerLongForm,
+										selfEvaluationLifeQuant   : selfEvaluationLifeQuant,
+										selfEvaluationJobQuant    : selfEvaluationJobQuant,
+										selfEvaluationJobLongForm : selfEvaluationJobLongForm, 
+									});
+								});
 						});	
 			});
 
