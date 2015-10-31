@@ -35,35 +35,27 @@ block content
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
 			console.log("SALESFORCE ID WITHIN CASE CALL: " + sfId);
-			$.get("tasks", {id: sfId});
-		});
-	script.
-		$("#fellow").change(function(e){
-			console.log("Here in cases!");
-			//e.preventDefault();
-			var sfId = $(this).find('option:selected').attr("id");
-			console.log("SALESFORCE ID WITHIN CASE CALL: " + sfId);
 			$.get("cases", {id: sfId}, function ( data ) {
 				console.log("SUCESSFULLY RAN GET FUNCTION FOR CASES");
-				//console.log("case data: " + data);
+				console.log("case data: " + data);
 				$("#cases").html(data);
 			});
 		});
 	script.
 		$("#fellow").change(function(e){
-			console.log("Here!");
+			console.log("Getting Fellow Info!");
 			//e.preventDefault();
 			var sfId = $(this).find('option:selected').attr("id");
-			console.log(sfId);
+			console.log("Salesforce Id: " + sfId);
 			
 			var loadingCounter = 1;
 			$('#selectedFellow').html("<h4>Loading.</h4>");
 			var interval = setInterval( function() {
-				console.log("loading counter at start: " + loadingCounter);
+				//console.log("loading counter at start: " + loadingCounter);
 				loadingCounter        = loadingCounter + 1;
-				console.log("loading counter increment: " + loadingCounter);
+				//console.log("loading counter increment: " + loadingCounter);
 				loadingCounterModulo  = loadingCounter % 3;
-				console.log("modulo loading counter: " + loadingCounterModulo);
+				//console.log("modulo loading counter: " + loadingCounterModulo);
 
 				if ( loadingCounterModulo == 0 ) {
 					return $('#selectedFellow').html("<h4>Loading...</h4");
@@ -79,7 +71,8 @@ block content
 			}, 600);
 
 			$.get("users", {id: sfId}, function ( data ) {
-				//console.log("data: " + data)
+				console.log("Received Fellow Data from server");
+				console.log(data);
 				clearInterval(interval);
 				$("#selectedFellow").html("");
 				$('#results').html(data);

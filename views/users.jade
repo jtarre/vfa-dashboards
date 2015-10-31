@@ -30,6 +30,13 @@ h3= "Fellow Long-Form"
 ul#fellowLongForm
 	each data in selfEvaluationJobLongForm
 		li= data
+h2 Recent Activities
+	each activity, subject in activityList
+		h3= "Subject: " + subject 
+		p Date: #{activity.createdDate}
+		p!= "URL: " + "<a href=#{activity.url}>" + "Salesforce Link" + "</a>"
+		p Activity:	
+		p #{activity.description}
 h2= "Recent Cases"
 ul#fellowCaseList
 	each subject, name in caseList

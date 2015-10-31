@@ -1,6 +1,7 @@
 var express   = require('express');
 var router    = express.Router();
 var jsforce   = require('jsforce');
+var _         = require('underscore');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -296,25 +297,35 @@ router.get('/', function(req, res, next) {
 							conn.sobject("Task")
 								.find(
 								{
-									WhoId  : fellowId
+									WhoId  : fellowId,
+									Status : "Completed"
 								},
-								"*")
+								"Subject, Description, WhoId, Status, CreatedDate, Id, OwnerId")
 								.sort( { CreatedDate: -1 } )
 								.limit(5)
 								.execute( function (err, activities) {
 									var activitiesList = {};
 
+									console.log("\n/// LET'S GET ACTIVITIES ///");
+									console.log(activities);
+									
 									_.each(activities, function (element, index, list) {
+										console.log("Activity Subject Line: " + element.Subject);
 										activitiesList[element.Subject] = 
 										{
 											createdDate : element.CreatedDate,
-											url         : process.env.INSTANCE_URL + element.Id,
+											url         : process.env.INSTANCE_URL + "/" + element.Id,
 											description : element.Description
 										};
 									});
+
+									console.log("/// ACTIVITIES LIST /// ");
+									console.log(activitiesList);
+
 									res.render('users', 
 									{
 										test                      : fellowId,
+										activityList              : activitiesList,
 										caseList                  : caseList,
 										contactInfo               : contactInfo,
 										companyInfo               : companyInfo,
