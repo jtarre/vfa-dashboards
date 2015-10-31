@@ -1,4 +1,5 @@
 h2= "Fellow Info"
+a(href='#{fellowUrl}' target="_blank") Salesforce Profile Link
 h3= "Contact Info"
 ul#fellowInfo
 	each data in contactInfo
@@ -33,8 +34,10 @@ ul#fellowLongForm
 h2 Recent Activities
 	each activity, subject in activityList
 		h3= "Subject: " + subject 
-		p Date: #{activity.createdDate}
-		p!= "URL: " + "<a href=#{activity.url}>" + "Salesforce Link" + "</a>"
+		p Created By: #{activity.createdBy}
+		p Date: #{activity.createdDate} 
+		p. 
+			URL: #[a(href='#{activity.url}' target="_blank") Salesforce Link]	
 		p Activity:	
 		p #{activity.description}
 h2= "Recent Cases"

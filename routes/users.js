@@ -23,23 +23,18 @@ router.get('/', function(req, res, next) {
 		if ( err ) {
 			// add code here not to just return an error console, but to send a response
 			// view back to the browser that says try again...or something 
-			console.error(err); 
-			res.render("success",
-			{
-				result : "Unsuccessful salesforce login. Don't worry. Try again!"
-			})
+			return console.error(err); 
 		}
 		console.log("Authenticated!");
 
 		conn.sobject("Contact").retrieve(fellowId, function(err, contact) {
 			if (err) { 
-				console.error(err);
-				res.render("success",
-				{
-					result : "Unable to retrieve contact info. Don't worry. Try again!"
-				}) 
+				return console.error(err);
 			}
 			
+			var fellowUrl = process.env.INSTANCE_URL + "/" + fellowId;
+			fellowUrl.toString();
+
 			console.log("Fellow Contact Data\n\n");
 			for (data in contact) {
 				//console.log("key: " + data + " value: " + contact[data]);
@@ -306,15 +301,35 @@ router.get('/', function(req, res, next) {
 								.execute( function (err, activities) {
 									var activitiesList = {};
 
-									console.log("\n/// LET'S GET ACTIVITIES ///");
-									console.log(activities);
-									
+									//console.log("\n/// LET'S GET ACTIVITIES ///");
+									//console.log(activities);
+									var ownerName = "";
+									var ownerIdCut = "";
+									var ownerIdLong = "";
+									var url = "";
+									console.log(vfaList);
 									_.each(activities, function (element, index, list) {
 										console.log("Activity Subject Line: " + element.Subject);
+										console.log("Owner Id: " + element.OwnerId);
+
+										ownerIdLong = element.OwnerId.toString();
+										ownerIdCut = ownerIdLong.substring(0, ownerIdLong.length - 3 );
+
+										console.log("short owner id: " + ownerIdCut);
+										ownerName = vfaList[ownerIdCut].toString();
+
+										if (ownerName === null) {
+											ownerName = "Name not available";
+										} 
+										console.log("Owner Name: " + ownerName);
+
+										url = process.env.INSTANCE_URL + "/" + element.Id;
+										url.toString();
 										activitiesList[element.Subject] = 
 										{
+											createdBy   : ownerName,
 											createdDate : element.CreatedDate,
-											url         : process.env.INSTANCE_URL + "/" + element.Id,
+											url         : url,
 											description : element.Description
 										};
 									});
@@ -324,6 +339,7 @@ router.get('/', function(req, res, next) {
 
 									res.render('users', 
 									{
+										fellowUrl                 : fellowUrl,
 										test                      : fellowId,
 										activityList              : activitiesList,
 										caseList                  : caseList,
@@ -342,6 +358,38 @@ router.get('/', function(req, res, next) {
 
 		});
 	});
+  var vfaList = 
+  {	 "005d0000001QfTE"   :     "Amy Nelson"  ,	
+	  "005d0000001OKLG"   :     "Andrew Yang"  ,	
+	  "005d0000003h7Sp"   :     "Barrie Grinberg"  ,	
+	  "005d00000031mtf"   :     "Cathlin Olszewski"  ,	
+	  "005d0000004czLN"   :     "Connor Schake"  ,	
+	 "005d0000001OKLf"   :     "Eileen Lee"  ,	
+	 "005d0000001Nsrm"   :     "Elisabeth Deogracias"  ,	
+	 "005d00000031CfS"   :     "Eric Caballero"  ,	
+	  "005d0000004HJPG"   :     "Fabio DeSousa"  ,	
+	  "005d0000004czLI"   :     "Hannah Steinhardt"  ,	
+	  "005d00000031mtk"   :     "Isa Ballard"  ,	
+	  "005d0000001O6g0"   :     "Jackie Miller"  ,	
+	  "005d0000001OzTa"   :     "Jason Tarre"  ,	
+	  "005d0000002h82C"   :     "Joe Guy"  ,	
+	  "005d00000048Li7"   :     "Katie Bloom"  ,	
+	  "005d00000033SpB"   :     "Laila Selim"  ,	
+	  "005d0000001OKMY"   :     "Lauren Gill"  ,	
+	  "005d0000003gu2P"   :     "Lauren Kahn"  ,	
+	 "005d0000002hE6F"   :     "Leandra Elberger"  ,	
+	 "005d0000004e7gk"   :     "Mandy Marcus"  ,	
+	 "005d0000001OKMT"   :     "Megan Hurlburt"  ,	
+	 "005d0000001OKLz"   :     "Mike Tarullo"  ,	
+	 "005d0000004KHDY"   :     "Mike Henrich"  ,	
+	 "005d0000004HrpD"   :     "Rachel Greenspan"  ,	
+	 "005d0000001OKMd"   :     "Seonhye Moon"  ,	
+	  "005d0000004eY8B"   :     "Shira Sacks"  ,	
+	 "005d0000003gMhs"   :     "Splash Admin"  ,	
+	  "005d0000004IjzW"   :     "Taylor Davidson"  ,	
+	  "005d00000045mKQ"   :     "Tom Griffin"  ,	
+	 "005d0000004KHDd"   :     "Victor Bartash"  ,	
+	 "005d00000048iYF"  :     "Will Geary"  	};
 });
 
 module.exports = router;
