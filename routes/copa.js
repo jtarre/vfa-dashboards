@@ -4,11 +4,6 @@ var jsforce = require('jsforce');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	// create connection
-  // login
-  // display dashboard
-  // get potential partner companies
-  // get partner companies
   var conn = new jsforce.Connection({
     // you can change loginUrl to connect to sandbox or prerelease env.
     loginUrl : process.env.LOGIN_URL,

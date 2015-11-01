@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
 var jsforce = require('jsforce');
+var _       = require('underscore');
 require('dotenv').load();
 
 /* GET home page. */
@@ -29,15 +30,38 @@ router.get('/', function(req, res, next) {
         res.send('success',
         {
             result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
-        })}
-    res.render('index', 
-      { 
-      title      : 'Fellow Dashboard', 
-      //results    : companyRecord, 
-      //jobHistory : jobHistoryRecord,
-      vfaList    : vfaList,
-      fellowList : fellowList 
-    });  
+        });
+    }
+    conn.sobject("Contact")
+        .find(
+        {
+            "VFA_Association__c"  : "Fellow"
+        },
+        "Id, Name, Years__c")
+        .sort( { Name: 1 })
+        .execute( function (err, fellows) {
+            var listOfFellows = [{"" : ""}];
+            console.log(fellows);
+
+            _.each(fellows, function (element, index, list) {
+                listOfFellows.push(
+                    {
+                        "name" : element.Years__c + " " + element.Name,
+                        "id"   : element.Id
+                    });
+            });
+            listOfFellows.sort();
+            console.log("//// LIST OF FELLOWS ///");
+            console.log(listOfFellows);
+            res.render('index', 
+              { 
+              title      : 'Fellow Dashboard', 
+              //results    : companyRecord, 
+              //jobHistory : jobHistoryRecord,
+              vfaList    : vfaList,
+              fellowList : listOfFellows
+            }); 
+        });
   });
 
   // testing commit
