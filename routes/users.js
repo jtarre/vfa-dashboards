@@ -307,35 +307,62 @@ router.get('/', function(req, res, next) {
 									var ownerIdCut = "";
 									var ownerIdLong = "";
 									var url = "";
-									console.log(vfaList);
+									var shortDescription = "";
+
+									//console.log(vfaList);
+									console.log("Activites length: " + activities.length);
 									_.each(activities, function (element, index, list) {
-										console.log("Activity Subject Line: " + element.Subject);
-										console.log("Owner Id: " + element.OwnerId);
 
 										ownerIdLong = element.OwnerId.toString();
 										ownerIdCut = ownerIdLong.substring(0, ownerIdLong.length - 3 );
 
-										console.log("short owner id: " + ownerIdCut);
-										ownerName = vfaList[ownerIdCut].toString();
+										//console.log("short owner id: " + ownerIdCut);
+										
 
-										if (ownerName === null) {
-											ownerName = "Name not available";
-										} 
-										console.log("Owner Name: " + ownerName);
+										if(ownerIdCut in vfaList) {
+											ownerName = vfaList[ownerIdCut].toString();
+											if (ownerName === null) {
+												ownerName = "Name not available";
+											} 	
+										}
+										
+										
+										//console.log("owner name: " + ownerName);
 
-										url = process.env.INSTANCE_URL + "/" + element.Id;
+										//console.log("Owner Id: " + element.OwnerId);
+
+										
+										console.log("Iteration Number: " + index);
+										console.log("\nActivity Subject Line: " + element.Subject.toString());
+										console.log("Owner Name: " + ownerName.toString());
+										console.log("Activity ID: " + element.Id.toString());
+										console.log("Created Date: " + element.CreatedDate.toString());
+										// console.log("Description: " + element.Description.toString() + "\n");
+
+										if (element.Description !== null) {
+											if(element.Description.length > 200) {
+												shortDescription = element.Description;
+											} else {
+												shortDescription = element.Description;
+											}
+										}
+										
+
+										url = process.env.INSTANCE_URL + "/" + element.Id.toString();
 										url.toString();
-										activitiesList[element.Subject] = 
+										activitiesList[element.Subject.toString()] = 
 										{
-											createdBy   : ownerName,
-											createdDate : element.CreatedDate,
+											createdBy   : ownerName.toString(),
+											createdDate : element.CreatedDate.toString(),
 											url         : url,
-											description : element.Description
+											description : shortDescription
 										};
+										//console.log("Activity Element: " + activitiesList[element.Subject].url);
 									});
 
-									console.log("/// ACTIVITIES LIST /// ");
-									console.log(activitiesList);
+									//console.log("/// ACTIVITIES LIST /// ");
+									// console.log(activitiesList);
+									//console.log("test");
 
 									res.render('users', 
 									{
@@ -359,7 +386,8 @@ router.get('/', function(req, res, next) {
 		});
 	});
   var vfaList = 
-  {	 "005d0000001QfTE"   :     "Amy Nelson"  ,	
+  {	 
+  	"005d0000001QfTE"   :     "Amy Nelson"  ,	
 	  "005d0000001OKLG"   :     "Andrew Yang"  ,	
 	  "005d0000003h7Sp"   :     "Barrie Grinberg"  ,	
 	  "005d00000031mtf"   :     "Cathlin Olszewski"  ,	
@@ -389,7 +417,8 @@ router.get('/', function(req, res, next) {
 	  "005d0000004IjzW"   :     "Taylor Davidson"  ,	
 	  "005d00000045mKQ"   :     "Tom Griffin"  ,	
 	 "005d0000004KHDd"   :     "Victor Bartash"  ,	
-	 "005d00000048iYF"  :     "Will Geary"  	};
+	 "005d00000048iYF"  :     "Will Geary"  	
+	};
 });
 
 module.exports = router;
