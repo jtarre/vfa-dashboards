@@ -68,11 +68,12 @@ block content
 				if ( loadingCounterModulo == 2 ) {
 					return $('#selectedFellow').html("<h4>Loading..</h4");
 				}
+
 			}, 600);
 
 			$.get("users", {id: sfId}, function ( data ) {
 				console.log("Received Fellow Data from server");
-				console.log(data);
+				//console.log(data);
 				clearInterval(interval);
 				$("#selectedFellow").html("");
 				$('#results').html(data);

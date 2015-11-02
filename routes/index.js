@@ -26,11 +26,11 @@ router.get('/', function(req, res, next) {
   });
   conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
     if (err) { 
-        console.error(err); 
-        res.send('success',
-        {
-            result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
-        });
+        return console.error(err); 
+        // res.send('success',
+        // {
+        //     result : "Unsuccessful Salesforce connection. Don't worry. Refresh page!"
+        // });
     }
     conn.sobject("Contact")
         .find(
@@ -41,18 +41,18 @@ router.get('/', function(req, res, next) {
         .sort( { Name: 1 })
         .execute( function (err, fellows) {
             var listOfFellows = [{"" : ""}];
-            console.log(fellows);
-
+            //console.log(fellows);
+            
             _.each(fellows, function (element, index, list) {
                 listOfFellows.push(
                     {
-                        "name" : element.Years__c + " " + element.Name,
+                        "name" : element.Name,
                         "id"   : element.Id
                     });
             });
             listOfFellows.sort();
             console.log("//// LIST OF FELLOWS ///");
-            console.log(listOfFellows);
+            //console.log(listOfFellows);
             res.render('index', 
               { 
               title      : 'Fellow Dashboard', 
