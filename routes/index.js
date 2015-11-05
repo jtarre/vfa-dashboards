@@ -8,7 +8,8 @@ require('dotenv').load();
 // no seriously get the home page
 // get it
 router.get('/', function(req, res, next) {
-	/*
+	console.log("test");
+    /*
     console.log('get the home page!');
     console.log("login: " + process.env.LOGIN_URL);
     console.log("secret: " + process.env.CLIENT_SECRET);
