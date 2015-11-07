@@ -14,7 +14,6 @@ var RedisStore = require( 'connect-redis' )( session );
 
 
 
-var routes           = require('./routes/index');
 var users            = require('./routes/users');
 var lognotes         = require('./routes/lognotes');
 var companyInfo      = require('./features/companies/company-info');
