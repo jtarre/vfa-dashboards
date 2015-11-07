@@ -6,7 +6,7 @@ var _       = require('underscore');
 // get it
 
 module.exports = function(app, passport) {
-        app.get('/fellows', function(req, res, next) {
+        app.get('/fellows', isAuthenticated, function(req, res, next) {
           var conn = new jsforce.Connection({
             // you can change loginUrl to connect to sandbox or prerelease env.
             loginUrl : process.env.LOGIN_URL,
@@ -93,6 +93,16 @@ module.exports = function(app, passport) {
             "Will Geary"  : "005d00000048iYF" 
         };
     });
+};
+
+function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        console.log("\nUser logged in\n")
+        return next();
+    } else {
+        console.log("\nUser Not Logged in\n")
+        res.redirect("/");
+    }
 };
 
 
