@@ -37,7 +37,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'coolcat', saveUninitialized: true, resave: true}));
+// var redis = new RedisStore({
+//     host: '127.0.0.1',
+//     port: 6379
+//   });
+// console.log("\n REDIS ");
+// console.log(redis);
+app.use( session({ 
+  secret: 'cookie_secret',
+  store:  new RedisStore({
+    host: '127.0.0.1',
+    port: 6379
+  }),
+  proxy:  true,
+    resave: true,
+    saveUninitialized: true
+}));
+console.log(session);
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
