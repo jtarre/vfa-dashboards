@@ -4,13 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+require('dotenv').load();
 
 var passport = require('passport');
 require('./config/passport.js')(app, passport);
 var flash    = require('connect-flash');
 var session  = require('express-session');
 
-require('dotenv').load();
+
 
 var routes           = require('./routes/index');
 var users            = require('./routes/users');
