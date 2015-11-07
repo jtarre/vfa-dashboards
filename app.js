@@ -45,6 +45,7 @@ app.use(flash());
 // index route =================================
 require('./routes/index.js')(app, passport);
 require('./routes/loginRoutes.js')(app, passport);
+require('./features/fellows/fellows')(app, passport);
 
 app.use('/', routes);
 app.use('/users', users);
