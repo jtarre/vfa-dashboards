@@ -2,16 +2,12 @@
 // https://github.com/jaredhanson/passport-google-oauth/blob/master/examples/oauth2/app.js
 // Thank you Mr. Hanson!!
 
-module.exports = function (passport) {
+module.exports = function (app, passport) {
 	
 	var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-	// API Access link for creating client ID and secret:
-	// https://code.google.com/apis/console/
-	// var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+	// var clientID     = process.env.GOOGLE_CLIENT_ID;
 	// var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-
-
 	// Passport session setup.
 	//   To support persistent login sessions, Passport needs to be able to
 	//   serialize users into and deserialize users out of the session.  Typically,
@@ -33,8 +29,8 @@ module.exports = function (passport) {
 	//   credentials (in this case, an accessToken, refreshToken, and Google
 	//   profile), and invoke a callback with a user object.
 	passport.use(new GoogleStrategy({
-	    clientID:     process.env.GOOGLE_CLIENT_ID,
-	    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+	    clientID:     '541720896895-lb1i9lmtpkunv8to3o05on3vrgnvv4g2.apps.googleusercontent.com',
+	    clientSecret: 'GOul-zgsDifywOBj_yWih1OM',
 	    //NOTE :
 	    //Carefull ! and avoid usage of Private IP, otherwise you will get the device_id device_name issue for Private IP during authentication
 	    //The workaround is to set up thru the google cloud console a fully qualified domain name such as http://mydomain:3000/ 
