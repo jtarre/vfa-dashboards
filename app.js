@@ -4,6 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+var passport = require('passport');
+var flash    = require('connect-flash');
+var session  = require('express-session');
+
 require('dotenv').load();
 
 var routes           = require('./routes/index');
@@ -30,6 +35,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({ secret: 'coolcat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// index route =================================
+require('./routes/index.js')(app, passport);
 
 app.use('/', routes);
 app.use('/users', users);
