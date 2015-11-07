@@ -4,6 +4,7 @@ var jsforce = require('jsforce');
 
 module.exports = function(app, passport) {
   app.get('/copa', isAuthenticated, function(req, res, next) {
+    console.log("\ncopa route req.user");
     var conn = new jsforce.Connection({
       // you can change loginUrl to connect to sandbox or prerelease env.
       loginUrl : process.env.LOGIN_URL,
@@ -198,6 +199,7 @@ module.exports = function(app, passport) {
                               // RENDER THE COPA DASHBOARD //
                               res.render("copa", 
                                 {
+                                  user            : req.user,
                                   totalCount      : cityCountsTotal,
                                   partnerCount    : cityCountsPartner,
                                   potentialCount  : cityCountsPotential,
@@ -214,7 +216,7 @@ module.exports = function(app, passport) {
 
 function isAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
-        console.log("\nUser logged in\n")
+        console.log("\nUser logged in:");
         return next();
     } else {
         console.log("\nUser Not Logged in\n")

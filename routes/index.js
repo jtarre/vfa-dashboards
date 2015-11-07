@@ -10,6 +10,8 @@ require('dotenv').load();
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res, next) {
+        console.log("\npassword req.user");
+        console.log(req.user);
         res.render("index", { user : req.user });
     });
 };
