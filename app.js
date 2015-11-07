@@ -49,7 +49,7 @@ require('./features/fellows/fellows')(app, passport);
 require('./features/companies/companies')(app, passport);
 require('./routes/copa')(app, passport);
 
-app.use('/', routes);
+//app.use('/', routes);
 app.use('/users', users);
 app.use('/lognotes', lognotes);
 //app.use('/copa', copa);
