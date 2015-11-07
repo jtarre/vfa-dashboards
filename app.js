@@ -10,6 +10,7 @@ var passport = require('passport');
 require('./config/passport.js')(app, passport);
 var flash    = require('connect-flash');
 var session  = require('express-session');
+var RedisStore = require( 'connect-redis' )( session );
 
 
 
@@ -36,7 +37,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'coolcat' }));
+app.use(session({ 
+  secret: 'cookie_secret',
+  name:   'kaas',
+  store:  new RedisStore({
+    host: 'localhost',
+    port: 3000
+  }),
+  proxy:  true,
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
