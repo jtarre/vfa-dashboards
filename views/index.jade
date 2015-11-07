@@ -1,6 +1,15 @@
 extends layout
 
 block content
+	if !user
+		a(href='/auth/google') Login with Google
+		br
+		p= user
+	else if user
+		a(href='/logout') Logout
+		br
+		p= user
+	br
 	h1= title
 	h2= "Select Fellow"
 	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")

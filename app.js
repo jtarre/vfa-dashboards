@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var passport = require('passport');
+require('./config/passport.js')(passport);
 var flash    = require('connect-flash');
 var session  = require('express-session');
 
@@ -43,6 +44,7 @@ app.use(flash());
 
 // index route =================================
 require('./routes/index.js')(app, passport);
+require('./routes/loginRoutes.js')(app, passport);
 
 app.use('/', routes);
 app.use('/users', users);

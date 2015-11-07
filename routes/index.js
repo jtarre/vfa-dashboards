@@ -56,8 +56,14 @@ module.exports = function(app, passport) {
                     listOfFellows.sort();
                     console.log("//// LIST OF FELLOWS ///");
                     //console.log(listOfFellows);
+                    console.log("passport user: ");
+                    _.each(req.user, function(value, key,list) {
+                        console.log(key + ": " + value);
+                    });
+                    
                     res.render('index', 
                       { 
+                        user     : req.user,
                       title      : 'Fellow Dashboard', 
                       //results    : companyRecord, 
                       //jobHistory : jobHistoryRecord,
