@@ -33,8 +33,8 @@ module.exports = function (passport) {
 	//   credentials (in this case, an accessToken, refreshToken, and Google
 	//   profile), and invoke a callback with a user object.
 	passport.use(new GoogleStrategy({
-	    clientID:     "541720896895-lb1i9lmtpkunv8to3o05on3vrgnvv4g2.apps.googleusercontent.com",
-	    clientSecret: "GOul-zgsDifywOBj_yWih1OM",
+	    clientID:     process.env.GOOGLE_CLIENT_ID,
+	    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 	    //NOTE :
 	    //Carefull ! and avoid usage of Private IP, otherwise you will get the device_id device_name issue for Private IP during authentication
 	    //The workaround is to set up thru the google cloud console a fully qualified domain name such as http://mydomain:3000/ 
