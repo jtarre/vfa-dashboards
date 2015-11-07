@@ -224,9 +224,17 @@ module.exports = function(app, passport) {
 function isAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
         console.log("\nUser logged in\n")
-        return next();
+        console.log(req.user.emails[0].value);
+        var userEmail = req.user.emails[0].value.toString();
+        if(userEmail.indexOf('ventureforamerica.org') >= 0 ) {
+            return next();    
+        } else {
+            console.log("\nUser not a member of Venture for America Google Apps Account");
+            res.redirect("/");
+        }
     } else {
         console.log("\nUser Not Logged in\n")
         res.redirect("/");
     }
 };
+
