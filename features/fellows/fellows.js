@@ -45,7 +45,7 @@ module.exports = function(app, passport) {
                         console.log(key + ": " + value);
                     });
                     
-                    res.render('index', 
+                    res.render('fellows', 
                       { 
                         user     : req.user,
                         title      : 'Fellow Dashboard', 
