@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 require('dotenv').load();
 
 var passport         = require('passport');
+require('./config/passport')( app, passport );
 var session          = require('express-session');
 var RedisStore       = require('connect-redis')( session );
 
@@ -35,6 +36,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use( session({ 
+  secret: 'cookie_secret',
+  store:  new RedisStore({
+    host: '127.0.0.1',
+    port: 6379
+  }),
+  proxy:  true,
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 require('./features/companies/companies')(app, passport);
 //require('./features/fellows/fellows')(app, passport);
 
@@ -42,7 +56,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/lognotes', lognotes);
 app.use('/copa', copa);
-app.use('/companies', companies);
+//app.use('/companies', companies);
 app.use('/company-info', companyInfo);
 app.use('/lognotes-company', lognotesCompany);
 app.use('/company-update', updateCompany);
