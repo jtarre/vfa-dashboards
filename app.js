@@ -10,6 +10,9 @@ var passport         = require('passport');
 require('./config/passport')( app, passport );
 var session          = require('express-session');
 var RedisStore       = require('connect-redis')( session );
+var redisClient      = require('redis').createClient(process.env.REDIS_URL);
+console.log("\n/// REDIS CLIENT ///");
+//console.log(redisClient);
 
 var routes           = require('./routes/index');
 var users            = require('./routes/users');
@@ -38,10 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use( session({ 
   secret: 'cookie_secret',
-  store:  new RedisStore({
-    host: '127.0.0.1',
-    port: 6379
-  }),
+  store:  new RedisStore({client: redisClient}),
   proxy:  true,
     resave: true,
     saveUninitialized: true
