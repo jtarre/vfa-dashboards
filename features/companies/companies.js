@@ -166,9 +166,12 @@ module.exports = function(app, passport) {
 					  }
 
 					  console.log("Funding Amount: " + fundingAmount);
+					  console.log("/// USER REQUEST ///");
+					  console.log(req.user);
 					  res.render('companies', 
 						{
-							accounts:       companies,
+							user       :    req.user,
+							accounts   :    companies,
 							association:    association,
 							city:           city,
 							industry:       industry,

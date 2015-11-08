@@ -1,6 +1,12 @@
 extends layout
 
 block content
+	if !user
+		a(href="auth/google") Login with Google
+		br
+	else if user
+		a(href="/logout") Logout
+		br
 	// dropdown of accounts
 	h2= "Companies Dashboard"
 	label Companies
