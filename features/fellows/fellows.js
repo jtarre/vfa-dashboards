@@ -49,7 +49,7 @@ module.exports = function(app, passport) {
                 listOfFellows.sort();
                 console.log("//// LIST OF FELLOWS ///");
                 //console.log(listOfFellows);
-                res.render('index', 
+                res.render('fellows', 
                   { 
                     user       : req.user,
                     title      : 'Fellow Dashboard', 

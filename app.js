@@ -11,8 +11,6 @@ require('./config/passport')( app, passport );
 var session          = require('express-session');
 var RedisStore       = require('connect-redis')( session );
 var redisClient      = require('redis').createClient(process.env.REDIS_URL);
-console.log("\n/// REDIS CLIENT ///");
-//console.log(redisClient);
 
 var routes           = require('./routes/index');
 var users            = require('./routes/users');
@@ -51,12 +49,11 @@ app.use(passport.session());
 
 require('./features/companies/companies')(app, passport);
 require('./features/fellows/fellows')(app, passport);
-//require('./routes/copa')(app, passport);
+require('./routes/copa')(app, passport);
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/lognotes', lognotes);
-app.use('/copa', copa);
 app.use('/company-info', companyInfo);
 app.use('/lognotes-company', lognotesCompany);
 app.use('/company-update', updateCompany);
