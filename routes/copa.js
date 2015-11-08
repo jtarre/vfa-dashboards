@@ -196,6 +196,7 @@ module.exports = function(app, passport) {
                               // RENDER THE COPA DASHBOARD //
                               res.render("copa", 
                                 {
+                                  user            : req.user,
                                   totalCount      : cityCountsTotal,
                                   partnerCount    : cityCountsPartner,
                                   potentialCount  : cityCountsPotential,
