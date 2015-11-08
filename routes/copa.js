@@ -1,9 +1,7 @@
-var express = require('express');
-var router  = express.Router();
 var jsforce = require('jsforce');
 
 module.exports = function(app, passport) {
-  app.get('/copa', function(req, res, next) {
+  app.get('/copa', isAuthenticated, function(req, res, next) {
     var conn = new jsforce.Connection({
       // you can change loginUrl to connect to sandbox or prerelease env.
       loginUrl : process.env.LOGIN_URL,
@@ -212,3 +210,19 @@ module.exports = function(app, passport) {
 
 }
 
+function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        console.log("\nUser logged in\n")
+        console.log(req.user.emails[0].value);
+        var userEmail = req.user.emails[0].value.toString();
+        if(userEmail.indexOf('ventureforamerica.org') >= 0 ) {
+            return next();    
+        } else {
+            console.log("\nUser not a member of Venture for America Google Apps Account");
+            res.redirect("/");
+        }
+    } else {
+        console.log("\nUser Not Logged in\n")
+        res.redirect("/");
+    }
+};

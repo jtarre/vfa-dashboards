@@ -2,7 +2,7 @@ var jsforce = require('jsforce');
 var _       = require('underscore');
 
 module.exports = function(app, passport) {
-	app.get('/companies', function( req, res, next) {
+	app.get('/companies', isAuthenticated, function( req, res, next) {
 		var conn = new jsforce.Connection({
 			clientSecret: process.env.CLIENT_SECRET,
 			clientId:     process.env.CLIENT_ID,
@@ -221,4 +221,21 @@ module.exports = function(app, passport) {
 		    "Victor Bartash"  : "005d0000004KHDd",  
 		    "Will Geary"  : "005d00000048iYF" };
 	});	
+};
+
+function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        console.log("\nUser logged in\n")
+        console.log(req.user.emails[0].value);
+        var userEmail = req.user.emails[0].value.toString();
+        if(userEmail.indexOf('ventureforamerica.org') >= 0 ) {
+            return next();    
+        } else {
+            console.log("\nUser not a member of Venture for America Google Apps Account");
+            res.redirect("/");
+        }
+    } else {
+        console.log("\nUser Not Logged in\n")
+        res.redirect("/");
+    }
 };

@@ -3,7 +3,7 @@ var _       = require('underscore');
 
 
 module.exports = function(app, passport) {
-    app.get('/fellows', function(req, res, next) {
+    app.get('/fellows', isAuthenticated, function(req, res, next) {
         /*
         console.log('get the home page!');
         console.log("login: " + process.env.LOGIN_URL);
@@ -98,3 +98,20 @@ module.exports = function(app, passport) {
       };
     });
 }
+
+function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        console.log("\nUser logged in\n")
+        console.log(req.user.emails[0].value);
+        var userEmail = req.user.emails[0].value.toString();
+        if(userEmail.indexOf('ventureforamerica.org') >= 0 ) {
+            return next();    
+        } else {
+            console.log("\nUser not a member of Venture for America Google Apps Account");
+            res.redirect("/");
+        }
+    } else {
+        console.log("\nUser Not Logged in\n")
+        res.redirect("/");
+    }
+};
