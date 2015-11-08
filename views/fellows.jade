@@ -1,0 +1,156 @@
+extends layout
+
+block content
+	h1= title
+	h2= "Select Fellow"
+	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
+		option(value="")
+		each fellow, index in fellowList
+			option(id=fellow.id) #{fellow.name}
+	p#selectedFellow
+	h2= "Log Notes"
+	label Subject 
+	input(id="subject")(style="width: 250px")
+	br
+	label Notes 
+	textarea(id="notes")(style="width: 250px; height: 75px")
+	br
+	p#cases
+	br
+	label User 
+	select#vfaList.chosen-select(data-placeholder="Choose Yourself")
+		each id, name in vfaList
+			option(id=id) #{name}
+	br
+	br
+	button#logNotes(class="btn btn-success") Log Notes
+	hr
+	p#responseResult
+	p#results Fellow Info
+	script.
+			$(".chosen-select").chosen();
+	script.
+		$("#fellow").change(function(e){
+			console.log("Here in cases!");
+			//e.preventDefault();
+			var sfId = $(this).find('option:selected').attr("id");
+			console.log("SALESFORCE ID WITHIN CASE CALL: " + sfId);
+			$.get("cases", {id: sfId}, function ( data ) {
+				console.log("SUCESSFULLY RAN GET FUNCTION FOR CASES");
+				console.log("case data: " + data);
+				$("#cases").html(data);
+			});
+		});
+	script.
+		$("#fellow").change(function(e){
+			console.log("Getting Fellow Info!");
+			//e.preventDefault();
+			var sfId = $(this).find('option:selected').attr("id");
+			console.log("Salesforce Id: " + sfId);
+			
+			var loadingCounter = 1;
+			$('#selectedFellow').html("<h4>Loading.</h4>");
+			var interval = setInterval( function() {
+				//console.log("loading counter at start: " + loadingCounter);
+				loadingCounter        = loadingCounter + 1;
+				//console.log("loading counter increment: " + loadingCounter);
+				loadingCounterModulo  = loadingCounter % 3;
+				//console.log("modulo loading counter: " + loadingCounterModulo);
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#selectedFellow').html("<h4>Loading...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#selectedFellow').html("<h4>Loading.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#selectedFellow').html("<h4>Loading..</h4");
+				}
+
+			}, 600);
+
+			$.get("users", {id: sfId}, function ( data ) {
+				console.log("Received Fellow Data from server");
+				//console.log(data);
+				clearInterval(interval);
+				$("#selectedFellow").html("");
+				$('#results').html(data);
+			});
+		});
+	script.
+		$("#logNotes").click(function(e){
+			console.log("clicked!");
+
+			var fellowId = $("#fellow").find('option:selected').attr("id");
+			console.log("fellow salesforce id: " + fellowId);
+			
+			var subject    = $("#subject").val();
+			var notes      = $("#notes").val();
+			var vfaId      = $("#vfaList").find('option:selected').attr("id");
+			var relatedTo  = $("#relatedToList").find('option:selected').attr("id");
+
+			// FOR SLACK // 
+			var fellowName = $("#fellow").find('option:selected').val();
+			var userName   = $("#vfaList").find('option:selected').val();
+			
+			console.log("subject: " + subject);
+			console.log("notes: " + notes);
+			console.log("vfa id: " + vfaId);
+			console.log("fellow id: ")
+
+			var loadingCounter = 1;
+			$("#responseResult").html("<h4>Creating.</h4>");
+			var interval = setInterval( function() {
+				loadingCounter        = loadingCounter + 1;
+				loadingCounterModulo  = loadingCounter % 3;
+
+				if ( loadingCounterModulo == 0 ) {
+					return $('#responseResult').html("<h4>Creating...</h4");
+				}
+
+				if ( loadingCounterModulo == 1 ) {
+					return $('#responseResult').html("<h4>Creating.</h4");
+				}
+
+				if ( loadingCounterModulo == 2 ) {
+					return $('#responseResult').html("<h4>Creating..</h4");
+				}
+			}, 600);
+
+			$.post("lognotes", {
+				fellowId    : fellowId,
+				vfaId       : vfaId,   
+				subject     : subject, 
+				description : notes,
+				relatedTo   : relatedTo,
+				fellowName  : fellowName, 
+				userName    : userName
+			})
+			 .done( function ( data ) {
+				//alert("Data loaded!: " + data);
+				console.log( data );
+
+				clearInterval(interval);
+				$('#responseResult').html(data);
+
+				var responseCounter = 0;
+				var responseAlert = function () {
+					responseCounter = responseCounter + 1;
+					if (responseCounter == 1) {
+						return $("#responseResult").html("");
+					}
+
+					if (responseCounter == 2) {
+						clearInterval(responseInterval);
+					}
+				};
+				var responseInterval = setInterval(responseAlert, 2000);
+				$("#subject").val("");
+				$("#notes").val("");
+			});
+		})
+
+
+
