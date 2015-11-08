@@ -100,9 +100,7 @@ module.exports = function(app, passport) {
 }
 
 function isAuthenticated(req, res, next) {
-    _.each(req.user, function(value, key, list) {
-        console.log(key + ": " + value);
-    });
+    console.log(req.user);
     if(req.isAuthenticated()) {
         console.log("\nUser logged in\n");
         console.log(req.user.emails[0].value);
