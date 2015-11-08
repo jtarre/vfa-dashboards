@@ -212,7 +212,7 @@ module.exports = function(app, passport) {
 
 function isAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
-        console.log("\nUser logged in\n")
+        console.log("\nUser logged in\n");
         console.log(req.user.emails[0].value);
         var userEmail = req.user.emails[0].value.toString();
         if(userEmail.indexOf('ventureforamerica.org') >= 0 ) {

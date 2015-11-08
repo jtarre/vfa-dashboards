@@ -79,12 +79,12 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/companies');
+    res.redirect('/');
   });
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/companies');
+  res.redirect('/');
 });
 
 // catch 404 and forward to error handler
