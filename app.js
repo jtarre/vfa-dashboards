@@ -6,11 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('dotenv').load();
 
+var passport         = require('passport');
+var session          = require('express-session');
+var RedisStore       = require('connect-redis')( session );
+
 var routes           = require('./routes/index');
 var users            = require('./routes/users');
 var lognotes         = require('./routes/lognotes');
 var copa             = require('./routes/copa');
-var companies        = require('./features/companies/companies');
+//var companies        = require('./features/companies/companies');
 var companyInfo      = require('./features/companies/company-info');
 var lognotesCompany  = require('./features/companies/lognotes-company');
 var updateCompany    = require('./features/companies/company-update');
@@ -30,6 +34,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+require('./features/companies/companies')(app, passport);
+//require('./features/fellows/fellows')(app, passport);
 
 app.use('/', routes);
 app.use('/users', users);
