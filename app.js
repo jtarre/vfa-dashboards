@@ -50,13 +50,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./features/companies/companies')(app, passport);
-//require('./features/fellows/fellows')(app, passport);
+require('./features/fellows/fellows')(app, passport);
+//require('./routes/copa')(app, passport);
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/lognotes', lognotes);
 app.use('/copa', copa);
-//app.use('/companies', companies);
 app.use('/company-info', companyInfo);
 app.use('/lognotes-company', lognotesCompany);
 app.use('/company-update', updateCompany);
