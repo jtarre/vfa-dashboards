@@ -1,17 +1,9 @@
 var jsforce = require('jsforce');
 var _       = require('underscore');
-var auth    = require('sdjfalsdjf');
 
 
 module.exports = function(app, passport) {
     app.get('/fellows', isAuthenticated, function(req, res, next) {
-        /*
-        console.log('get the home page!');
-        console.log("login: " + process.env.LOGIN_URL);
-        console.log("secret: " + process.env.CLIENT_SECRET);
-        console.log("id: " + process.env.CLIENT_ID);    
-        console.log("instanceUrl: " + process.env.INSTANCE_URL);
-        */
         console.log("user: " + process.env.USER);
       var conn = new jsforce.Connection({
         // you can change loginUrl to connect to sandbox or prerelease env.
