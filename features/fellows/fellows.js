@@ -1,5 +1,6 @@
 var jsforce = require('jsforce');
 var _       = require('underscore');
+var auth    = require('sdjfalsdjf');
 
 
 module.exports = function(app, passport) {
