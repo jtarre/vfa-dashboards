@@ -41,115 +41,135 @@ block content
 	
 	form.form-horizontal
 		div.form-group
-			label CoPa Association 
-			select#CoPa_Association__c
-				each id, name in association
-					option(id=id value=id) #{name}
+			label.col-sm-3.control-label CoPa Association 
+			div.col-sm-9
+				select#CoPa_Association__c
+					each id, name in association
+						option(id=id value=id) #{name}
 		
 		div.form-group
-			label VFA City 
-			select#VFA_City__c(value="VFA_City__c")
-				each id, name in city
-					option(id=id value=id) #{name}
+			label.col-sm-3.control-label VFA City 
+			div.col-sm-9
+				select#VFA_City__c(value="VFA_City__c")
+					each id, name in city
+						option(id=id value=id) #{name}
 		
 		div.form-group
-			label Website 
-			input#Website(type="url")
+			label.col-sm-3.control-label Website 
+			div.col-sm-9
+				input#Website(type="url")
 		
 		div.form-group
-			label Twitter 
+			label.col-sm-3.control-label Twitter 
 			// get correct api
-			input#Twitter_Handle__c(type="text")
+			div.col-sm-9
+				input#Twitter_Handle__c(type="text")
 		
 		div.form-group
-			label AngelList 
-			input#AngelList_Link__c(type="text")
+			label.col-sm-3.control-label AngelList 
+			div.col-sm-9
+				input#AngelList_Link__c(type="text")
 		
 		div.form-group
-			label Blog
-			input#Blog_Link__c(type="text")
+			label.col-sm-3.control-label Blog
+			div.col-sm-9
+				input#Blog_Link__c(type="text")
 		
 		div.form-group
-			label Short Description
-			br
-			textarea#Description(style="width:250px; height: 25px")
+			label.col-sm-3.control-label Short Description
+			div.col-sm-9
+				textarea#Description(style="width:250px; height: 25px")
 		
 		div.form-group
-			label Long Description
-			br
-			textarea#Long_Description__c(style="width: 250px; height: 75px")
+			label.col-sm-3.control-label Long Description
+			div.col-sm-9
+				textarea#Long_Description__c(style="width: 250px; height: 75px")
 		
 		div.form-group
-			label Year Founded 
-			input#Year_Founded__c(type="number" value="Year_Founded__c")
+			label.col-sm-3.control-label Year Founded 
+			div.col-sm-9
+				input#Year_Founded__c(type="number" value="Year_Founded__c")
 		
 		div.form-group
-			label Number of Employees
-			input#NumberOfEmployees(type="number" value="NumberOfEmployees")
+			label.col-sm-3.control-label Number of Employees
+			div.col-sm-9
+				input#NumberOfEmployees(type="number" value="NumberOfEmployees")
 		
 		div.form-group
-			label Funding Type 	
-			select#Funding_Type__c
-				each id, name in fundingType
-					option(id=id value=id) #{name}
+			label.col-sm-3.control-label Funding Type 	
+			div.col-sm-9
+				select#Funding_Type__c
+					each id, name in fundingType
+						option(id=id value=id) #{name}
 		
 		div.form-group
-			label Funding Amount 
-			select#Funding_Amount__c(value="Funding_Amount__c")
-				each id, name in fundingAmount
-					option(id=id) #{name}
+			label.col-sm-3.control-label Funding Amount 
+			div.col-sm-9
+				select#Funding_Amount__c(value="Funding_Amount__c")
+					each id, name in fundingAmount
+						option(id=id) #{name}
 		
 		div.form-group
-			label Company Type 
-			select#Company_Type__c(value="Company_Type__c")
-				each id, name in companyType
-					option(id=id) #{name}
+			label.col-sm-3.control-label Company Type 
+			div.col-sm-9
+				select#Company_Type__c(value="Company_Type__c")
+					each id, name in companyType
+						option(id=id) #{name}
 		
 		div.form-group
-			label Customer Type 
-			select#Customer_Type__c(value="Customer_Type__c")
-				each id, name in customerType
-					option(id=id) #{name}
+			label.col-sm-3.control-label Customer Type 
+			div.col-sm-9
+				select#Customer_Type__c(value="Customer_Type__c")
+					each id, name in customerType
+						option(id=id) #{name}
 		
 		div.form-group
-			label Product Type 
-			select#Product_Type__c(value="Product_Type__c")
-				each id, name in productType
-					option(id=id) #{name}
+			label.col-sm-3.control-label Product Type 
+			div.col-sm-9
+				select#Product_Type__c(value="Product_Type__c")
+					each id, name in productType
+						option(id=id) #{name}
 		
 		div.form-group
-			label Industry
-			select#Industry_USE__c
-				each id, name in industry
-					option(id=id value=id) #{name}
+			label.col-sm-3.control-label Industry
+			div.col-sm-9
+				select#Industry_USE__c
+					each id, name in industry
+						option(id=id value=id) #{name}
 		
 		div.form-group 
-			label 2012 Hires
-			input#X2012_Hires__c(type="number")
+			label.col-sm-3.control-label 2012 Hires
+			div.col-sm-9
+				input#X2012_Hires__c(type="number")
 		
 		div.form-group 
-			label 2013 Hires
-			input#X2013_Hires__c(type="number")
+			label.col-sm-3.control-label 2013 Hires
+			div.col-sm-9
+				input#X2013_Hires__c(type="number")
 		
 		div.form-group 
-			label 2014 Hires
-			input#X2014_Hires__c(type="number")
+			label.col-sm-3.control-label 2014 Hires
+			div.col-sm-9
+				input#X2014_Hires__c(type="number")
 		
 		div.form-group 
-			label 2015 Hires
-			input#X2015_Hires__c(type="number")
+			label.col-sm-3.control-label 2015 Hires
+			div.col-sm-9
+				input#X2015_Hires__c(type="number")
 		
 		div.form-group
-			label Female Founder 
-			select#Female_Founder__c(value="Female_Founder__c")
-				option(value="true") Yes
-				option(value="false") No
+			label.col-sm-3.control-label Female Founder 
+			div.col-sm-9
+				select#Female_Founder__c(value="Female_Founder__c")
+					option(value="true") Yes
+					option(value="false") No
 		
 		div.form-group
-			label URM Founder 
-			select#URM_Founder__c(value="URM_Founder__c")
-				option(value="true") Yes
-				option(value="false") No
+			label.col-sm-3.control-label URM Founder 
+			div.col-sm-9
+				select#URM_Founder__c(value="URM_Founder__c")
+					option(value="true") Yes
+					option(value="false") No
 	
 	hr
 	
