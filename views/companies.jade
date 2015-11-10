@@ -43,131 +43,131 @@ block content
 		div.form-group
 			label.col-sm-3.control-label CoPa Association 
 			div.col-sm-9
-				select#CoPa_Association__c
+				select#CoPa_Association__c.form-control
 					each id, name in association
 						option(id=id value=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label VFA City 
 			div.col-sm-9
-				select#VFA_City__c(value="VFA_City__c")
+				select#VFA_City__c(value="VFA_City__c").form-control
 					each id, name in city
 						option(id=id value=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label Website 
 			div.col-sm-9
-				input#Website(type="url")
+				input#Website(type="url").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Twitter 
 			// get correct api
 			div.col-sm-9
-				input#Twitter_Handle__c(type="text")
+				input#Twitter_Handle__c(type="text").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label AngelList 
 			div.col-sm-9
-				input#AngelList_Link__c(type="text")
+				input#AngelList_Link__c(type="text").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Blog
 			div.col-sm-9
-				input#Blog_Link__c(type="text")
+				input#Blog_Link__c(type="text").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Short Description
 			div.col-sm-9
-				textarea#Description(style="width:250px; height: 25px")
+				textarea#Description.form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Long Description
 			div.col-sm-9
-				textarea#Long_Description__c(style="width: 250px; height: 75px")
+				textarea#Long_Description__c.form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Year Founded 
 			div.col-sm-9
-				input#Year_Founded__c(type="number" value="Year_Founded__c")
+				input#Year_Founded__c(type="number" value="Year_Founded__c").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Number of Employees
 			div.col-sm-9
-				input#NumberOfEmployees(type="number" value="NumberOfEmployees")
+				input#NumberOfEmployees(type="number" value="NumberOfEmployees").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Funding Type 	
 			div.col-sm-9
-				select#Funding_Type__c
+				select#Funding_Type__c.form-control
 					each id, name in fundingType
 						option(id=id value=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label Funding Amount 
 			div.col-sm-9
-				select#Funding_Amount__c(value="Funding_Amount__c")
+				select#Funding_Amount__c(value="Funding_Amount__c").form-control
 					each id, name in fundingAmount
 						option(id=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label Company Type 
 			div.col-sm-9
-				select#Company_Type__c(value="Company_Type__c")
+				select#Company_Type__c(value="Company_Type__c").form-control
 					each id, name in companyType
 						option(id=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label Customer Type 
 			div.col-sm-9
-				select#Customer_Type__c(value="Customer_Type__c")
+				select#Customer_Type__c(value="Customer_Type__c").form-control
 					each id, name in customerType
 						option(id=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label Product Type 
 			div.col-sm-9
-				select#Product_Type__c(value="Product_Type__c")
+				select#Product_Type__c(value="Product_Type__c").form-control
 					each id, name in productType
 						option(id=id) #{name}
 		
 		div.form-group
 			label.col-sm-3.control-label Industry
 			div.col-sm-9
-				select#Industry_USE__c
+				select#Industry_USE__c.form-control
 					each id, name in industry
 						option(id=id value=id) #{name}
 		
 		div.form-group 
 			label.col-sm-3.control-label 2012 Hires
 			div.col-sm-9
-				input#X2012_Hires__c(type="number")
+				input#X2012_Hires__c(type="number").form-control
 		
 		div.form-group 
 			label.col-sm-3.control-label 2013 Hires
 			div.col-sm-9
-				input#X2013_Hires__c(type="number")
+				input#X2013_Hires__c(type="number").form-control
 		
 		div.form-group 
 			label.col-sm-3.control-label 2014 Hires
 			div.col-sm-9
-				input#X2014_Hires__c(type="number")
+				input#X2014_Hires__c(type="number").form-control
 		
 		div.form-group 
 			label.col-sm-3.control-label 2015 Hires
 			div.col-sm-9
-				input#X2015_Hires__c(type="number")
+				input#X2015_Hires__c(type="number").form-control
 		
 		div.form-group
 			label.col-sm-3.control-label Female Founder 
 			div.col-sm-9
-				select#Female_Founder__c(value="Female_Founder__c")
+				select#Female_Founder__c(value="Female_Founder__c").form-control
 					option(value="true") Yes
 					option(value="false") No
 		
 		div.form-group
 			label.col-sm-3.control-label URM Founder 
 			div.col-sm-9
-				select#URM_Founder__c(value="URM_Founder__c")
+				select#URM_Founder__c(value="URM_Founder__c").form-control
 					option(value="true") Yes
 					option(value="false") No
 	
