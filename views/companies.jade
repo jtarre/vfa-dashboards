@@ -15,31 +15,41 @@ block content
 			option(id=id) #{name}
 	hr
 	// LOGGING CALL NOTES // 
-	label Subject
-	br
-	input#subject(type=text style="width: 250px")
-	br
-	Label Log Company Call Notes
-	br
-	textarea#companyNotes(style="width: 250px; height: 75px")
-	br
-	br
-	Label User
-	br
-	select#vfaList.chosen-select(data-placeholder="Choose Yourself")
-		each id, name in vfaList
-			option(id=id) #{name}
-	br
-	br
-	button#logNotes(type="button" class="btn btn-success") Log Notes
-	p#responseResult
-	hr
-	// ACCOUNT ATTRIBUTES // 
-	button#updateAccount(type="button" class="btn btn-success") Update Account
-	br
-	br
 	
 	form.form-horizontal
+
+		div.form-group
+			label.col-sm-3.control-label Subject
+			div.col-sm-9
+				input#subject.form-control
+
+		div.form-group
+			Label.col-sm-3.control-label Log Company Call Notes
+			div.col-sm-9
+				textarea#companyNotes.form-control
+		
+		div.form-group
+			Label.col-sm-3.control-label User
+			div.col-sm-9
+				select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
+					each id, name in vfaList
+						option(id=id) #{name}
+		
+		div.form-group
+			div.col-sm-offset-3.col-sm-9
+				button#logNotes(type="button").btn.btn-default Log Notes
+				p#responseResult
+	
+	hr
+	
+	// ACCOUNT ATTRIBUTES // 
+	
+	form.form-horizontal
+
+		div.form-group
+			div.col-sm-offset-3.col-sm-9
+				button#updateAccount(type="button").btn.btn-default Update Account
+
 		div.form-group
 			label.col-sm-3.control-label CoPa Association 
 			div.col-sm-9
