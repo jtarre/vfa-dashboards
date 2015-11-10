@@ -11,19 +11,59 @@ block content
 			.enter()
 			.append("div")
 			.attr("class", "bar");
+	
 	h2= "New Accounts Created This Month"
-		each number, city in thisMonth
-			li #{city}: #{number}
+	div.table-responsive
+		table(class="table table-bordered table-hover")
+			thead
+				tr
+					td.col-xs-6= "City"
+					td.col-xs-6= "Num of New Accounts this Month"
+			tbody
+			each number, city in thisMonth
+				tr
+					td #{city}
+					td #{number}
+	
 	h2= "Total Accounts Per City"
-		each number, city in totalCount
-			li #{city}: #{number}
+	div.table-responsive
+		table(class="table table-bordered table-hover")
+			thead
+				tr
+					td.col-xs-6= "City"
+					td.col-xs-6= "Num of Accounts"
+			tbody
+			each number, city in totalCount
+				tr
+					td #{city}
+					td #{number}
+	
 	h2= "Total Active Partner Accounts Per City"
-		each number, city in partnerCount
-			li #{city}: #{number}
+	div.table-responsive
+		table(class="table table-bordered table-hover")
+			thead
+				tr
+					td.col-xs-6= "City"
+					td.col-xs-6= "Num of Partners"
+			tbody
+			each number, city in partnerCount
+				tr
+					td #{city}
+					td #{number}
+	
 	h2= "Total Active Potential Accounts Per City"
-		each number, city in potentialCount
-			li #{city}: #{number}
-	p= "fun"
+	div.table-responsive
+		table(class="table table-bordered table-hover")
+			thead
+				tr
+					td.col-xs-6= "City"
+					td.col-xs-6= "Num of Active Potential Accounts"
+			tbody
+			each number, city in potentialCount
+				tr
+					td #{city}
+					td #{number}
+	
 	//h2= "Select Account"
 	//h2= "Account Info"
 	//h2= "Account Contacts"
