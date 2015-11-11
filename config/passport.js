@@ -1,6 +1,7 @@
 // Code heavily copy + pasted from 
 // https://github.com/jaredhanson/passport-google-oauth/blob/master/examples/oauth2/app.js
 // Thank you Mr. Hanson!!
+require('dotenv').load();
 
 module.exports = function (app, passport) {
 	
