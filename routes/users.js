@@ -345,6 +345,8 @@ router.get('/', function(req, res, next) {
 											} else {
 												shortDescription = element.Description;
 											}
+										} else { // activity description is null
+											shortDescription = "";
 										}
 										
 
