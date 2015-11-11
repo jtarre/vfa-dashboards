@@ -7,13 +7,20 @@ block content
 	else if user
 		a(href="/logout") Logout
 		br
+	
 	// dropdown of accounts
+	
 	h2= "Companies Dashboard"
-	label Companies
-	select#accounts.chosen-select(data-placeholder="Choose Company")
-		each id, name in accounts
-			option(id=id) #{name}
+	br
+	form.form-horizontal
+		div.form-group
+			label.col-sm-3.control-label Companies
+			div.col-sm-9
+				select#accounts.chosen-select.form-control(data-placeholder="Choose Company")
+					each id, name in accounts
+						option(id=id) #{name}
 	hr
+
 	// LOGGING CALL NOTES // 
 	
 	form.form-horizontal
