@@ -1,3 +1,24 @@
 <div ng-controller="fellowsCtrl">
-	I am fellow. Feels great. 
+	<div class="row">
+		<div class="col-md-2">
+			This is for the filters. 
+		</div>
+		<div class="col-md-5">
+			This is for the Fellow Feed.
+			<div class="row" ng-repeat="fellow in fellows">
+				<div class="col-md-1">
+					{{fellow.year}}
+				</div>
+				<div class="col-md-3">
+					{{fellow.name}}
+				</div>
+				<div class="col-md-3">
+					Company<!-- {{fellow.Company}} -->
+				</div>
+				<div class="col-md-3">
+					City<!-- {{fellow.City}} -->
+				</div>
+			</div> <!-- end fellow feed row -->
+		</div> <!-- end fellow feed div -->
+	</div> <!-- end initial row div -->
 </div>
