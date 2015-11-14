@@ -40,6 +40,8 @@ module.exports = function(app, passport) {
                 //console.log(fellows);
                 
                 _.each(fellows, function (element, index, list) {
+                    console.log("Fellow at " + index);
+                    console.log(element);
                     listOfFellows.push(
                         {
                             "name" : element.Name,
@@ -48,7 +50,7 @@ module.exports = function(app, passport) {
                 });
                 listOfFellows.sort();
                 console.log("//// LIST OF FELLOWS ///");
-                //console.log(listOfFellows);
+                console.log(listOfFellows);
                 res.render('fellows', 
                   { 
                     user       : req.user,
