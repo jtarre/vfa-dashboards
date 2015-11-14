@@ -47,6 +47,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Angular API routes //
+require('./api/fellows/fellow')(app);
 require('./api/fellows/fellows')(app);
 
 // Express Jade Routes //

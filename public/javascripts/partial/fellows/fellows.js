@@ -6,4 +6,14 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api) {
 		$scope.fellows = data;
 		console.log($scope.fellows);
 	});
+
+	$scope.getFellow = function getFellow(id) {
+		console.log("Fellow id: " + id);
+		api.fellows.getFellow(id).then(function( data ){
+				console.log("Fellow Data received:");
+				// console.log(data);
+				$scope.fell = data;
+				console.log($scope.fell);
+		});
+	};
 });
