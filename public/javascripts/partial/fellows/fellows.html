@@ -4,7 +4,6 @@
 			This is for the filters. 
 		</div>
 		<div class="col-md-5">
-			This is for the Fellow Feed.
 			<div class="row" ng-repeat="fellow in fellows">
 				<div class="col-md-1">
 					{{fellow.year}}
@@ -25,5 +24,12 @@
 				</div>
 			</div> <!-- end fellow feed row -->
 		</div> <!-- end fellow feed div -->
+		<div class="col-md-5">
+			<ul>
+				<li>{{fellow.Years__c}}</li>
+				<li>{{fellow.Name}}</li>
+				
+			</ul>
+		</div>
 	</div> <!-- end initial row div -->
 </div>

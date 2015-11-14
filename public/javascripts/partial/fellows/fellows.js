@@ -1,5 +1,6 @@
 vfaDashboard.controller("fellowsCtrl", function($scope, api) {
 	console.log("initializing Fellow controller");
+	// console.log("fellow value: " + $scope.fellow);
 	api.fellows.get().then(function( data ){
 		console.log("Data received:");
 		// console.log(data);
@@ -12,8 +13,8 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api) {
 		api.fellows.getFellow(id).then(function( data ){
 				console.log("Fellow Data received:");
 				// console.log(data);
-				$scope.fell = data;
-				console.log($scope.fell);
+				$scope.fellow = data;
+				console.log($scope.fellow);
 		});
 	};
 });
