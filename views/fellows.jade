@@ -6,9 +6,9 @@ block content
 	h2.col-sm-offset-3.col-sm-9= "Select Fellow"
 	
 	form.form-horizontal
-		div.form-group
+		.form-group
 			label.col-sm-3.control-label Fellows
-			div.col-sm-9
+			.col-sm-9
 				select#fellow.chosen-select.form-control(data-placeholder="Select a Fellow")(tabindex="-1")
 					option(value="")
 					each fellow, index in fellowList
@@ -20,26 +20,26 @@ block content
 	h2.col-sm-offset-3.col-sm-9= "Log Notes"
 
 	form.form-horizontal
-		div.form-group
+		.form-group
 			label.col-sm-3.control-label Subject 
-			div.col-sm-9
+			.col-sm-9
 				input(id="subject").form-control
 		
-		div.form-group
+		.form-group
 			label.col-sm-3.control-label Notes 
-			div.col-sm-9
+			.col-sm-9
 				textarea(id="notes").form-control
 		p#cases
 		
-		div.form-group
+		.form-group
 			label.col-sm-3.control-label User 
-			div.col-sm-9
+			.col-sm-9
 				select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
 					each id, name in vfaList
 						option(id=id) #{name}
 		
-		div.form-group
-			div.col-sm-offset-3.col-sm-9
+		.form-group
+			.col-sm-offset-3.col-sm-9
 				button#logNotes.btn.btn-default Log Notes
 	
 	hr
