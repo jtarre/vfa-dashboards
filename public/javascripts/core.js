@@ -1,26 +1,37 @@
-var vfaDashboard = angular.module("vfaDashboard", ["ui.router"]);
+var underscore = angular.module('underscore', []);
+underscore.factory('_', ['$window', function($window) {
+  return $window._; // assumes underscore has already been loaded on the page
+}]);
+
+var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore"]);
+
 
 vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
-    $stateProvider.state('home', {
-        url: '/home',
-        templateUrl: 'javascripts/partial/home/home.html'
-    });
+    $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: 'javascripts/partial/home/home.html'
+        })
 
-    $stateProvider.state('fellows', {
-        url: '/fellows',
-        templateUrl: 'javascripts/partial/fellows/fellows.html'
-    });
+        .state('fellows', {
+            url: '/fellows',
+            templateUrl: 'javascripts/partial/fellows/fellows.html'
+        })
 
-    $stateProvider.state('companies', {
-        url: '/companies',
-        templateUrl: 'javascripts/partial/companies/companies.html'
-    });
+        .state('fellows.fellow', {
+            templateUrl: 'javascripts/partial/fellows/fellows.fellow.html'
+        })
 
-    $stateProvider.state('data', {
-        url: '/data',
-        templateUrl: 'javascripts/partial/data/data.html'
-    });
+        .state('companies', {
+            url: '/companies',
+            templateUrl: 'javascripts/partial/companies/companies.html'
+        })
+
+        .state('data', {
+            url: '/data',
+            templateUrl: 'javascripts/partial/data/data.html'
+        });
 
 
     /* Add New States Above */
@@ -42,3 +53,4 @@ vfaDashboard.run(function($rootScope) {
     };
 
 });
+

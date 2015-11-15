@@ -1,10 +1,22 @@
 <div ng-controller="fellowsCtrl">
 	<div class="row">
 		<div class="col-md-2">
-			This is for the filters. 
+			<h2>Filters</h2>
+			Search: <input ng-model="query">
+			<br><br>
+			2012: <strong>{{ count(2012) }}</strong>
+			<br>
+			2013: <strong>{{ count(2013) }}</strong>
+			<br>
+			2014: <strong>{{ count(2014) }}</strong>
+			<br>
+			2015: <strong>{{ count(2015) }}</strong>
+			<br>
+			2016: <strong>{{ count(2016) }}</strong>
 		</div>
 		<div class="col-md-5">
-			<div class="row" ng-repeat="fellow in fellows">
+			<h2>Fellow List</h2>
+			<div class="row" ng-repeat="fellow in fellows | filter:query">
 				<div class="col-md-1">
 					{{fellow.year}}
 				</div>
@@ -12,10 +24,10 @@
 					{{fellow.name}}
 				</div>
 				<div class="col-md-3">
-					Company<!-- {{fellow.Company}} -->
+					{{fellow.company}}<!-- {{fellow.Company}} -->
 				</div>
 				<div class="col-md-3">
-					City<!-- {{fellow.City}} -->
+					{{fellow.city}}<!-- {{fellow.City}} -->
 				</div>
 				<div class="col-md-2">
 					<button type="button" ng-click="getFellow(fellow.id)">
@@ -25,10 +37,11 @@
 			</div> <!-- end fellow feed row -->
 		</div> <!-- end fellow feed div -->
 		<div class="col-md-5">
+			<h2>Fellow Info</h2>
+			<h3>Contact Info</h3>
 			<ul>
 				<li>{{fellow.Years__c}}</li>
 				<li>{{fellow.Name}}</li>
-				
 			</ul>
 		</div>
 	</div> <!-- end initial row div -->
