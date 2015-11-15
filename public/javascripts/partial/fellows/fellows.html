@@ -4,15 +4,10 @@
 			<h2>Filters</h2>
 			Search: <input ng-model="query">
 			<br><br>
-			2012: <strong>{{ count(2012) }}</strong>
-			<br>
-			2013: <strong>{{ count(2013) }}</strong>
-			<br>
-			2014: <strong>{{ count(2014) }}</strong>
-			<br>
-			2015: <strong>{{ count(2015) }}</strong>
-			<br>
-			2016: <strong>{{ count(2016) }}</strong>
+			<div ng-repeat="class in classYears">
+				{{class.year}}: <strong>{{ class.count }}</strong>
+				<br>
+			</div>
 		</div>
 		<div class="col-md-5">
 			<h2>Fellow List</h2>
