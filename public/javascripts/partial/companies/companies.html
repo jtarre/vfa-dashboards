@@ -2,7 +2,16 @@
 	<div class="row">
 		<div class="col-md-2">
 			<h2>Filters</h2>
-			<input type="text" ng-model="searchKey">
+			Search: <input type="text" ng-model="searchKey">
+			<br>
+			<hr>
+			Sort By: 
+			<br>
+			<button type="button" class="btn btn-info" ng-click="orderBy(name)">Name</button>
+			<br>
+			<button type="button" class="btn btn-info" ng-click="orderBy(city)">City</button>
+			<br>
+			<button type="button" class="btn btn-info" ng-click="orderBy(association)">Association</button>
 		</div>
 		<div class="col-md-5">
 			<h2>Companies</h2>
@@ -11,14 +20,16 @@
 				<div class="col-md-2">{{company.VFA_City__c}}</div>
 				<div class="col-md-2">{{company.Name}}</div>
 				<div class="col-md-2">{{company.CoPa_Association__c}}</div>
-				<div class="col-md-2">{{company.Website}}</div>
+				<div class="col-md-2">
+					<a href="{{company.Website}}" target="_blank">url link</div>
+				</div>
 				<div class="col-md-2">
 					<button ng-click="viewCompany(company.Id)">View</button>
 				</div>
-
 			</div>
 		</div>
 		<div class="col-md-5">
+			<h2>Company Info</h2>
 		</div>
 	</div>
 </div>

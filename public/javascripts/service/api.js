@@ -14,6 +14,25 @@ vfaDashboard.factory("api", function($http) {
 					return response.data;
 				});
 			}
+		},
+
+		companies: {
+			get: function() {
+				return $http.get("/api/companies").then(function(response) {
+					return response.data;
+				})
+			},
+
+			getCompany: function(id) {
+				return $http.get("/api/companies/" + id).then(function(response) {
+					return response.data;
+				})
+			}
+		},
+
+		opportunities: {
+			get: function() {},
+			getOpportunity: function(id){}
 		}
 	};
 });

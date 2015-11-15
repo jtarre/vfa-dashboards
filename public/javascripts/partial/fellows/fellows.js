@@ -40,6 +40,7 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 	// this is a coding puzzle
 	// I want to keep track of the count
 	// why can't it be, getCount
+	// hmm something as simple as counting can't be done automagically
 	/*
 		getCount = classYear {
 			get the list of Fellows 
