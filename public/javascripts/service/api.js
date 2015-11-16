@@ -33,6 +33,10 @@ vfaDashboard.factory("api", function($http) {
 		opportunities: {
 			get: function() {},
 			getOpportunity: function(id){}
+		},
+
+		activities: {
+			post: function() {}
 		}
 	};
 });
