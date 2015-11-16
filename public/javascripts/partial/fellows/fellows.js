@@ -2,6 +2,8 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 	console.log("initializing Fellow controller");
 	
 	$scope.fellows;
+	$scope.sortProp = "name";
+	$scope.reverse  = true;
 
 	$scope.classYears = 
 	{
@@ -57,12 +59,12 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 		console.log(newFellowList);
 	});
 
-	$scope.count = function(classYear) {
-		if(!$scope.fellows) {
+	$scope.count = function(classYear, list) {
+		if(!list) {
 			return "None";
 		} else {
 			var count = 0;
-			_.each($scope.fellows, function(element,index,list) {
+			_.each(list, function(element,index,list) {
 				if(element.year == classYear) {
 					count++;
 				}

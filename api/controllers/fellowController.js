@@ -24,7 +24,7 @@ exports.findAll  = function findAll(req, res, next) {
             {
                 "VFA_Association__c"  : "Fellow"
             },
-            "Id, Name, Years__c, Account_Name_for_SurveyGizmo__c, Account_s_VFA_City__c") // add city and company
+            "Id, Name, Years__c, Account_Name_for_SurveyGizmo__c, VFA_City__c") // add city and company
             .sort( { Name: 1 })
             .execute( function (err, fellows) {
                 var listOfFellows = [{"" : ""}];
@@ -37,7 +37,7 @@ exports.findAll  = function findAll(req, res, next) {
                             "id"   : element.Id,
                             "year" : element.Years__c,
                             "company": element.Account_Name_for_SurveyGizmo__c,
-                            "city" : element.Account_s_VFA_City__c
+                            "city" : element.VFA_City__c
                         });
                 });
                 listOfFellows.sort();
