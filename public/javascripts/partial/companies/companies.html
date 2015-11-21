@@ -1,33 +1,38 @@
 <div ng-controller="companiesCtrl">
-	<div class="container-fluid"
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-2">
-				<h3>Filters</h3>
+			
+			<div class="col-sm-5 col-sm-offset-1">
+				<h3>Browse Companies</h3>
 				<input ng-model="query" type="search" class="form-control" placeholder="Search here">
-				<hr>
 				<h6>Sort By</h6>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(name)">Name</button></p>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(city)">City</button></p>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(association)">Association</button></p>
-			</div>
-			<div class="col-md-5">
-				<h3>Companies</h3>
-				<div class="row" ng-repeat="company in companies | filter:searchKey">
-					
-					<div class="panel panel-default">
-						<div class="panel-heading">{{company.Name}}</div>
-						<div class="panel-body">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" ng-click="orderBy(name)">Name</button>
+					<button type="button" class="btn btn-default" ng-click="orderBy(city)">City</button>
+					<button type="button" class="btn btn-default" ng-click="orderBy(association)">Association</button>
+				</div>
+			<hr>
+
+			<div ng-repeat="company in companies | filter:searchKey">
+				<div class="panel panel-default">
+					<div class="panel-heading">{{company.Name}}</div>
+					<div class="panel-body">
+						<div class="row">
 					    <div class="col-xs-3"><h5><p><small>City</small></p><p>{{company.VFA_City__c}}</p></h5></div>
 					    <div class="col-xs-3"><h5><p><small>Assoc</small></p><p>{{company.CoPa_Association__c}}</p></h5></div>
 					    <div class="col-xs-3"><h5><p><small>Website</small></p><p><a href="{{company.Website}}" target="_blank">URL Link</a></p></h5></div>
 					    <div class="col-xs-3"><button class="btn btn-default" type="button" nng-click="viewCompany(company.Id)">View</button></div>
 					   </div>
-					</div>
+				   </div>
 				</div>
 			</div>
-			<div class="col-md-5">
-				<h3>Company Info</h3>
+				
 			</div>
+
+			<div class="col-sm-5">
+				<h3>Company Details</h3>
+			</div>
+
 		</div><! -- end row -->
 	</div><!-- end container fluid -->
 </div><!-- end controller -->
