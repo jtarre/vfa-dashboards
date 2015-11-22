@@ -50,10 +50,11 @@ var checkLoggedin = function checkLoggedin($http, $q, $location, $timeout, $root
 
     $http.get("/loggedin")
         .success(function(user) {
-            if (req.user !== '0') { // user is logged in 
+            if (user !== '0') { // user is logged in 
 
                 deferred.resolve();
             } else {
+                $rootScope.message = "You need to log in.";
                 deferred.reject();  
                 $location.url("/");
             }
