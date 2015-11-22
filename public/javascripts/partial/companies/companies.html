@@ -4,7 +4,11 @@
 			
 			<div class="col-sm-5 col-sm-offset-1">
 				<h3>Browse Companies</h3>
-				<input ng-model="query" type="search" class="form-control" placeholder="Search here">
+				<div class="form-group has-feedback">
+    			<input ng-model="query" type="search" class="form-control" placeholder="Search"/>
+    			<i class="glyphicon glyphicon-search form-control-feedback"></i>
+				</div>
+				<!-- <input ng-model="query" type="search" class="form-control" placeholder="Search here"> -->
 				<h6>Sort By</h6>
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default" ng-click="orderBy(name)">Name</button>
