@@ -47,13 +47,39 @@
 		<div class="col-md-5">
 			<h2>Fellow Info</h2>
 			<h3>Basic</h3>
-			<ul>
-				<li>{{fellow.Years__c}}</li>
-				<li>{{fellow.Name}}</li>
-			</ul>
+			Name: {{fellow.Name}}
+			<br>
+			City: {{fellow.VFA_City__c}}
+			<br>
+			Year: <input type="text" value="{{fellow.Years__c}}">
+			<br>
+			Bio:
+			<br>
+			<input type="textarea" value="{{fellow.Description}}" style="height:75px;width:250px">
+			<h4>Contact</h4>
+			Email: <input type="text" value="{{fellow.Email}}">
+			<h5>Mailing Address</h5>
+			Street: <input type="text" value="{{fellow.MailingStreet}}">
+			<br>
+			City: <input type="text" value="{{fellow.MailingCity}}">
+			<br>
+			State: <input type="text" value="{{fellow.MailingState}}">
+			<br>
+			Zip: <input type="text" value="{{fellow.MailingPostalCode}}">
+			<h4>Social Media</h4>
+			Twitter: <input type="text" value="{{fellow.Twitter_Handle__c}}">
+			<br>
+			Instagram: <input type="text" value="{{fellow.Instagram_Handle__c}}">
 			<h3>Job</h3>
+			Company: {{fellow.Account_Name_for_SurveyGizmo__c}}
+			<br>
+			Title: <input type="text" value="{{fellow.Title}}">
+			<br>
+			Supervisor Name: <input type="text" value="{{fellow.Supervisor_First_Name__c}} {{fellow.Supervisor_Last_Name__c}}">
+			<br>
+			Supervisor Email: <input type="text" value="{{fellow.Supervisor_Email__c}}">
 			<h3>Performance</h3>
-			<h3>Team Activity</h3>
+			<h3>Activity</h3>
 			<h3>Cases</h3>
 		</div>
 	</div> <!-- end initial row div -->
