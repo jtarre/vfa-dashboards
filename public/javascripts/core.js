@@ -16,7 +16,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('fellows', {
             url: '/fellows',
-            templateUrl: 'javascripts/partial/fellows/fellows.html'
+            templateUrl: 'javascripts/partial/fellows/fellows.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         .state('fellows.fellow', {
@@ -25,7 +28,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('companies', {
             url: '/companies',
-            templateUrl: 'javascripts/partial/companies/companies.html'
+            templateUrl: 'javascripts/partial/companies/companies.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         .state('data', {
@@ -38,6 +44,24 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
 
 });
+
+var checkLoggedin = function checkLoggedin($http, $q, $location, $timeout, $rootScope) {
+    var deferred = $q.defer();
+
+    $http.get("/loggedin")
+        .success(function(user) {
+            if (req.user !== '0') { // user is logged in 
+
+                deferred.resolve();
+            } else {
+                deferred.reject();  
+                $location.url("/");
+            }
+
+        });
+
+    return deferred.promise;
+}
 
 vfaDashboard.run(function($rootScope) {
 

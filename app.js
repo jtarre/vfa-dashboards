@@ -97,6 +97,10 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+app.get('/loggedin', function(req, res) {
+  res.send(req.isAuthenticated() ? req.user : '0');
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

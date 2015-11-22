@@ -2,7 +2,7 @@ module.exports = function(app) {
 	var jsforce = require('jsforce');
 	var _       = require('underscore');
 	
-	app.get("/api/companies", function(req, res) {
+	app.get("/api/companies", isAuthenticated, function(req, res) {
 		var conn = new jsforce.Connection({
 					clientSecret: process.env.CLIENT_SECRET,
 					clientId:     process.env.CLIENT_ID,
