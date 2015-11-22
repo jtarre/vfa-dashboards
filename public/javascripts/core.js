@@ -11,7 +11,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: 'javascripts/partial/home/home.html'
+            templateUrl: 'javascripts/partial/home/home.html',
+            // resolve: {
+            //     setNavBarLoginState: ""
+            // }
         })
 
         .state('fellows', {
@@ -19,6 +22,7 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/fellows/fellows.html',
             resolve: {
                 loggedin: checkLoggedin
+                // setNavBarLoginState: ""
             }
         })
 
@@ -31,6 +35,7 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/companies/companies.html',
             resolve: {
                 loggedin: checkLoggedin
+                // setNavBarLoginState: "",
             }
         })
 
