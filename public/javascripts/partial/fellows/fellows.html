@@ -1,28 +1,28 @@
 <div ng-controller="fellowsCtrl">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-2">
-				<h3>Filters</h3>
+			
+			<div class="col-sm-5 col-sm-offset-1">
+				<h3>Browse Fellows</h3>
 				<div class="form-group has-feedback">
     			<input ng-model="query" type="search" class="form-control" placeholder="Search"/>
     			<i class="glyphicon glyphicon-search form-control-feedback"></i>
 				</div>
-				<br><br>
+				
+				<!-- <br><br>
 				<div ng-repeat="class in classYears">
 					{{class.year}}: <strong>{{ class.count }}</strong>
 					<br>
-				</div>
-				<br>
-				<hr>
-				<h6>Sort By</h6>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(name)">Name</button></p>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(class)">Class</button></p>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(company)">Company</button></p>
-				<p><button type="button" class="btn btn-default" ng-click="orderBy(city)">City</button></p>
+				</div> -->
 
-			</div>
-			<div class="col-md-5">
-				<h3>Fellow List</h3>
+				<h6>Sort By</h6>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" ng-click="orderBy(name)">Name</button>
+					<button type="button" class="btn btn-default" ng-click="orderBy(class)">Class</button>
+					<button type="button" class="btn btn-default" ng-click="orderBy(company)">Company</button>
+					<button type="button" class="btn btn-default" ng-click="orderBy(city)">City</button>
+				</div>
+				<hr>
 				<div class="row" ng-repeat="fellow in fellows | filter:query">
 
 					<div class="panel panel-default">
@@ -37,8 +37,9 @@
 					</div>
 				</div> <!-- end fellow feed row -->
 			</div> <!-- end fellow feed div -->
+			
 			<div class="col-md-5">
-				<h3>Fellow Info</h3>
+				<h3>Fellow Details</h3>
 				<h4>Basic</h4>
 				<ul>
 					<li>{{fellow.Years__c}}</li>
@@ -48,7 +49,8 @@
 				<h4>Performance</h4>
 				<h4>Team Activity</h4>
 				<h4>Cases</h4>
-			</div>
+			</div><!-- end fellow details col div -->
+
 		</div><!-- end initial row div -->
 	</div><!-- end container-fluid -->
 </div>
