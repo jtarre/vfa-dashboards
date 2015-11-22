@@ -125,6 +125,7 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         // .state('data.companies', {
         //     url: ''
+        //     templateUrl:
         // })
 
 
