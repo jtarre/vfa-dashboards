@@ -7,6 +7,10 @@ var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "n
 
 vfaDashboard.controller("dataCtrl", function($scope, api) {
     
+    api.data.getCompanies().then(function(data) {
+        console.log("account data\n", data);
+    })
+    
     $scope.options = {
         chart: {
             type: 'discreteBarChart',

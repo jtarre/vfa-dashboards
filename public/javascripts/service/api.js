@@ -30,6 +30,14 @@ vfaDashboard.factory("api", function($http) {
 			}
 		},
 
+		data: {
+			getCompanies: function() {
+				return $http.get("/api/data/companies").then(function(response) {
+					return response.data;
+				})
+			}
+		},
+
 		opportunities: {
 			get: function() {},
 			getOpportunity: function(id){}
