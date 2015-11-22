@@ -3,7 +3,7 @@ underscore.factory('_', ['$window', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore"]);
+var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "nvd3"]);
 
 
 vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
@@ -83,4 +83,20 @@ vfaDashboard.run(function($rootScope) {
     };
 
 });
+
+
+/*
+    what now?
+    login up & running
+    now two areas
+    bar charts
+    and google maps
+    if I can get one of each going
+    on the data front,
+    I already have some amount of CoPa data
+    I think I'll need to clean it. 
+    I'll need each account by their created date
+    and I'll need to somehow bucket them
+    let's read documentation.
+ */
 
