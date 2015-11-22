@@ -5,7 +5,13 @@
 		</div>
 		<div class="col-md-8">
 			<h2>Chart Data</h2>
-			<nvd3 options="options" data="data"></nvd3>
+			<a ui-sref=".companies">Companies</a>
+			<a ui-sref=".fundraising">Fundraising</a>
+			<a ui-sref=".recruiting">Recruiting</a>
+			<br>
+			<input ng-model="query"></input>
+			<button ng-click="filterData(query)">Filter</button>
+			<nvd3 options="options" data="graphData"></nvd3>
 		</div>
 	</div>
 	

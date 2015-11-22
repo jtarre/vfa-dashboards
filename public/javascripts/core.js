@@ -7,13 +7,50 @@ var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "n
 
 vfaDashboard.controller("dataCtrl", function($scope, api) {
     $scope.data;
+    $scope.filteredData;
+
     api.data.getCompanies().then(function(data) {
-        $scope.data = [{
+        $scope.data = data;
+        $scope.filteredData = $scope.data;
+        $scope.graphData = [{
             key: "Cumulative Return",
-            values: data
+            values: $scope.filteredData
         }];
         console.log("account data\n", data);
-    })
+    });
+
+    
+    $scope.filterData = function filterData(filterData) {
+        console.log("let's filter");
+        $scope.filteredData = filterData;
+        console.log("graph data values", $scope.graphData[0].values);
+    };
+    
+    /*
+        let's say i want to have city data
+        value.
+        how can I filter it dynamically
+        to take into account city data?
+        so for fundraising, I can say x
+        because i have the value: Y etc. 
+        how can i attach meta data to the chart
+        can i include optional data?
+
+        let's say i'm using chartjs
+        and i have scope.data
+        i can do this for both
+
+        custom function for values
+        scope.filteredData
+        scope.data
+        function filterData()
+        filterData 
+        somehow need to pass in filtered data into scope.graphdata.values
+        data binding
+
+        filterdata(filteredData)
+            scope.graphData.values = filteredData
+    */
 
     $scope.options = {
         chart: {
@@ -85,6 +122,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             url: '/data',
             templateUrl: 'javascripts/partial/data/data.html'
         });
+
+        // .state('data.companies', {
+        //     url: ''
+        // })
 
 
     /* Add New States Above */

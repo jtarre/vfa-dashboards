@@ -14,11 +14,6 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 		"2016" : {"year": "2016", "count": 0}
 	}
 
-	// $scope.count2012 = 0;
-	// $scope.count2013 = 0;
-	// $scope.count2014 = 0;
-	// $scope.count2015 = 0;
-	// $scope.total     = $scope.count2012 + $scope.count2013 + $scope.count2014 + $scope.count2015 + $scope.count2016;
 
 	// console.log("fellow value: " + $scope.fellow);
 	api.fellows.get().then(function( data ){
@@ -37,23 +32,6 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 				console.log($scope.fellow);
 		});
 	};
-
-	// ok, how do i want to do this 
-	// this is a coding puzzle
-	// I want to keep track of the count
-	// why can't it be, getCount
-	// hmm something as simple as counting can't be done automagically
-	/*
-		getCount = classYear {
-			get the list of Fellows 
-		}
-		that's what I already did, but I need it
-		to recalculate each time the fellows list
-		changes via search
-		maybe the list isn't actually changing
-		what's actually going on here
-		when I filter, is the underlying list actually changes
-	 */
 
 	$scope.$watch($scope.fellows, function(oldFellowList, newFellowList) {
 		console.log(newFellowList);

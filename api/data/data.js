@@ -15,9 +15,10 @@ module.exports = function(app) {
 				.find({
 					"Department__c": "Company Partnerships"
 				},
-				"CreatedDate")
+				"CreatedDate, VFA_City__c")
 				.execute( function(err, accounts) {
 					if (err) { return console.error(err); }
+
 					console.log(accounts.length);
 					var date = new Date();
 					var month = date.getMonth();
@@ -65,13 +66,13 @@ module.exports = function(app) {
 								1 + calendar[accountCreatedMonth + " " + accountCreatedYear];
 							}  else {
 								console.log("	null");
-							}
+							}	
 					});
 
 					// prepare counts for graphing // 
 					var calendarForGraphing = [];
 					_.each(calendar, function(value, key, list) {
-						calendarForGraphing.push({label: key, value: value});
+						calendarForGraphing.push({label: key, value: value, test: "test"});
 					});
 					console.log("calendar after each loop", calendar);
 					res.status(200).json(calendarForGraphing);
