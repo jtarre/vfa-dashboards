@@ -25,7 +25,6 @@ module.exports = function(app) {
 					console.log("month", month);
 					console.log("year", year);
 					year--;
-					month++;
 
 					var startYear = year;
 					var startMonth= month;
@@ -48,6 +47,8 @@ module.exports = function(app) {
 					var accountCreatedDate;
 					var accountCreatedMonth;
 					var accountCreatedYear;
+
+					// get Monthly counts of new created accounts //
 					_.each(accounts, function(element, index, list) {
 							console.log("new element: element date - ", element.CreatedDate);
 							
@@ -59,14 +60,21 @@ module.exports = function(app) {
 
 							var monthYearInCalendar = accountCreatedMonth + " " + accountCreatedYear;
 							if(monthYearInCalendar in calendar) {
-								console.log("	created date in can");
+								console.log("	created date in cal");
 								calendar[accountCreatedMonth + " " + accountCreatedYear] =
 								1 + calendar[accountCreatedMonth + " " + accountCreatedYear];
 							}  else {
 								console.log("	null");
 							}
 					});
+
+					// prepare counts for graphing // 
+					var calendarForGraphing = [];
+					_.each(calendar, function(value, key, list) {
+						calendarForGraphing.push({label: key, value: value});
+					});
 					console.log("calendar after each loop", calendar);
+					res.status(200).json(calendarForGraphing);
 				});
 		});
 	});
