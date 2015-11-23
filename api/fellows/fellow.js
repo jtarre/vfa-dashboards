@@ -70,13 +70,15 @@ module.exports = function(app) {
                     .find({
                         Contact__c : fellowId
                     }, "*")
-                    .sort({ CreatedDate: 1})
+                    .sort({ CreatedDate: -1})
                     .limit(5)
                     .execute(function(err, surveys) {
                         if (err) { return console.error(err); }
 
                         // really need to divide up 
                         _.each(surveys, function (value, key, list) {
+                            console.log("survey record type id", value.Name, value.RecordTypeId, value.Record_Type_Id);
+    
                             if(value.RecordTypeId == companyPartnerRecordId) {
                                 // var name = value.Name;
                                 companyEval[value.Name] = value;
@@ -93,7 +95,7 @@ module.exports = function(app) {
                                 WhoId : fellowId,
                                 Status: "Completed"
                             }, "Subject, Description, WhoId, Status, CreatedDate, Id, OwnerId")
-                            .sort({ CreatedDate: 1})
+                            .sort({ CreatedDate: -1})
                             .limit(3)
                             .execute(function(err, activities){
                                 if(err) { return console.error(err); }
