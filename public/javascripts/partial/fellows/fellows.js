@@ -29,7 +29,9 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 				console.log("Fellow Data received:");
 				// console.log(data);
 				$scope.fellow = data;
+				console.log("fellow name", $scope.fellow.profile.Name);
 				console.log($scope.fellow);
+
 		});
 	};
 

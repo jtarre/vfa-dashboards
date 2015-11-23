@@ -48,13 +48,6 @@ exports.findAll  = function findAll(req, res, next) {
       });
     };
 
-// exports.findById  = function findById(req, res, next) {
-// 	var userId = req.param.userId;
-
-// 	res.status(200).json("userId" : userId);
-
-// };
-
 
 
 
