@@ -23,7 +23,7 @@
 					<button type="button" class="btn btn-default" ng-click="orderBy(city)">City</button>
 				</div>
 				<hr>
-				<div class="row" ng-repeat="fellow in fellows | filter:query">
+				<div ng-repeat="fellow in fellows | filter:query">
 
 					<div class="panel panel-default">
 					  <div class="panel-heading">{{fellow.name}}<span class="pull-right glyphicon glyphicon-menu-right" ng-click="getFellow(fellow.id)"></span></div>
