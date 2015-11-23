@@ -26,19 +26,21 @@
 				<div class="row" ng-repeat="fellow in fellows | filter:query">
 
 					<div class="panel panel-default">
-					  <div class="panel-heading">{{fellow.name}}</div>
+					  <div class="panel-heading">{{fellow.name}}<span class="pull-right glyphicon glyphicon-menu-right" ng-click="getFellow(fellow.id)"></span></div>
 					  <div class="panel-body">
-					    <div class="col-xs-3"><h5><p><small>Year</small></p><p>{{fellow.year}}</p></h5></div>
-					    <div class="col-xs-3"><h5><p><small>Company</small></p><p>{{fellow.company}}</p></h5></div>
-					    <div class="col-xs-3"><h5><p><small>City</small></p><p>{{fellow.city}}</p></h5></div>
-					    <div class="col-xs-3"><button class="btn btn-default" type="button" ng-click="getFellow(fellow.id)">View</button></div>
+					  	<div class ="row">
+						    <div class="col-xs-4"><h5><p><small>Year</small></p><p>{{fellow.year}}</p></h5></div>
+						    <div class="col-xs-4"><h5><p><small>Company</small></p><p>{{fellow.company}}</p></h5></div>
+						    <div class="col-xs-4"><h5><p><small>City</small></p><p>{{fellow.city}}</p></h5></div>
+						    <!-- <div class="col-xs-3"><button class="btn btn-default" type="button" ng-click="getFellow(fellow.id)">View</button></div> -->
+						  </div>
 					  </div>
 
 					</div>
 				</div> <!-- end fellow feed row -->
 			</div> <!-- end fellow feed div -->
 			
-			<div class="col-md-5">
+			<div class="col-sm-5 col-sm-offset-6" style="position:fixed">
 				<h3>Fellow Details</h3>
 				<h4>Basic</h4>
 				<ul>
