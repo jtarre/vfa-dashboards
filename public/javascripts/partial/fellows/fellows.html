@@ -51,11 +51,11 @@
 			<br><br>
 			<label>Notes:</label>
 			<br>
-			<textarea ng-model="noteDescription"></textarea>
+			<textarea ng-model="noteDescription" style="height:75px;width:100px"></textarea>
 			<br><br>
 			<select ng-options="vfa.id as vfa.name in vfa for vfaTeam" ng-model="vfaId"></select>
 			<br><br>
-			<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription)">
+			<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription, vfaId)">
 				Log Notes
 			</button>
 			<hr>
