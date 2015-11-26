@@ -38,7 +38,17 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 	$scope.$watch($scope.fellows, function(oldFellowList, newFellowList) {
 		console.log(newFellowList);
 	});
-
+	
+	$scope.logNotes = function(noteData) {
+		
+		noteData.type = "fellow";
+		api.notes.postNotes(noteData).then(function( data ) {
+			console.log("Note data received: ", data);
+			$scope.noteSubject     = ""; // reset note form values
+			$scope.noteDescription = "";
+		})
+	}
+	
 	$scope.count = function(classYear, list) {
 		if(!list) {
 			return "None";
