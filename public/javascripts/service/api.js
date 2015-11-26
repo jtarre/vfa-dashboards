@@ -43,8 +43,12 @@ vfaDashboard.factory("api", function($http) {
 			getOpportunity: function(id){}
 		},
 
-		activities: {
-			post: function() {}
+		notes: {
+			post: function(noteData) {
+				return $http.post("/api/notes", noteData).then(function(response) {
+					return response.data;
+				})
+			}
 		}
 	};
 });
