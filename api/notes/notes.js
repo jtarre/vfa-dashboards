@@ -1,6 +1,5 @@
 module.exports = function(app) {
   var jsforce   = require('jsforce');
-  var _         = require('underscore');
   
   var conn = new jsforce.Connection({
     instanceUrl:  process.env.INSTANCE_URL,
