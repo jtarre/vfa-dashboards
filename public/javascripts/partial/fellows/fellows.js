@@ -39,9 +39,16 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 		console.log(newFellowList);
 	});
 	
-	$scope.logNotes = function(noteData) {
+	$scope.logNotes = function(noteSubject, noteDescription, vfaId, fellowId) {
+		var noteData = 
+		{
+			noteDescription: noteDescription,
+			noteSubject:     noteSubject,
+			vfaId:           vfaId, 
+			fellowId:        fellowId,
+			type:            "fellow"
+		}
 		
-		noteData.type = "fellow";
 		api.notes.postNotes(noteData).then(function( data ) {
 			console.log("Note data received: ", data);
 			$scope.noteSubject     = ""; // reset note form values
