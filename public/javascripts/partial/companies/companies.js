@@ -12,4 +12,22 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 			$scope.company = response;
 		})
 	}
+	
+	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfaId, companyId) {
+		var note = 
+		{
+			noteSubject:      noteSubject,
+			noteDescription:  noteDescription,
+			vfaId:            vfaId,
+			companyId:        companyId, 
+			type:             "company"
+		}
+		
+		api.notes.post(note).then(function( response ) {
+			$scope.noteDescription = "";
+			$scope.noteSubject     = "";
+		})
+	}
+	
+	$scope.vfaTeam;
 });
