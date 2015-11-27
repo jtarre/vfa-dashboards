@@ -15,28 +15,26 @@ module.exports = function(app) {
     // create either a WhoId for Fellows or a WhatId for a company note
     var noteAssignmentId = {};
     if( req.param.type == "fellow") {
-      noteAssignmentId.id    = {key: WhoId, value: req.param.about};
+      noteAssignmentId = {key: "WhoId", value: req.param.vfaId};
     } else { // note is type "company"
-      noteAssignmentId.id   = {key: WhatId, value: req.param.about}; 
+      noteAssignmentId   = {key: "WhatId", value: req.param.companyId}; 
     } 
     
     var note = {
-      Subject:      req.param.subject,
-      Description:  req.param.description,
+      Subject:      req.param.noteSubject,
+      Description:  req.param.noteDescription,
       OwnerId:      req.param.vfaId, 
       Status:       "Completed",
-      Priority:     "Normal"
+      Priority:     "Normal",
       ActivityDate: new jsforce.Date.toDateTimeLiteral(new Date())
     };
     
-    _.each(noteAssignment, function(value, key, list) {
-      note[value.key] = value.value;
-    });
+    note[noteAssignment.key] = noteAssignment.value;
     
-    conn.sobject("Task").create({note}, function(err, ret) {
+    
+    conn.sobject("Task").create(note, function(err, ret) {
       if(err) { console.error(err) }
       res.send("Notes logged!");
     });
-    
   });
 }
