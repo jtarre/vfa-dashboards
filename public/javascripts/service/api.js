@@ -45,6 +45,14 @@ vfaDashboard.factory("api", function($http) {
 
 		activities: {
 			post: function() {}
+		},
+		
+		cities: {
+			getCities: function() {
+				return $http.get("/api/cities").then(function( response ) {
+					return response.data;
+				})	
+			}
 		}
 	};
 });
