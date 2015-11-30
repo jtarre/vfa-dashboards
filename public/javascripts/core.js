@@ -122,7 +122,11 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             url: '/data',
             templateUrl: 'javascripts/partial/data/data.html'
         });
-
+        
+        .state('cities', {
+          url: '/cities',
+          templateUrl: 'javascripts/partial/cities/cities.html'
+        });
         // .state('data.companies', {
         //     url: ''
         //     templateUrl:
