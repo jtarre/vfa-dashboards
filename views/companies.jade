@@ -11,9 +11,6 @@ block content
 			select#accounts.chosen-select.form-control(data-placeholder="Choose Company")
 				each id, name in accounts
 					option(id=id) #{name}
-	
-	script.
-		$("select").chosen({ width: '100%' });
 
 	hr
 	br
@@ -37,6 +34,10 @@ block content
 		.form-group
 			button#logNotes(type="button").btn.btn-default Log Notes
 			p#responseResult
+
+	script.
+		$("select").chosen({ width: '100%' });
+
 	hr
 	br
 	h3= "Update Account Information"
