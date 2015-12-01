@@ -1,51 +1,45 @@
 extends layout
 
 block content
-	h1.col-sm-offset-3.col-sm-9= title
+	h2= title
 	br
-	h2.col-sm-offset-3.col-sm-9= "Select Fellow"
-	
-	form.form-horizontal
-		.form-group
-			label.col-sm-3.control-label Fellows
-			.col-sm-9
-				select#fellow.chosen-select.form-control(data-placeholder="Select a Fellow")(tabindex="-1")
-					option(value="")
-					each fellow, index in fellowList
-						option(id=fellow.id) #{fellow.name}
+	form
+		label.control-label Fellows
+		select#fellow.chosen-select.form-control(data-placeholder="Select a Fellow")(tabindex="-1")
+			option(value="")
+			each fellow, index in fellowList
+				option(id=fellow.id) #{fellow.name}
 	
 	p#selectedFellow
 
 	hr
-	h2.col-sm-offset-3.col-sm-9= "Log Notes"
-
-	form.form-horizontal
+	br
+	h3= "Log Notes"
+	br
+	form
 		.form-group
-			label.col-sm-3.control-label Subject 
-			.col-sm-9
-				input(id="subject").form-control
+			label.control-label Subject 
+			input(id="subject").form-control
 		
 		.form-group
-			label.col-sm-3.control-label Notes 
-			.col-sm-9
-				textarea(id="notes").form-control
+			label.control-label Notes 
+			textarea(id="notes").form-control
 		
 		#cases.form-group
 		
 		.form-group
-			label.col-sm-3.control-label User 
-			.col-sm-9
-				select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
-					each id, name in vfaList
-						option(id=id) #{name}
-		
+			label.control-label User 
+			select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
+				each id, name in vfaList
+					option(id=id) #{name}
+		br
 		.form-group
-			.col-sm-offset-3.col-sm-9
-				button#logNotes.btn.btn-default Log Notes
+			button#logNotes.btn.btn-default Log Notes
 	
 	hr
+	br
 	p#responseResult
-	p#results Fellow Info
+	p#results
 
 
 	script.

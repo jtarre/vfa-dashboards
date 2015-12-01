@@ -5,181 +5,175 @@ block content
 
 	h2= "Companies Dashboard"
 	br
-	form.form-horizontal
+	form
 		.form-group
-			label.col-sm-3.control-label Companies
-			.col-sm-9
-				select#accounts.chosen-select.form-control(data-placeholder="Choose Company")
-					each id, name in accounts
-						option(id=id) #{name}
+			label.control-label Companies
+			select#accounts.chosen-select.form-control(data-placeholder="Choose Company")
+				each id, name in accounts
+					option(id=id) #{name}
 	hr
-
-	// LOGGING CALL NOTES // 
-
-	form.form-horizontal
+	br
+	h3= "Log Call Notes"
+	br
+	form
+		.form-group
+			label.control-label Subject
+			input#subject.form-control
 
 		.form-group
-			label.col-sm-3.control-label Subject
-			.col-sm-9
-				input#subject.form-control
-
-		.form-group
-			Label.col-sm-3.control-label Log Company Call Notes
-			.col-sm-9
-				textarea#companyNotes.form-control
+			label.control-label Log Company Call Notes
+			textarea#companyNotes.form-control
 		
 		.form-group
-			Label.col-sm-3.control-label User
-			.col-sm-9
-				select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
-					each id, name in vfaList
-						option(id=id) #{name}
-		
+			Label.control-label User
+			select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
+				each id, name in vfaList
+					option(id=id) #{name}
+		br
 		.form-group
-			.col-sm-offset-3.col-sm-9
-				button#logNotes(type="button").btn.btn-default Log Notes
-				p#responseResult
-	
+			button#logNotes(type="button").btn.btn-default Log Notes
+			p#responseResult
 	hr
+	br
+	h3= "Update Account Information"
+	br
+	form
 
-
-	// ACCOUNT ATTRIBUTES // 
-	form.form-horizontal
-
-		.form-group
-			.col-sm-offset-3.col-sm-9
-				button#updateAccount(type="button").btn.btn-default Update Account
-
-		.form-group
-			label.col-sm-3.control-label CoPa Association 
-			.col-sm-9
+		.row
+			.form-group.col-sm-6
+				label.control-label CoPa Association 
 				select#CoPa_Association__c.form-control
 					each id, name in association
 						option(id=id value=id) #{name}
-		
-		.form-group
-			label.col-sm-3.control-label VFA City 
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label VFA City 
 				select#VFA_City__c(value="VFA_City__c").form-control
 					each id, name in city
 						option(id=id value=id) #{name}
 		
-		.form-group
-			label.col-sm-3.control-label Website 
-			.col-sm-9
+		br
+		br
+		.row
+			.form-group.col-sm-6
+				label.control-label Website 
 				input#Website(type="url").form-control
-		
-		.form-group
-			label.col-sm-3.control-label Twitter 
-			// get correct api
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label Twitter 
+				// get correct api
 				input#Twitter_Handle__c(type="text").form-control
 		
-		.form-group
-			label.col-sm-3.control-label AngelList 
-			.col-sm-9
+		.row
+			.form-group.col-sm-6
+				label.control-label AngelList 
 				input#AngelList_Link__c(type="text").form-control
-		
-		.form-group
-			label.col-sm-3.control-label Blog
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label Blog
 				input#Blog_Link__c(type="text").form-control
 		
+		br
+		br
 		.form-group
-			label.col-sm-3.control-label Short Description
-			.col-sm-9
-				textarea#Description.form-control
+			label.control-label Short Description
+			textarea#Description.form-control(rows="2")
 		
 		.form-group
-			label.col-sm-3.control-label Long Description
-			.col-sm-9
-				textarea#Long_Description__c.form-control
+			label.control-label Long Description
+			textarea#Long_Description__c.form-control(rows="4")
 		
-		.form-group
-			label.col-sm-3.control-label Year Founded 
-			.col-sm-9
+		br
+		br
+		.row
+			.form-group.col-sm-6
+				label.control-label Year Founded 
 				input#Year_Founded__c(type="number" value="Year_Founded__c").form-control
-		
-		.form-group
-			label.col-sm-3.control-label Number of Employees
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label Number of Employees
 				input#NumberOfEmployees(type="number" value="NumberOfEmployees").form-control
 		
-		.form-group
-			label.col-sm-3.control-label Funding Type	 
-			.col-sm-9
+		br
+		br
+		.row
+			.form-group.col-sm-6
+				label.control-label Funding Type	 
 				select#Funding_Type__c.form-control
 					each id, name in fundingType
 						option(id=id value=id) #{name}
-		
-		.form-group
-			label.col-sm-3.control-label Funding Amount 
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label Funding Amount 
 				select#Funding_Amount__c(value="Funding_Amount__c").form-control
 					each id, name in fundingAmount
 						option(id=id) #{name}
 		
-		.form-group
-			label.col-sm-3.control-label Company Type 
-			.col-sm-9
+		br
+		br
+		.row
+			.form-group.col-sm-6
+				label.control-label Company Type 
 				select#Company_Type__c(value="Company_Type__c").form-control
 					each id, name in companyType
 						option(id=id) #{name}
-		
-		.form-group
-			label.col-sm-3.control-label Customer Type 
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label Customer Type 
 				select#Customer_Type__c(value="Customer_Type__c").form-control
 					each id, name in customerType
 						option(id=id) #{name}
 		
-		.form-group
-			label.col-sm-3.control-label Product Type 
-			.col-sm-9
+		.row
+			.form-group.col-sm-6
+				label.control-label Product Type 
 				select#Product_Type__c(value="Product_Type__c").form-control
 					each id, name in productType
 						option(id=id) #{name}
-		
-		.form-group
-			label.col-sm-3.control-label Industry
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label Industry
 				select#Industry_USE__c.form-control
 					each id, name in industry
 						option(id=id value=id) #{name}
 		
-		.form-group 
-			label.col-sm-3.control-label 2012 Hires
-			.col-sm-9
+		br
+		br
+		.row
+			.form-group.col-sm-6
+				label.control-label 2012 Hires
 				input#X2012_Hires__c(type="number").form-control
-		
-		.form-group 
-			label.col-sm-3.control-label 2013 Hires
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label 2013 Hires
 				input#X2013_Hires__c(type="number").form-control
-		
-		.form-group 
-			label.col-sm-3.control-label 2014 Hires
-			.col-sm-9
+	
+		.row
+			.form-group.col-sm-6
+				label.control-label 2014 Hires
 				input#X2014_Hires__c(type="number").form-control
-		
-		.form-group 
-			label.col-sm-3.control-label 2015 Hires
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label 2015 Hires
 				input#X2015_Hires__c(type="number").form-control
 		
-		.form-group
-			label.col-sm-3.control-label Female Founder 
-			.col-sm-9
+		br
+		br
+		.row
+			.form-group.col-sm-6
+				label.control-label Female Founder 
 				select#Female_Founder__c(value="Female_Founder__c").form-control
 					option(value="true") Yes
 					option(value="false") No
-		
-		.form-group
-			label.col-sm-3.control-label URM Founder 
-			.col-sm-9
+			
+			.form-group.col-sm-6
+				label.control-label URM Founder 
 				select#URM_Founder__c(value="URM_Founder__c").form-control
 					option(value="true") Yes
 					option(value="false") No
+		br
+		.form-group
+			button#updateAccount(type="button").btn.btn-default Update Account
 
 	script.
 		$("select").chosen({ width: '100%' });

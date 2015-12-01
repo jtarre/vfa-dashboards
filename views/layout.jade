@@ -12,7 +12,7 @@ html
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8").
 	body
 		nav.navbar.navbar-default.navbar-mike-top
-			.container-fluid
+			.container-fluid.wrappy
 				.navbar-header
 					button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false")
 						span(class="sr-only") Toggle navigation
@@ -24,16 +24,16 @@ html
 					ul.nav.navbar-nav.navbar-left
 						if user
 							li: a(href="/fellows") Fellows
-							li: a(href="/copa") CoPa
 							li: a(href="/companies") Companies
-					.nav.navbar-right
+							li: a(href="/copa") CoPa
+					.nav.navbar-right.navbar-margin
 						if !user
 							a.btn.btn-default.navbar-btn(href="auth/google/") Login
 						else if user
 							a.btn.btn-default.navbar-btn(href="/logout") Logout
 		.container-fluid
 			.row
-				.col-sm-1
-				.col-sm-10
+				.col-sm-2
+				.col-sm-8
 					block content
-				.col-sm-1
+				.col-sm-2
