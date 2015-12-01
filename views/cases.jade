@@ -1,6 +1,7 @@
-label= "Related To"
-select#relatedToList.chosen-select(data-placeholder="Choose Case (if applicable)")
-	each id, name in caseList
-		option(id=id) #{name}
+label.col-sm-3.control-label Related To
+.col-sm-9
+	select#relatedToList.chosen-select.form-control(data-placeholder="Choose Case (if applicable)")
+		each id, name in caseList
+			option(id=id) #{name}
 script.
-	$(".chosen-select").chosen();
+	$("select").chosen({ width: '100%' });
