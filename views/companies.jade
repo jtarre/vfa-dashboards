@@ -11,6 +11,7 @@ block content
 			select#accounts.chosen-select.form-control(data-placeholder="Choose Company")
 				each id, name in accounts
 					option(id=id) #{name}
+
 	hr
 	br
 	h3= "Log Call Notes"
@@ -26,13 +27,17 @@ block content
 		
 		.form-group
 			Label.control-label User
-			select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
+			select#vfaList.form-control(data-placeholder="Choose Yourself")
 				each id, name in vfaList
 					option(id=id) #{name}
 		br
 		.form-group
 			button#logNotes(type="button").btn.btn-default Log Notes
 			p#responseResult
+
+	script.
+		$("select").chosen({ width: '100%' });
+
 	hr
 	br
 	h3= "Update Account Information"
@@ -175,8 +180,6 @@ block content
 					option(value="true") Yes
 					option(value="false") No
 
-	script.
-		$("select").chosen({ width: '100%' });
 	script.
 		// when accounts value changed
 		$("#accounts").change( function (e) {
