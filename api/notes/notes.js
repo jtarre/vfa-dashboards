@@ -1,5 +1,7 @@
 module.exports = function(app) {
 	app.get("/api/notes", function(req, res) {
+		console.log("\nnote data:");
+		console.log(req.noteData);
 		var jsforce   = require('jsforce');
 	  
 		var conn = new jsforce.Connection({

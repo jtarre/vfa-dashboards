@@ -45,6 +45,8 @@ vfaDashboard.factory("api", function($http) {
 
 		notes: {
 			post: function(noteData) {
+				console.log("\n\nnote data:");
+				console.log(noteData);
 				return $http.post("/api/notes", noteData).then(function(response) {
 					return response.data;
 				})
