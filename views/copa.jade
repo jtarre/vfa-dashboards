@@ -1,29 +1,74 @@
 extends layout
 
 block content
-	h1= "CoPa Dashboard"
-	h2= "D3"
-	script(type="text/javascript").
-		//D3
-		var dataset = [ 5, 10, 15, 20, 25 ];
-		d3.select("body").selectAll("div")
-			.data(dataset)
-			.enter()
-			.append("div")
-			.attr("class", "bar");
-	h2= "New Accounts Created This Month"
-		each number, city in thisMonth
-			li #{city}: #{number}
-	h2= "Total Accounts Per City"
-		each number, city in totalCount
-			li #{city}: #{number}
-	h2= "Total Active Partner Accounts Per City"
-		each number, city in partnerCount
-			li #{city}: #{number}
-	h2= "Total Active Potential Accounts Per City"
-		each number, city in potentialCount
-			li #{city}: #{number}
-	p= "fun"
-	//h2= "Select Account"
-	//h2= "Account Info"
-	//h2= "Account Contacts"
+	.container-fluid
+		h2= "CoPa Dashboard"
+		br
+		script(type="text/javascript").
+			//D3
+			var dataset = [ 5, 10, 15, 20, 25 ];
+			d3.select("body").selectAll("div")
+				.data(dataset)
+				.enter()
+				.append("div")
+				.attr("class", "bar");
+		
+		h3= "New Accounts Created This Month"
+		.row
+			.col-sm-9
+				.table-responsive
+					table.table.table-bordered.table-hover.table-condensed
+						thead
+							tr
+								td.col-xs-6= "City"
+								td.col-xs-3= "Qty"
+						tbody
+						each number, city in thisMonth
+							tr
+								td #{city}
+								td #{number}
+		
+		h3= "Total Accounts Per City"
+		.row
+			.col-sm-9
+				.table-responsive
+					table.table.table-bordered.table-hover.table-condensed
+						thead
+							tr
+								td.col-xs-6= "City"
+								td.col-xs-3= "Qty"
+						tbody
+						each number, city in totalCount
+							tr
+								td #{city}
+								td #{number}
+		
+		h3= "Total Active Partner Accounts Per City"
+		.row
+			.col-sm-9
+				.table-responsive
+					table.table.table-bordered.table-hover.table-condensed
+						thead
+							tr
+								td.col-xs-6= "City"
+								td.col-xs-3= "Qty"
+						tbody
+						each number, city in partnerCount
+							tr
+								td #{city}
+								td #{number}
+		
+		h3= "Total Active Potential Accounts Per City"
+		.row
+			.col-sm-9
+				.table-responsive
+					table.table.table-bordered.table-hover.table-condensed
+						thead
+							tr
+								td.col-xs-6= "City"
+								td.col-xs-3= "Qty"
+						tbody
+						each number, city in potentialCount
+							tr
+								td #{city}
+								td #{number}
