@@ -1,0 +1,141 @@
+<div ng-controller="fellowsCtrl">
+	<div class="row">
+		<div class="col-md-2">
+			<h2>Filters</h2>
+			Search: <input ng-model="query">
+			<br><br>
+			<div ng-repeat="class in classYears">
+				{{class.year}}: <strong>{{ count(class.year,filteredFellows) }}</strong>
+				<br>
+			</div>
+			Total: <strong>{{filteredFellows.length}}</strong>
+			<br>
+			<hr>
+			Sort By:
+			<br>
+			<button type="button" class="btn btn-info" ng-click="sortProp = 'name'; reverse = !reverse">Name</button>
+			<br>
+			<button type="button" class="btn btn-info" ng-click="sortProp = 'year'; reverse = !reverse">Class</button>
+			<br>
+			<button type="button" class="btn btn-info" ng-click="sortProp = 'company'; reverse = !reverse">Company</button>
+			<br>
+			<button type="button" class="btn btn-info" ng-click="sortProp = 'city'; reverse = !reverse">City</button>
+
+		</div>
+		<div class="col-md-5">
+			<h2>Fellow List</h2>
+			<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter:query | orderBy:sortProp:reverse)">
+				<div class="col-md-1">
+					{{fellow.year}}
+				</div>
+				<div class="col-md-3">
+					{{fellow.name}}
+				</div>
+				<div class="col-md-3">
+					{{fellow.company}}<!-- {{fellow.Company}} -->
+				</div>
+				<div class="col-md-3">
+					{{fellow.city}}<!-- {{fellow.City}} -->
+				</div>
+				<div class="col-md-2">
+					<button type="button" ng-click="getFellow(fellow.id)">
+						View
+					</button>
+				</div>
+			</div> <!-- end fellow feed row -->
+		</div> <!-- end fellow feed div -->
+		<div class="col-md-5">
+			<h2>Log Notes</h2>
+			<label>Subject:</label>
+			<input type="text" ng-model="noteSubject">
+			<br><br>
+			<label>Notes:</label>
+			<br>
+			<textarea ng-model="noteDescription" style="height:75px;width:100px"></textarea>
+			<br><br>
+			<select ng-options="vfa.id as vfa.name in vfa for vfaTeam" ng-model="vfaId"></select>
+			<br><br>
+			<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription, vfaId, fellowId)">
+				Log Notes
+			</button>
+			<hr>
+			<h2>Fellow Info</h2>
+			<h3>Basic</h3>
+			Name: {{fellow.profile.Name}}
+			<br>
+			City: {{fellow.profile.VFA_City__c}}
+			<br>
+			Year: <input type="text" value="{{fellow.profile.Years__c}}">
+			<br>
+			Bio:
+			<br>
+			<textarea style="height:75px;width:250px">{{fellow.profile.Description}}</textarea>
+			<h4>Contact</h4>
+			Email: <input type="text" value="{{fellow.profile.Email}}">
+			<h5>Mailing Address</h5>
+			Street: <input type="text" value="{{fellow.profile.MailingStreet}}">
+			<br>
+			City: <input type="text" value="{{fellow.profile.MailingCity}}">
+			<br>
+			State: <input type="text" value="{{fellow.profile.MailingState}}">
+			<br>
+			Zip: <input type="text" value="{{fellow.profile.MailingPostalCode}}">
+			<h4>Social Media</h4>
+			Twitter: <input type="text" value="{{fellow.profile.Twitter_Handle__c}}">
+			<br>
+			Instagram: <input type="text" value="{{fellow.profile.Instagram_Handle__c}}">
+			<h3>Job</h3>
+			Company: {{fellow.profile.Account_Name_for_SurveyGizmo__c}}
+			<br>
+			Title: <input type="text" value="{{fellow.profile.Title}}">
+			<br>
+			Supervisor Name: <input type="text" value="{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}">
+			<br>
+			Supervisor Email: <input type="text" value="{{fellow.profile.Supervisor_Email__c}}">
+			<h3>SurveyGizmo</h3>
+			<h4>Company Eval</h4>
+				<div ng-repeat="eval in fellow.companyEval">
+					<h5>{{eval.Name}}</h5>
+					Submission Date: {{eval.CreatedDate}}
+					<br>
+					Overall Performance: {{eval.CPS_Overall__c}}
+					<br><br>
+					Strengths:<br>
+					{{eval.CPS_Strengths__c}}
+					<br><br>
+					Areas to Improve:<br>
+					{{eval.CPS_Improvement__c}}
+					<br><br>
+				</div>
+			<h4>Self Eval</h4>
+				<div ng-repeat="eval in fellow.surveySelfEvals">
+					<h5>{{eval.Name}}</h5>
+					Submission Date: {{eval.CreatedDate}}
+					<br><br>
+					Job Performance: {{eval.FSE_Job_Performance__c}}
+					<br>
+					Job Happiness: {{eval.FSE_Job_Happiness__c}}
+					<br><br>
+					Highlight:<br>
+					{{eval.FSE_Highlight__c}}
+					<br><br>
+					Area for Improvement:<br>
+					{{eval.FSE_Improve_at_Work__c}}
+					<br><br>
+				</div>
+			<h3>Activity</h3>
+			<div ng-repeat="activity in fellow.activities">
+				<h5>{{activity.Subject}}</h5>
+				Created Date: {{activity.CreatedDate}}
+				<br>
+				Type: {{activity.Type__c}}
+				<br>
+				Activity:
+				<br>
+				{{activity.Description}}
+				<br><br>
+			</div>
+			<h3>Cases</h3>
+		</div>
+	</div> <!-- end initial row div -->
+</div>
