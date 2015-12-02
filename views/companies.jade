@@ -210,6 +210,8 @@ block content
 			var accountId    = $("#accounts").find('option:selected').attr("id");
 			var companyName  = $("#accounts").find('option:selected').val();
 
+			var angelList    = $("#AngelList_Link__c").val();
+			var blog         = $("#Blog_Link__c").val();
 			var association  = $("#CoPa_Association").find('option:selected').val();
 			var userName     = $("#vfaList").find('option:selected').val();
 			var city         = $("#VFA_City__c").find('option:selected').val();
@@ -249,6 +251,7 @@ block content
 				Female_Founder__c   : femaleFounder,
 				URM_Founder__c      : urmFounder,
 				Website             : website,
+				AngelList_Link__c   : angelList,
 				X2012_Hires__c      : x2012Employees,
 				X2013_Hires__c      : x2013Employees,
 				X2014_Hires__c      : x2014Employees,
