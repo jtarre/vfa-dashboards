@@ -7,8 +7,21 @@ vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 	$scope.query;
 	$scope.sortProp = "name";
 	$scope.reverse  = true;
-
 	$scope.$storage = $localStorage;
+	
+
+	$scope.initFellowQuery = function initFellowQuery() {
+		console.log("initFellowQuery run");
+		console.log($scope.$storage.fellowQuery);
+		if($scope.$storage.fellowQuery !== null) {
+			$scope.query = $scope.$storage.fellowQuery;
+		} else {
+			$scope.query = "";
+		}
+	};
+
+	$scope.initFellowQuery();
+
 	console.log("scope storage: ", $scope.$storage);
 
 	// STORE SEARCHES AS LOCAL STORAGE FOR PERSISTENCE //
@@ -17,8 +30,7 @@ vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 		console.log("fellow query local storage:", $scope.$storage.fellowQuery);
 	})
 
-	$scope.classYears = 
-	{
+	$scope.classYears = {
 		"2012" : {"year": "2012", "count": 0},
 		"2013" : {"year": "2013", "count": 0},
 		"2014" : {"year": "2014", "count": 0},
