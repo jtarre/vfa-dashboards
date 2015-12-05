@@ -3,6 +3,16 @@ module.exports = function(app) {
     var Q       = require('q');
     var _       = require('underscore');
 
+    var fellowSelfEvals = {};
+    var alumniEval      = {};
+    var companyEval     = {};
+
+    var caseArray       = [];
+
+    var companyPartnerRecordId = "012d0000000SwwyAAC";
+    var selfEvalRecordId       = "012d0000000SxCNAA0";
+    var alumniEvalRecordId     = "012d0000000T6aDAAS";
+
     app.get("/api/fellows/:id", isAuthenticated, function(req, res) {
         console.log("request paramaters:");
         _.each(req.params, function(element, index, list) {
@@ -19,59 +29,22 @@ module.exports = function(app) {
             clientId: process.env.CLIENT_ID,
             instanceUrl: process.env.INSTANCE_URL
         }); 
-    
-        // // promise test
-        // conn.login(process.env.USER_EMAIL, process.env.PASSWORD)
-        //     .then(function(userInfo){
-        //         console.log("callback userInfo", userInfo);
-        //         return fellowId;})
-        //     .then(getFellowContactData(id))
-        //     // .then(getFellowActivitiesData(jsonData))
-        //     // .then(getFellowSurveyGizmoData(jsonData))
-        //     // .then(getFellowCaseData(jsonData))
-        //     .then(sendFellowJsonData(jsonData))
-        //     .fail(function(err) { return console.error(err); });
-        // login to salesforce. after this, can run all functions
-        // var fellowData;
-        // conn.login(process.env.USER_EMAIL, process.env.PASSWORD)
-        //     .then(function (userInfo) {
-        //         return conn.sobject("Contact").retrieve(fellowId);
-        //     }, function (err) {
-        //         // add code here not to just return an error console, but to send a response
-        //         // view back to the browser that says try again...or something 
-        //         return console.error(err);
-        //     }).then(function(fellowData) {
-        //         return conn.sobject("SurveyGizmo__c")
-        //             .find({
-        //                 Contact__c: fellowId
-        //             }, "*")
-        //             .execute();
-        //     }).then(function(surveys){
-        //         console.log("number of surveys: ", surveys.length);
-        //         console.log("fellowData", fellowData);
-        //         return fellowData;
-        //     })
-        //     .then(function (fellowData) {
-        //         res.status(200).json(fellowData);
-        //     }, function (err) {
-        //         return console.error(err);
-        //     });
-        var fellowSelfEvals = {};
-        var companyEval = {};
         
-        var companyPartnerRecordId = "012d0000000SwwyAAC";
-        var selfEvalRecordId    = "012d0000000SxCNAA0";
+        // 012d0000000SxCN 012d0000000SyBP 012d0000000T6aD
+        // 012d0000000SyBP 012d0000000SyBP
 
         conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo){
             if (err) { return console.error(err); }
             conn.sobject("Contact").retrieve(fellowId, function(err, fellowData) {
                 if(err) { return console.error(err); }
+                
+                // SURVEYGIZMO //
                 conn.sobject("SurveyGizmo__c")
                     .find({
                         Contact__c : fellowId
                     }, "*")
                     .sort({ CreatedDate: -1})
-                    .limit(5)
+                    .limit(6)
                     .execute(function(err, surveys) {
                         if (err) { return console.error(err); }
 
@@ -79,17 +52,25 @@ module.exports = function(app) {
                         _.each(surveys, function (value, key, list) {
                             console.log("survey record type id", value.Name, value.RecordTypeId, value.Record_Type_Id);
     
-                            if(value.RecordTypeId == companyPartnerRecordId) {
+                            if(value.RecordTypeId === companyPartnerRecordId) {
                                 // var name = value.Name;
                                 companyEval[value.Name] = value;
                             } 
 
-                            if(value.RecordTypeId == selfEvalRecordId) {
+                            if(value.RecordTypeId === selfEvalRecordId) {
+                                // var name = value.Name;
+                                fellowSelfEvals[value.Name] = value;
+                            } else if(value.RecordTypeId === "012d0000000SyBPAA0" || value.RecordTypeId === "012d0000000SxCN") {
                                 // var name = value.Name;
                                 fellowSelfEvals[value.Name] = value;
                             }
+
+                            if(value.RecordTypeId === alumniEvalRecordId) {
+                                alumniEval[value.Name] = value;
+                            }
                         });
 
+                        // ACCOUNT ACTIVITY //
                         conn.sobject("Task")
                             .find({
                                 WhoId : fellowId,
@@ -98,13 +79,26 @@ module.exports = function(app) {
                             .sort({ CreatedDate: -1})
                             .limit(3)
                             .execute(function(err, activities){
-                                if(err) { return console.error(err); }
-                                res.status(200).json({
-                                    profile:     fellowData,
-                                    surveySelfEvals: fellowSelfEvals,
-                                    companyEval: companyEval,
-                                    activities:  activities
-                                });
+
+
+                                // CASES // 
+                                conn.sobject("Case")
+                                    .find({
+                                        ContactId: fellowId
+                                    },
+                                    "*")
+                                    .sort({ CreatedDate: -1 })
+                                    .limit(5)
+                                    .execute(function(err, cases) {
+                                        if(err) { return console.error(err); }
+                                            res.status(200).json({
+                                                profile:     fellowData,
+                                                surveySelfEvals: fellowSelfEvals,
+                                                companyEval: companyEval,
+                                                activities:  activities,
+                                                cases:       cases
+                                        });        
+                                    })
                             })
                     })
             })

@@ -7,18 +7,20 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 	 */
 	$scope.fellow;
 	$scope.fellowId = $stateParams.fellowId;
-	
+	$scope.cases;
+
 	api.fellows.getFellow($scope.fellowId).then(function( data ){
 		console.log("Fellow Data received:");
 		// console.log(data);
 		$scope.fellow = data;
 		console.log("fellow name", $scope.fellow.profile.Name);
+		$scope.cases = $scope.fellow[cases];
+		console.log($scope.fellow[cases]);
 		console.log($scope.fellow);
 
 	});
 
 	$scope.vfaTeam = [	
-		{ name: "", id : ""},
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
 		{ name: "Andrew Yang", id : "005d0000001OKLG"},	
 		{ name: "Barrie Grinberg", id : "005d0000003h7Sp"},	

@@ -10,6 +10,8 @@
 	<br>
 	<textarea ng-model="noteDescription" style="height:75px;width:100px"></textarea>
 	<br><br>
+	<select ng-options="case.Id as case.Subject for case in cases"></select>
+	<br><br>
 	<select ng-options="vfa.id as vfa.name for vfa in vfaTeam" ng-model="vfaId"></select>
 	<br><br>
 	<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription, vfaId, fellowId)">
@@ -93,5 +95,29 @@
 		<br><br>
 	</div>
 	<h3>Cases</h3>
+	<div ng-repeat="case in fellow.cases">
+		<h5>{{case.Subject}}</h5>
+		Created Date: {{case.CreatedDate}}
+		<br><br>
+		Description:
+		<br>
+		{{case.Description}}
+		<br><br>
+		Facts of the situation (if applicable):
+		<br>
+		{{case.Facts_of_the_Situation_Fellow_input__c}}
+		<br><br>
+		Potential Solutions (if applicable):
+		<br>
+		{{case.Potential_Solutions_Fellow_Input__c}}
+		<br><br>
+		Potential Solutions Attempted (if applicable):
+		<br>
+		{{case.Previous_Solutions_Attempted__c}}
+		<br><br>
+		Mentor Qualities (Fellow input, if applicable):
+		<br>
+		{{case.Mentor_Qualities_Fellow_Input__c}}
+	</div>
 </div>
 </div>
