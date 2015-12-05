@@ -2,14 +2,11 @@ vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 	console.log("initializing Fellow controller");
 	
 	// console.log("fellow query local storage:", $scope.$storage.fellowQuery);
-	console.log("local storage:", $localStorage);
 	$scope.fellows;
 	$scope.query;
 	$scope.sortProp = "name";
 	$scope.reverse  = true;
 	$scope.$storage = $localStorage;
-	
-
 	$scope.initFellowQuery = function initFellowQuery() {
 		console.log("initFellowQuery run");
 		console.log($scope.$storage.fellowQuery);
@@ -19,16 +16,7 @@ vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 			$scope.query = "";
 		}
 	};
-
 	$scope.initFellowQuery();
-
-	console.log("scope storage: ", $scope.$storage);
-
-	// STORE SEARCHES AS LOCAL STORAGE FOR PERSISTENCE //
-	$scope.$watch('query', function(newValue, oldValue) {
-		$scope.$storage.fellowQuery = newValue;
-		console.log("fellow query local storage:", $scope.$storage.fellowQuery);
-	})
 
 	$scope.classYears = {
 		"2012" : {"year": "2012", "count": 0},
@@ -95,6 +83,14 @@ vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 			return count;
 		}
 	}
+
+	// STORE SEARCHES AS LOCAL STORAGE FOR PERSISTENCE //
+	$scope.$watch('query', function(newValue, oldValue) {
+		$scope.$storage.fellowQuery = newValue;
+		console.log("fellow query local storage:", $scope.$storage.fellowQuery);
+	})
+	
+
 	
 	$scope.vfaTeam = 
 	[	
