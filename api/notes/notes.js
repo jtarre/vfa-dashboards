@@ -15,14 +15,17 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 	    
 	    	// create either a WhoId for Fellows or a WhatId for a company note
-		    	var noteAssignmentId = {};
-		    	if( req.param.type == "fellow") {
-			      noteAssignmentId = {key: "WhoId", value: req.param.vfaId};
+		    var noteAssignmentId = {};
+		    var note             = {};
+		    
+		    if( req.param.type === "fellow") {
+			     note.WhoId   = req.param.fellowId;
+			     note.WhatId  = req.param.caseId;
 			} else { // note is type "company"
-				noteAssignmentId   = {key: "WhatId", value: req.param.companyId}; 
+				note.WhatId = req.param.companyId; 
 			} 
 		    
-		    	var note = {
+		    	note = {
 		      		Subject:      req.param.noteSubject,
 		      		Description:  req.param.noteDescription,
 		      		OwnerId:      req.param.vfaId, 
@@ -31,12 +34,10 @@ module.exports = function(app) {
 			      	ActivityDate: new jsforce.Date.toDateTimeLiteral(new Date())
 		    	};
 		    
-		    	note[noteAssignment.key] = noteAssignment.value;
-		    
-		    
 		    	conn.sobject("Task").create(note, function(err, ret) {
 		      		if(err) { console.error(err) }
-		      		res.send("Notes logged!");
+		      		res.set('Content-Type', 'application/json'); // tell Angular that this is JSON
+					res.send(JSON.stringify({success: success}));
 		    	});
 	  	});
 	});

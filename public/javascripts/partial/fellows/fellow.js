@@ -1,24 +1,45 @@
 vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 
-	/* 
-		what's going down here. 
-		I'm going to pass in state params for the fellow id
-		then i'm goig to get the fellow id
-	 */
 	$scope.fellow;
 	$scope.fellowId = $stateParams.fellowId;
-	$scope.cases;
+	// $scope.cases;
 
 	api.fellows.getFellow($scope.fellowId).then(function( data ){
 		console.log("Fellow Data received:");
-		// console.log(data);
+		console.log(data);
 		$scope.fellow = data;
-		console.log("fellow name", $scope.fellow.profile.Name);
-		$scope.cases = $scope.fellow[cases];
-		console.log($scope.fellow[cases]);
-		console.log($scope.fellow);
+		// console.log("fellow name", $scope.fellow.profile.Name);
+		$scope.cases = $scope.fellow.cases;
+		console.log("cases in fellow scope: ",$scope.fellow.cases);
+		// console.log($scope.fellow);
 
 	});
+
+	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfaId, fellowId, caseId) {
+		console.log("Let's log notes!");
+		console.log(caseId);
+		if(caseId === undefined) {
+			caseId = "";
+		}
+		console.log(caseId);
+		console.log(noteSubject + "\n" + noteDescription + "\n" + vfaId + "\n" + fellowId);
+		console.log("case id", caseId);
+		
+		var noteData = {
+			noteDescription: noteDescription,
+			noteSubject:     noteSubject,
+			vfaId:           vfaId, 
+			fellowId:        fellowId,
+			caseId:          caseId,
+			type:            "fellow"
+		};
+
+		api.notes.post(noteData).then(function( data ) {
+			console.log("Note data received: ", data);
+			$scope.noteSubject     = ""; // reset note form values
+			$scope.noteDescription = "";
+		});
+	}
 
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
@@ -50,3 +71,5 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 		{ name: "Will Geary", id : "005d00000048iYF"}
 	]
 })
+
+

@@ -20,11 +20,11 @@
 			<textarea ng-model="noteDescription"></textarea>
 			<br>
 			<br>
-			<select ng-options="case.Id as case.Subject for case in cases"></select>
+			<select ng-options="case.Id as case.Subject for case in fellow.cases" ng-model="activeCase"></select>
 			<br><br>
 			<select ng-options="vfa.id as vfa.name for vfa in vfaTeam" ng-model="vfaId"></select>
 			<br><br>
-			<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription, vfaId, fellowId)">
+			<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription, vfaId, fellowId, activeCase)">
 				Log Notes
 			</button>
 		</form>

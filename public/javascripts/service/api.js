@@ -49,7 +49,7 @@ vfaDashboard.factory("api", function($http) {
 				console.log(noteData);
 				return $http.post("/api/notes", noteData).then(function(response) {
 					return response.data;
-				})
+				});
 			}
 		}
 	};
