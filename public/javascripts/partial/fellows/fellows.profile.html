@@ -23,33 +23,32 @@
 			</button>
 		</form>
 		<hr>
-		<form>
-			<h2>Fellow Info</h2>
-			<h3>Basic</h3>
+		<h3>Fellow Info</h3>
 			Name: {{fellow.profile.Name}}
 			<br>
-			<p>City: {{fellow.profile.VFA_City__c}}</p>
+			City: {{fellow.profile.VFA_City__c}}
 			<br>
-			Year: <input value="{{fellow.profile.Years__c}}">
+			Year: {{fellow.profile.Years__c}}
 			<br>
 			Bio:
 			<br>
-			<textarea>{{fellow.profile.Description}}</textarea>
-			<h4>Contact</h4>
-			Email: <input type="text" value="{{fellow.profile.Email}}">
-			<h5>Mailing Address</h5>
-			Street: <input type="text" value="{{fellow.profile.MailingStreet}}">
-			<br>
-			City: <input type="text" value="{{fellow.profile.MailingCity}}">
-			<br>
-			State: <input type="text" value="{{fellow.profile.MailingState}}">
-			<br>
-			Zip: <input type="text" value="{{fellow.profile.MailingPostalCode}}">
-			<h4>Social Media</h4>
+			{{fellow.profile.Description}}
+			<br><br>
+			Email: {{fellow.profile.Email}}
+			<br><br>
 			Twitter: <input type="text" value="{{fellow.profile.Twitter_Handle__c}}">
 			<br>
 			Instagram: <input type="text" value="{{fellow.profile.Instagram_Handle__c}}">
-			<h3>Job</h3>
+			<br><br>
+			<h5>Mailing Address</h5>
+			Street: {{fellow.profile.MailingStreet}}
+			<br>
+			City: {{fellow.profile.MailingCity}}
+			<br>
+			State: {{fellow.profile.MailingState}}
+			<br>
+			Zip: {{fellow.profile.MailingPostalCode}}
+			<h4>Job</h4>
 			Company: {{fellow.profile.Account_Name_for_SurveyGizmo__c}}
 			<br>
 			Title: <input type="text" value="{{fellow.profile.Title}}">
@@ -57,7 +56,6 @@
 			Supervisor Name: <input type="text" value="{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}">
 			<br>
 			Supervisor Email: <input type="text" value="{{fellow.profile.Supervisor_Email__c}}">
-		</form>
 		
 		<h3>SurveyGizmo</h3>
 		<h4>Company Eval</h4>
