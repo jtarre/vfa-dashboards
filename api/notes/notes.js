@@ -1,5 +1,5 @@
 module.exports = function(app) {
-	app.get("/api/notes", function(req, res) {
+	app.post("/api/notes", function(req, res) {
 		console.log("\nnote data:");
 		console.log(req.noteData);
 		var jsforce   = require('jsforce');
@@ -37,7 +37,7 @@ module.exports = function(app) {
 		    	conn.sobject("Task").create(note, function(err, ret) {
 		      		if(err) { console.error(err) }
 		      		res.set('Content-Type', 'application/json'); // tell Angular that this is JSON
-					res.send(JSON.stringify({success: success}));
+					res.send(JSON.stringify({success: "success!"}));
 		    	});
 	  	});
 	});
