@@ -86,13 +86,8 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('fellows.profile', {
-            url: '/:id',
+            url: '/:fellowId',
             templateUrl: 'javascripts/partial/fellows/fellows.profile.html'
-        })
-
-        .state('fellow', {
-            url: '/fellow',
-            templateUrl: 'javascripts/partial/fellows/fellowTest.html'
         })
 
         .state('companies', {

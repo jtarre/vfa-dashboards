@@ -1,7 +1,7 @@
 vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 	console.log("initializing Fellow controller");
 	
-	/*
+		/*
 		what's my hang up?
 		I'm trying to figure out routing, 
 		but can't seem to nail it. 
@@ -62,9 +62,9 @@ vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 		});
 	};
 
-	$scope.$watch($scope.fellows, function(oldFellowList, newFellowList) {
-		console.log(newFellowList);
-	});
+	// $scope.$watch($scope.fellows, function(oldFellowList, newFellowList) {
+	// 	console.log(newFellowList);
+	// });
 	
 	$scope.logNotes = function(noteSubject, noteDescription, vfaId, fellowId) {
 		console.log("Let's log notes!")
