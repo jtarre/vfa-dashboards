@@ -1,11 +1,17 @@
-<div ng-controller="fellowCtrl">
+<div data-spy="scroll" data-target="#scrollspyNav" ng-controller="fellowCtrl">
 	<div class="container-fluid">
 	<h2 align="center">{{fellow.profile.Name}}</h2>
 	<hr>
+	<nav id="scrollspyNav">
+		<ul class="nav navbar-nav">
+			<li><a href="#fellowInfo">Fellow Info</a></li>
+		</ul>
+	</nav>
 	<div class="row">
 		<h3>Log Notes</h3>
 		<form>
 			<label>Subject:</label>
+			<br>
 			<input type="text" ng-model="noteSubject">
 			<br>
 			<br>
@@ -23,7 +29,7 @@
 			</button>
 		</form>
 		<hr>
-		<h3>Fellow Info</h3>
+		<h3 id="fellowInfo">Fellow Info</h3>
 			Name: {{fellow.profile.Name}}
 			<br>
 			City: {{fellow.profile.VFA_City__c}}
@@ -57,7 +63,7 @@
 			<br>
 			Supervisor Email: <input type="text" value="{{fellow.profile.Supervisor_Email__c}}">
 		
-		<h3>SurveyGizmo</h3>
+		<h3 id="surveyGizmo">SurveyGizmo</h3>
 		<h4>Company Eval</h4>
 			<div ng-repeat="eval in fellow.companyEval">
 				<h5>{{eval.Name}}</h5>
@@ -88,7 +94,7 @@
 				{{eval.FSE_Improve_at_Work__c}}
 				<br><br>
 			</div>
-		<h3>Activity</h3>
+		<h3 id="Activities">Activities</h3>
 		<div ng-repeat="activity in fellow.activities">
 			<h5>{{activity.Subject}}</h5>
 			Created Date: {{activity.CreatedDate}}
@@ -100,7 +106,7 @@
 			{{activity.Description}}
 			<br><br>
 		</div>
-		<h3>Cases</h3>
+		<h3 id="cases">Cases</h3>
 		<div ng-repeat="case in fellow.cases">
 			<h5>{{case.Subject}}</h5>
 			Created Date: {{case.CreatedDate}}

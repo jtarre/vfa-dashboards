@@ -3,7 +3,7 @@ underscore.factory('_', ['$window', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "nvd3"]);
+var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "nvd3", "ngStorage"]);
 
 vfaDashboard.controller("dataCtrl", function($scope, api) {
     $scope.data;
