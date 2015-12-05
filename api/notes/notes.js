@@ -3,7 +3,16 @@ module.exports = function(app) {
 		console.log("\nnote data:");
 		console.log(req.noteData);
 		var jsforce   = require('jsforce');
-	  
+		var _         = require('underscore');
+	  	
+	  	_.each(req.params, function(element, index, list){
+	  		console.log(element + " " + key);
+	  	});
+
+	  	console.log('request params', req.params);
+
+	  	console.log('request body', req.body);
+
 		var conn = new jsforce.Connection({
 			instanceUrl:  process.env.INSTANCE_URL,
 	    		redirectUri:  process.env.REDIRECT_URI, 
@@ -15,27 +24,25 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 	    
 	    	// create either a WhoId for Fellows or a WhatId for a company note
-		    var noteAssignmentId = {};
-		    var note             = {};
+	    	note = {
+	      		Subject:      req.body.noteSubject,
+	      		Description:  req.body.noteDescription,
+	      		OwnerId:      req.body.vfaId, 
+	      		Status:	     "Completed",
+		      	Priority:     "Normal",
+		      	ActivityDate: new jsforce.Date.toDateTimeLiteral(new Date())
+	    	};
 		    
-		    if( req.param.type === "fellow") {
-			     note.WhoId   = req.param.fellowId;
-			     note.WhatId  = req.param.caseId;
+		   	if( req.body.type === "fellow") {
+		   		console.log("type fellow");
+				note.WhoId   = req.body.fellowId;
+				note.WhatId  = req.body.caseId;
 			} else { // note is type "company"
-				note.WhatId = req.param.companyId; 
+				note.WhatId = req.body.companyId; 
 			} 
-		    
-		    	note = {
-		      		Subject:      req.param.noteSubject,
-		      		Description:  req.param.noteDescription,
-		      		OwnerId:      req.param.vfaId, 
-		      		Status:	     "Completed",
-			      	Priority:     "Normal",
-			      	ActivityDate: new jsforce.Date.toDateTimeLiteral(new Date())
-		    	};
-		    
 		    	conn.sobject("Task").create(note, function(err, ret) {
-		      		if(err) { console.error(err) }
+		      		if(err) { console.error(err) };
+		      		console.log("return", ret);
 		      		res.set('Content-Type', 'application/json'); // tell Angular that this is JSON
 					res.send(JSON.stringify({success: "success!"}));
 		    	});
