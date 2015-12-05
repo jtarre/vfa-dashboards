@@ -1,14 +1,17 @@
 vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 	console.log("initializing Fellow controller");
 	
+	// console.log("fellow query local storage:", $scope.$storage.fellowQuery);
+	console.log("local storage:", $localStorage);
 	$scope.fellows;
 	$scope.query;
 	$scope.sortProp = "name";
 	$scope.reverse  = true;
 
 	$scope.$storage = $localStorage;
-	$scope.$storage.fellowQuery;
+	console.log("scope storage: ", $scope.$storage);
 
+	// STORE SEARCHES AS LOCAL STORAGE FOR PERSISTENCE //
 	$scope.$watch('query', function(newValue, oldValue) {
 		$scope.$storage.fellowQuery = newValue;
 		console.log("fellow query local storage:", $scope.$storage.fellowQuery);
