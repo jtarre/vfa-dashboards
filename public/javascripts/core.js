@@ -25,32 +25,6 @@ vfaDashboard.controller("dataCtrl", function($scope, api) {
         $scope.filteredData = filterData;
         console.log("graph data values", $scope.graphData[0].values);
     };
-    
-    /*
-        let's say i want to have city data
-        value.
-        how can I filter it dynamically
-        to take into account city data?
-        so for fundraising, I can say x
-        because i have the value: Y etc. 
-        how can i attach meta data to the chart
-        can i include optional data?
-
-        let's say i'm using chartjs
-        and i have scope.data
-        i can do this for both
-
-        custom function for values
-        scope.filteredData
-        scope.data
-        function filterData()
-        filterData 
-        somehow need to pass in filtered data into scope.graphdata.values
-        data binding
-
-        filterdata(filteredData)
-            scope.graphData.values = filteredData
-    */
 
     $scope.options = {
         chart: {
@@ -98,6 +72,7 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('fellows', {
             url: '/fellows',
+            abstract: true,
             templateUrl: 'javascripts/partial/fellows/fellows.html',
             resolve: {
                 loggedin: checkLoggedin
@@ -105,8 +80,19 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('fellows.fellow', {
-            templateUrl: 'javascripts/partial/fellows/fellows.fellow.html'
+        .state('fellows.browse', {
+            url: '',
+            templateUrl: 'javascripts/partial/fellows/fellows.browse.html'
+        })
+
+        .state('fellows.profile', {
+            url: '/:id',
+            templateUrl: 'javascripts/partial/fellows/fellows.profile.html'
+        })
+
+        .state('fellow', {
+            url: '/fellow',
+            templateUrl: 'javascripts/partial/fellows/fellowTest.html'
         })
 
         .state('companies', {

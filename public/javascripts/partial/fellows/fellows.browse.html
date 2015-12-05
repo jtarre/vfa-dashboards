@@ -1,0 +1,21 @@
+<div ng-controller="fellowsCtrl" class="row">
+	<div class="col-md-5">
+		<h2>Fellows</h2>
+		<hr>
+		Search: <input ng-model="query">
+		<hr>
+		<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter:query | orderBy:sortProp:reverse)">
+			<div class="col-md-3">
+				{{fellow.name}}
+			</div>
+			<div class="col-md-1">
+				{{fellow.year}}
+			</div>
+			<div class="col-md-2">
+				<button type="button" ng-click="getFellow(fellow.id)">
+					View
+				</button>
+			</div>
+		</div> <!-- end fellow feed row -->
+	</div> <!-- end fellow feed div -->
+</div> <!-- end initial row div -->

@@ -1,6 +1,33 @@
 vfaDashboard.controller("fellowsCtrl", function($scope, api, _) {
 	console.log("initializing Fellow controller");
 	
+	/*
+		what's my hang up?
+		I'm trying to figure out routing, 
+		but can't seem to nail it. 
+		how to do it. 
+		can't seem to "grok" angular ui-router. 
+		or angular for that matter. 
+		what's the underlying structure. 
+		what's the language. how to 
+		think in angular. 
+
+		my focus is in the wrong place. 
+		i need to get the job done. 
+		i'm scared. i'm doing it wrong. 
+		there is no "wrong". there's what works. 
+		And what's maintainable.
+
+		so that's how controllers work. they get "initialized"
+		each time they're called. 
+
+		if i don't want to reinitialize, i have to use child. 
+		let's try that. 
+
+		a browse ui-sref and a profile ui-sref
+		so i have to rewrite some header code. big fucking deal. 
+	 */
+
 	$scope.fellows;
 	$scope.sortProp = "name";
 	$scope.reverse  = true;
