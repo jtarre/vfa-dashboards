@@ -1,0 +1,18 @@
+<div ng-controller="dataCountsCtrl">
+<!-- Fellows -->
+<h3>Fellows</h3>
+<h4>By Year</h4>
+	<div ng-repeat="(classYear, count) in years">
+		{{classYear}}: {{count}}
+	</div>
+<h4>By City</h4>
+	<div ng-repeat="(city, count) in cities">
+		{{city}}: {{count}}
+	</div>
+<h4>By School</h4>
+	<div ng-repeat="(school, count) in schools">
+		{{school}}: {{count}}
+	</div>
+<!-- Companies -->
+<!-- Candidates -->
+</div>
