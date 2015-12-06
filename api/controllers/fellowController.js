@@ -1,4 +1,4 @@
-var jsforce = require('jsforce');
+    var jsforce = require('jsforce');
 var _       = require('underscore');
 
 exports.findAll  = function findAll(req, res, next) {
@@ -24,7 +24,7 @@ exports.findAll  = function findAll(req, res, next) {
             {
                 "VFA_Association__c"  : "Fellow"
             },
-            "Id, Name, Years__c, Account_Name_for_SurveyGizmo__c, VFA_City__c, Alma_Mater__c") // add city and company
+            "Id, Name, Years__c, Account_Name_for_SurveyGizmo__c, VFA_City__c, Alma_mater__c") // add city and company
             .sort( { Name: -1 })
             .execute( function (err, fellows) {
                 var listOfFellows = [];
@@ -36,7 +36,7 @@ exports.findAll  = function findAll(req, res, next) {
                             "name"       : element.Name,
                             "id"         : element.Id,
                             "year"       : element.Years__c,
-                            "alma mater" : element.Alma_Mater__c,
+                            "almaMater" : element.Alma_mater__c,
                             "company"    : element.Account_Name_for_SurveyGizmo__c,
                             "city"       : element.VFA_City__c
                         });
