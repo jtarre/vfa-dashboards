@@ -1,9 +1,10 @@
 <div ng-controller="fellowsCtrl">
 		<h2 align="center">Fellows</h2>
 		<hr>
-		<div align="center">Search: <input ng-model="query"></div>
+		<div align="center">City: <input ng-model="cityQuery"></div>
+		<div align="center">School: <input ng-model="schoolQuery"></div>
 		<hr>
-		<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter:query | orderBy:sortProp:reverse)">
+		<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
 			<div class="col-xs-4">
 				{{fellow.name}}
 			</div>
