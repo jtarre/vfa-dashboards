@@ -3,18 +3,22 @@
 <h3>Fellows</h3>
 Total: {{fellowsTotal}}
 <h4>By Year</h4>
-	<ul ng-repeat="(classYear, count) in years">
-		<li>{{classYear}}: {{count}}</li>
+	<ul ng-repeat="classYear in years|orderBy:'key'">
+		<li>{{classYear.key}}: {{classYear.value}}</li>
 	</ul>
 <hr>
 <h4>By City</h4>
-	<ul ng-repeat="(city, count) in cities">
-		<li>{{city}}: {{count}}</li>
+<!-- sort by name and by number -->
+<!-- <h5>Sort</h5>-->
+<!-- <button ng-click="sortByName(name, reverse)">Name</button>
+ <button>Amount</button> -->
+	<ul ng-repeat="city in cities|orderBy:'key'">
+		<li>{{city.key}}: {{city.value}}</li>
 	</ul>
 <hr>
 <h4>By School</h4>
-	<ul ng-repeat="(school, count) in schools">
-		<li>{{school}}: {{count}}</li>
+	<ul ng-repeat="school in schools|orderBy:'key'">
+		<li>{{school.key}}: {{school.value}}</li>
 	</ul>
 <!-- Companies -->
 <!-- Candidates -->

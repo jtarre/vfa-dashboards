@@ -1,80 +1,75 @@
 vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
-	/*
-		Eventually, I'm going to grab all 3 categories of data. 
-		starting with Fellows, the first thing I'll do is api.getFellows
-		then organize them into counts / categories
-		this is something that I can speed up over time. 
-		Might want to look into graphql when the time comes. 
-		seemse like the type of thing it's made for. so i don't have to have a specific
-		api for each special use case
-	 */
-	 $scope.years   = {};
-	 $scope.cities  = {};
-	 $scope.schools = {};
-	 $scope.fellowsTotal = 0;
+	
+	$scope.years   = [];
+	$scope.cities  = [];
+	$scope.schools = [];
+	$scope.fellowsTotal = 0;
+
+	 // FOR SORTS //
+	 // $scope.sortProp = city;
 	 
+
 	 api.fellows.get().then( function (data) {
 	 	$scope.fellowData = data;
-	 	console.log("fellow data", $scope.fellowData);
-
-	 	var placeholderForMultipleCities = [];
+	 	var citiesTemp = {};
+	 	var yearsTemp  = {};
+	 	var schoolsTemp = {};
 
 	 	_.each($scope.fellowData, function(element, index, list) {
 	 		$scope.fellowsTotal = $scope.fellowsTotal + 1;
 
-
 	 		// by year
-	 		console.log(element.year);
-	 		if(element.year !== undefined && element.year !== null) {
-		 		if($scope.years.hasOwnProperty(element.year)) {
-		 			$scope.years[element.year] = $scope.years[element.year] + 1;
-		 		} else {
-		 			$scope.years[element.year] = 1;
-		 		}	
-	 		}
+	 		$scope.addToCount(element.year, yearsTemp);
 	 		
 
 	 		// by city
-	 		console.log("City", element.city);
+	 		// console.log("City", element.city);
 	 		if(element.city !== undefined && element.city !== null) {
 	 			if(element.city.indexOf(";")>0) {
-	 				// associated with multiple cities 
-	 				// function to split values
-	 				// placeholderForMultipleCities = element.city.split(";");
 	 				console.log("multiple cities", element.city.split(";"));
-	 				addFellowInMultipleCitiesToCount(element.city.split(";"));
+	 				$scope.addFellowInMultipleCitiesToCount(element.city.split(";"), citiesTemp);
 	 			} else {
-	 				if($scope.cities.hasOwnProperty(element.city)) {
-			 			$scope.cities[element.city] = $scope.cities[element.city] + 1; 
-			 		} else {
-			 			$scope.cities[element.city] = 1;
-			 		}
+	 				$scope.addToCount(element.city, citiesTemp);
 	 			}
-	 		}
-		 		
+ 			}
 
 	 		// by school
-	 		console.log("alma mater", element.almaMater);
-	 		if(element.almaMater !== undefined && element.almaMater !== null) {
-	 			console.log("type of alma mater", typeof element.almaMater);
-	 			
-		 		if($scope.schools.hasOwnProperty(element.almaMater)) {
-		 			$scope.schools[element.almaMater] = $scope.schools[element.almaMater] + 1; 
-		 		} else {
-		 			$scope.schools[element.almaMater] = 1;
-		 		}	
-	 		}
-	 		
+	 		$scope.addToCount(element.almaMater, schoolsTemp);
 	 	});
 
-	 })
+	 	$scope.addToArray(citiesTemp, $scope.cities);
+	 	console.log("cities scope", $scope.cities);
+	 	$scope.addToArray(schoolsTemp, $scope.schools);
+	 	console.log("schools scope", $scope.schools);
+	 	$scope.addToArray(yearsTemp, $scope.years);
 
-	var addFellowInMultipleCitiesToCount = function addFellowInMultipleCitiesToCount(array) {
+	 })
+	
+	$scope.addToCount = function addToCount(element, objectOfObjects) {
+		// console.log("element in add to count", element);
+		if(element !== undefined && element !== null) {
+			if(objectOfObjects.hasOwnProperty(element)) {
+				objectOfObjects[element] = objectOfObjects[element] + 1;
+			} else {
+				objectOfObjects[element] = 1;
+			}
+		}
+	}
+
+	$scope.addToArray = function addToArray(objectOfObjects, array) {
+		_.each(objectOfObjects, function(value, key, list) {
+			// console.log("value in objectOfObjects", value);
+			// console.log("key in objectOfObjects", key);
+			array.push({key: key, value: value});
+		})
+	}
+
+	$scope.addFellowInMultipleCitiesToCount = function addFellowInMultipleCitiesToCount(array, objectOfObjects) {
 		_.each(array, function(element, index, list) {
-			if($scope.cities.hasOwnProperty(element)) {
-			 	$scope.cities[element] = $scope.cities[element] + 1; 
+			if(objectOfObjects.hasOwnProperty(element)) {
+			 	objectOfObjects[element] = objectOfObjects[element] + 1; 
 			 } else {
-			 	$scope.cities[element] = 1;
+			 	objectOfObjects[element] = 1;
 			}
 		});
 	}
