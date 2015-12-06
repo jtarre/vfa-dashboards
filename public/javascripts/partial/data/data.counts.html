@@ -3,21 +3,27 @@
 <h3>Fellows</h3>
 Total: {{fellowsTotal}}
 <h4>By Year</h4>
-	<ul ng-repeat="classYear in years|orderBy:'key'">
+	<h5>Sort</h5>
+	<button ng-click="yearSortProp = 'key'; yearReverse = !yearReverse">Name</button>
+	<button ng-click="yearSortProp = 'value'; yearReverse = !yearReverse">Count</button>
+	<ul ng-repeat="classYear in years|orderBy:yearSortProp:yearReverse">
 		<li>{{classYear.key}}: {{classYear.value}}</li>
 	</ul>
 <hr>
 <h4>By City</h4>
 <!-- sort by name and by number -->
-<!-- <h5>Sort</h5>-->
-<!-- <button ng-click="sortByName(name, reverse)">Name</button>
- <button>Amount</button> -->
-	<ul ng-repeat="city in cities|orderBy:'key'">
+	<h5>Sort</h5>
+	<button ng-click="citySortProp = 'key'; cityReverse = !cityReverse">Name</button>
+	<button ng-click="citySortProp = 'value'; cityReverse = !cityReverse">Count</button>
+	<ul ng-repeat="city in cities|orderBy:citySortProp:cityReverse">
 		<li>{{city.key}}: {{city.value}}</li>
 	</ul>
 <hr>
 <h4>By School</h4>
-	<ul ng-repeat="school in schools|orderBy:'key'">
+	<h5>Sort</h5>
+	<button ng-click="schoolSortProp = 'key'; schoolReverse = !schoolReverse">Name</button>
+	<button ng-click="schoolSortProp = 'value'; schoolReverse = !schoolReverse">Count</button>
+	<ul ng-repeat="school in schools|orderBy:schoolSortProp:schoolReverse">
 		<li>{{school.key}}: {{school.value}}</li>
 	</ul>
 <!-- Companies -->

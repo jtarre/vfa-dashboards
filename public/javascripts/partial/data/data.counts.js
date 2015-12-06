@@ -6,8 +6,14 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 	$scope.fellowsTotal = 0;
 
 	 // FOR SORTS //
-	 // $scope.sortProp = city;
-	 
+	 $scope.yearSortProp = 'key';
+	 $scope.citySortProp = 'key';
+	 $scope.schoolSortProp = 'key';
+
+	 // REVERESES FOR SORT //
+	 $scope.yearKeyReverse = true;
+	 $scope.cityKeyReverse = true;
+	 $scope.schoolKeyReverse = true;
 
 	 api.fellows.get().then( function (data) {
 	 	$scope.fellowData = data;
@@ -38,9 +44,7 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 	 	});
 
 	 	$scope.addToArray(citiesTemp, $scope.cities);
-	 	console.log("cities scope", $scope.cities);
 	 	$scope.addToArray(schoolsTemp, $scope.schools);
-	 	console.log("schools scope", $scope.schools);
 	 	$scope.addToArray(yearsTemp, $scope.years);
 
 	 })
