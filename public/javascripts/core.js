@@ -101,7 +101,7 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('data', {
             url: '/data',
-            templateUrl: 'javascripts/partial/data/data.html'
+            templateUrl: 'javascripts/partial/data/data.counts.html'
         });
 
         // .state('data.companies', {

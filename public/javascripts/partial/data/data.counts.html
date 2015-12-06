@@ -1,0 +1,35 @@
+<div ng-controller="dataCountsCtrl">
+<!-- Fellows -->
+<h3>Fellows</h3>
+Total: {{fellowsTotal}}
+<h4>By Year</h4>
+	<h5>Sort</h5>
+	<button ng-click="yearSortProp = 'key'; yearReverse = !yearReverse">Name</button>
+	<button ng-click="yearSortProp = 'value'; yearReverse = !yearReverse">Count</button>
+	<ul ng-repeat="classYear in years|orderBy:yearSortProp:yearReverse">
+		<li>{{classYear.key}}: {{classYear.value}}</li>
+	</ul>
+<hr>
+<h4>By City</h4>
+<!-- sort by name and by number -->
+	<h5>Sort</h5>
+	<button ng-click="citySortProp = 'key'; cityReverse = !cityReverse">Name</button>
+	<button ng-click="citySortProp = 'value'; cityReverse = !cityReverse">Count</button>
+	<br>
+	Search: <input type="text" ng-model="cityQuery">
+	<ul ng-repeat="city in filteredCities = ( cities |filter:cityQuery|orderBy:citySortProp:cityReverse)">
+		<li>{{city.key}}: {{city.value}}</li>
+	</ul>
+<hr>
+<h4>By School</h4>
+	<h5>Sort</h5>
+	<button ng-click="schoolSortProp = 'key'; schoolReverse = !schoolReverse">Name</button>
+	<button ng-click="schoolSortProp = 'value'; schoolReverse = !schoolReverse">Count</button>
+	<br>
+	Search: <input type="text" ng-model="schoolQuery">
+	<ul ng-repeat="school in filteredSchools = (schools|filter:schoolQuery|orderBy:schoolSortProp:schoolReverse)">
+		<li>{{school.key}}: {{school.value}}</li>
+	</ul>
+<!-- Companies -->
+<!-- Candidates -->
+</div>
