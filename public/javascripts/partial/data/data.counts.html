@@ -15,7 +15,9 @@ Total: {{fellowsTotal}}
 	<h5>Sort</h5>
 	<button ng-click="citySortProp = 'key'; cityReverse = !cityReverse">Name</button>
 	<button ng-click="citySortProp = 'value'; cityReverse = !cityReverse">Count</button>
-	<ul ng-repeat="city in cities|orderBy:citySortProp:cityReverse">
+	<br>
+	Search: <input type="text" ng-model="cityQuery">
+	<ul ng-repeat="city in filteredCities = ( cities |filter:cityQuery|orderBy:citySortProp:cityReverse)">
 		<li>{{city.key}}: {{city.value}}</li>
 	</ul>
 <hr>
@@ -23,7 +25,9 @@ Total: {{fellowsTotal}}
 	<h5>Sort</h5>
 	<button ng-click="schoolSortProp = 'key'; schoolReverse = !schoolReverse">Name</button>
 	<button ng-click="schoolSortProp = 'value'; schoolReverse = !schoolReverse">Count</button>
-	<ul ng-repeat="school in schools|orderBy:schoolSortProp:schoolReverse">
+	<br>
+	Search: <input type="text" ng-model="schoolQuery">
+	<ul ng-repeat="school in filteredSchools = (schools|filter:schoolQuery|orderBy:schoolSortProp:schoolReverse)">
 		<li>{{school.key}}: {{school.value}}</li>
 	</ul>
 <!-- Companies -->
