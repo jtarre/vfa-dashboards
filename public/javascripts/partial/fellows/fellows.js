@@ -1,7 +1,6 @@
-vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
+	vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 	console.log("initializing Fellow controller");
 	
-	// console.log("fellow query local storage:", $scope.$storage.fellowQuery);
 	$scope.fellows;
 	$scope.query;
 	$scope.sortProp = "name";
@@ -10,7 +9,7 @@ vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
 	$scope.initFellowQuery = function initFellowQuery() {
 		console.log("initFellowQuery run");
 		console.log($scope.$storage.fellowQuery);
-		if($scope.$storage.fellowQuery !== null) {
+		if($scope.$storage.fellowQuery) {
 			$scope.query = $scope.$storage.fellowQuery;
 		} else {
 			$scope.query = "";
