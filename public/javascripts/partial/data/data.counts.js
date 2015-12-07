@@ -10,7 +10,7 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 	 $scope.citySortProp = 'key';
 	 $scope.schoolSortProp = 'key';
 
-	 // REVERESES FOR SORT //
+	 // REVERSES FOR SORT //
 	 $scope.yearKeyReverse = true;
 	 $scope.cityKeyReverse = true;
 	 $scope.schoolKeyReverse = true;
@@ -30,7 +30,8 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 
 	 		// by city
 	 		// console.log("City", element.city);
-	 		if(element.city !== undefined && element.city !== null) {
+	 		// undefined, null, '', 0 , NaN
+	 		if(element.city) {
 	 			if(element.city.indexOf(";")>0) {
 	 				console.log("multiple cities", element.city.split(";"));
 	 				$scope.addFellowInMultipleCitiesToCount(element.city.split(";"), citiesTemp);
@@ -52,6 +53,10 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 	 /* 
 
 		on each pass, i ned to access the teporary object
+		[{array: cities, tempObj: tempCities, category: 'city'}, {}]
+		countCategories (data, arrayOfObjects) {
+	
+
 		// STEP 1: LOOP THROUGH DATA SET // 
 		_.each(data, function(element, index, list){
 			
@@ -73,13 +78,15 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 			for(object in arrayOfObjects) {
 				$scope.addToArray(object.tempObject, object.array);
 			}
+	}
 
-	 	countCategories (data, arrayOfObjects) 
+
+	 	
 	  */
 	
 	$scope.addToCount = function addToCount(element, objectOfObjects) {
 		// console.log("element in add to count", element);
-		if(element !== undefined && element !== null) {
+		if(element) {
 			if(objectOfObjects.hasOwnProperty(element)) {
 				objectOfObjects[element] = objectOfObjects[element] + 1;
 			} else {
