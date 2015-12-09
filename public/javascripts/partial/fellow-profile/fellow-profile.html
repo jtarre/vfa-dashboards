@@ -1,0 +1,140 @@
+<div data-spy="scroll" data-target="#scrollspyNav" ng-controller="fellowCtrl">
+	<div class="container-fluid">
+	<h2 align="center">{{fellow.profile.Name}}</h2>
+	<hr>
+	<nav id="scrollspyNav">
+		<ul class="nav navbar-nav">
+			<li><a href="#fellowInfo">Fellow Info</a></li>
+		</ul>
+	</nav>
+	<div class="row">
+		<h3>Log Notes</h3>
+		<form>
+			<label>Subject:</label>
+			<br>
+			<input type="text" ng-model="noteSubject">
+			<br>
+			<br>
+			<label>Notes:</label>
+			<br>
+			<textarea ng-model="noteDescription"></textarea>
+			<br>
+			<br>
+			<select ng-options="case.Id as case.Subject for case in fellow.cases" ng-model="activeCase"></select>
+			<br><br>
+			<select ng-options="vfa.id as vfa.name for vfa in vfaTeam" ng-model="vfaId"></select>
+			<br><br>
+			<button type="button" class="btn btn-success" ng-click="logNotes(noteSubject, noteDescription, vfaId, fellowId, activeCase)">
+				Log Notes
+			</button>
+		</form>
+		<hr>
+		<h3 id="fellowInfo">Fellow Info</h3>
+			Name: {{fellow.profile.Name}}
+			<br>
+			City: {{fellow.profile.VFA_City__c}}
+			<br>
+			Year: {{fellow.profile.Years__c}}
+			<br>
+			Bio:
+			<br>
+			{{fellow.profile.Description}}
+			<br><br>
+			Email: {{fellow.profile.Email}}
+			<br><br>
+			Twitter: <input type="text" value="{{fellow.profile.Twitter_Handle__c}}">
+			<br>
+			Instagram: <input type="text" value="{{fellow.profile.Instagram_Handle__c}}">
+			<br><br>
+			<h5>Mailing Address</h5>
+			Street: {{fellow.profile.MailingStreet}}
+			<br>
+			City: {{fellow.profile.MailingCity}}
+			<br>
+			State: {{fellow.profile.MailingState}}
+			<br>
+			Zip: {{fellow.profile.MailingPostalCode}}
+			<h4>Job</h4>
+			Company: {{fellow.profile.Account_Name_for_SurveyGizmo__c}}
+			<br>
+			Title: <input type="text" value="{{fellow.profile.Title}}">
+			<br>
+			Supervisor Name: <input type="text" value="{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}">
+			<br>
+			Supervisor Email: <input type="text" value="{{fellow.profile.Supervisor_Email__c}}">
+		
+		<h3 id="surveyGizmo">SurveyGizmo</h3>
+		<h4>Company Eval</h4>
+			<div ng-repeat="eval in fellow.companyEval">
+				<h5>{{eval.Name}}</h5>
+				Submission Date: {{eval.CreatedDate}}
+				<br>
+				Overall Performance: {{eval.CPS_Overall__c}}
+				<br><br>
+				Strengths:<br>
+				{{eval.CPS_Strengths__c}}
+				<br><br>
+				Areas to Improve:<br>
+				{{eval.CPS_Improvement__c}}
+				<br><br>
+			</div>
+		<h4>Self Eval</h4>
+			<div ng-repeat="eval in fellow.surveySelfEvals">
+				<h5>{{eval.Name}}</h5>
+				Submission Date: {{eval.CreatedDate}}
+				<br><br>
+				Job Performance: {{eval.FSE_Job_Performance__c}}
+				<br>
+				Job Happiness: {{eval.FSE_Job_Happiness__c}}
+				<br><br>
+				Highlight:<br>
+				{{eval.FSE_Highlight__c}}
+				<br><br>
+				Area for Improvement:<br>
+				{{eval.FSE_Improve_at_Work__c}}
+				<br><br>
+			</div>
+		<h3 id="Activities">Activities</h3>
+		<div ng-repeat="activity in fellow.activities">
+			<h5>{{activity.Subject}}</h5>
+			Created Date: {{activity.CreatedDate}}
+			<br>
+			Type: {{activity.Type__c}}
+			<br>
+			Activity:
+			<br>
+			{{activity.Description}}
+			<br><br>
+		</div>
+		<h3 id="cases">Cases</h3>
+		<div ng-repeat="case in fellow.cases">
+			<h5>{{case.Subject}}</h5>
+			Created Date: {{case.CreatedDate}}
+			<br><br>
+			Description:
+			<br>
+			{{case.Description}}
+			<br><br>
+			Facts of the situation (if applicable):
+			<br>
+			{{case.Facts_of_the_Situation_Fellow_input__c}}
+			<br><br>
+			Potential Solutions (if applicable):
+			<br>
+			{{case.Potential_Solutions_Fellow_Input__c}}
+			<br><br>
+			Potential Solutions Attempted (if applicable):
+			<br>
+			{{case.Previous_Solutions_Attempted__c}}
+			<br><br>
+			Mentor Qualities (Fellow input, if applicable):
+			<br>
+			{{case.Mentor_Qualities_Fellow_Input__c}}
+			<br><br>
+		</div>
+</div>
+</div>
+</div>
+
+
+

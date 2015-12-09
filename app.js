@@ -46,6 +46,15 @@ app.use( session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Angular API routes //
+require('./api/fellows/fellow')(app);
+require('./api/fellows/fellows')(app);
+require('./api/companies/companies')(app);
+require('./api/opportunities/opportunities')(app);
+require('./api/data/data')(app);
+require('./api/notes/notes')(app);
+
+// Express Jade Routes //
 require('./routes/index')(app, passport);
 require('./features/companies/companies')(app, passport);
 require('./features/fellows/fellows')(app, passport);
@@ -89,6 +98,10 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+app.get('/loggedin', function(req, res) {
+  res.send(req.isAuthenticated() ? req.user : '0');
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

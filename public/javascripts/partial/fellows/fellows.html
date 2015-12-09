@@ -1,0 +1,20 @@
+<div ng-controller="fellowsCtrl">
+		<h2 align="center">Fellows</h2>
+		<hr>
+		<div align="center">City: <input ng-model="cityQuery"></div>
+		<div align="center">School: <input ng-model="schoolQuery"></div>
+		<hr>
+		<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
+			<div class="col-xs-4">
+				{{fellow.name}}
+			</div>
+			<div class="col-xs-4">
+				{{fellow.year}}
+			</div>
+			<div class="col-xs-4">
+				<button type="button" ui-sref="fellow({ fellowId: fellow.id })">
+					View
+				</button>
+			</div>
+		</div> <!-- end fellow feed row -->
+</div> <!-- end initial row div -->
