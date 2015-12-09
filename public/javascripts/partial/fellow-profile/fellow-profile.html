@@ -37,38 +37,45 @@
 				<hr>
 
 				<h3 id="fellowInfo">Fellow Info</h3>
-				Name: {{fellow.profile.Name}}
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="detail-label">Name</div>{{fellow.profile.Name}}
+						<br>
+						<br>
+						<div class="detail-label">City</div>{{fellow.profile.VFA_City__c}}
+						<br>
+						<br>
+						<div class="detail-label">Year</div>{{fellow.profile.Years__c}}
+						<br>
+						<br>
+						<div class="detail-label">Mailing Address</div>{{fellow.profile.MailingStreet}}<br>{{fellow.profile.MailingCity}}, {{fellow.profile.MailingState}} {{fellow.profile.MailingPostalCode}}
+					</div>
+					<div class="col-xs-6">
+						<div class="detail-label">Email</div>{{fellow.profile.Email}}
+						<br>
+						<br>
+						<div class="detail-label">Twitter</div>{{fellow.profile.Twitter_Handle__c}}
+						<br>
+						<br>
+						<div class="detail-label">Instagram</div>{{fellow.profile.Instagram_Handle__c}}
+					</div>
+				</div>
 				<br>
-				City: {{fellow.profile.VFA_City__c}}
-				<br>
-				Year: {{fellow.profile.Years__c}}
-				<br>
-				Bio:
-				<br>
-				{{fellow.profile.Description}}
-				<br><br>
-				Email: {{fellow.profile.Email}}
-				<br><br>
-				Twitter: <input type="text" value="{{fellow.profile.Twitter_Handle__c}}">
-				<br>
-				Instagram: <input type="text" value="{{fellow.profile.Instagram_Handle__c}}">
-				<br><br>
-				<h5>Mailing Address</h5>
-				Street: {{fellow.profile.MailingStreet}}
-				<br>
-				City: {{fellow.profile.MailingCity}}
-				<br>
-				State: {{fellow.profile.MailingState}}
-				<br>
-				Zip: {{fellow.profile.MailingPostalCode}}
+				<div class="detail-label">Bio</div>{{fellow.profile.Description}}
+
 				<h4>Job</h4>
-				Company: {{fellow.profile.Account_Name_for_SurveyGizmo__c}}
-				<br>
-				Title: <input type="text" value="{{fellow.profile.Title}}">
-				<br>
-				Supervisor Name: <input type="text" value="{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}">
-				<br>
-				Supervisor Email: <input type="text" value="{{fellow.profile.Supervisor_Email__c}}">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="detail-label">Company</div>{{fellow.profile.Account_Name_for_SurveyGizmo__c}}
+						<br><br>
+						<div class="detail-label">Title</div>{{fellow.profile.Title}}
+					</div>
+					<div class="col-xs-6">
+						<div class="detail-label">Supervisor Name</div>{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}
+						<br><br>
+						<div class="detail-label">Supervisor Email</div>{{fellow.profile.Supervisor_Email__c}}
+					</div>
+				</div>
 					
 				<h3 id="surveyGizmo">SurveyGizmo</h3>
 				<h4>Company Eval</h4>

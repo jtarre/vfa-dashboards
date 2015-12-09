@@ -25,6 +25,11 @@ a{
   color: #0091e5;
 }
 
+.detail-label {
+  font-size: 85%;
+  color: #838383;
+}
+
 /*
 .navbar-mike-top{
   border-top: 5px solid #264b72;
