@@ -1,8 +1,54 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color:#1d1f1d;
+  padding-bottom: 0px;
 }
 
-a {
-  color: #00B7FF;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+h1 {
+  color:#18385b;
+  border-bottom: solid 1px #e3e3e3;
+}
+
+h2 {
+  color:#264b72;
+}
+
+h3,h4,h5 {
+  color:#368094;
+}
+
+a{
+  color: #0091e5;
+}
+
+.detail-label {
+  font-size: 85%;
+  color: #838383;
+}
+
+/*
+.navbar-mike-top{
+  border-top: 5px solid #264b72;
+  border-radius: 0px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+@media (min-width: 750px) {
+  .navbar-header{
+    margin-left:16.6666% !important;
+  }
+
+  .navbar-margin{
+    margin-right:16.6666% !important;
+  }
+
+  .wrappy{
+  margin-left:15px;
+  margin-right:15px;
+  }
+}
+*/

@@ -1,34 +1,49 @@
 extends layout
 
 block content
-	h1= title
-	h2= "Select Fellow"
-	select#fellow.chosen-select(data-placeholder="Select a Fellow")(tabindex="-1")
-		option(value="")
-		each fellow, index in fellowList
-			option(id=fellow.id) #{fellow.name}
+	h2= title
+	br
+	form
+		label.control-label Fellows
+		select#fellow.chosen-select.form-control(data-placeholder="Select a Fellow")(tabindex="-1")
+			option(value="")
+			each fellow, index in fellowList
+				option(id=fellow.id) #{fellow.name}
+	
 	p#selectedFellow
-	h2= "Log Notes"
-	label Subject 
-	input(id="subject")(style="width: 250px")
-	br
-	label Notes 
-	textarea(id="notes")(style="width: 250px; height: 75px")
-	br
-	p#cases
-	br
-	label User 
-	select#vfaList.chosen-select(data-placeholder="Choose Yourself")
-		each id, name in vfaList
-			option(id=id) #{name}
-	br
-	br
-	button#logNotes(class="btn btn-success") Log Notes
+
 	hr
+	br
+	h3= "Log Notes"
+	br
+	form
+		.form-group
+			label.control-label Subject 
+			input(id="subject").form-control
+		
+		.form-group
+			label.control-label Notes 
+			textarea(id="notes").form-control
+		
+		#cases.form-group
+		
+		.form-group
+			label.control-label User 
+			select#vfaList.chosen-select.form-control(data-placeholder="Choose Yourself")
+				each id, name in vfaList
+					option(id=id) #{name}
+		br
+		.form-group
+			button#logNotes.btn.btn-default Log Notes
+	
+	hr
+	br
 	p#responseResult
-	p#results Fellow Info
+	p#results
+
+
 	script.
-			$(".chosen-select").chosen();
+		$("select").chosen({ width: '100%' });
 	script.
 		$("#fellow").change(function(e){
 			console.log("Here in cases!");
@@ -41,6 +56,7 @@ block content
 				$("#cases").html(data);
 			});
 		});
+
 	script.
 		$("#fellow").change(function(e){
 			console.log("Getting Fellow Info!");
