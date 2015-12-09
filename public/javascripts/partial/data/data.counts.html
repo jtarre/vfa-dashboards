@@ -5,48 +5,101 @@
 			<div ng-controller="dataCountsCtrl">
 
 				<!-- Fellows -->
-				<h4>Total Fellows: {{fellowsTotal}}</h4>
 				
 				<h4>Fellows by Year</h4>
+				<br>
 
+				<!-- do we even need to sort fellow year table?
 				<div class="btn-group btn-group-sm" role="group">
 				  <button type="button" class="btn btn-default" ng-click="yearSortProp = 'key'; yearReverse = !yearReverse">Name</button>
 				  <button type="button" class="btn btn-default" ng-click="yearSortProp = 'value'; yearReverse = !yearReverse">Count</button>
-				</div>
+				</div> -->
 
-				<ul ng-repeat="classYear in years|orderBy:yearSortProp:yearReverse">
-					<li>{{classYear.key}}: {{classYear.value}}</li>
-				</ul>
+				<div class="row">
+					<div class="col-sm-8">
+						<table class="table table-bordered table-hover">
+							<tbody>
+								<tr ng-repeat="classYear in years|orderBy:yearSortProp:yearReverse">
+									<td class="col-xs-9">{{classYear.key}}</td>
+									<td class="col-xs-3">{{classYear.value}}</td>
+								</tr>
+								<tr>
+									<td>Total Fellows</td>
+									<td>{{fellowsTotal}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 				
 				<hr>
+				<br>
 
 				<h4>Fellows by City</h4>
+				<br>
 
 				<div class="btn-group btn-group-sm" role="group">
 				  <button type="button" class="btn btn-default" ng-click="citySortProp = 'key'; cityReverse = !cityReverse">Name</button>
 				  <button type="button" class="btn btn-default" ng-click="citySortProp = 'value'; cityReverse = !cityReverse">Count</button>
 				</div>
-
 				<br>
-				Search: <input type="text" ng-model="cityQuery">
-				<ul ng-repeat="city in filteredCities = ( cities |filter:cityQuery|orderBy:citySortProp:cityReverse)">
-					<li>{{city.key}}: {{city.value}}</li>
-				</ul>
-				
+				<br>
+
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="form-group has-feedback">
+							<input ng-model="cityQuery" type="search" class="form-control" placeholder="City Search"/>
+							<i class="glyphicon glyphicon-search form-control-feedback"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8">
+						<table class="table table-bordered table-hover">
+							<tbody>
+								<tr ng-repeat="city in filteredCities = ( cities |filter:cityQuery|orderBy:citySortProp:cityReverse)">
+									<td class="col-xs-9">{{city.key}}</td>
+									<td class="col-xs-3">{{city.value}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
 				<hr>
+				<br>
 				
 				<h4>Fellows by School</h4>
+				<br>
 
 				<div class="btn-group btn-group-sm" role="group">
 				  <button type="button" class="btn btn-default" ng-click="schoolSortProp = 'key'; schoolReverse = !schoolReverse">Name</button>
 				  <button type="button" class="btn btn-default" ng-click="schoolSortProp = 'value'; schoolReverse = !schoolReverse">Count</button>
 				</div>
-
 				<br>
-				Search: <input type="text" ng-model="schoolQuery">
-				<ul ng-repeat="school in filteredSchools = (schools|filter:schoolQuery|orderBy:schoolSortProp:schoolReverse)">
-					<li>{{school.key}}: {{school.value}}</li>
-				</ul>
+				<br>
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="form-group has-feedback">
+							<input ng-model="schoolQuery" type="search" class="form-control" placeholder="School Search"/>
+							<i class="glyphicon glyphicon-search form-control-feedback"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8">
+						<table class="table table-bordered table-hover">
+							<tbody>
+								<tr ng-repeat="school in filteredSchools = (schools|filter:schoolQuery|orderBy:schoolSortProp:schoolReverse)">
+									<td class="col-xs-9">{{school.key}}</td>
+									<td class="col-xs-3">{{school.value}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 				
 				<!-- Companies -->
 				
