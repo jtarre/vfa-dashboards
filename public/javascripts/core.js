@@ -5,6 +5,105 @@ underscore.factory('_', ['$window', function($window) {
 
 var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "nvd3", "ngStorage"]);
 
+vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: 'javascripts/partial/home/home.html',
+            // resolve: {
+            //     setNavBarLoginState: ""
+            // }
+        })
+
+        // .state('fellows', {
+        //     url: '/fellows',
+        //     abstract: true,
+        //     templateUrl: 'javascripts/partial/fellows/fellows.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //         // setNavBarLoginState: ""
+        //     }
+        // })
+
+        .state('fellows', {
+            url: '/fellows',
+            templateUrl: 'javascripts/partial/fellows/fellows.html',
+            resolve: {
+                loggedin: checkLoggedin
+                // setNavBarLoginState: ""
+            }
+        })
+
+        .state('fellow', {
+            url: '/fellows/:fellowId',
+            templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html'
+        })
+
+        .state('companies', {
+            url: '/companies',
+            templateUrl: 'javascripts/partial/companies/companies.html',
+            resolve: {
+                loggedin: checkLoggedin
+                // setNavBarLoginState: "",
+            }
+        })
+
+        .state('company', {
+            url: '/companies/:companyId',
+            templateUrl: 'javascripts/partial/companies-profile/companies-profile.html'
+        })
+
+        .state('data', {
+            url: '/data',
+            templateUrl: 'javascripts/partial/data/data.counts.html'
+        });
+
+        // .state('data.companies', {
+        //     url: ''
+        //     templateUrl:
+        // })
+
+
+    /* Add New States Above */
+    $urlRouterProvider.otherwise('/home');
+
+});
+
+var checkLoggedin = function checkLoggedin($http, $q, $location, $timeout, $rootScope) {
+    var deferred = $q.defer();
+
+    $http.get("/loggedin")
+        .success(function(user) {
+            if (user !== '0') { // user is logged in 
+
+                deferred.resolve();
+            } else {
+                $rootScope.message = "You need to log in.";
+                deferred.reject();  
+                $location.url("/");
+            }
+
+        });
+
+    return deferred.promise;
+}
+
+vfaDashboard.run(function($rootScope) {
+
+    $rootScope.safeApply = function(fn) {
+        var phase = $rootScope.$$phase;
+        if (phase === '$apply' || phase === '$digest') {
+            if (fn && (typeof(fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
+
+});
+
 vfaDashboard.controller("dataCtrl", function($scope, api) {
     $scope.data;
     $scope.filteredData;
@@ -56,99 +155,4 @@ vfaDashboard.controller("dataCtrl", function($scope, api) {
             }
         }
     };
-});
-
-
-vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
-
-    $stateProvider
-        .state('home', {
-            url: '/home',
-            templateUrl: 'javascripts/partial/home/home.html',
-            // resolve: {
-            //     setNavBarLoginState: ""
-            // }
-        })
-
-        // .state('fellows', {
-        //     url: '/fellows',
-        //     abstract: true,
-        //     templateUrl: 'javascripts/partial/fellows/fellows.html',
-        //     resolve: {
-        //         loggedin: checkLoggedin
-        //         // setNavBarLoginState: ""
-        //     }
-        // })
-
-        .state('fellows', {
-            url: '/fellows',
-            templateUrl: 'javascripts/partial/fellows/fellows.html',
-            resolve: {
-                loggedin: checkLoggedin
-                // setNavBarLoginState: ""
-            }
-        })
-
-        .state('fellow', {
-            url: '/fellows/:fellowId',
-            templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html'
-        })
-
-        .state('companies', {
-            url: '/companies',
-            templateUrl: 'javascripts/partial/companies/companies.html',
-            resolve: {
-                loggedin: checkLoggedin
-                // setNavBarLoginState: "",
-            }
-        })
-
-        .state('data', {
-            url: '/data',
-            templateUrl: 'javascripts/partial/data/data.counts.html'
-        });
-
-        // .state('data.companies', {
-        //     url: ''
-        //     templateUrl:
-        // })
-
-
-    /* Add New States Above */
-    $urlRouterProvider.otherwise('/home');
-
-});
-
-var checkLoggedin = function checkLoggedin($http, $q, $location, $timeout, $rootScope) {
-    var deferred = $q.defer();
-
-    $http.get("/loggedin")
-        .success(function(user) {
-            if (user !== '0') { // user is logged in 
-
-                deferred.resolve();
-            } else {
-                $rootScope.message = "You need to log in.";
-                deferred.reject();  
-                $location.url("/");
-            }
-
-        });
-
-    return deferred.promise;
-}
-
-vfaDashboard.run(function($rootScope) {
-
-    $rootScope.safeApply = function(fn) {
-        var phase = $rootScope.$$phase;
-        if (phase === '$apply' || phase === '$digest') {
-            if (fn && (typeof(fn) === 'function')) {
-                fn();
-            }
-        } else {
-            this.$apply(fn);
-        }
-    };
-
 });

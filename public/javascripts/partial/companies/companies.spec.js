@@ -28,4 +28,6 @@ describe('companiesCtrl', function() {
         expect(template).toBeInDOM();
     }));
 
+    
+
 });
