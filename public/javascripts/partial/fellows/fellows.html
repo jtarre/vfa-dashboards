@@ -6,18 +6,28 @@
 				<h2>Fellows</h2>
 				<hr>
 				<div class="row">
-					<div class="col-sm-6 col-xs-12">
+					<div class="col-sm-4 col-xs-12"><!-- fellow name search [NEEDS NG-MODEL]-->
+						<div class="form-group has-feedback margin-adjust">
+							<input type="search" class="form-control" placeholder="Name Search"/>
+							<i class="glyphicon glyphicon-search form-control-feedback"></i>
+						</div>
+					</div>
+					<div class="col-sm-4 col-xs-12"><!-- city search -->
 						<div class="form-group has-feedback margin-adjust">
 							<input ng-model="cityQuery" type="search" class="form-control" placeholder="City Search"/>
 							<i class="glyphicon glyphicon-search form-control-feedback"></i>
 						</div>
 					</div>
-					<div class="col-sm-6 col-xs-12">
+					<div class="col-sm-4 col-xs-12"><!-- school search -->
 						<div class="form-group has-feedback margin-adjust">
 							<input ng-model="schoolQuery" type="search" class="form-control" placeholder="School Search"/>
 							<i class="glyphicon glyphicon-search form-control-feedback"></i>
 						</div>
 					</div>
+				</div>
+				<div class="btn-group"><!-- sort by [NEEDS ANGULAR] -->
+					<button type="button" class="btn btn-default btn-sm">Sort Name</button>
+					<button type="button" class="btn btn-default btn-sm">Sort Year</button>
 				</div>
 
 				<hr>
