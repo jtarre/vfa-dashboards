@@ -31,7 +31,12 @@ a{
 }
 
 .menu-right-padding {
-  padding:0 1em 0 1em;
+  padding: 0 1em 0 2em;
+  cursor: pointer;
+}
+
+.margin-adjust {
+  margin-top: 15px;
 }
 
 /*
