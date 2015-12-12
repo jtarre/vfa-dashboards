@@ -27,6 +27,12 @@ vfaDashboard.factory("api", function($http) {
 				return $http.get("/api/companies/" + id).then(function(response) {
 					return response.data;
 				})
+			},
+
+			getFields: function() {
+				return $http.get("/api/companies/fields").then(function(response) {
+					return response.data;
+				})
 			}
 		},
 
