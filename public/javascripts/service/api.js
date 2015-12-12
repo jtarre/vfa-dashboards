@@ -20,19 +20,21 @@ vfaDashboard.factory("api", function($http) {
 			get: function() {
 				return $http.get("/api/companies").then(function(response) {
 					return response.data;
-				})
+				});
 			},
 
 			getCompany: function(id) {
 				return $http.get("/api/companies/" + id).then(function(response) {
 					return response.data;
-				})
+				});
 			},
 
 			getFields: function() {
-				return $http.get("/api/companies/fields").then(function(response) {
+				console.log("getting salesforce company fields");
+				return $http.get("/api/fields/companies").then(function(response) {
+					console.log("data", response.data);
 					return response.data;
-				})
+				});
 			}
 		},
 

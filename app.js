@@ -53,6 +53,7 @@ require('./api/companies/companies')(app);
 require('./api/opportunities/opportunities')(app);
 require('./api/data/data')(app);
 require('./api/notes/notes')(app);
+require('./api/companies/fields')(app);
 
 // Express Jade Routes //
 require('./routes/index')(app, passport);

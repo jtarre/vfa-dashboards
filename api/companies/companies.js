@@ -42,22 +42,6 @@ module.exports = function(app) {
 				})
 		});
 	});
-
-	app.get("/api/companies/fields", function(req, res) {
-		var conn = new jsforce.Connection({
-			clientSecret: process.env.CLIENT_SECRET,
-			clientId:     process.env.CLIENT_ID,
-			loginUrl:     process.env.LOGIN_URL,
-			instanceUrl:  process.env.INSTANCE_URL,
-			redirectUri:  process.env.REDIRECT_URI
-		});
-
-		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
-			conn.sobject("Account").describe(function(err, meta) {
-				res.status(200).json(meta);
-			});
-		})
-	})
 }
 
 function isAuthenticated(req, res, next) {

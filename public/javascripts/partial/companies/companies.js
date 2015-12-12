@@ -8,6 +8,7 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 	})
 
 	api.companies.getFields().then(function(data) {
+		console.log("salesforce data fields", data);
 		$scope.salesforceFields = data;
 		console.log("salesforce fields", $scope.salesforceFields);
 	})
