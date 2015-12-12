@@ -2,56 +2,60 @@
 	<div class="col-md-5">
 		<h2>Log Notes</h2>
 		<label>Subject:</label>
-		<input type="text" ng-model="noteSubject">
+		<input type="text" ng-model="subject">
 		<br><br>
 		<label>Notes:</label>
 		<br>
-		<textarea style="height:75px;width:100px" ng-model="noteDescription"></textarea>
+		<textarea style="height:75px;width:100px" ng-model="description"></textarea>
 		<br><br>
 		<select ng-model="vfaId" ng-options="vfa.id as vfa.name for vfa in vfaTeam"></select>
 		<br><br>
-		<button ng-click="logNotes(noteSubject, noteDescription, vfaId, companyId)">
+		<button ng-click="logNotes(subject, description, vfaId, salesforceDataInUse.Id)">
 			Log Notes
 		</button>
 		<hr>
+		<button ng-click="update(salesforceDataInUse.Id, salesforceDataInUse)">Update Account</button>
 		<h2>Company Info</h2>
-		<!-- <h3>{{salesforceData.Name}}</h3> -->
+		<!-- <h3>{{salesforceDataInUse.Name}}</h3> -->
 		<label>CoPa Association</label>
-		<select ng-model="salesforceData.CoPa_Association__c" ng-options="association.value as association.label for association in salesforceDropdownFields.CoPa_Association__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.CoPa_Association__c" ng-options="association.value as association.label for association in salesforceDropdownFields.CoPa_Association__c.picklist"></select>
 		<br>
 		<label>VFA City</label>
-		<select ng-model="salesforceData.VFA_City__c" ng-options="association.value as association.label for association in salesforceDropdownFields.VFA_City__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.VFA_City__c" ng-options="association.value as association.label for association in salesforceDropdownFields.VFA_City__c.picklist"></select>
 		<br>
 		<label>Twitter</label>
-		<input type="text" value="{{salesforceData.Twitter_Handle__c}}">
+		<input type="text" value="{{salesforceDataInUse.Twitter_Handle__c}}">
 		<br>
 		<hr>
 		<label>Description</label>
-		<textarea value="{{salesforceData.Description}}"></textarea>
+		<textarea ng-model="salesforceDataInUse.Description">{{salesforceDataInUse.Description}}</textarea>
 		<br>
 		<label>Year Founded</label>
-		<input type="number" value="{{salesforceData.Year_Founded__c}}">
+		<input type="number" value="{{salesforceDataInUse.Year_Founded__c}}">
 		<br>
 		<label>Number of Employees</label>
-		<input type="number" value="{{salesforceData.NumberOfEmployees}}">
+		<input type="number" value="{{salesforceDataInUse.NumberOfEmployees}}">
+		<br>
+		<label>Company Type</label>
+		<select ng-model="salesforceDataInUse.Company_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Company_Type__c.picklist"></select>
 		<br>
 		<label>Customer Type</label>
-		<select ng-model="salesforceData.Customer_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Customer_Type__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.Customer_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Customer_Type__c.picklist"></select>
 		<br>
 		<label>Product Type</label>
-		<select ng-model="salesforceData.Product_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Product_Type__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.Product_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Product_Type__c.picklist"></select>
 		<br>
 		<label>Funding Type</label>
-		<select ng-model="salesforceData.Funding_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Funding_Type__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.Funding_Type__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Funding_Type__c.picklist"></select>
 		<br>
 		<label>Funding Amount</label>
-		<select ng-model="salesforceData.Funding_Amount__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Funding_Amount__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.Funding_Amount__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Funding_Amount__c.picklist"></select>
 		<br>
 		<label>Female Founder</label>
-		<select ng-model="femaleFounder" ng-options="association.value as association.label for association in salesforceDropdownFields.Female_Founder__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.Female_Founder__c" ng-options="association.value as association.label for association in salesforceDropdownFields.Female_Founder__c.picklist"></select>
 		<br>
 		<label>URM Founder</label>
-		<select ng-model="urmFounder" ng-options="association.value as association.label for association in salesforceDropdownFields.Urm_Founder__c.picklist"></select>
+		<select ng-model="salesforceDataInUse.URM_Founder__c" ng-options="association.value as association.label for association in salesforceDropdownFields.URM_Founder__c.picklist"></select>
 		<br>
 	</div>
 </div>
