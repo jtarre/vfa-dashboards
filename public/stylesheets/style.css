@@ -30,6 +30,10 @@ a{
   color: #838383;
 }
 
+.menu-right-padding {
+  padding:0 1em 0 1em;
+}
+
 /*
 .navbar-mike-top{
   border-top: 5px solid #264b72;

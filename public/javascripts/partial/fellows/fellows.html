@@ -21,21 +21,25 @@
 				</div>
 
 				<hr>
-				<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
-					<div class="col-xs-4">
-						{{fellow.name}}
-					</div>
-					<div class="col-xs-4">
-						{{fellow.year}}
-					</div>
-					<div class="col-xs-4">
-						<button class="btn btn-default btn-sm" type="button" ui-sref="fellow({ fellowId: fellow.id })">
-							View
-						</button>
-					</div>
-				</div> <!-- end fellow feed row -->
-			</div> <!-- end initial row div -->
-
+				<div ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
+					<div class="row">
+						<div class="col-md-3 col-sm-4 col-xs-6">
+							<span>{{fellow.name}}</span>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-6 hidden-xs">
+							<span>City Name</span>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-6 hidden-sm hidden-xs">
+							<span>Company Name</span>
+						</div>
+						<div class="col-md-3 col-sm-4 col-xs-6 text-right">
+							<span>{{fellow.year}}<span class="glyphicon glyphicon-menu-right menu-right-padding" ui-sref="fellow({ fellowId: fellow.id })"></span></span>
+						</div>
+					</div> <!-- end row div -->
+					<hr>
+				</div> <!-- end repeat div -->
+			
+			</div>
 		</div>
 	</div>
 </div>
