@@ -4,9 +4,9 @@ module.exports = function(app) {
 	console.log("something");
 	app.get("/api/fields/:type", function(req, res) {
 
-		var type = req.param.type;
+		var type = req.params.type;
 		var sobject;
-
+		console.log("FIELD TYPE", type);
 		if(type === "companies") {
 			sobject = "Account";
 		} else { // fellow (for now)
@@ -24,7 +24,7 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			conn.sobject(sobject).describe(function(err, meta) {
 				if(err) {return console.error(err);}
-				console.log("meta fields", meta);
+				// console.log("meta fields", meta);
 				res.status(200).json(meta);
 			});
 		})

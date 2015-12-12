@@ -27,7 +27,8 @@ module.exports = function(app) {
 	});
 
 	app.get("/api/companies/:id", function(req,res) {
-		var id = req.param.id;
+		var id = req.params.id;
+		// console.log("company id", id);
 		var conn = new jsforce.Connection({
 					clientSecret: process.env.CLIENT_SECRET,
 					clientId:     process.env.CLIENT_ID,

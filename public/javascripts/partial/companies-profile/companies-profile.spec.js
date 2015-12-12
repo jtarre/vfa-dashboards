@@ -15,5 +15,16 @@ describe("companyCtrl", function() {
 		it("if it doesn't, should not crash system");
 		it("should be stored in a scope variable");
 		// etc.
+	});
+
+	describe("assigning picklist values", function() {
+		it("identifies properties in salesforceField");
+		it("makes sure properties match");
+		it("assigns picklist values to correct field");
+	});
+
+	describe("html binding on page", function() {
+		it("values should display on page");
 	})
+
 });

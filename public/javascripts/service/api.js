@@ -24,6 +24,7 @@ vfaDashboard.factory("api", function($http) {
 			},
 
 			getCompany: function(id) {
+				// console.log("company id in api service", id);
 				return $http.get("/api/companies/" + id).then(function(response) {
 					return response.data;
 				});
