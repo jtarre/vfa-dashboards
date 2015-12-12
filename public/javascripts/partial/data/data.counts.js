@@ -6,8 +6,14 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 	$scope.fellowsTotal = 0;
 
 	 // FOR SORTS //
-	 // $scope.sortProp = city;
-	 
+	 $scope.yearSortProp = 'key';
+	 $scope.citySortProp = 'key';
+	 $scope.schoolSortProp = 'key';
+
+	 // REVERSES FOR SORT //
+	 $scope.yearKeyReverse = true;
+	 $scope.cityKeyReverse = true;
+	 $scope.schoolKeyReverse = true;
 
 	 api.fellows.get().then( function (data) {
 	 	$scope.fellowData = data;
@@ -24,7 +30,8 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 
 	 		// by city
 	 		// console.log("City", element.city);
-	 		if(element.city !== undefined && element.city !== null) {
+	 		// undefined, null, '', 0 , NaN
+	 		if(element.city) {
 	 			if(element.city.indexOf(";")>0) {
 	 				console.log("multiple cities", element.city.split(";"));
 	 				$scope.addFellowInMultipleCitiesToCount(element.city.split(";"), citiesTemp);
@@ -38,16 +45,48 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 	 	});
 
 	 	$scope.addToArray(citiesTemp, $scope.cities);
-	 	console.log("cities scope", $scope.cities);
 	 	$scope.addToArray(schoolsTemp, $scope.schools);
-	 	console.log("schools scope", $scope.schools);
 	 	$scope.addToArray(yearsTemp, $scope.years);
 
 	 })
+
+	 /* 
+
+		on each pass, i ned to access the teporary object
+		[{array: cities, tempObj: tempCities, category: 'city'}, {}]
+		countCategories (data, arrayOfObjects) {
+	
+
+		// STEP 1: LOOP THROUGH DATA SET // 
+		_.each(data, function(element, index, list){
+			
+			// STEP 2: AT EACH DATA SET LOOP,
+			// INCREMENT COUNT OF APPROPRIATE CATEGORY
+			// OF TEMPORARY OBJECT
+			// TEMP OBJECTS MAKES IT EASY TO STORE OBJECT DATA
+			for(object in arrayOfObjects) {
+				// object.tempObject and this is where i need to add to count
+				if (element[object.category].indexOf(";")>0) {
+					$scope.addFellowInMultipleCitiesToCount(element[object.category], object.tempObject);
+				} else {
+					$scope.addToCount(element[object.category], object.TempObject);
+				}
+			}
+		});
+			// STEP 3: TRANSFORM OBJECTS INTO ARRAY
+			// NEED IN ARRAY FORM FOR ANGULAR FILTERING
+			for(object in arrayOfObjects) {
+				$scope.addToArray(object.tempObject, object.array);
+			}
+	}
+
+
+	 	
+	  */
 	
 	$scope.addToCount = function addToCount(element, objectOfObjects) {
 		// console.log("element in add to count", element);
-		if(element !== undefined && element !== null) {
+		if(element) {
 			if(objectOfObjects.hasOwnProperty(element)) {
 				objectOfObjects[element] = objectOfObjects[element] + 1;
 			} else {
@@ -58,8 +97,6 @@ vfaDashboard.controller("dataCountsCtrl", function($scope, api, _) {
 
 	$scope.addToArray = function addToArray(objectOfObjects, array) {
 		_.each(objectOfObjects, function(value, key, list) {
-			// console.log("value in objectOfObjects", value);
-			// console.log("key in objectOfObjects", key);
 			array.push({key: key, value: value});
 		})
 	}
