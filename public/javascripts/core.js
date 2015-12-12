@@ -70,9 +70,18 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             // }
         })
 
+        // .state('fellows', {
+        //     url: '/fellows',
+        //     abstract: true,
+        //     templateUrl: 'javascripts/partial/fellows/fellows.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //         // setNavBarLoginState: ""
+        //     }
+        // })
+
         .state('fellows', {
             url: '/fellows',
-            abstract: true,
             templateUrl: 'javascripts/partial/fellows/fellows.html',
             resolve: {
                 loggedin: checkLoggedin
@@ -80,14 +89,9 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        .state('fellows.browse', {
-            url: '',
-            templateUrl: 'javascripts/partial/fellows/fellows.browse.html'
-        })
-
-        .state('fellows.profile', {
-            url: '/:fellowId',
-            templateUrl: 'javascripts/partial/fellows/fellows.profile.html'
+        .state('fellow', {
+            url: '/fellows/:fellowId',
+            templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html'
         })
 
         .state('companies', {
