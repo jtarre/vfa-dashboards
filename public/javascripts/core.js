@@ -40,6 +40,11 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html'
         })
 
+        .state('campaigns', {
+            url: '/campaigns',
+            templateUrl: 'javascripts/partial/campaigns/campaigns.html'
+        })
+
         .state('companies', {
             url: '/companies',
             templateUrl: 'javascripts/partial/companies/companies.html',

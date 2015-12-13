@@ -53,11 +53,19 @@ vfaDashboard.factory("api", function($http) {
 		// 	}
 		// }
 
+		campaigns: {
+			create: function() {
+				return $http.post("/api/campaigns").then(function(response) {
+
+				});
+			}
+		}
+
 		data: {
 			getCompanies: function() {
 				return $http.get("/api/data/companies").then(function(response) {
 					return response.data;
-				})
+				});
 			}
 		},
 
