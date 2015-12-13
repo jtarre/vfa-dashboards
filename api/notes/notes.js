@@ -8,6 +8,9 @@ module.exports = function(app) {
 	  	console.log('request body', req.body);
 
 	  	var note = req.body;
+	  	note.ActivityDate = new jsforce.Date.toDateTimeLiteral(new Date());
+	  	note.Priority = "Normal";
+	  	note.Status = "Completed";
 
 		var conn = new jsforce.Connection({
 			instanceUrl:  process.env.INSTANCE_URL,
@@ -18,24 +21,7 @@ module.exports = function(app) {
 	  	});
 	  
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
-	    
-	    	// create either a WhoId for Fellows or a WhatId for a company note
-	  //   	note = {
-	  //     		Subject:      req.body.noteSubject,
-	  //     		Description:  req.body.noteDescription,
-	  //     		OwnerId:      req.body.vfaId, 
-	  //     		Status:	     "Completed",
-		 //      	Priority:     "Normal",
-		 //      	ActivityDate: new jsforce.Date.toDateTimeLiteral(new Date())
-	  //   	};
-		    
-		 //   	if( req.body.type === "fellow") {
-		 //   		console.log("type fellow");
-			// 	note.WhoId   = req.body.fellowId;
-			// 	note.WhatId  = req.body.caseId;
-			// } else { // note is type "company"
-			// 	note.WhatId = req.body.companyId; 
-			// } 
+
 		    	conn.sobject("Task").create(note, function(err, ret) {
 		      		if(err) { console.error(err) };
 		      		console.log("return", ret);

@@ -1,11 +1,22 @@
 vfaDashboard.controller("campaignCtrl", function($scope, api, _) {
 
 
-	$scope.newCampaign = {};
+	// $scope.newCampaign = {};
 
-	api.campaigns.create().then(function(response) {
-		// display id and campaign url on page
-	})
+	$scope.createCampaign(name, startDate, vfaId) {
+		var campaign = {
+			Name:       name,
+			StartDate:  startDate,
+			OwnerId:    vfaId,
+			Type:       "Recruitment Event",
+			isActive:   true,
+			Department__c: "Recruitment"
+		}
+		api.campaigns.create(campaign).then(function(response) {
+			// display id and campaign url on page
+		})	
+	}
+	
 
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
