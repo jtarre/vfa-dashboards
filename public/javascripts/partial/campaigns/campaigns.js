@@ -1,9 +1,20 @@
 vfaDashboard.controller("campaignCtrl", function($scope, api, _) {
 
+	$scope.currentCampaign = {
+		campaignId: "",
+		campaignUrl: ""
+	};
 
-	// $scope.newCampaign = {};
 
-	$scope.createCampaign(name, startDate, vfaId) {
+	$scope._assignCampaign = function _assignCampaign(id, url) {
+		// console.log("campaign in assign campaign", campaign);
+		this.campaignId  = id;
+		console.log("campaign id", $scope.currentCampaign.campaignId);
+		this.campaignUrl = url;
+		console.log("url", $scope.currentCampaign.campaignUrl);
+	}
+
+	$scope.createCampaign = function createCampaign(name, startDate, vfaId) {
 		var campaign = {
 			Name:       name,
 			StartDate:  startDate,
@@ -13,8 +24,13 @@ vfaDashboard.controller("campaignCtrl", function($scope, api, _) {
 			Department__c: "Recruitment"
 		}
 		api.campaigns.create(campaign).then(function(response) {
-			// display id and campaign url on page
-		})	
+			console.log(response);
+			var campaignId  =  response.id;
+			var campaignUrl =  "https://na14.salesforce.com/" + response.id;
+			console.log("url in assignment", campaignUrl);
+			$scope._assignCampaign.apply($scope.currentCampaign, [campaignId, campaignUrl]);
+			
+		});	
 	}
 	
 

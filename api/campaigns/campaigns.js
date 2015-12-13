@@ -7,8 +7,6 @@ module.exports = function(app) {
 		var campaign = req.body;
 		console.log("campaign body", campaign);
 
-		campaign.StartDate = new jsforce.Date.toDateTimeLiteral(campaign.StartDate);
-		console.log("campaign start date", campaign.StartDate);
 
 		var conn = new jsforce.Connection({
 			instanceUrl:  process.env.INSTANCE_URL,

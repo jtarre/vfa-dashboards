@@ -57,10 +57,10 @@ vfaDashboard.factory("api", function($http) {
 			create: function(newCampaign, vfaId) {
 				newCampaign.OwnerId = vfaId;
 				return $http.post("/api/campaigns", newCampaign).then(function(response) {
-
+					return response.data;
 				});
 			}
-		}
+		},
 
 		data: {
 			getCompanies: function() {

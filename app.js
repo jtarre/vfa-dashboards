@@ -50,6 +50,7 @@ app.use(passport.session());
 require('./api/fellows/fellow')(app);
 require('./api/fellows/fellows')(app);
 require('./api/companies/companies')(app);
+require('./api/campaigns/campaigns')(app);
 require('./api/opportunities/opportunities')(app);
 require('./api/data/data')(app);
 require('./api/notes/notes')(app);
