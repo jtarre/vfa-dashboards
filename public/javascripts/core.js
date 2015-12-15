@@ -1,9 +1,9 @@
-var underscore = angular.module('underscore', []);
-underscore.factory('_', ['$window', function($window) {
-  return $window._; // assumes underscore has already been loaded on the page
+var lodash = angular.module('lodash', []);
+lodash.factory('_', ['$window', function($window) {
+  return $window._; // assumes lodash has already been loaded on the page
 }]);
 
-var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "underscore", "nvd3", "ngStorage"]);
+var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "lodash", "nvd3", "ngStorage"]);
 
 vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 

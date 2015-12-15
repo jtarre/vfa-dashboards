@@ -54,4 +54,18 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 	]
 })
 
+/*
+					<button ng-click="edit = !edit">{{edit ? 'Show' : 'Edit'}}</button>
+				<h3 id="fellowInfo">Fellow Info</h3>
+				<div class="fellow-info-content row">
+					<div ng-repeat="fellow fellow.profile">
+
+						<div class="detail-label" ng-hide="edit">
+							<span>{{key | fellowTitle}}</span>
+							<span ng-hide="edit">{{value}}</span>
+							<select ng-if="isSelect(key)" ng-show="edit" class="detail-select" ng-options="fellows">
+							</select>
+							<input ng-if="isText(key)" ng-show="edit" ng-model="fellow.profile[key]" />
+						</div>
+ */
 

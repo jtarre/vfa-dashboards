@@ -6,6 +6,7 @@ describe("companyCtrl", function() {
 		it("should attach itself to appropriate scope variable");
 		it("should have data");
 		it("shouldn't crash program if it doesn't exist");
+		
 		// etc.
 
 	});
