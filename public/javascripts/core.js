@@ -11,27 +11,13 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
         .state('home', {
             url: '/home',
             templateUrl: 'javascripts/partial/home/home.html',
-            // resolve: {
-            //     setNavBarLoginState: ""
-            // }
         })
-
-        // .state('fellows', {
-        //     url: '/fellows',
-        //     abstract: true,
-        //     templateUrl: 'javascripts/partial/fellows/fellows.html',
-        //     resolve: {
-        //         loggedin: checkLoggedin
-        //         // setNavBarLoginState: ""
-        //     }
-        // })
 
         .state('fellows', {
             url: '/fellows',
             templateUrl: 'javascripts/partial/fellows/fellows.html',
             resolve: {
                 loggedin: checkLoggedin
-                // setNavBarLoginState: ""
             }
         })
 
@@ -42,7 +28,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('campaigns', {
             url: '/campaigns',
-            templateUrl: 'javascripts/partial/campaigns/campaigns.html'
+            templateUrl: 'javascripts/partial/campaigns/campaigns.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         .state('companies', {
@@ -50,7 +39,6 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/companies/companies.html',
             resolve: {
                 loggedin: checkLoggedin
-                // setNavBarLoginState: "",
             }
         })
 
@@ -61,14 +49,11 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('data', {
             url: '/data',
-            templateUrl: 'javascripts/partial/data/data.counts.html'
+            templateUrl: 'javascripts/partial/data/data.counts.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         });
-
-        // .state('data.companies', {
-        //     url: ''
-        //     templateUrl:
-        // })
-
 
     /* Add New States Above */
     $urlRouterProvider.otherwise('/home');
