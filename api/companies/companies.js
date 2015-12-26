@@ -44,12 +44,12 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			conn.sobject('Account')
 				.create(accountData, function(err, ret){
-					if(err) {return console.error(err);}
+					if(err) { return console.error(err); }
 					console.log("return value", ret);
 					res.status(200).json(ret);
-				})
-		}
-	})
+				});
+		});
+	});
 
 	app.post("/api/companies/:id", function(req,res) {
 		// console.log("request params", req.body);

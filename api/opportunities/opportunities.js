@@ -48,8 +48,8 @@ module.exports = function(app) {
 				.execute( function(err, opportunities) {
 					if(err) { return console.error(err); }
 					res.status(200).json(opportunities);
-				})
-		}
-	})
+				});
+		});
+	});
 
 }
