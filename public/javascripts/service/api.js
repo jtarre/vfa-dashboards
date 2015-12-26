@@ -57,7 +57,7 @@ vfaDashboard.factory("api", function($http) {
 					return response.data;
 				})
 			}
-		}
+		},
 
 		campaigns: {
 			create: function(newCampaign, vfaId) {
