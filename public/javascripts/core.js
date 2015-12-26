@@ -47,6 +47,11 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/companies-profile/companies-profile.html'
         })
 
+        .state('supporters', {
+            url: '/supporters',
+            templateUrl: 'javascripts/partial/supporters/supporters.html'
+        })
+
         .state('data', {
             url: '/data',
             templateUrl: 'javascripts/partial/data/data.counts.html',
