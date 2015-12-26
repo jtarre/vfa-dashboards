@@ -51,6 +51,14 @@ vfaDashboard.factory("api", function($http) {
 			}
 		},
 
+		contacts: {
+			create: function(contactInfo) {
+				return $http.post("/api/contacts", contactInfo).then( function(response) {
+					return response.data;
+				})
+			}
+		}
+
 		campaigns: {
 			create: function(newCampaign, vfaId) {
 				newCampaign.OwnerId = vfaId;
@@ -69,9 +77,20 @@ vfaDashboard.factory("api", function($http) {
 		},
 
 		opportunities: {
-			get: function() {},
-			getOpportunity: function(id){},
-			create: function(data) {}
+
+			getForCompany: function(companyId) {
+				return $http.get("/api/companies/" + companyId + "/opportunities")
+					.then( function(response) {
+						return response.data;
+					})
+			},
+
+			create: function(companyId, opportunityData) {
+				return $http.post("/api/companies/" + companyId + "/opportunities", opportunityData)
+					.then( function(response) {
+						return response.data;
+					})
+			}
 		},
 
 		notes: {
