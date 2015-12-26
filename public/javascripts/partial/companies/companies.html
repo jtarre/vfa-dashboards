@@ -17,42 +17,16 @@
 			<h2>Companies</h2>
 			<div class="row" ng-repeat="company in companies | filter:searchKey">
 				
-				<div class="col-md-2">{{company.VFA_City__c}}</div>
+				<!-- <div class="col-md-2">{{company.VFA_City__c}}</div> -->
 				<div class="col-md-2">{{company.Name}}</div>
 				<div class="col-md-2">{{company.CoPa_Association__c}}</div>
 				<div class="col-md-2">
 					<a href="{{company.Website}}" target="_blank">url link</a>
 				</div>
 				<div class="col-md-2">
-					<button ng-click="viewCompany(company.Id)">View</button>
+					<button ui-sref="company({companyId: company.Id})">View</button>
 				</div>
 			</div>	
-		</div>
-		<div class="col-md-5">
-			<h2>Log Notes</h2>
-			<label>Subject:</label>
-			<input type="text" ng-model="noteSubject">
-			<br><br>
-			<label>Notes:</label>
-			<br>
-			<textarea style="height:75px;width:100px" ng-model="noteDescription"></textarea>
-			<br><br>
-			<select ng-model="vfaId" ng-options="vfa.id as vfa.name for vfa in vfaTeam"></select>
-			<br><br>
-			<button ng-click="logNotes(noteSubject, noteDescription, vfaId, companyId)">
-				Log Notes
-			</button>
-			<hr>
-			<h2>Company Info</h2>
-			<label>CoPa Association</label>
-			<select></select>
-			<br>
-			<label>VFA City</label>
-			<select></select>
-			<br>
-			<label>Twitter</label>
-			<input type="text">
-			<br>
 		</div>
 	</div>
 </div>

@@ -1,0 +1,25 @@
+<div ng-controller="campaignCtrl">
+	<h2>Create Campaign</h2>
+	<label>Name</label>
+	<input ng-model="name"type="text">
+	<!-- <br>
+	<label>School</label>
+	<input type="text"> -->
+	<br>
+	<label>Start Date</label>
+	<input ng-model="startDate"type="date">
+	<br>
+	<label>Campaign Owner</label>
+	<select ng-model="vfaId" ng-options="vfa.id as vfa.name for vfa in vfaTeam"></select>
+	<br>
+	<!-- <label>Type</label>
+	<select></select> -->
+	<br>
+	<button ng-click="createCampaign(name, startDate, vfaId)">Create Campaign</button>
+	<hr>
+	<p>Campaign Id (for surveygizmo): {{currentCampaign.campaignId}}</p> 
+	<br>
+	<p>Campaign Url (salesforce link): <a target="_blank" ng-href="{{currentCampaign.campaignUrl}}">{{currentCampaign.campaignUrl}}</a></p>
+	<br>
+	<p>SurveyGizmo Event Template:</p> <a target="_blank" href="https://app.surveygizmo.com/builder/build/id/2492577">https://app.surveygizmo.com/builder/build/id/2492577</a>
+</div>

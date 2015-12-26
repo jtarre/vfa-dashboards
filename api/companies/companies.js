@@ -27,7 +27,8 @@ module.exports = function(app) {
 	});
 
 	app.get("/api/companies/:id", function(req,res) {
-		var id = req.param.id;
+		var id = req.params.id;
+		// console.log("company id", id);
 		var conn = new jsforce.Connection({
 					clientSecret: process.env.CLIENT_SECRET,
 					clientId:     process.env.CLIENT_ID,
@@ -39,6 +40,31 @@ module.exports = function(app) {
 			conn.sobject('Account')
 				.retrieve(id, function(err, companyInfo) {
 					res.status(200).json(companyInfo);
+				})
+		});
+	});
+
+	app.post("/api/companies/", function(req,res) {
+		console.log("request params", req.body);
+		var id          = req.body.Id;
+		var accountData = req.body;
+
+		console.log("data on the server", accountData);
+
+		console.log("company id", id);
+		var conn = new jsforce.Connection({
+					clientSecret: process.env.CLIENT_SECRET,
+					clientId:     process.env.CLIENT_ID,
+					loginUrl:     process.env.LOGIN_URL,
+					instanceUrl:  process.env.INSTANCE_URL,
+					redirectUri: process.env.REDIRECT_URI
+				});
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			conn.sobject('Account')
+				.update(accountData, function(err, ret) {
+					if(err) {return console.error(err);}
+					console.log("return value", ret);
+					res.status(200).json(ret);
 				})
 		});
 	});

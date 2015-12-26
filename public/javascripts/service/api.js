@@ -20,13 +20,28 @@ vfaDashboard.factory("api", function($http) {
 			get: function() {
 				return $http.get("/api/companies").then(function(response) {
 					return response.data;
-				})
+				});
 			},
 
 			getCompany: function(id) {
+				// console.log("company id in api service", id);
 				return $http.get("/api/companies/" + id).then(function(response) {
 					return response.data;
-				})
+				});
+			},
+
+			getFields: function() {
+				console.log("getting salesforce company fields");
+				return $http.get("/api/fields/companies").then(function(response) {
+					console.log("data", response.data);
+					return response.data;
+				});
+			},
+
+			update: function(id, data) {
+				return $http.post("/api/companies/", JSON.stringify(data)).then(function(response) {
+					return response.data;
+				});
 			}
 		},
 
@@ -38,11 +53,20 @@ vfaDashboard.factory("api", function($http) {
 		// 	}
 		// }
 
+		campaigns: {
+			create: function(newCampaign, vfaId) {
+				newCampaign.OwnerId = vfaId;
+				return $http.post("/api/campaigns", newCampaign).then(function(response) {
+					return response.data;
+				});
+			}
+		},
+
 		data: {
 			getCompanies: function() {
 				return $http.get("/api/data/companies").then(function(response) {
 					return response.data;
-				})
+				});
 			}
 		},
 
@@ -52,10 +76,27 @@ vfaDashboard.factory("api", function($http) {
 		},
 
 		notes: {
-			post: function(noteData) {
-				console.log("\n\nnote data:");
-				console.log(noteData);
-				return $http.post("/api/notes", JSON.stringify(noteData)).then(function(response) {
+			post: function(subject, description, vfaId, objectId, type, caseId) {
+				var note = {
+					Description: description,
+					Subject:     subject,
+					OwnerId:       vfaId,
+
+				};
+
+				if(type === "fellow") {
+					note.WhoId = objectId;
+				} else {
+					note.WhatId = objectId;
+				}
+
+				if(caseId) {
+					note.WhatId = caseId;
+				}
+
+				
+
+				return $http.post("/api/notes", JSON.stringify(note)).then(function(response) {
 					return response.data;
 				});
 			}

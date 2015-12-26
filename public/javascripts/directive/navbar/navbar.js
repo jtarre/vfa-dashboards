@@ -14,7 +14,7 @@ vfaDashboard.directive("navbar", function($http, $q) {
 				.success(function(user) {
 					console.log("User", user);	
 					if(user !== "0") {
-						console.log("if condition");
+						// console.log("if condition");
 						scope.loginState.navText = "Logout";
 						scope.loginState.navHref = "/logout";
 						console.log("scope", scope.loginState.navText);

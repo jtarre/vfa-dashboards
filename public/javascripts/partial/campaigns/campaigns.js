@@ -1,27 +1,38 @@
-vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
+vfaDashboard.controller("campaignCtrl", function($scope, api, _) {
 
-	$scope.fellow;
-	$scope.fellowId = $stateParams.fellowId;
-	// $scope.cases;
+	$scope.currentCampaign = {
+		campaignId: "",
+		campaignUrl: ""
+	};
 
-	api.fellows.getFellow($scope.fellowId).then(function( data ){
-		console.log("Fellow Data received:");
-		console.log(data);
-		$scope.fellow = data;
-		// console.log("fellow name", $scope.fellow.profile.Name);
-		$scope.cases = $scope.fellow.cases;
-		console.log("cases in fellow scope: ",$scope.fellow.cases);
-		// console.log($scope.fellow);
 
-	});
-
-	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfaId, fellowId, caseId) {
-		api.notes.post(noteSubject, noteDescription, vfaId, fellowId, "fellow", caseId).then(function( data ) {
-			console.log("Note data received: ", data);
-			$scope.noteSubject     = ""; // reset note form values
-			$scope.noteDescription = "";
-		});
+	$scope._assignCampaign = function _assignCampaign(id, url) {
+		// console.log("campaign in assign campaign", campaign);
+		this.campaignId  = id;
+		console.log("campaign id", $scope.currentCampaign.campaignId);
+		this.campaignUrl = url;
+		console.log("url", $scope.currentCampaign.campaignUrl);
 	}
+
+	$scope.createCampaign = function createCampaign(name, startDate, vfaId) {
+		var campaign = {
+			Name:       name,
+			StartDate:  startDate,
+			OwnerId:    vfaId,
+			Type:       "Recruitment Event",
+			isActive:   true,
+			Department__c: "Recruitment"
+		}
+		api.campaigns.create(campaign).then(function(response) {
+			console.log(response);
+			var campaignId  =  response.id;
+			var campaignUrl =  "https://na14.salesforce.com/" + response.id;
+			console.log("url in assignment", campaignUrl);
+			$scope._assignCampaign.apply($scope.currentCampaign, [campaignId, campaignUrl]);
+			
+		});	
+	}
+	
 
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
@@ -53,19 +64,3 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 		{ name: "Will Geary", id : "005d00000048iYF"}
 	]
 })
-
-/*
-					<button ng-click="edit = !edit">{{edit ? 'Show' : 'Edit'}}</button>
-				<h3 id="fellowInfo">Fellow Info</h3>
-				<div class="fellow-info-content row">
-					<div ng-repeat="fellow fellow.profile">
-
-						<div class="detail-label" ng-hide="edit">
-							<span>{{key | fellowTitle}}</span>
-							<span ng-hide="edit">{{value}}</span>
-							<select ng-if="isSelect(key)" ng-show="edit" class="detail-select" ng-options="fellows">
-							</select>
-							<input ng-if="isText(key)" ng-show="edit" ng-model="fellow.profile[key]" />
-						</div>
- */
-
