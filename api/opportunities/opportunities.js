@@ -9,9 +9,9 @@ module.exports = function(app) {
 			clientId     : process.env.CLIENT_ID,
 			redirectUri  : process.env.REDIRECT_URI 
 		});
+	
 	app.get("/api/opportunities", function(req, res) {
 		
-
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			conn.sobject("Opportunity")
 				.find({}, "Name", "CreatedDate", "VFA_City__c", "StageName")
@@ -21,7 +21,6 @@ module.exports = function(app) {
 				});
 		});
 	});
-
 
 	app.post("/api/companies/:id/opportunities", function(req, res) {
 		var companyId        = req.params.id;
@@ -43,7 +42,7 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			conn.sobject('Opportunity')
 				.find({
-					CompanyId: companyId
+					AccountId: companyId
 				}, "*")
 				.execute( function(err, opportunities) {
 					if(err) { return console.error(err); }

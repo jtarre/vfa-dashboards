@@ -1,4 +1,4 @@
-<div ng-controller="SupporterCtrl" ng-cloak>
+<div ng-controller="SupporterProfileCtrl" ng-cloak>
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<h2>Supporter Page</h2>
@@ -39,21 +39,21 @@
 		</md-tab>
 		<md-tab label="Contacts">
 			<md-list>
-				<md-list-item class="md-3-line" ui-sref="contact({contactId: contact.Id})">
+				<md-list-item class="md-3-line" ui-sref="contact({contactId: contact.Id})" ng-repeat="contact in contacts">
 					<div class="md-line-item-text">
-						<h3>Contact Name</h3>
-						<h4>Contact Job Title</h4>
-						<p>Contact email</p>
+						<h3>{{contact.Name}}</h3>
+						<h4>{{contact.Title}}</h4>
+						<p>{{contact.Email}}</p>
 					</div>
 				</md-list-item>
 			</md-list>
 		</md-tab>
 		<md-tab label="Opportunities">
 			<md-list>
-				<md-list-item class="md-3-line" ui-sref="opportunity({opportunityId: opportunity.Id})">
+				<md-list-item class="md-3-line" ui-sref="opportunity({opportunityId: opportunity.Id})" ng-repeat="opportunity in opportunities">
 					<div class="md-line-item-text">
-						<h3>Opportunity Name</h3>
-						<p>Opportunity Description</p>
+						<h3>{{opportunity.Name}}</h3>
+						<p>{{opportunity.Description}}</p>
 					</div>
 				</md-list-item>
 			</md-list>

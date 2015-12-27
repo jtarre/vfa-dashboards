@@ -20,7 +20,25 @@ module.exports = function(app) {
 					if(err) { return console.error(err); }
 					console.log("created contact return data", ret);
 					res.status(200).json(ret);
+				});
+		});
+	});
+
+	app.get("/api/companies/:id/contacts", function(req, res) {
+		var companyId = req.params.id;
+
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			if(err) { return console.error(err); }
+			conn.sobject('Contact')
+				.find({
+					AccountId: companyId
+				}, "*")
+				.sort({ Name: 1 })
+				.execute( function(err, contacts) {
+					if(err) { return console.error(err); }
+					console.log("contacts", contacts);
+					res.status(200).json(contacts);
 				})
-		})
-	})
+		});
+	});
 }

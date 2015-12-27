@@ -44,7 +44,7 @@ vfaDashboard.factory("api", function($http) {
 						console.log("get contacts response", response);
 						return response.data;
 					})
-			}
+			},
 
 			update: function(id, data) {
 				return $http.post("/api/companies/" + id, JSON.stringify(data)).then(function(response) {
@@ -89,6 +89,7 @@ vfaDashboard.factory("api", function($http) {
 			getForCompany: function(companyId) {
 				return $http.get("/api/companies/" + companyId + "/opportunities")
 					.then( function(response) {
+						console.log("opportunities for company", response.data);
 						return response.data;
 					})
 			},

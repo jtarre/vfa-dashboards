@@ -14,8 +14,8 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if(err) { return console.error(err); }
 			conn.sobject("User")
-				.find("*", "Name, Email")
-				.sort({Name: -1})
+				.find({}, "Name, Email")
+				.sort({Name: 1})
 				.execute( function(err, users) {
 					if(err) { return console.error(err); }
 					console.log("salesforce users:", users);
