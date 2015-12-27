@@ -38,6 +38,14 @@ vfaDashboard.factory("api", function($http) {
 				});
 			},
 
+			getContacts: function(companyId) {
+				return $http.get("/api/companies/" + companyId + "/contacts")
+					.then( function(response) {
+						console.log("get contacts response", response);
+						return response.data;
+					})
+			}
+
 			update: function(id, data) {
 				return $http.post("/api/companies/" + id, JSON.stringify(data)).then(function(response) {
 					return response.data;
