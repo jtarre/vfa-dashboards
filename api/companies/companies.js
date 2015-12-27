@@ -13,14 +13,17 @@ module.exports = function(app) {
 
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if (err) { return console.error(err); }
+			console.log("getting accounts");
 			conn.sobject('Account')
 				.find(
 				{
 					"Department__c" : "Company Partnerships"
 				},
-				'Name, Id, VFA_City__c, CoPa_Association__c, Website')
+				'Name, Id, VFA_City__c')
 				.sort({ Name : 1 }) // Sort Alphabetically A->Z
 				.execute( function ( err, accounts ) {
+					if(err) { return console.error(err); }
+					console.log("got accounts");
 					res.status(200).json(accounts);
 				});
 		});	

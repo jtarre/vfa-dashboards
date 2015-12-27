@@ -1,7 +1,6 @@
 <!-- first add angular material -->
 <!-- Angular Material Stylesheets and Fonts -->
 <div ng-controller="SupporterCtrl" ng-cloak>
-	<md-content>
 		<md-toolbar>
 			<div class="md-toolbar-tools">
 				<h2>Supporters</h2>
@@ -9,18 +8,46 @@
 				<md-button class="md-raised" ng-click="createAccount()">Create Account</md-button>
 			</div>
 		</md-toolbar>
-		<md-input-container>
-			<label>Search</label>
-			<input type="text" ng-model="searchQuery">
-		</md-input-container>
-		<md-list>
-			<md-list-item class="md-3-line" ui-sref="supporter({supporterId: supporter.Id})" ng-repeat="supporter in filteredSupporters = (supporters | filter:searchQuery)">
-				<div class="md-list-item-text">
-					<h3>{{supporter.Name}}: {{supporter.VFA_City__c}}</h3>
-					<h4>{{supporter.Website}}</h4>
-					<p>{{supporter.CoPa_Association__c}}</p>
-				</div>
-			</md-list-item>
-		</md-list>
-</md-content>
+	<md-tabs md-dynamic-height="true">
+		<md-tab label="Log Note">
+				<form name="logNotes">
+					<md-autocomplete md-items="supporter in supporters" md-item-text="supporter.Name" md-floating-label="Account">
+						<md-item-template>
+							{{supporter.Name}}
+						</md-item-template>
+					</md-autocomplete>
+					<div layout="column">
+						<md-input-container>
+							<label>Subject</label>
+							<input ng-model="notes.Subject" type="text">
+						</md-input-container>
+						<md-input-container>
+							<label>Notes</label>
+							<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
+						</md-input-container>
+					</div>
+					<md-autocomplete md-items="user in users" md-item-text="user.Name" md-floating-label="You">
+						<md-item-template>
+							{{user.Name}}
+						</md-item-template>
+					</md-autocomplete>
+					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
+				</form>
+		</md-tab>
+<!-- 		<md-tab label="List (Accounts)">
+			<md-input-container>
+				<label>Search</label>
+				<input type="text" ng-model="searchQuery">
+			</md-input-container>
+			<md-list>
+				<md-list-item class="md-3-line" ui-sref="supporter({supporterId: supporter.Id})" ng-repeat="supporter in supporters">
+					<div class="md-list-item-text">
+						<h3>{{supporter.Name}}: {{supporter.VFA_City__c}}</h3>
+						<h4>{{supporter.Website}}</h4>
+						<p>{{supporter.CoPa_Association__c}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab> -->
+	</md-tabs>
 </div>
