@@ -3,7 +3,7 @@ lodash.factory('_', ['$window', function($window) {
   return $window._; // assumes lodash has already been loaded on the page
 }]);
 
-var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "lodash", "nvd3", "ngStorage"]);
+var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "lodash", "nvd3", "ngStorage", "ngMaterial"]);
 
 vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
@@ -46,6 +46,36 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             url: '/companies/:companyId',
             templateUrl: 'javascripts/partial/companies-profile/companies-profile.html'
         })
+
+        // .state('companyContact', {
+        //     url: '/companies/:companyId/contacts/:contactId',
+        //     templateUrl: 'javascripts/partial/companies-contacts/companies-contacts.html'
+        // })
+
+        // .state('companyOpportunity', {
+        //     url: '/companies/:companyId/opportunities/:opportunityId',
+        //     templateUrl: 'javascripts/partial/opportunities-contacts/opportunities-contacts.html'
+        // })
+
+        .state('supporters', {
+            url: '/supporters',
+            templateUrl: 'javascripts/partial/supporters/supporters.html'
+        })
+
+        .state('supporter', {
+            url: '/supporters/:supporterId',
+            templateUrl: 'javascripts/partial/supporters-profile/supporters-profile.html'
+        })
+
+        // .state('supporterContact', {
+        //     url: '/supporters/:supporterId/contacts/:contactId',
+        //     templateUrl: 'javascripts/partial/supporters-contacts/supporters-contacts.html'
+        // })
+
+        // .state('supporterOpportunity', {
+        //     url: 'supporters/:supporterId/opportunity/:opportunityId',
+        //     templateUrl: 'javascripts/partial/supporters-opportunities/supporters-opportunities.html'  
+        // })
 
         .state('data', {
             url: '/data',
