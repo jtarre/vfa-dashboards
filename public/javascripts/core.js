@@ -47,6 +47,16 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/companies-profile/companies-profile.html'
         })
 
+        // .state('companyContact', {
+        //     url: '/companies/:companyId/contacts/:contactId',
+        //     templateUrl: 'javascripts/partial/companies-contacts/companies-contacts.html'
+        // })
+
+        // .state('companyOpportunity', {
+        //     url: '/companies/:companyId/opportunities/:opportunityId',
+        //     templateUrl: 'javascripts/partial/opportunities-contacts/opportunities-contacts.html'
+        // })
+
         .state('supporters', {
             url: '/supporters',
             templateUrl: 'javascripts/partial/supporters/supporters.html'
@@ -56,6 +66,16 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             url: '/supporters/:supporterId',
             templateUrl: 'javascripts/partial/supporters-profile/supporters-profile.html'
         })
+
+        // .state('supporterContact', {
+        //     url: '/supporters/:supporterId/contacts/:contactId',
+        //     templateUrl: 'javascripts/partial/supporters-contacts/supporters-contacts.html'
+        // })
+
+        // .state('supporterOpportunity', {
+        //     url: 'supporters/:supporterId/opportunity/:opportunityId',
+        //     templateUrl: 'javascripts/partial/supporters-opportunities/supporters-opportunities.html'  
+        // })
 
         .state('data', {
             url: '/data',

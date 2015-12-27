@@ -19,7 +19,7 @@ module.exports = function(app) {
 				{
 					"Department__c" : "Company Partnerships"
 				},
-				'Name, Id, VFA_City__c')
+				'Name, Id, VFA_City__c, Website, CoPa_Association__c')
 				.sort({ Name : 1 }) // Sort Alphabetically A->Z
 				.execute( function ( err, accounts ) {
 					if(err) { return console.error(err); }

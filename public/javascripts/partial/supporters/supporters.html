@@ -1,6 +1,6 @@
 <!-- first add angular material -->
 <!-- Angular Material Stylesheets and Fonts -->
-<div ng-controller="SupporterCtrl" ng-cloak>
+<div ng-controller="SupporterCtrl" ng-cloak class="virtualRepeatdemoInfiniteScroll">
 		<md-toolbar>
 			<div class="md-toolbar-tools">
 				<h2>Supporters</h2>
@@ -11,12 +11,12 @@
 	<md-tabs md-dynamic-height="true">
 		<md-tab label="Log Note">
 				<form name="logNotes">
-					<md-autocomplete md-items="supporter in supporters" md-item-text="supporter.Name" md-floating-label="Account">
-						<md-item-template>
-							{{supporter.Name}}
-						</md-item-template>
-					</md-autocomplete>
 					<div layout="column">
+						<md-autocomplete md-items="supporter in supporters" md-item-text="supporter.Name" md-floating-label="Account">
+							<md-item-template>
+								{{supporter.Name}}
+							</md-item-template>
+						</md-autocomplete>
 						<md-input-container>
 							<label>Subject</label>
 							<input ng-model="notes.Subject" type="text">
@@ -33,6 +33,19 @@
 					</md-autocomplete>
 					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
 				</form>
+		</md-tab>
+		<md-tab label="List (Accounts)">
+			<md-list>
+				<md-virtual-repeat-container style="height:500px">
+					<md-list-item flex ui-sref="contact({contactId: contact.Id})" md-virtual-repeat="supporter in supporters" class="md-3-line repeated-item">
+						<div class="md-list-item-text">
+						<h3>{{supporter.Name}}: {{supporter.VFA_City__c}}</h3>
+						<p>{{supporter.Website}}</p>
+						<p>{{supporter.CoPa_Association__c}}</p>
+					</div>
+					</md-list-item>
+				</md-virtual-repeat-container>
+			<md-list>
 		</md-tab>
 <!-- 		<md-tab label="List (Accounts)">
 			<md-input-container>
