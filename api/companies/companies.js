@@ -9,15 +9,22 @@ module.exports = function(app) {
 					redirectUri: process.env.REDIRECT_URI
 				});
 
-	app.get("/api/companies", isAuthenticated, function(req, res) {
+	app.get("/api/accounts/:type", isAuthenticated, function(req, res) {
+		var type = req.params.type;
+		var department;
 
+		if (type === "company-partnerships") {
+			department = "Company Partnerships";
+		} else {
+			department = "Development";
+		}
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if (err) { return console.error(err); }
 			console.log("getting accounts");
 			conn.sobject('Account')
 				.find(
 				{
-					"Department__c" : "Company Partnerships"
+					"Department__c" : department
 				},
 				'Name, Id, VFA_City__c, Website, CoPa_Association__c')
 				.sort({ Name : 1 }) // Sort Alphabetically A->Z

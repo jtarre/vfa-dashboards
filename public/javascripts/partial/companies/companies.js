@@ -3,7 +3,7 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 	$scope.companies;
 	$scope.company;
 
-	api.companies.get().then(function(data) {
+	api.companies.get("company-partnerships").then(function(data) {
 		$scope.companies = data;
 	})
 

@@ -1,7 +1,7 @@
 vfaDashboard.controller("SupporterCtrl", function($scope, api) {
 
-	$scope.test = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6];
-
+	
+	$scope.notes = {};
 	$scope.users;
 	api.users.getAll()
 		.then( function(data) {
@@ -9,11 +9,30 @@ vfaDashboard.controller("SupporterCtrl", function($scope, api) {
 		});
 
 	$scope.supporters;
-	api.companies.get()
+	api.companies.get("development")
 		.then( function(data) {
 			console.log("company data", data);
 			$scope.supporters = data;
 		});
+
+	$scope.logNotes = function logNotes(notes) {
+		//subject, description, vfaId, objectId, t
+		console.log("note data", notes);
+		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.account.Id)
+			.then( function(data) {
+				$scope.notes = {};
+			})
+	}
+
+	$scope._resetNotes = function _resetNotes(notes) {
+		notes = {};
+		return notes;
+	}
+
+	$scope._setData = function _setData(list, data) {
+		list = data;
+		return list;
+	}
 
 
 });

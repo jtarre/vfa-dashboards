@@ -17,8 +17,8 @@ vfaDashboard.factory("api", function($http) {
 		},
 
 		companies: {
-			get: function() {
-				return $http.get("/api/companies").then( function(response) {
+			get: function(type) {
+				return $http.get("/api/accounts/" + type).then( function(response) {
 					console.log("companies on client");
 					return response.data;
 				});
