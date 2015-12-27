@@ -18,7 +18,7 @@ module.exports = function(app) {
 				.sort({Name: 1})
 				.execute( function(err, users) {
 					if(err) { return console.error(err); }
-					console.log("salesforce users:", users);
+					// console.log("salesforce users:", users);
 					res.status(200).json(users);
 				});
 		});

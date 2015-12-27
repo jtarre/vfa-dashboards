@@ -18,7 +18,7 @@ module.exports = function(app) {
 			conn.sobject('Contact')
 				.create(contactData, function(err, ret) {
 					if(err) { return console.error(err); }
-					console.log("created contact return data", ret);
+					// console.log("created contact return data", ret);
 					res.status(200).json(ret);
 				});
 		});
@@ -36,7 +36,7 @@ module.exports = function(app) {
 				.sort({ Name: 1 })
 				.execute( function(err, contacts) {
 					if(err) { return console.error(err); }
-					console.log("contacts", contacts);
+					// console.log("contacts", contacts);
 					res.status(200).json(contacts);
 				})
 		});
