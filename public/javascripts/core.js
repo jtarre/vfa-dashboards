@@ -23,7 +23,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('fellow', {
             url: '/fellows/:fellowId',
-            templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html'
+            templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         .state('campaigns', {
@@ -44,7 +47,10 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('company', {
             url: '/companies/:companyId',
-            templateUrl: 'javascripts/partial/companies-profile/companies-profile.html'
+            templateUrl: 'javascripts/partial/companies-profile/companies-profile.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         // .state('companyContact', {
@@ -59,12 +65,18 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
         .state('supporters', {
             url: '/supporters',
-            templateUrl: 'javascripts/partial/supporters/supporters.html'
+            templateUrl: 'javascripts/partial/supporters/supporters.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         .state('supporter', {
             url: '/supporters/:supporterId',
-            templateUrl: 'javascripts/partial/supporters-profile/supporters-profile.html'
+            templateUrl: 'javascripts/partial/supporters-profile/supporters-profile.html',
+            resolve: {
+                loggedin: checkLoggedin
+            }
         })
 
         // .state('supporterContact', {
