@@ -1,9 +1,28 @@
-<md-toolbar>Supporter Page</md-toolbar>
+<md-toolbar>
+	<div class="md-toolbar-tools">
+		<h2>Supporter Page</h2>
+		<span flex></span>
+		<md-button class="md-raised">Create Contact</md-button>
+		<md-button class="md-raised">Create Opportunity</md-button>
+	</div>
+</md-toolbar>
 <md-tabs md-dynamic-height="true">
 	<md-tab label="Log Notes">
+		<form name="logNotes">
+			<md-input-container>
+				<label>Subject</label>
+				<input ng-model="notes.subject" type="text">
+			</md-input-container>
+			<md-input-container>
+				<label>Notes</label>
+				<input ng-model="notes.notes" type="textarea">
+			</md-input-container>
+			<md-autocomplete></md-autocomplete> <!-- api endpoint to get SF users -->
+			<md-button class="md-raised">Log</md-button>
+		</form>
 	</md-tab>
 	<md-tab label="Background">
-		<md-content>
+		<md-content layout-padding>
 			<h4>City</h4>
 			<p>City</p>
 			<h4>Association</h4>
