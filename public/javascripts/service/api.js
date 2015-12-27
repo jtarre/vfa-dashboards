@@ -116,6 +116,15 @@ vfaDashboard.factory("api", function($http) {
 					return response.data;
 				});
 			}
+		},
+
+		users: {
+			getAll: function() {
+				return $http.get("/api/users")
+					.then( function(response) {
+						return response.data;
+					})
+			}
 		}
 	};
 });
