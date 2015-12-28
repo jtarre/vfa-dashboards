@@ -49,6 +49,7 @@
 			</md-content>
 		</md-tab>
 		<md-tab label="Contacts">
+			<div ui-view="supporterContacts"></div>
 			<md-list>
 				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> <!-- add ui-sref="contact({contactId: contact.Id})" when ready to make profiles -->
 					<div class="md-line-item-text">

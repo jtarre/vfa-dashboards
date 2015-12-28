@@ -10,9 +10,8 @@
 		</md-toolbar>
 	<md-tabs md-dynamic-height="true">
 		<md-tab label="Log Notes">
-				<!-- <form name="logNotes"> -->
 					<div layout="column">
-						<md-autocomplete md-selected-item="notes.account" md-items="supporter in supporters" md-item-text="supporter.Name" md-floating-label="Account">
+						<md-autocomplete md-selected-item="notes.account" md-search-text="supporterSearch" md-min-length="3" md-items="supporter in filteredSupporters = (supporters | filter:supporterSearch)" md-item-text="supporter.Name" md-floating-label="Account">
 							<md-item-template>
 								{{supporter.Name}}
 							</md-item-template>
@@ -26,12 +25,11 @@
 							<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
 						</md-input-container>
 					</div>
-					<md-autocomplete md-selected-item="notes.user" md-items="user in users" md-item-text="user.Name" md-floating-label="You">
+					<md-autocomplete md-selected-item="notes.user" md-search-text="userSearch" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
 						<md-item-template>
 							{{user.Name}}
 						</md-item-template>
 					</md-autocomplete>
-				<!-- </form> -->
 				<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
 		</md-tab>
 		<md-tab label="List (Accounts)">

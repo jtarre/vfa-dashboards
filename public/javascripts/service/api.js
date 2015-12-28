@@ -34,7 +34,7 @@ vfaDashboard.factory("api", function($http) {
 			getFields: function() {
 				console.log("getting salesforce company fields");
 				return $http.get("/api/fields/companies").then( function(response) {
-					console.log("data", response.data);
+					console.log("company fields", response.data);
 					return response.data;
 				});
 			},

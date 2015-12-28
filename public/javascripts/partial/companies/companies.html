@@ -10,7 +10,7 @@
 		<md-tab label="Log Notes">
 				<!-- <form name="logNotes"> -->
 					<div layout="column">
-						<md-autocomplete md-selected-item="notes.account" md-items="company in companies" md-item-text="company.Name" md-floating-label="Account">
+						<md-autocomplete md-selected-item="notes.company" md-min-length="3" md-search-text="companySearch" md-items="company in filteredCompanies = (companies | filter:companySearch)" md-item-text="company.Name" md-floating-label="Account (Search by Name, City, or Status)">
 							<md-item-template>
 								{{company.Name}}
 							</md-item-template>
@@ -24,7 +24,7 @@
 							<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
 						</md-input-container>
 					</div>
-					<md-autocomplete md-selected-item="notes.user" md-items="user in users" md-item-text="user.Name" md-floating-label="You">
+					<md-autocomplete md-selected-item="notes.user" md-search-text="userSearch" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
 						<md-item-template>
 							{{user.Name}}
 						</md-item-template>
@@ -39,7 +39,7 @@
 			</md-input-container>
 			<md-list>
 				<md-virtual-repeat-container style="height:500px">
-					<md-list-item flex ui-sref="company({companyId: company.Id})" md-virtual-repeat="company in filteredSupporters = (company | filter:searchQuery)" class="md-3-line repeated-item">
+					<md-list-item flex ui-sref="company({companyId: company.Id})" md-virtual-repeat="company in filteredCompanies = (companies | filter:searchQuery)" class="md-3-line repeated-item">
 						<div class="md-list-item-text">
 						<h3>{{company.Name}}: {{supporter.VFA_City__c}}</h3>
 						<p>{{company.Website}}</p>
@@ -55,7 +55,7 @@
 
 
 
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-2">
 			<h2>Filters</h2>
 			Search: <input type="text" ng-model="searchKey">
@@ -73,7 +73,7 @@
 			<h2>Companies</h2>
 			<div class="row" ng-repeat="company in companies | filter:searchKey">
 				
-				<!-- <div class="col-md-2">{{company.VFA_City__c}}</div> -->
+				<div class="col-md-2">{{company.VFA_City__c}}</div>
 				<div class="col-md-2">{{company.Name}}</div>
 				<div class="col-md-2">{{company.CoPa_Association__c}}</div>
 				<div class="col-md-2">
@@ -84,5 +84,5 @@
 				</div>
 			</div>	
 		</div>
-	</div>
+	</div> -->
 </div>

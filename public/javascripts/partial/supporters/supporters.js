@@ -1,6 +1,5 @@
 vfaDashboard.controller("SupporterCtrl", function($scope, api) {
 
-	
 	$scope.notes = {};
 	$scope.users;
 	api.users.getAll()
@@ -23,16 +22,4 @@ vfaDashboard.controller("SupporterCtrl", function($scope, api) {
 				$scope.notes = {};
 			})
 	}
-
-	$scope._resetNotes = function _resetNotes(notes) {
-		notes = {};
-		return notes;
-	}
-
-	$scope._setData = function _setData(list, data) {
-		list = data;
-		return list;
-	}
-
-
 });

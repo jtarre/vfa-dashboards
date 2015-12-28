@@ -79,14 +79,24 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 
-        // .state('supporterContact', {
-        //     url: '/supporters/:supporterId/contacts/:contactId',
-        //     templateUrl: 'javascripts/partial/supporters-contacts/supporters-contacts.html'
+        // .state('supporter.contacts', {
+        //     url: '/contacts/:contactId',
+        //     views: {
+        //         innerBox: { //<div ui-view="innerBox"></div>
+        //             templateUrl: 'javascripts/partial/supporters-contacts/supporters-contacts.html'
+        //         }
+        //     }
+
         // })
 
-        // .state('supporterOpportunity', {
-        //     url: 'supporters/:supporterId/opportunity/:opportunityId',
-        //     templateUrl: 'javascripts/partial/supporters-opportunities/supporters-opportunities.html'  
+        // .state('supporter.opportunity', {
+        //     url: '/opportunity/:opportunityId',
+        //     views:{
+        //         innerBox: {
+        //             templateUrl: 'javascripts/partial/supporters-opportunities/supporters-opportunities.html' 
+        //         }
+        //     }
+             
         // })
 
         .state('data', {
