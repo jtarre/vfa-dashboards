@@ -1,49 +1,69 @@
-vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _, api) {
+vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _, supportersApi, api) {
 
 	$scope.relatedToList = [];
 	$scope.supporterId = $stateParams.supporterId;
 	$scope.contacts;
+	$scope.opportunities;
+	$scope.activities;
+	$scope.users;
 	$scope.supporterInfo;
 	$scope.notes = {};
 
-	api.companies.getCompany($scope.supporterId)
+	supportersApi.getOne($scope.supporterId)
 		.then( function(data) {
 			$scope.supporterInfo = data;
 			console.log("company info", data);
 			$scope.relatedToList.push( {name: data.Name, id: data.Id} );
 		});
 
-	api.companies.getContacts($scope.supporterId)
+	supportersApi.getContacts($scope.supporterId)
 		.then( function(data) {
 			$scope.contacts = data;
 			console.log("contact list", $scope.contacts);
-			// _.forEach($scope.contacts, function(value, index) {
-			// 	// console.log("contact value and index", value, index);
-			// 	$scope.totalList.push({ name: value.Name, id: value.Id });
-			// });
-			// console.log("total list after contacts", $scope.totalList);
 		});
-
-	$scope.users;
-	api.users.getAll()
-		.then( function(data) {
-			$scope.users = data;
-		});
-
-	$scope.opportunities;
-	api.opportunities.getForCompany($scope.supporterId)
+	
+	supportersApi.getOpportunities($scope.supporterId)
 		.then( function(data) {
 			$scope.opportunities = data;
-			console.log("opportunity data", data);
+			// console.log("opportunity data", data);
 			console.log("total list before opps", $scope.relatedToList);
 			_.forEach($scope.opportunities, function(value, index) {
 				// console.log("opportunity value and index", value, index);
 				$scope.relatedToList.push({ name: value.Name, id: value.Id });
 			});
-			console.log("total list after opps\n", $scope.relatedToList);
+			// console.log("total list after opps\n", $scope.relatedToList);
 		});
 
+	supportersApi.getActivities($scope.supporterId)
+		.then( function(data) {
+			$scope.activities = data;
+			console.log("company activities", $scope.activities);
+		});
+
+	api.users.getAll()
+		.then( function(data) {
+			$scope.users = data;
+		});
+
+	$scope.getUser = function getUser(userList, id) {
+	    var user = {};
+	    _.each(userList, function(value, index) {
+	    	if(value.Id === id) {
+	    		// console.log("ids:", value.Id, id);
+	    		user = value;
+	    		return user;
+	    	}
+	    });
+	    return user;
+	}
+
 	$scope.logNotes = function logNotes(notes) {
-		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, "fellow", notes.relatedTo.Id);
+		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id)
+			.then(function(data) {
+				$scope.notes = {};
+				$scope.userSearch = "";
+				$scope.contactSearch = "";
+				$scope.relatedToSearch = "";
+			});
 	}
 });

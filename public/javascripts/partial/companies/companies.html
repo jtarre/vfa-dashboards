@@ -10,9 +10,14 @@
 		<md-tab label="Log Notes">
 				<!-- <form name="logNotes"> -->
 					<div layout="column">
-						<md-autocomplete md-selected-item="notes.company" md-min-length="3" md-search-text="companySearch" md-items="company in filteredCompanies = (companies | filter:companySearch)" md-item-text="company.Name" md-floating-label="Account (Search by Name, City, or Status)">
+						<md-autocomplete md-selected-item="notes.relatedTo" md-min-length="3" md-search-text="relatedToSearch" md-items="item in filteredRelatedTo = (relatedTo | filter:relatedToSearch)" md-item-text="item.Name" md-floating-label="Related To (Search by Account or Opportunity)">
 							<md-item-template>
-								{{company.Name}}
+								{{item.Name}}
+							</md-item-template>
+						</md-autocomplete>
+						<md-autocomplete md-selected-item="notes.contact" md-min-length="3" md-search-text="contactNoteSearch" md-items="contact in filteredContacts = (contacts | filter:contactNoteSearch)" md-item-text="contact.Name" md-floating-label="Contact (Search by Name, City, Account, or Job Title)">
+							<md-item-template>
+								{{contact.Name}}
 							</md-item-template>
 						</md-autocomplete>
 						<md-input-container>

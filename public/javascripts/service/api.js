@@ -1,4 +1,4 @@
-vfaDashboard.factory("api", function($http) {
+	vfaDashboard.factory("api", function($http) {
 	return {
 		fellows: {
 			get: function() {
@@ -104,25 +104,17 @@ vfaDashboard.factory("api", function($http) {
 		},
 
 		notes: {
-			post: function(subject, description, vfaId, objectId, type, caseId) {
+			post: function(subject, description, vfaId, contactId, relatedTo) {
 				var note = {
 					Description: description,
 					Subject:     subject,
 					OwnerId:       vfaId,
+					WhoId:       contactId,
+					WhatId:      relatedTo
 
 				};
-
-				if(type === "fellow") {
-					note.WhoId = objectId;
-				} else {
-					note.WhatId = objectId;
-				}
-
-				if(caseId) {
-					note.WhatId = caseId;
-				}
-
-				return $http.post("/api/notes", JSON.stringify(note)).then( function(response) {
+				console.log("note data object", note);
+				return $http.post("/api/notes", note).then( function(response) {
 					return response.data;
 				});
 			}

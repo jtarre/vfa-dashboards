@@ -29,7 +29,7 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 	}
 	
 	$scope.logNotes = function logNotes(notes) {		
-		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.account.Id, "company")
+		api.notes.post(notes.Subject, notes.Description, notes.user.Id, "",notes.account.Id)
 			.then(function( response ) {
 				$scope.notes = {};
 			});

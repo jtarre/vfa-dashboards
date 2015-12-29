@@ -58,6 +58,9 @@ require('./api/data/data')(app);
 require('./api/notes/notes')(app);
 require('./api/companies/fields')(app);
 require('./api/users/users')(app);
+require('./api/supporters')(app);
+
+require('./api/helpers/salesforce');
 
 // Express Jade Routes //
 require('./routes/index')(app, passport);
