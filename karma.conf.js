@@ -18,6 +18,10 @@ module.exports = function(config) {
       'public/bower_components/nvd3/build/nv.d3.js',
       'public/bower_components/angular-nvd3/dist/angular-nvd3.js',
       'public/bower_components/ngstorage/ngstorage.js',
+      'public/bower_components/angular-material/angular-material.js',
+      'public/bower_components/angular-animate/angular-animate.js',
+      'public/bower_components/angular-messages/angular-messages.js',
+      'public/bower_components/angular-aria/angular-aria.js',
 
       // bower test dependencies
       'public/bower_components/angular-ui-router/release/angular-ui-router.js',
