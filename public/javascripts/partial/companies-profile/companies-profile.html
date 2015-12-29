@@ -1,10 +1,8 @@
 <div ng-controller="companyCtrl">
-	<md-toolbar>
+<!-- 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<h2>{{supporterInfo.Name}}</h2>
 			<span flex></span>
-			<!-- <md-button class="md-raised">+Contact</md-button>
-			<md-button class="md-raised">+Opportunity</md-button> -->
 		</div>
 	</md-toolbar>
 	<md-tabs md-dynamic-height="true">
@@ -63,7 +61,7 @@
 		</md-tab>
 		<md-tab label="Contacts">
 			<md-list>
-				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> <!-- add ui-sref="contact({contactId: contact.Id})" when ready to make profiles -->
+				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> 
 					<div class="md-line-item-text">
 						<h3>{{contact.Name}}</h3>
 						<h4>{{contact.Title}}</h4>
@@ -74,7 +72,7 @@
 		</md-tab>
 		<md-tab label="Opportunities">
 			<md-list>
-				<md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column" > <!-- add ui-sref="opportunity({opportunityId: opportunity.Id})" when ready to add opportunity -->
+				<md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column" > 
 					<div class="md-line-item-text">	
 						<h3>{{opportunity.Name}}</h3>
 						<h4>{{opportunity.Description}}</h4>
@@ -83,7 +81,7 @@
 				</md-list-item>
 			</md-list>
 		</md-tab>
-	</md-tabs>
+	</md-tabs> -->
 
 	<div class="col-md-5">
 		<h2>Log Notes</h2>
