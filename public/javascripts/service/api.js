@@ -32,7 +32,7 @@
 			},
 
 			getFields: function() {
-				console.log("getting salesforce company fields");
+				// console.log("getting salesforce company fields");
 				return $http.get("/api/fields/companies").then( function(response) {
 					console.log("company fields", response.data);
 					return response.data;
@@ -47,8 +47,8 @@
 					})
 			},
 
-			update: function(id, data) {
-				return $http.post("/api/companies/" + id, JSON.stringify(data)).then(function(response) {
+			update: function(data) {
+				return $http.post("/api/companies/" + data.Id, data).then(function(response) {
 					return response.data;
 				});
 			}, 
