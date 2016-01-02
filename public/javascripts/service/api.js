@@ -47,6 +47,10 @@
 					})
 			},
 
+			// getActivities: function(companyId) {
+			// 	return
+			// }
+
 			update: function(data) {
 				return $http.post("/api/companies/" + data.Id, data).then(function(response) {
 					return response.data;
@@ -104,13 +108,13 @@
 		},
 
 		notes: {
-			post: function(subject, description, vfaId, contactId, relatedTo) {
+			post: function(subject, description, vfaId, contactId, relatedToId) {
 				var note = {
 					Description: description,
 					Subject:     subject,
 					OwnerId:       vfaId,
 					WhoId:       contactId,
-					WhatId:      relatedTo
+					WhatId:      relatedToId
 
 				};
 				console.log("note data object", note);

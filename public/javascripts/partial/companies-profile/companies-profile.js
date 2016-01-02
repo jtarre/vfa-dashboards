@@ -1,6 +1,8 @@
 vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 	
 	$scope.isEdit = false;
+	$scope.relatedTo = [];
+	$scope.companyId = $stateParams.companyId;
 
 	// company info is an array of objects 
 	// the array is for use organizing the html
@@ -24,23 +26,12 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 		{name: "URM_Founder__c", type: "picklist", value: "", label: ""},
 		{name: "Twitter_Handle__c", type: "text", value: "", label: ""}
 	];
-	// Edit / Not-edit
-	// <div ng-repeat="list in lists">
-	// 	{{list.city}}
-	// 	<input ngif="findType(list) === 'text'">
-	// 	<select ngif="findType(list) === 'text'" ></select>
-	// 	<p ngif="!isEdit">{{list.name}}</p>
-	// </div>
 
 	api.companies.getFields().then(function(response) {
 		// console.log("salesforce data fields", response.fields);
 		_.forEach(response.fields, function(salesforceField, index) {
-			// console.log("salesforceField:\n", salesforceField);
 			_.forEach($scope.companyInfo, function(field, index) {
 				if(field.name === salesforceField.name) {
-					// console.log("company info at index: ", $scope.companyInfo[index]);
-					// console.log("company info field: ", Field);
-					// console.log("salesforce val label", salesforceField.label);
 					field.label = salesforceField.label;
 					if(salesforceField.picklistValues.length) {
 						field.picklist = [];
@@ -54,9 +45,8 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 		});
 		// console.log("company info after field api:\n", $scope.companyInfo);
 	});
-
-	$scope.companyId = $stateParams.companyId;
 	api.companies.getCompany($scope.companyId).then(function(data) {
+		$scope.relatedTo.push({name: data.Name, id: data.Id});
 		_.forEach(data, function(salesforceValue, key) {
 			_.forEach($scope.companyInfo, function(value, index) {
 				if(value.name === key) {		
@@ -67,9 +57,26 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 		console.log("company info after company api:\n", $scope.companyInfo);
 	});
 
-	$scope.logNotes = function logNotes(subject, description, vfaId, companyId) {
-		api.notes.post(subject, description, vfaId, "", companyId).then(function(response){
+	$scope.contacts;
+	api.companies.getContacts($scope.companyId)
+		.then( function(contacts) {
+			$scope.contacts = contacts;
+		});
+
+	$scope.opportunities;
+	api.opportunities.getForCompany($scope.companyId)
+		.then( function(opportunities) {
+			$scope.opportunities = opportunities;
+			_.forEach(opportunities, function(value, index) {
+				$scope.relatedTo.push({name: value.Name, id: value.Id });	
+			});
+			
+		});
+
+	$scope.logNotes = function logNotes(subject, description, userId, contactId, relatedToId) {
+		api.notes.post(subject, description, userId, contactId, relatedToId).then(function(response){
 			console.log("note response", response);
+			$scope.notes = {};
 		});
 	};
 
@@ -83,7 +90,11 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 			console.log("response from server after update", response);
 		});
 	};
-
+	$scope.users;
+	api.users.getAll()
+		.then( function(users) {
+			$scope.users = users;
+		});
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
 		{ name: "Andrew Yang", id : "005d0000001OKLG"},	
