@@ -8,7 +8,7 @@
 	<md-tabs md-dynamic-height="true">
 		<md-tab label="Log Notes">
 					<div layout="column">
-						<md-autocomplete md-selected-item="notes.relatedTo" md-min-length="3" md-search-text="relatedToSearch" md-items="item in filteredRelatedTo = (relatedTo | filter:relatedToSearch)" md-item-text="item.Name" md-floating-label="Related To (Search by Account or Opportunity)">
+						<md-autocomplete md-selected-item="notes.relatedTo" md-min-length="3" md-search-text="relatedToSearch" md-items="item in filteredRelatedTo = (companies | filter:relatedToSearch)" md-item-text="item.Name" md-floating-label="Related To (Search by Account or Opportunity)">
 							<md-item-template>
 								{{item.Name}}
 							</md-item-template>
@@ -32,7 +32,7 @@
 							{{user.Name}}
 						</md-item-template>
 					</md-autocomplete>
-				<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
+				<md-button class="md-raised" ng-click="logNotes(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id)">Log Notes</button>
 		</md-tab>
 		<md-tab label="Search Accounts">
 			<md-input-container>

@@ -5,6 +5,7 @@ describe("supporters profile controller", function() {
 	var supporters, contacts, opportunities, activities, users;
 	var state, stateParams;
 
+	beforeAll()
 	beforeEach(module('vfaDashboard'));
 
 	beforeEach(inject(function($rootScope, $compile, $templateCache, _api_, _supportersApi_, _$q_) {
@@ -48,17 +49,23 @@ describe("supporters profile controller", function() {
 			return deferred.promise;
 		});
 
-		template = $compile($templateCache.get('public/javascripts/partial/supporters-profile/supporters-profile.html'))(scope);
-		setFixtures(template);
-		$scope.$apply();
+		// template = $compile($templateCache.get('public/javascripts/partial/supporters-profile/supporters-profile.html'))(scope);
+		// setFixtures(template);
+		scope.$apply();
 	}));
 	
-	it('should exist', function() {
-		expect(template).toBeInDOM();
-	});
+	// it('should exist', function() {
+	// 	expect(template).toBeInDOM();
+	// });
 	describe("get user test", function() {
 		it("gets users name");
 		it("has an up to date users array");
 		it("gets run");
 	});
+
+	describe("log notes", function() {
+		it('should have fields');
+		it('should pass fields to notes post')
+
+	})
 });

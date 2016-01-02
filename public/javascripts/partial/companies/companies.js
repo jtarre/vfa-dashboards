@@ -26,6 +26,9 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 		api.notes.post(subject, description, userId, contactId, relatedToId)
 			.then(function( response ) {
 				$scope.notes = {};
+				$scope.userSearch = "";
+				$scope.contactNoteSearch = "";
+				$scope.relatedToSearch = "";
 			});
 	}
 });
