@@ -26,6 +26,8 @@
 					<label>Notes</label>
 					<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
 				</md-input-container>
+				<label>You</label>
+				<select ng-model="notes.user" ng-options="user.Id as user.Name for user in users"></select>
 				<md-autocomplete md-selected-item="notes.user" md-search-text="userNoteSearch" md-items="user in filteredUsers = ( users | filter:userNoteSearch)" md-item-text="user.Name" md-floating-label="You">
 					<md-item-template>
 						{{user.Name}}
@@ -53,11 +55,7 @@
 						<textarea ng-model="field.value" columns="1" rows="5"></textarea>
 					</md-input-container>
 					<label ng-if="isEdit && field.type === 'picklist'">{{field.label}}</label>
-					<md-autocomplete ng-if="isEdit && field.type === 'picklist'" md-selected-item="field.value" md-items="item in field.picklist" >
-						<md-item-template>
-							{{item}}
-						</md-item-template>
-					</md-autocomplete>
+					<select ng-if="isEdit && field.type === 'picklist'" ng-model="field.value" ng-options="item as item for item in field.picklist"></select>
 				</div>
 			</md-content>
 		</md-tab>
