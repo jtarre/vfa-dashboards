@@ -35,38 +35,42 @@
 				<md-button class="md-raised" ng-click="logNotes(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id)">Log Notes</button>
 		</md-tab>
 		<md-tab label="Search Accounts">
-			<md-input-container>
-				<label>Search by Name, City, or Association</label>
-				<input type="text" ng-model="searchQuery">
-			</md-input-container>
-			<md-list>
-				<md-virtual-repeat-container style="height:500px">
-					<md-list-item flex ui-sref="company({companyId: company.Id})" md-virtual-repeat="company in filteredCompanies = (companies | filter:searchQuery)" class="md-3-line repeated-item">
-						<div class="md-list-item-text">
-						<h3>{{company.Name}}: {{supporter.VFA_City__c}}</h3>
-						<p>{{company.Website}}</p>
-						<p>{{company.CoPa_Association__c}}</p>
-					</div>
-					</md-list-item>
-				</md-virtual-repeat-container>
-			<md-list>
+			<div layout="column">
+				<md-input-container>
+					<label>Search by Name, City, or Association</label>
+					<input type="text" ng-model="searchQuery">
+				</md-input-container>
+				<md-list>
+					<md-virtual-repeat-container style="height:500px">
+						<md-list-item flex ui-sref="company({companyId: company.Id})" md-virtual-repeat="company in filteredCompanies = (companies | filter:searchQuery)" class="md-3-line repeated-item">
+							<div class="md-list-item-text">
+							<h3>{{company.Name}}: {{supporter.VFA_City__c}}</h3>
+							<p>{{company.Website}}</p>
+							<p>{{company.CoPa_Association__c}}</p>
+						</div>
+						</md-list-item>
+					</md-virtual-repeat-container>
+				<md-list>
+			</div>
 		</md-tab>
 		<md-tab label="Search Contacts">
-			<md-input-container>
-				<label>Search by Name, City, or Company</label>
-				<input type="text" ng-model="contactSearchQuery">
-			</md-input-container>
-			<md-list>
-				<md-virtual-repeat-container style="height:500px">
-					<md-list-item flex md-virtual-repeat="contact in filteredContacts = (contacts | filter:contactSearchQuery)" class="md-3-line repeated-item">
-						<div class="md-list-item-text">
-						<h3>{{contact.Name}}</h3>
-						<p>{{contact.Account_Name_for_SurveyGizmo__c}}</p>
-						<p>{{contact.Account_s_VFA_City__c}}</p>
-					</div>
-					</md-list-item>
-				</md-virtual-repeat-container>
-			<md-list>
+			<div layout="column">
+				<md-input-container>
+					<label>Search by Name, City, or Company</label>
+					<input type="text" ng-model="contactSearchQuery">
+				</md-input-container>
+				<md-list>
+					<md-virtual-repeat-container style="height:500px">
+						<md-list-item flex md-virtual-repeat="contact in filteredContacts = (contacts | filter:contactSearchQuery)" class="md-3-line repeated-item">
+							<div class="md-list-item-text">
+							<h3>{{contact.Name}}</h3>
+							<p>{{contact.Account_Name_for_SurveyGizmo__c}}</p>
+							<p>{{contact.Account_s_VFA_City__c}}</p>
+						</div>
+						</md-list-item>
+					</md-virtual-repeat-container>
+				<md-list>
+			</div>
 		</md-tab>
 	</md-tabs>
 </div>
