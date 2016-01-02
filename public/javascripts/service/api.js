@@ -32,7 +32,7 @@
 			},
 
 			getFields: function() {
-				console.log("getting salesforce company fields");
+				// console.log("getting salesforce company fields");
 				return $http.get("/api/fields/companies").then( function(response) {
 					console.log("company fields", response.data);
 					return response.data;
@@ -44,11 +44,23 @@
 					.then( function(response) {
 						console.log("get contacts response", response);
 						return response.data;
-					})
+					});
 			},
 
-			update: function(id, data) {
-				return $http.post("/api/companies/" + id, JSON.stringify(data)).then(function(response) {
+			getContactsForAll: function() {
+				console.log("get contacts for all companies");
+				return $http.get("/api/companies/contacts")
+					.then(function(contacts) {
+						return contacts.data;
+					});
+			},
+
+			// getActivities: function(companyId) {
+			// 	return
+			// }
+
+			update: function(data) {
+				return $http.post("/api/companies/" + data.Id, data).then(function(response) {
 					return response.data;
 				});
 			}, 
@@ -104,13 +116,13 @@
 		},
 
 		notes: {
-			post: function(subject, description, vfaId, contactId, relatedTo) {
+			post: function(subject, description, vfaId, contactId, relatedToId) {
 				var note = {
 					Description: description,
 					Subject:     subject,
 					OwnerId:       vfaId,
 					WhoId:       contactId,
-					WhatId:      relatedTo
+					WhatId:      relatedToId
 
 				};
 				console.log("note data object", note);

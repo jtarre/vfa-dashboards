@@ -1,9 +1,8 @@
 vfaDashboard.controller("companiesCtrl", function($scope, api) {
 	
 	$scope.companies;
-	$scope.salesforceFields;
-	$scope.company;
 	$scope.users;
+	$scope.contacts;
 	$scope.notes = {};
 
 	api.companies.get("company-partnerships")
@@ -11,25 +10,20 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 			$scope.companies = data;
 		});
 
+	api.companies.getContactsForAll()
+		.then( function(data) {
+			console.log("contacts", data);
+			$scope.contacts = data;
+		});
+
 	api.users.getAll()
 		.then( function(data) {
+			console.log("users", data);
 			$scope.users = data;
-		})
-
-	// api.companies.getFields()
-	// 	.then(function(data) {
-	// 		$scope.salesforceFields = data;
-	// 	});
-
-	$scope.getCompany = function getCompany(id) {
-		api.getCompany(id)
-			.then(function(response) {
-				$scope.company = response;
-			});
-	}
+		});
 	
-	$scope.logNotes = function logNotes(notes) {		
-		api.notes.post(notes.Subject, notes.Description, notes.user.Id, "",notes.account.Id)
+	$scope.logNotes = function logNotes(subject, description, userId, contactId, relatedToId) {		
+		api.notes.post(subject, description, userId, contactId, relatedToId)
 			.then(function( response ) {
 				$scope.notes = {};
 			});

@@ -1,128 +1,100 @@
 vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 	
-	$scope.salesforceDropdownFields = {
-		"CoPa_Association__c": {picklist: ["Fun", "Works"]},
-		"VFA_City__c": "",
-		"Industry_USE__c": "",
-		"Funding_Type__c": "",
-		"Funding_Amount__c": "",
-		"Company_Type__c": "",
-		"Product_Type__c": "",
-		"Company_Type__c": "",
-		"Customer_Type__c": "",
-		"Product_Type__c": "",
-		"Female_Founder__c": {picklist: [{value: false, label: "No"}, {value: true, label: "Yes"}]},
-		"URM_Founder__c": {picklist: [{value: false, label: "No"}, {value: true, label: "Yes"}]}
-	};
-
-
-	$scope.salesforceDataInUse = {
-		"Id": "",
-		"CoPa_Association__c": "",
-		"VFA_City__c": "",
-		"Industry_USE__c": "",
-		"Funding_Type__c": "",
-		"Funding_Amount__c": "",
-		"Company_Type__c": "",
-		"Product_Type__c": "",
-		"Company_Type__c": "",
-		"Customer_Type__c": "",
-		"Female_Founder__c": "",
-		"Product_Type__c": "",
-		"URM_Founder__c": "",
-		"Twitter_Handle__c": "",
-		"Description": "",
-		"Year_Founded__c": "",
-		"NumberOfEmployees": ""
-	};
-
 	$scope.isEdit = false;
+	$scope.relatedTo = [];
+	$scope.companyId = $stateParams.companyId;
 
-	// $scope.companyInfo = [
-	// 	{"Id": ""},
-	// 	{"CoPa_Association__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Description": {isPicklist: false,  value: ""}},
-	// 	{"VFA_City__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Industry_USE__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Funding_Type__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Funding_Amount__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Company_Type__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Product_Type__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Company_Type__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Customer_Type__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Female_Founder__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Product_Type__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"URM_Founder__c": {isPicklist: true, picklist: "", value: ""}},
-	// 	{"Twitter_Handle__c": {isPicklist: false, value: ""}},
-	// 	{"Year_Founded__c": {isPicklist: false, value: ""}},
-	// 	{"NumberOfEmployees": {isPicklist: false, value: ""}},
-	// 	{"Website": {isPicklist: false, value: ""}}
-	// ];
-	// Edit / Not-edit
-	// <div ng-repeat="list in lists">
-	// 	{{list.city}}
-	// 	<input ngif="findType(list) === 'text'">
-	// 	<select ngif="findType(list) === 'text'" ></select>
-	// 	<p ngif="!isEdit">{{list.name}}</p>
-
-	// </div>
-					  	
-	// api.companies.getFields().then(function(response) {
-	// 	_.each($scope.salesforceFieldData, function(value, index, list) {
-			
-	// 		if($scope.companyInfo[value.name].isPicklist) {
-	// 			$scope.companyInfo[value.name]
-	// 				.picklist = {
-	// 					label: value.label, 
-	// 					picklistValues: value.picklistValues
-	// 				};
-	// 		} 
-	// 	});
-
-	// 	// console.log("salesforce dropdown fields", $scope.salesforceDropdownFields);
-	// });
+	// company info is an array of objects 
+	// the array is for use organizing the html
+	// the type is to specify what type of html input type it corresponds to. 
+	// there's got to be a better way to do it.
+	$scope.companyInfo = [
+		{name: "Id", type: "hidden", value: "", label: ""},
+		{name: "CoPa_Association__c", type: "picklist", value: "", label: ""},
+		{name: "Website", type: "text", value: "", label: ""},
+		{name: "VFA_City__c", type: "picklist", value: "", label: ""},
+		{name: "Description", type: "textarea", value: "", label: ""},
+		{name: "Year_Founded__c", type: "text", value: "", label: ""},
+		{name: "NumberOfEmployees", type: "text", value: "", label: ""},
+		{name: "Industry_USE__c", type: "picklist", value: "", label: ""},
+		{name: "Funding_Type__c", type: "picklist", value: "", label: ""},
+		{name: "Funding_Amount__c", type: "picklist", value: "", label: ""},
+		{name: "Company_Type__c", type: "picklist", value: "", label: ""},
+		{name: "Product_Type__c", type: "picklist", value: "", label: ""},
+		{name: "Customer_Type__c", type: "picklist", value: "", label: ""},
+		{name: "Female_Founder__c", type: "picklist", value: "", label: ""},
+		{name: "URM_Founder__c", type: "picklist", value: "", label: ""},
+		{name: "Twitter_Handle__c", type: "text", value: "", label: ""}
+	];
 
 	api.companies.getFields().then(function(response) {
 		// console.log("salesforce data fields", response.fields);
-		$scope.salesforceFieldData = response.fields;
-		// console.log("salesforce fields", $scope.salesforceFieldData);
-		// console.log("copa association", $scope.salesforceFieldData);
-		_.each($scope.salesforceFieldData, function(value, index, list) {
-			// console.log("label value", value.name);
-			if($scope.salesforceDropdownFields.hasOwnProperty(value.name)) {
-				if(value.picklistValues.length) {
-					$scope.salesforceDropdownFields[value.name] = {label: value.label, picklist: value.picklistValues};
-				}
-			}
+		_.forEach(response.fields, function(salesforceField, index) {
+			_.forEach($scope.companyInfo, function(field, index) {
+				if(field.name === salesforceField.name) {
+					field.label = salesforceField.label;
+					if(salesforceField.picklistValues.length) {
+						field.picklist = [];
+						_.forEach(salesforceField.picklistValues, function(value, index) {
+							field.picklist.push(value.value);
+						});
+						field.picklistSearchText = salesforceField.name + 'Search'; // for the md-autocomplete
+					}
+				}	
+			});
 		});
-		// console.log("salesforce dropdown fields", $scope.salesforceDropdownFields);
+		// console.log("company info after field api:\n", $scope.companyInfo);
 	});
-
-	$scope.companyId = $stateParams.companyId;
-	// console.log("company id in ctrl", $scope.companyId);
 	api.companies.getCompany($scope.companyId).then(function(data) {
-		$scope.salesforceData = data;
-		console.log("salesforce data", $scope.salesforceData);
-		_.each($scope.salesforceData, function(value, key, list) {
-			if($scope.salesforceDataInUse.hasOwnProperty(key)) {
-				$scope.salesforceDataInUse[key] = value;
-			}
+		$scope.relatedTo.push({name: data.Name, id: data.Id});
+		_.forEach(data, function(salesforceValue, key) {
+			_.forEach($scope.companyInfo, function(value, index) {
+				if(value.name === key) {		
+					value.value = salesforceValue;
+				}
+			});
 		});
+		console.log("company info after company api:\n", $scope.companyInfo);
 	});
 
-	$scope.logNotes = function logNotes(subject, description, vfaId, companyId) {
-		api.notes.post(subject, description, vfaId, "", companyId).then(function(response){
+	$scope.contacts;
+	api.companies.getContacts($scope.companyId)
+		.then( function(contacts) {
+			$scope.contacts = contacts;
+		});
+
+	$scope.opportunities;
+	api.opportunities.getForCompany($scope.companyId)
+		.then( function(opportunities) {
+			$scope.opportunities = opportunities;
+			_.forEach(opportunities, function(value, index) {
+				$scope.relatedTo.push({name: value.Name, id: value.Id });	
+			});
+			
+		});
+
+	$scope.logNotes = function logNotes(subject, description, userId, contactId, relatedToId) {
+		api.notes.post(subject, description, userId, contactId, relatedToId).then(function(response){
 			console.log("note response", response);
+			$scope.notes = {};
 		});
 	};
 
-	$scope.update = function update(id, salesforceData) {
-		console.log("id and data on client", id, salesforceData);
-		api.companies.update(id, salesforceData).then(function(response) {
+	$scope.update = function update(companyInfo) {
+		var salesforceData = {};
+		_.forEach(companyInfo, function(salesforceField, index) {
+			salesforceData[salesforceField.name] = salesforceField.value;
+		});
+		console.log("id and data on client", salesforceData);
+		api.companies.update(salesforceData).then(function(response) {
 			console.log("response from server after update", response);
-		})
+		});
 	};
-
+	$scope.users;
+	api.users.getAll()
+		.then( function(users) {
+			$scope.users = users;
+		});
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
 		{ name: "Andrew Yang", id : "005d0000001OKLG"},	
