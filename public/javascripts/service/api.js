@@ -44,7 +44,15 @@
 					.then( function(response) {
 						console.log("get contacts response", response);
 						return response.data;
-					})
+					});
+			},
+
+			getContactsForAll: function() {
+				console.log("get contacts for all companies");
+				return $http.get("/api/companies/contacts")
+					.then(function(contacts) {
+						return contacts.data;
+					});
 			},
 
 			// getActivities: function(companyId) {

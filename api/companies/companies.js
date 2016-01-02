@@ -9,6 +9,22 @@ module.exports = function(app) {
 					redirectUri: process.env.REDIRECT_URI
 				});
 
+	app.get("/api/companies/contacts", function(req, res) {
+		console.log("getting contacts");
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			conn.sobject('Contact')
+				.find({
+					Department_Type__c: "Company Partnerships"
+				}, "Name, Id, Account_Name_for_SurveyGizmo__c, Account_s_VFA_City__c")
+				.sort({ Name: 1})
+				.execute(function(err, contacts) {
+					if(err) {return console.error(err);}
+					console.log(contacts);
+					res.status(200).json(contacts);
+			});
+		});
+	});
+
 	app.get("/api/accounts/:type", isAuthenticated, function(req, res) {
 		var type = req.params.type;
 		var department;
