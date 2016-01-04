@@ -5,7 +5,6 @@ describe("supporters profile controller", function() {
 	var supporters, contacts, opportunities, activities, users;
 	var state, stateParams;
 
-	beforeAll()
 	beforeEach(module('vfaDashboard'));
 
 	beforeEach(inject(function($rootScope, $compile, $templateCache, _api_, _supportersApi_, _$q_) {

@@ -5,6 +5,8 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 	$scope.contacts;
 	$scope.notes = {};
 
+	console.log($scope.loggedin);
+
 	api.companies.get("company-partnerships")
 		.then(function(data) {
 			$scope.companies = data;

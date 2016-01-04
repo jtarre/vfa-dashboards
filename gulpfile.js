@@ -46,7 +46,7 @@ var DIST_DEST = 'dist/';
  */
 gulp.task('testall', function (done) {
   karma.start({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: __dirname + '/public/karma.conf.js',
     singleRun: true,
     browsers: ['Chrome', 'PhantomJS']
   }, done);
@@ -54,13 +54,13 @@ gulp.task('testall', function (done) {
 
 gulp.task('test', function(done) {
   karma.start({
-    configFile: __dirname + '/karma.conf.js'
+    configFile: __dirname + '/public/karma.conf.js'
   }, done);
 });
 
 gulp.task('testdebug', function (done) {
   karma.start({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: __dirname + '/public/karma.conf.js',
     browsers: ['Chrome']
   }, done);
 });
