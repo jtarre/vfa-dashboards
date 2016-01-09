@@ -4,11 +4,6 @@ module.exports = function(app) {
 
 	app.post('/api/slack', function(req, res) {
 		var message = req.body;
-		// var message = {
-		// 	text: "Note Message",
-		// 	channel: "money-notes",
-		// 	username: "note-bot"
-		// };
 		console.log("message: ", message);
 		console.log("Slack Hook", process.env.SLACK_HOOK);
 
