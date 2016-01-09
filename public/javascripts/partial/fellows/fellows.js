@@ -4,7 +4,7 @@
 	$scope.fellows;
 	$scope.query;
 	$scope.sortProp = "name";
-	$scope.reverse  = true;
+	$scope.reverse  = false;
 	$scope.$storage = $localStorage;
 	$scope.initFellowQuery = function initFellowQuery() {
 		console.log("initFellowQuery run");
