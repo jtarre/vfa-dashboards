@@ -59,6 +59,7 @@ require('./api/notes/notes')(app);
 require('./api/companies/fields')(app);
 require('./api/users/users')(app);
 require('./api/supporters')(app);
+require('./api/slack/slack')(app);
 
 require('./api/helpers/salesforce');
 

@@ -1,4 +1,4 @@
-vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
+vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, slackApi, api) {
 
 	$scope.fellow;
 	$scope.fellowId = $stateParams.fellowId;
@@ -15,12 +15,20 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 
 	});
 
-	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfaId, fellowId, caseId) {
-		api.notes.post(noteSubject, noteDescription, vfaId, fellowId, caseId).then(function( data ) {
+	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfa, fellow, activeCase) {
+		console.log("vfa team member on submission: ", vfa);
+		console.log("fellow profile on submission:", fellow);
+		console.log("case: ", activeCase);
+		api.notes.post(noteSubject, noteDescription, vfa.id, fellow.profile.Id, activeCase.Id).then(function( data ) {
 			console.log("Note data received: ", data);
 			$scope.noteSubject     = ""; // reset note form values
 			$scope.noteDescription = "";
 		});
+
+		slackApi.create(noteSubject, noteDescription, vfa.name, fellow.profile.Name, activeCase.Subject, "#fellow-workflows")
+			.then( function(data) {
+				console.log("slack response: ", data);
+			});
 	}
 
 	$scope.vfaTeam = [	
