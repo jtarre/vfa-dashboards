@@ -13,6 +13,30 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, slackApi, a
 
 	});
 
+	// need to refactor the Fellow page to break into separate calls
+
+	//Get Fellow data
+
+	casesApi.getForFellow($scope.fellowId) // done?
+		.then(function(data) {
+			$scope.casesNew = data;
+		});
+
+	surveysApi.getForFellow($scope.fellowId, "company")
+		.then(function(data) {
+			$scope.surveysNew = data;
+		});
+
+	surveysApi.getForFellow($scope.fellowId, "fellow")
+		.then(function(data) {
+			$scope.surveysNew = data;
+		});
+
+	activitiesApi.getForFellow($scope.fellowId)
+		.then(function(data) {
+			$scope.activitiesNew = data;
+		})
+
 	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfa, fellow, activeCase) {
 		api.notes.post(noteSubject, noteDescription, vfa.id, fellow.profile.Id, activeCase.Id).then(function( data ) {
 			console.log("Note data received: ", data);
@@ -26,6 +50,23 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, slackApi, a
 			});
 	}
 
+	$scope.createCase = function createCase(subject, description, user, fellow) {
+		casesApi.create(subject, description, user, fellow)
+			.then( function (data) {
+				// add the link to the case as a toast
+				console.log("case response: ", data);
+			})
+	}
+
+
+		/*
+		code pen, engaged.
+		now what i want
+		caseApi
+		/api/case - post
+		$scope.createCase = function createCase
+		been here before...
+	 */
 	// 
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	

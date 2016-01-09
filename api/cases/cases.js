@@ -22,4 +22,19 @@ module.exports = function(app) {
 		})
 
 	});
+
+	app.get("/api/cases/fellows/:id", function(req, res) {
+		var id = req.params.id;
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			conn.sobject('Case')
+				.find({
+					WhoId: id
+				}, "*")
+				.sort({ CreatedDate: 1 })
+				.execute(function(err, cases) {
+					if (err) { return console.error(err); }
+					res.status(200).json(cases);
+				})
+		})
+	})
 }
