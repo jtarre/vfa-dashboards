@@ -1,4 +1,4 @@
-angular.module('vfaDashboard').factory('caseApi', function($http) {
+angular.module('vfaDashboard').factory('casesApi', function($http) {
 	return {
 		create: function create(subject, description, user, fellow) {
 			var newCase = {
