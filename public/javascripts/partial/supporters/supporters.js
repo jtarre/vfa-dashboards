@@ -1,4 +1,4 @@
-vfaDashboard.controller("SupporterCtrl", function($scope, supportersApi, api) {
+vfaDashboard.controller("SupporterCtrl", function($scope, supportersApi, slackApi, api) {
 
 	$scope.notes = {};
 	$scope.relatedTo = [];
@@ -33,14 +33,17 @@ vfaDashboard.controller("SupporterCtrl", function($scope, supportersApi, api) {
 		});
 
 	$scope.logNotes = function logNotes(notes) {
-		//subject, description, vfaId, objectId, t
-		// console.log("note data", notes);
 		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id)
 			.then( function(data) {
 				$scope.notes = {};
 				$scope.relatedToSearch = "";
 				$scope.contactNoteSearch = "";
 				$scope.userSearch = "";
+			});
+			
+		slackApi.create(notes.Subject, notes.Description, notes.user.Name, notes.contact.Name, notes.relatedTo.name, "#team-money-notes")
+			.then( function(data) {
+				console.log("slack response: ", data);
 			});
 	}
 });

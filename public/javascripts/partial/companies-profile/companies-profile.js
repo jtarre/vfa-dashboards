@@ -1,4 +1,4 @@
-vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
+vfaDashboard.controller("companyCtrl", function($scope, $stateParams, slackApi, api, _) {
 	
 	$scope.isEdit = false;
 	$scope.relatedTo = [];
@@ -73,11 +73,19 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, api, _) {
 			
 		});
 
-	$scope.logNotes = function logNotes(subject, description, userId, contactId, relatedToId) {
-		api.notes.post(subject, description, userId, contactId, relatedToId).then(function(response){
-			console.log("note response", response);
-			$scope.notes = {};
-		});
+	$scope.logNotes = function logNotes(notes) {
+		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id)
+			.then(function( response ) {
+				$scope.notes = {};
+				$scope.userSearch = "";
+				$scope.contactNoteSearch = "";
+				$scope.relatedToSearch = "";
+			});
+
+		slackApi.create(notes.Subject, notes.Description, notes.user.Name, notes.contact.Name, notes.relatedTo.name, "#fellow-workflows")
+			.then( function(data) {
+				console.log("slack response: ", data);
+			});
 	};
 
 	$scope.update = function update(companyInfo) {

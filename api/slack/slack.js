@@ -15,10 +15,17 @@ module.exports = function(app) {
 		var slackCallback = function slackCallback(err, httpResponse, body) {
 			if(err) { return console.error(err); }
 			console.log("slack http response: ", httpResponse.status);
-			console.log("slack body: ", body);
+			console.log("slack callback body: ", body);
 			res.send(body);
 		}
-		request.post(process.env.SLACK_HOOK, message, slackCallback);
+
+		var options = {
+			url: process.env.SLACK_HOOK,
+			method: "POST",
+			json: true,
+			body: message
+		}
+		request(options, slackCallback);
 
 	});
 }
