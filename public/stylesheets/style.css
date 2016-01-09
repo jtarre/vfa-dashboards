@@ -1,3 +1,28 @@
+
+.virtualRepeatdemoInfiniteScroll #vertical-container {
+    height: 292px;
+    width: 400px;
+}
+
+.virtualRepeatdemoInfiniteScroll .repeated-item {
+    /*border-bottom: 1px solid #ddd;*/
+    box-sizing: border-box;
+    height: 80px;
+    padding-top: 10px;
+}
+
+.virtualRepeatdemoInfiniteScroll md-content {
+    margin: 16px;
+}
+
+.virtualRepeatdemoInfiniteScroll md-virtual-repeat-container {
+    /*border: solid 1px grey;*/
+}
+
+.virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter {
+    padding-left: 16px;
+}
+
 body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#1d1f1d;
@@ -25,6 +50,8 @@ a{
   color: #0091e5;
 }
 
+
+/*
 .navbar-mike-top{
   border-top: 5px solid #264b72;
   border-radius: 0px;
@@ -45,3 +72,4 @@ a{
   margin-right:15px;
   }
 }
+*/

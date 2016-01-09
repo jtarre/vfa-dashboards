@@ -1,0 +1,83 @@
+<div ng-controller="companyCtrl">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>{{companyInfo.Name}}</h2>
+			<span flex></span>
+		</div>
+	</md-toolbar>
+	<md-tabs md-dynamic-height="true">
+		<md-tab label="Log Notes">
+			<div layout="column">
+				<md-autocomplete md-selected-item="notes.contact" md-items="contact in filteredContacts = (contacts | filter:contactSearchText)" md-item-text="contact.Name" md-search-text="contactSearchText" md-floating-label="Contact">
+					<md-item-template>
+						{{contact.Name}}
+					</md-item-template>
+				</md-autocomplete>
+				<md-autocomplete md-selected-item="notes.relatedTo" md-search-text="relatedToSearch" md-items="listItem in filteredList = (relatedTo | filter:relatedToSearch)" md-item-text="listItem.name" md-search-text="itemSearchText" md-floating-label="Related To (Account or Opportunity)">
+					<md-item-template>
+						{{listItem.name}}
+					</md-item-template>
+				</md-autocomplete>
+				<md-input-container>
+					<label>Subject</label>
+					<input ng-model="notes.Subject" type="text">
+				</md-input-container>
+				<md-input-container>
+					<label>Notes</label>
+					<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
+				</md-input-container>
+				<md-autocomplete md-selected-item="notes.user" md-min-length="2" md-search-text="userNoteSearch" md-items="user in filteredUsers = ( users | filter:userNoteSearch)" md-item-text="user.Name" md-floating-label="You">
+					<md-item-template>
+						{{user.Name}}
+					</md-item-template>
+				</md-autocomplete>
+				<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
+			</div>
+		</md-tab>
+		<md-tab label="Background">
+			<md-content layout-padding>
+				<div layout="column">
+					<md-checkbox ng-model="isEdit" ng-change="!isEdit">Editable</md-checkbox>
+					<md-button ng-if="isEdit" class="md-raised" ng-click="update(companyInfo)">
+						Update Account
+					</md-button>
+				</div>
+				<div layout="column" ng-repeat="field in companyInfo">
+					<p ng-if="!isEdit"><strong>{{field.label}}</strong>: {{field.value}}</p>
+					<md-input-container ng-if="isEdit && field.type === 'text'" class="md-block">
+						<label>{{field.label}}</label>
+						<input type="text" ng-model="field.value">
+					</md-input-container>
+					<md-input-container ng-if="isEdit && field.type === 'textarea'" class="md-block">
+						<label>{{field.label}}</label>
+						<textarea ng-model="field.value" columns="1" rows="5"></textarea>
+					</md-input-container>
+					<label ng-if="isEdit && field.type === 'picklist'">{{field.label}}</label>
+					<select ng-if="isEdit && field.type === 'picklist'" ng-model="field.value" ng-options="item as item for item in field.picklist"></select>
+				</div>
+			</md-content>
+		</md-tab>
+		<md-tab label="Contacts">
+			<md-list>
+				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> 
+					<div class="md-line-item-text">
+						<h3>{{contact.Name}}</h3>
+						<h4>{{contact.Title}}</h4>
+						<p>{{contact.Email}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab>
+		<md-tab label="Opportunities">
+			<md-list>
+				<md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column" > 
+					<div class="md-line-item-text">	
+						<h3>{{opportunity.Name}}</h3>
+						<h4>{{opportunity.Description}}</h4>
+						<p>Expected Close Date: {{opportunity.CloseDate}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab>
+	</md-tabs>
+</div>

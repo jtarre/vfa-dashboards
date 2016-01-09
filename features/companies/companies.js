@@ -2,7 +2,7 @@ var jsforce = require('jsforce');
 var _       = require('underscore');
 
 module.exports = function(app, passport) {
-	app.get('/companies', isAuthenticated, function( req, res, next) {
+	app.get('/companies', isAuthenticated, function( req, res, next ) {
 		var conn = new jsforce.Connection({
 			clientSecret: process.env.CLIENT_SECRET,
 			clientId:     process.env.CLIENT_ID,

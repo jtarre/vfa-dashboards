@@ -1,0 +1,79 @@
+<!-- first add angular material -->
+<!-- Angular Material Stylesheets and Fonts -->
+<div ng-controller="SupporterCtrl" ng-cloak="" class="virtualRepeatdemoInfiniteScroll">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>Supporters</h2>
+				<span flex></span>
+				<!-- <md-button class="md-raised" ng-click="createAccount()">Create Account</md-button> -->
+			</div>
+		</md-toolbar>
+	<md-tabs md-dynamic-height="true">
+		<md-tab label="Log Notes">
+					<div layout="column">
+						<md-autocomplete md-selected-item="notes.relatedTo" md-min-length="3" md-search-text="relatedToSearch" md-items="item in filteredRelatedTo = (relatedTo | filter:relatedToSearch)" md-item-text="item.name" md-floating-label="Related To (Search by Account or Opportunity)">
+							<md-item-template>
+								{{item.name}}
+							</md-item-template>
+						</md-autocomplete>
+						<md-autocomplete md-selected-item="notes.contact" md-min-length="4" md-search-text="contactNoteSearch" md-items="contact in filteredContacts = (contacts | filter:contactNoteSearch)" md-item-text="contact.Name" md-floating-label="Contact (Search by Name, City, Account, or Job Title)">
+							<md-item-template>
+								{{contact.Name}}
+							</md-item-template>
+						</md-autocomplete>
+						<md-input-container>
+							<label>Subject</label>
+							<input ng-model="notes.Subject" type="text">
+						</md-input-container>
+						<md-input-container>
+							<label>Notes</label>
+							<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
+						</md-input-container>
+					<md-autocomplete md-selected-item="notes.user" md-search-text="userSearch" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+						<md-item-template>
+							{{user.Name}}
+						</md-item-template>
+					</md-autocomplete>
+					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
+				</div>
+		</md-tab>
+		<md-tab label="Search Accounts">
+			<div layout="column">
+				<md-input-container>
+					<label>Search (By Name or City)</label>
+					<input type="text" ng-model="accountSearchQuery">
+				</md-input-container>
+				<md-list>
+					<md-virtual-repeat-container style="height:500px">
+						<md-list-item flex ui-sref="supporter({supporterId: supporter.Id})" md-virtual-repeat="supporter in filteredSupporters = (supporters | filter:accountSearchQuery)" class="md-3-line repeated-item">
+							<div class="md-list-item-text">
+							<h3>{{supporter.Name}}: {{supporter.VFA_City__c}}</h3>
+							<p>{{supporter.Website}}</p>
+							<p>{{supporter.Description}}</p>
+						</div>
+						</md-list-item>
+					</md-virtual-repeat-container>
+				<md-list>
+			</div>
+		</md-tab>
+		<md-tab label="Search Contacts">
+			<div layout="column">
+				<md-input-container>
+					<label>Search (By Name, City, Account, or Job Title)</label>
+					<input type="text" ng-model="contactSearchQuery">
+				</md-input-container>
+				<md-list>
+					<md-virtual-repeat-container style="height:500px">
+						<md-list-item flex md-virtual-repeat="contact in filteredContacts = (contacts | filter:contactSearchQuery)" class="md-3-line repeated-item">
+							<div class="md-list-item-text">
+							<h3>{{contact.Name}}</h3>
+							<h4>{{contact.Account_Name_for_SurveyGizmo__c}}: {{contact.VFA_City__c}}<h4>
+							<p>{{contact.Title}}</p>
+						</div>
+						</md-list-item>
+					</md-virtual-repeat-container>
+				<md-list>
+			</div>
+		</md-tab>
+	</md-tabs>
+</div>
