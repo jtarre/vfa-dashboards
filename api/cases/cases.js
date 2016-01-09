@@ -1,7 +1,6 @@
 module.exports = function(app) {
 	var jsforce = require('jsforce');
 	var _       = require('lodash');
-	var salesforce = 
 
 	var conn = new jsforce.Connection({
 		instanceUrl: process.env.INSTANCE_URL,
@@ -18,7 +17,7 @@ module.exports = function(app) {
 			conn.sobject('Case')
 				.create(newCase, function(err, ret) {
 					if (err) { return console.error(err); }
-					res.status(200).json(ret);
+					res.status(200).json(ret);	
 				})
 		})
 
