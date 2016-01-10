@@ -34,6 +34,10 @@
 
 /*--- Text Styling ---*/
 
+html {
+  background-color: #fafafa;
+}
+
 body {
   color:#1d1f1d;
   /* padding-bottom: 0px; */
@@ -76,7 +80,7 @@ a{
 }
 
 /*------------------------------------*\
-    #NO LONGER IN USE
+    #NO LONGER USING
 \*------------------------------------*/
 
 
