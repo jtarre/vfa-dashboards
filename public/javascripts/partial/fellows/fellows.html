@@ -5,14 +5,24 @@
 			<div ng-controller="fellowsCtrl">
 				<h2>Fellows</h2>
 				<hr>
+
+				<div class="row vfa-margin-fix"><!-- SORT BY [NEEDS ANGULAR] -->
+					<div class="pull-right">
+		        <div class="btn-group pull-right">
+		          <button type="button" class="btn btn-default btn-sm">Sort Name</button>
+		          <button type="button" class="btn btn-default btn-sm">Sort Year</button>
+		        </div>
+	        </div>
+        </div><br>
+
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-sm-6 col-xs-12"><!-- CITY SEARCH -->
 						<div class="form-group has-feedback">
 							<input ng-model="cityQuery" type="search" class="form-control" placeholder="City Search"/>
 							<i class="glyphicon glyphicon-search form-control-feedback"></i>
 						</div>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-sm-6 col-xs-12"><!-- SCHOOL SEARCH -->
 						<div class="form-group has-feedback">
 							<input ng-model="schoolQuery" type="search" class="form-control" placeholder="School Search"/>
 							<i class="glyphicon glyphicon-search form-control-feedback"></i>
@@ -20,7 +30,36 @@
 					</div>
 				</div>
 
+				<div class="row">
+					<div class="col-xs-12">
+					  <div class="input-group">
+					    <div class="input-group-btn">
+					      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search By <span class="caret"></span></button>
+					      <ul class="dropdown-menu">
+					        <li><a href="#">Name Search</a></li>
+					        <li><a href="#">City Search</a></li>
+					        <li><a href="#">School Search</a></li>
+					      </ul>
+					    </div><!-- /btn-group -->
+					    <input ng-model="cityQuery" type="search" class="form-control">
+					    <i class="glyphicon glyphicon-search form-control-feedback"></i>
+					  </div><!-- /input-group -->
+					</div><!-- /col -->
+				</div><!-- /row -->
+
 				<hr>
+
+        <div class="list-group">
+          <a ui-sref="fellow({ fellowId: fellow.id })" class="list-group-item" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
+            <span class="list-group-item-heading"><b>{{fellow.name}}</b></span>
+            <span class="list-group-item-text pull-right">City Name - {{fellow.year}}</span>
+            <p class="list-group-item-text">Other information?</p>
+          </a>
+        </div>
+
+				<hr>
+
+				<!-- COLUMN VERSION OF FELLOW LIST
 				<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
 					<div class="col-xs-4">
 						{{fellow.name}}
@@ -33,7 +72,8 @@
 							View
 						</button>
 					</div>
-				</div> <!-- end fellow feed row -->
+				</div>
+				-->
 			</div> <!-- end initial row div -->
 
 		</div>
