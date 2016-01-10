@@ -17,7 +17,7 @@ module.exports = function(app) {
 				.find({
 					dsfs__Date_Signed__c: {'$lte': jsforce.Date.TODAY}
 				}, "*")
-				.sort({dsfs__Date_Signed__c: 1})
+				.sort({dsfs__Date_Signed__c: -1})
 				.execute(function(err, offers) {
 					console.log(offers);
 					res.status(200).json(offers);
