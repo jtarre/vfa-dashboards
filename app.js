@@ -63,6 +63,9 @@ require('./api/slack/slack')(app);
 
 require('./api/helpers/salesforce');
 
+// Fellow Offer Docusign //
+require('./routes/docusign')(app);
+
 // Express Jade Routes //
 require('./routes/index')(app, passport);
 require('./features/companies/companies')(app, passport);
