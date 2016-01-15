@@ -14,13 +14,13 @@ vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _
 			$scope.supporterInfo = data;
 			console.log("company info", data);
 			$scope.relatedToList.push( {name: data.Name, id: data.Id} );
-		});
+		}, $scope.setErrorMessage(error));
 
 	supportersApi.getContacts($scope.supporterId)
 		.then( function(data) {
 			$scope.contacts = data;
 			console.log("contact list", $scope.contacts);
-		});
+		}, $scope.setErrorMessage(error));
 	
 	supportersApi.getOpportunities($scope.supporterId)
 		.then( function(data) {
@@ -32,18 +32,18 @@ vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _
 				$scope.relatedToList.push({ name: value.Name, id: value.Id });
 			});
 			// console.log("total list after opps\n", $scope.relatedToList);
-		});
+		}, $scope.setErrorMessage(error));
 
 	supportersApi.getActivities($scope.supporterId)
 		.then( function(data) {
 			$scope.activities = data;
 			console.log("company activities", $scope.activities);
-		});
+		}, $scope.setErrorMessage(error));
 
 	api.users.getAll()
 		.then( function(data) {
 			$scope.users = data;
-		});
+		}, $scope.setErrorMessage(error));
 
 	$scope.getUser = function getUser(userList, id) {
 	    var user = {};
@@ -64,6 +64,11 @@ vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _
 				$scope.userSearch = "";
 				$scope.contactSearch = "";
 				$scope.relatedToSearch = "";
-			});
+			}, $scope.setErrorMessage(error));
 	}
+
+	$scope.setErrorMessage = function setErrorMessage (error) {
+		$scope.errorMessage = errorMessage.standard;
+	}
+
 });
