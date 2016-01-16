@@ -116,7 +116,23 @@
 		},
 
 		notes: {
-			post: function(subject, description, vfaId, contactId, relatedToId) {
+			post: function(subject, description, vfa, contact, relatedTo) {
+				// notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id
+				
+				var vfaId;
+				var contactId;
+				var relatedToId;
+			
+				if(vfa) {
+					vfaId = vfa.Id;
+				}
+				if(contact) {
+					contactId = contact.Id;
+				}
+
+				if(relatedTo) {
+					relatedToId = relatedTo.id;
+				}
 				var note = {
 					Description: description,
 					Subject:     subject,

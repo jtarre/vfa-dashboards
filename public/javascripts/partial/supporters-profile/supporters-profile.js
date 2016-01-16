@@ -58,7 +58,7 @@ vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _
 	}
 
 	$scope.logNotes = function logNotes(notes) {
-		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.id)
+		api.notes.post(notes)
 			.then(function(data) {
 				$scope.notes = {};
 				$scope.userSearch = "";

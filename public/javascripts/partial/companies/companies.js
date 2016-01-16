@@ -24,8 +24,8 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 			$scope.users = data;
 		});
 	
-	$scope.logNotes = function logNotes(subject, description, userId, contactId, relatedToId) {		
-		api.notes.post(subject, description, userId, contactId, relatedToId)
+	$scope.logNotes = function logNotes(notes) {		
+		api.notes.post(notes)
 			.then(function( response ) {
 				$scope.notes = {};
 				$scope.userSearch = "";

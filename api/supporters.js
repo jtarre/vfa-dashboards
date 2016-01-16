@@ -11,9 +11,7 @@ module.exports = function(app) {
 		salesforce.login(obj)
 		.then( function() {
 			obj.conn.sobject('Account')
-				.find({
-					Department__c: "Development"
-				}, "Name, Id, VFA_City__c, Description")
+				.find({}, "Name, Id")
 				.sort( { Name: 1} )
 				.execute( function(err, accounts) {
 					if(err) { return console.error(err)};
