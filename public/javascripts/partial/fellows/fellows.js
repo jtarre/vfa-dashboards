@@ -5,6 +5,7 @@
 	$scope.query;
 	$scope.sortProp = "name";
 	$scope.reverse  = false;
+
 	$scope.$storage = $localStorage;
 	$scope.initFellowQuery = function initFellowQuery() {
 		console.log("initFellowQuery run");
@@ -34,21 +35,10 @@
 		console.log($scope.fellows);
 	});
 
-	$scope.getFellow = function getFellow(id) {
-		console.log("Fellow id: " + id);
-		api.fellows.getFellow(id).then(function( data ){
-				console.log("Fellow Data received:");
-				// console.log(data);
-				$scope.fellow = data;
-				console.log("fellow name", $scope.fellow.profile.Name);
-				console.log($scope.fellow);
-
-		});
-	};
-
-	// $scope.$watch($scope.fellows, function(oldFellowList, newFellowList) {
-	// 	console.log(newFellowList);
-	// });
+	$scope.filterFunction = function filterFunction() {
+		console.log("searchQuery", $scope.searchQuery);
+		return $scope.searchQuery;
+	}
 	
 	$scope.logNotes = function(noteSubject, noteDescription, vfaId, fellowId) {
 		console.log("Let's log notes!")
@@ -68,18 +58,13 @@
 			$scope.noteDescription = "";
 		})
 	}
-	
-	$scope.count = function(classYear, list) {
-		if(!list) {
-			return "None";
+
+	$scope.sort = function sort(newSort) {
+		if(newSort === $scope.sortProp) {
+			$scope.reverse = !$scope.reverse;
 		} else {
-			var count = 0;
-			_.each(list, function(element,index,list) {
-				if(element.year == classYear) {
-					count++;
-				}
-			})
-			return count;
+			$scope.sortProp = newSort;
+			$scope.reverse = false;
 		}
 	}
 
