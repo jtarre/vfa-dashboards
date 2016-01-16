@@ -18,15 +18,6 @@
 	};
 	$scope.initFellowQuery();
 
-	$scope.classYears = {
-		"2012" : {"year": "2012", "count": 0},
-		"2013" : {"year": "2013", "count": 0},
-		"2014" : {"year": "2014", "count": 0},
-		"2015" : {"year": "2015", "count": 0},
-		"2016" : {"year": "2016", "count": 0}
-	}
-
-
 	// console.log("fellow value: " + $scope.fellow);
 	api.fellows.get().then(function( data ){
 		console.log("Data received:");

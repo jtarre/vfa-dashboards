@@ -56,6 +56,7 @@ require('./api/contacts/contacts')(app);
 require('./api/opportunities/opportunities')(app);
 require('./api/data/data')(app);
 require('./api/notes/notes')(app);
+require('./api/cases/cases')(app);
 require('./api/companies/fields')(app);
 require('./api/users/users')(app);
 require('./api/supporters')(app);

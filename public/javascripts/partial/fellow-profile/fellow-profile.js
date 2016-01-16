@@ -1,4 +1,4 @@
-vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, casesApi, surveysApi, activitiesApi, slackApi, api) {
+vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, $localStorage, casesApi, surveysApi, activitiesApi, slackApi, api) {
 
 	$scope.fellow;
 	$scope.fellowId = $stateParams.fellowId;
@@ -7,11 +7,22 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, casesApi, s
 	$scope.isLogNotes = true;
 	$scope.isCreateCase = false;
 
+	$scope.logNotesInProgress = false;
+	$scope.caseInProgress = false;
+
+	$scope.loggedNotes = [];
+	$scope.createdCases = [];
+
 	api.fellows.getFellow($scope.fellowId).then(function( data ){		
 		$scope.fellow = data;
 		$scope.cases = $scope.fellow.cases;
 
 	});
+	
+	casesApi.getTypes().then(function( data ) {
+		$scope.caseTypes = _.map(data.picklistValues, 'value');
+		console.log("case types: ", $scope.caseTypes);
+		}, function(error) { console.log(error) });
 
 	// need to refactor the Fellow page to break into separate calls
 
@@ -37,37 +48,61 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, casesApi, s
 	// 		$scope.activitiesNew = data;
 	// 	})
 
-	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfa, fellow, activeCase) {
-		api.notes.post(noteSubject, noteDescription, vfa.id, fellow.profile.Id, activeCase.Id).then(function( data ) {
+	$scope.logNotes = function logNotes(notes) {
+		$scope.logNotesInProgress = true;
+		var subject = "";
+		var description = "";
+		var vfaId = "";
+		var fellowId = "";
+		var caseId = "";
+		var caseSubject = "";
+
+		if(notes.Description) {
+			description = notes.Description;
+		}
+
+		if(notes.Subject) {
+			subject = notes.Subject;
+		}
+
+		if(notes.user) {
+			vfaId = notes.user.id;
+		}
+
+		if(notes.activeCase) {
+			caseId = notes.activeCase.Id;
+			caseSubject = notes.activeCase.Subject;
+		}
+		api.notes.post(subject, description, vfaId, $scope.fellowId, caseId).then(function( data ) {
 			console.log("Note data received: ", data);
+			$scope.logNotesInProgress = false;
 			$scope.noteSubject     = ""; // reset note form values
 			$scope.noteDescription = "";
+			$scope.loggedNotes.push(data.id);
+			// $scope.$storage.loggedNotes.push(data.id);
 		});
 
-		slackApi.create(noteSubject, noteDescription, vfa.name, fellow.profile.Name, activeCase.Subject, "#fellow-workflows")
+		slackApi.create(subject, description, notes.user.name, $scope.fellow.profile.Name, caseSubject, "#fellow-workflows")
 			.then( function(data) {
 				console.log("slack response: ", data);
 			});
 	}
 
-	$scope.createCase = function createCase(subject, description, user, fellow) {
-		casessApi.create(subject, description, user, fellow)
+	$scope.createCase = function createCase(newCase) {
+		$scope.caseInProgress = true;
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, $scope.fellowId, newCase.type)
 			.then( function (data) {
 				// add the link to the case as a toast
-				console.log("case response: ", data);
-			})
+				$scope.caseInProgress = false;
+				$scope.createdCases.push(data.id);
+				// $scope.$storage.createdCases.push(data.id);
+				casesApi.getForFellow($scope.fellowId) 
+				.then(function( data ) {
+					$scope.cases = data;
+				});
+			});
 	}
 
-
-		/*
-		code pen, engaged.
-		now what i want
-		caseApi
-		/api/case - post
-		$scope.createCase = function createCase
-		been here before...
-	 */
-	// 
 	$scope.vfaTeam = [	
 		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
 		{ name: "Andrew Yang", id : "005d0000001OKLG"},	
