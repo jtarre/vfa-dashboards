@@ -9,27 +9,38 @@
 				<div class="row vfa-margin-fix"><!-- SORT BY [NEEDS ANGULAR] -->
 					<div class="pull-right">
 		        <div class="btn-group pull-right">
-		          <button type="button" class="btn btn-default btn-sm">Sort Name</button>
-		          <button type="button" class="btn btn-default btn-sm">Sort Year</button>
+		          <button type="button" class="btn btn-default btn-sm" ng-click="sort('name')">Sort Name</button>
+		          <button type="button" class="btn btn-default btn-sm" ng-click="sort('year')">Sort Year</button>
 		        </div>
 	        </div>
         </div><br>
 
+	
 				<div class="row">
-					<div class="col-sm-6 col-xs-12"><!-- CITY SEARCH -->
+					<div class="col-sm-6 col-xs-12">
+						<div class="form-group has-feedback">
+							<input ng-model="searchQuery" type="search" class="form-control" placeholder="Search by Name, City, Company, or Year"/>
+							<i class="glyphicon glyphicon-search form-control-feedback"></i>
+						</div>
+					</div>
+				<!--
+				<div class="row">
+					<div class="col-sm-6 col-xs-12">
 						<div class="form-group has-feedback">
 							<input ng-model="cityQuery" type="search" class="form-control" placeholder="City Search"/>
 							<i class="glyphicon glyphicon-search form-control-feedback"></i>
 						</div>
 					</div>
-					<div class="col-sm-6 col-xs-12"><!-- SCHOOL SEARCH -->
+					<div class="col-sm-6 col-xs-12">
 						<div class="form-group has-feedback">
 							<input ng-model="schoolQuery" type="search" class="form-control" placeholder="School Search"/>
 							<i class="glyphicon glyphicon-search form-control-feedback"></i>
 						</div>
 					</div>
 				</div>
+				-->
 
+				<!--
 				<div class="row">
 					<div class="col-xs-12">
 					  <div class="input-group">
@@ -40,40 +51,27 @@
 					        <li><a href="#">City Search</a></li>
 					        <li><a href="#">School Search</a></li>
 					      </ul>
-					    </div><!-- /btn-group -->
-					    <input ng-model="cityQuery" type="search" class="form-control">
+					    </div> 
+					    <input ng-model="searchQuery" type="search" class="form-control">
 					    <i class="glyphicon glyphicon-search form-control-feedback"></i>
-					  </div><!-- /input-group -->
-					</div><!-- /col -->
-				</div><!-- /row -->
+					  </div>
+					</div>
+				</div>
+				-->
 
 				<hr>
 
         <div class="list-group">
-          <a ui-sref="fellow({ fellowId: fellow.id })" class="list-group-item" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
-            <span class="list-group-item-heading"><b>{{fellow.name}}</b></span>
-            <span class="list-group-item-text pull-right">City Name - {{fellow.year}}</span>
-            <p class="list-group-item-text">Other information?</p>
+          <a ui-sref="fellow({ fellowId: fellow.id })" class="list-group-item" ng-repeat="fellow in filteredFellows = ( fellows | filter: searchQuery | orderBy:sortProp:reverse)">
+            <span class="list-group-item-heading"><b>{{fellow.name}}</b>: {{fellow.company}}</span>
+            <span class="list-group-item-text pull-right">{{fellow.city}} - {{fellow.year}}</span>
+            <p class="list-group-item-text">{{fellow.almaMater}}</p>
           </a>
         </div>
 
 				<hr>
 
-				<!-- COLUMN VERSION OF FELLOW LIST
-				<div class="row" ng-repeat="fellow in filteredFellows = ( fellows | filter: {city: cityQuery, almaMater: schoolQuery}| orderBy:sortProp:reverse)">
-					<div class="col-xs-4">
-						{{fellow.name}}
-					</div>
-					<div class="col-xs-4">
-						{{fellow.year}}
-					</div>
-					<div class="col-xs-4">
-						<button class="btn btn-default btn-sm" type="button" ui-sref="fellow({ fellowId: fellow.id })">
-							View
-						</button>
-					</div>
-				</div>
-				-->
+
 			</div> <!-- end initial row div -->
 
 		</div>
