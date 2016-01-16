@@ -1,3 +1,7 @@
+/*------------------------------------*\
+    #JASON'S CSS
+\*------------------------------------*/
+
 
 .virtualRepeatdemoInfiniteScroll #vertical-container {
     height: 292px;
@@ -23,14 +27,25 @@
     padding-left: 16px;
 }
 
-body{
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+/*------------------------------------*\
+    #MIKE'S CSS
+\*------------------------------------*/
+
+
+/*--- Text Styling ---*/
+
+html {
+  background-color: #fafafa;
+}
+
+body {
   color:#1d1f1d;
-  padding-bottom: 0px;
+  /* padding-bottom: 0px; */
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -49,6 +64,24 @@ h3,h4,h5 {
 a{
   color: #0091e5;
 }
+
+/*--- BOOTSTRAP FIXES ---*/
+
+/*- fellows.html -*/
+
+.vfa-margin-fix {
+  margin-right: 0px;
+}
+
+/*- fellow-profile.html -*/
+
+.vfa-item-header {
+  margin-bottom: 5px;
+}
+
+/*------------------------------------*\
+    #NO LONGER USING
+\*------------------------------------*/
 
 
 /*
