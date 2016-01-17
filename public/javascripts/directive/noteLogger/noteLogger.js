@@ -3,8 +3,6 @@ angular.module('vfaDashboard').directive('noteLogger', function(_) {
 		restrict: "E",
 		templateUrl: "javascripts/directive/noteLogger/noteLogger.html",
 		scope: {
-			contacts: '=contacts',
-			relatedTo: '=',
 			users: '='
 		},
 		controllerUrl: "javascripts/directive/noteLogger/noteLoggerCtrl.js",
