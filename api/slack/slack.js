@@ -20,6 +20,7 @@ module.exports = function(app) {
 			json: true,
 			body: message
 		}
+		console.log("slack options", options);
 		request(options, slackCallback);
 
 	});

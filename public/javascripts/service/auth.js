@@ -1,11 +1,17 @@
-angular.module('vfaDashboard').factory('auth', function($rootScope) {
+angular.module('vfaDashboard').factory('auth', function($http, $q) {
 	return {
 		isLoggedIn: function isLoggedIn() {
-			if($rootScope.user) {
-				return true;
-			} else {
-				return false;
-			}
+			var deferred = $q.defer();
+			$http.get("/loggedin")
+				.success(function(user) {	
+					if(user !== "0") {
+						deferred.resolve(true);
+					} else {
+						deferred.reject(false);
+					}
+				});
+
+			return deferred.promise;
 		}
 	}
 });

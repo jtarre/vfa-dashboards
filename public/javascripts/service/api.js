@@ -77,6 +77,20 @@
 				return $http.post("/api/contacts", contactInfo).then( function(response) {
 					return response.data;
 				})
+			},
+
+			getAll: function getAll() {
+				return $http.get("/api/contacts").then(function(response) {
+					return response.data;
+				})
+			},
+
+			getBySearch: function getBySearch(search) {
+				console.log("searching by value:", search);
+				return $http.get("/api/contacts/" + search).then(function(response) {
+					console.log("response: ", response.data);
+					return response.data;
+				})
 			}
 		},
 
@@ -127,13 +141,17 @@
 				};
 				console.log("note data object", note);
 				return $http.post("/api/notes", note).then( function(response) {
+					console.log(response);
 					return response.data;
+				}, function(error) {
+					console.log("api error:", error);
+					return error;
 				});
 			}
 		},
 
 		users: {
-			getAll: function() {
+			getAll: function getAll() {
 				return $http.get("/api/users")
 					.then( function(response) {
 						return response.data;
