@@ -1,3 +1,9 @@
-<div ng-controller="homeCtrl">
-	I am home. Feels great. 
+<div ng-controller="homeCtrl" ng-cloak>
+	<div ng-if="!auth">
+		Welcome to the VFA Logger. This is a site for VFA team members to manage their salesforce information and activities.
+	</div>
+	<div ng-if="auth">
+		<note-logger></note-logger>
+	</div>
+	
 </div>

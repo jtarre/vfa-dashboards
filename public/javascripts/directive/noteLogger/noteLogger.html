@@ -1,0 +1,67 @@
+<div ng-controller="NoteLoggerCtrl">
+<md-content>
+	<div layout="column">
+
+		<div layout="row">
+			<md-input-container>
+				<label>Search By Name</label>
+				<input ng-model="contactSearch">
+			</md-input-container>
+			<md-progress-circular ng-if="!isContactSearch" md-mode=""></md-progress-circular>
+			<md-progress-circular ng-if="isContactSearch" md-mode="indeterminate"></md-progress-circular>
+		</div>
+
+		<md-input-container ng-if="contacts.length">
+			<label>Select Contact</label>
+			<md-select ng-model="notes.contact">
+				<md-option ng-repeat="contact in contacts">
+					{{contact.Name}}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+		<div layout="row">
+			<md-input-container>
+				<label>Search By Account</label>
+				<input ng-model="relatedToSearch">
+			</md-input-container>
+			<md-progress-circular ng-if="!isRelatedToSearch" md-mode=""></md-progress-circular>
+			<md-progress-circular ng-if="isRelatedToSearch" md-mode="indeterminate"></md-progress-circular>
+		</div>
+
+		<md-input-container ng-if="relatedTo.length">
+			<label>Select Account</label>
+			<md-select ng-model="notes.relatedTo">
+				<md-option ng-repeat="account in relatedTo">
+					{{account.Name}}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+		<md-input-container>
+			<label>Subject</label>
+			<input ng-model="notes.Subject" type="text">
+		</md-input-container>
+
+		<md-input-container>
+			<label>Notes</label>
+			<textarea ng-model="notes.Description"></textarea>
+		</md-input-container>
+
+		<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+			<md-item-template>
+				{{user.Name}}
+			</md-item-template>
+		</md-autocomplete>
+		<div layout="row">
+			<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
+			<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
+			<md-progress-circular ng-if="!inProgress" md-mode=""></md-progress-circular>
+		</div>
+		<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
+			<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">https://na14.salesforce.com/{{noteId}}</a>
+		</div>
+		
+	</div>
+</md-content>
+</div>
