@@ -1,26 +1,106 @@
-vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
+vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, $localStorage, casesApi, surveysApi, activitiesApi, slackApi, api) {
 
 	$scope.fellow;
 	$scope.fellowId = $stateParams.fellowId;
-	// $scope.cases;
+	$scope.cases;
 
-	api.fellows.getFellow($scope.fellowId).then(function( data ){
-		console.log("Fellow Data received:");
-		console.log(data);
+	$scope.isLogNotes = true;
+	$scope.isCreateCase = false;
+
+	$scope.logNotesInProgress = false;
+	$scope.caseInProgress = false;
+
+	$scope.loggedNotes = [];
+	$scope.createdCases = [];
+
+	api.fellows.getFellow($scope.fellowId).then(function( data ){		
 		$scope.fellow = data;
-		// console.log("fellow name", $scope.fellow.profile.Name);
 		$scope.cases = $scope.fellow.cases;
-		console.log("cases in fellow scope: ",$scope.fellow.cases);
-		// console.log($scope.fellow);
 
 	});
+	
+	casesApi.getTypes().then(function( data ) {
+		$scope.caseTypes = _.map(data.picklistValues, 'value');
+		console.log("case types: ", $scope.caseTypes);
+		}, function(error) { console.log(error) });
 
-	$scope.logNotes = function logNotes(noteSubject, noteDescription, vfaId, fellowId, caseId) {
-		api.notes.post(noteSubject, noteDescription, vfaId, fellowId, caseId).then(function( data ) {
+	// need to refactor the Fellow page to break into separate calls
+
+	//Get Fellow data
+
+	// casesApi.getForFellow($scope.fellowId) // done?
+	// 	.then(function(data) {
+	// 		$scope.casesNew = data;
+	// 	});
+
+	// surveysApi.getForFellow($scope.fellowId, "company") // TODO
+	// 	.then(function(data) {
+	// 		$scope.surveysNew = data;
+	// 	});
+
+	// surveysApi.getForFellow($scope.fellowId, "fellow") // TODO
+	// 	.then(function(data) {
+	// 		$scope.surveysNew = data;
+	// 	});
+
+	// activitiesApi.getForFellow($scope.fellowId) // TODO
+	// 	.then(function(data) {
+	// 		$scope.activitiesNew = data;
+	// 	})
+
+	$scope.logNotes = function logNotes(notes) {
+		$scope.logNotesInProgress = true;
+		var subject = "";
+		var description = "";
+		var vfaId = "";
+		var fellowId = "";
+		var caseId = "";
+		var caseSubject = "";
+
+		if(notes.Description) {
+			description = notes.Description;
+		}
+
+		if(notes.Subject) {
+			subject = notes.Subject;
+		}
+
+		if(notes.user) {
+			vfaId = notes.user.id;
+		}
+
+		if(notes.activeCase) {
+			caseId = notes.activeCase.Id;
+			caseSubject = notes.activeCase.Subject;
+		}
+		api.notes.post(subject, description, vfaId, $scope.fellowId, caseId).then(function( data ) {
 			console.log("Note data received: ", data);
+			$scope.logNotesInProgress = false;
 			$scope.noteSubject     = ""; // reset note form values
 			$scope.noteDescription = "";
+			$scope.loggedNotes.push(data.id);
+			// $scope.$storage.loggedNotes.push(data.id);
 		});
+
+		slackApi.create(subject, description, notes.user.name, $scope.fellow.profile.Name, caseSubject, "#fellow-workflows")
+			.then( function(data) {
+				console.log("slack response: ", data);
+			});
+	}
+
+	$scope.createCase = function createCase(newCase) {
+		$scope.caseInProgress = true;
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, $scope.fellowId, newCase.type)
+			.then( function (data) {
+				// add the link to the case as a toast
+				$scope.caseInProgress = false;
+				$scope.createdCases.push(data.id);
+				// $scope.$storage.createdCases.push(data.id);
+				casesApi.getForFellow($scope.fellowId) 
+				.then(function( data ) {
+					$scope.cases = data;
+				});
+			});
 	}
 
 	$scope.vfaTeam = [	
@@ -53,19 +133,4 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, api) {
 		{ name: "Will Geary", id : "005d00000048iYF"}
 	]
 })
-
-/*
-					<button ng-click="edit = !edit">{{edit ? 'Show' : 'Edit'}}</button>
-				<h3 id="fellowInfo">Fellow Info</h3>
-				<div class="fellow-info-content row">
-					<div ng-repeat="fellow fellow.profile">
-
-						<div class="detail-label" ng-hide="edit">
-							<span>{{key | fellowTitle}}</span>
-							<span ng-hide="edit">{{value}}</span>
-							<select ng-if="isSelect(key)" ng-show="edit" class="detail-select" ng-options="fellows">
-							</select>
-							<input ng-if="isText(key)" ng-show="edit" ng-model="fellow.profile[key]" />
-						</div>
- */
 

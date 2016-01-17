@@ -65,5 +65,10 @@ vfaDashboard.controller("SupporterProfileCtrl", function($scope, $stateParams, _
 				$scope.contactSearch = "";
 				$scope.relatedToSearch = "";
 			});
+
+		slackApi.create(notes.Subject, notes.Description, notes.user.Name, notes.contact.Name, notes.relatedTo.name, "#team-money-notes")
+			.then( function(data) {
+				console.log("slack response: ", data);
+			});
 	}
 });

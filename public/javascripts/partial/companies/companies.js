@@ -1,4 +1,4 @@
-vfaDashboard.controller("companiesCtrl", function($scope, api) {
+vfaDashboard.controller("companiesCtrl", function($scope, slackApi, api) {
 	
 	$scope.companies;
 	$scope.users;
@@ -14,23 +14,29 @@ vfaDashboard.controller("companiesCtrl", function($scope, api) {
 
 	api.companies.getContactsForAll()
 		.then( function(data) {
-			console.log("contacts", data);
+			// console.log("contacts", data);
 			$scope.contacts = data;
 		});
 
 	api.users.getAll()
 		.then( function(data) {
-			console.log("users", data);
+			// console.log("users", data);
 			$scope.users = data;
 		});
 	
-	$scope.logNotes = function logNotes(subject, description, userId, contactId, relatedToId) {		
-		api.notes.post(subject, description, userId, contactId, relatedToId)
+	$scope.logNotes = function logNotes(notes) {	
+		console.log("notes on submission: ", notes);	
+		api.notes.post(notes.Subject, notes.Description, notes.user.Id, notes.contact.Id, notes.relatedTo.Id)
 			.then(function( response ) {
 				$scope.notes = {};
 				$scope.userSearch = "";
 				$scope.contactNoteSearch = "";
 				$scope.relatedToSearch = "";
+			});
+
+		slackApi.create(notes.Subject, notes.Description, notes.user.Name, notes.contact.Name, notes.relatedTo.Name, "#fellow-workflows")
+			.then( function(data) {
+				console.log("slack response: ", data);
 			});
 	}
 });
