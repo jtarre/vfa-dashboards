@@ -20,12 +20,6 @@
 			</md-select>
 		</md-input-container>
 
-		<!-- <md-autocomplete md-min-length="4" md-selected-item="notes.relatedTo" md-items="listItem in filteredList = (relatedTo | filter:relatedToSearch)" md-item-text="listItem.name" md-search-text="relatedToSearch" md-floating-label="Related To (Account or Opportunity)">
-			<md-item-template>
-				{{listItem.name}}
-			</md-item-template>
-		</md-autocomplete> -->
-
 		<div layout="row">
 			<md-input-container>
 				<label>Search By Account</label>
@@ -63,6 +57,9 @@
 			<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
 			<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
 			<md-progress-circular ng-if="!inProgress" md-mode=""></md-progress-circular>
+		</div>
+		<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
+			<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">https://na14.salesforce.com/{{noteId}}</a>
 		</div>
 		
 	</div>
