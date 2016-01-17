@@ -127,7 +127,11 @@
 				};
 				console.log("note data object", note);
 				return $http.post("/api/notes", note).then( function(response) {
+					console.log(response);
 					return response.data;
+				}, function(error) {
+					console.log("api error:", error);
+					return error;
 				});
 			}
 		},
