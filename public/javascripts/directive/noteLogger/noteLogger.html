@@ -1,4 +1,6 @@
 <div ng-controller="NoteLoggerCtrl">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 col-xs-offset-1 col-xs-10">
 		<form>
 			<div class="input-group">
 				<input type="text" ng-model="contactSearch" placeholder="Contact Name" class="form-control">
@@ -78,5 +80,7 @@
 			<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
 				<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">https://na14.salesforce.com/{{noteId}}</a>
 			</div>
-	</form>		
+		</form>
+	</div>
+	</div>		
 </div>

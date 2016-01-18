@@ -3,9 +3,9 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 	$scope.inProgress = false;
 	$scope.loggedNotes = [];
 	$scope.slackChannels = {
-		"copa": {name: "#test-private", active: false},
-		"fellows": {name: "#test-private", active: false},
-		"money": {name: "#test-private", active: false}
+		"copa": {name: "#copa-notifications", active: false},
+		"fellows": {name: "#fellow-status-update", active: false},
+		"money": {name: "#team-money-notes", active: false}
 	};
 	/*
 		ng-model="slackChannels.copa"
