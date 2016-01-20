@@ -31,6 +31,40 @@
     #MIKE'S CSS
 \*------------------------------------*/
 
+/*--- Adding border to tabs ---*/
+
+.tab-pane {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+/*--- Navbar ---*/
+
+.navbar-btn {
+  background-color: #b0bec5;
+  border: 0px;
+}
+
+.navbar-btn:hover {
+  background-color: #90a4ae;
+}
+
+/*- Removing navbar border -*/
+.navbar-inner, .navbar {
+  border: 0px;
+}
+
+.navbar {
+  border-top: 4px solid #90a4ae;
+}
 
 /*--- Text Styling ---*/
 

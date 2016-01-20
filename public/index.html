@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html ng-app="vfaDashboard">
 	<head>
-		<meta charset="utf-8">  <!-- it's important for d3.js -->
+		<meta charset="utf-8">  <!-- needed for d3.js -->
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<!-- favicon -->
+		<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.png"/>
+		<link rel="apple-touch-icon" type="image/png" href="/assets/favicon.png"/>
 
 		<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" type="text/css">
     
@@ -10,10 +14,6 @@
 		
 		<!-- For NVD3 Charts -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.css">
-		 
-		<!-- Latest compiled and minified CSS
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"> -->
 
 		<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 		
@@ -28,10 +28,10 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-	  	<script src="bower_components/angular/angular.js"></script>
-	  	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
-	  	<script src="bower_components/angular-aria/angular-aria.min.js"></script>
-	  	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+	  <script src="bower_components/angular/angular.js"></script>
+	  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+	  <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+	  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.js"></script>
@@ -40,9 +40,9 @@
 		<script src="bower_components/lodash/lodash.min.js"></script>
 
 		<!-- Angular Material Library -->
-	  	<script src="bower_components/angular-material/angular-material.min.js"></script>
+	  <script src="bower_components/angular-material/angular-material.min.js"></script>
 
-		<!-- components -->
+		<!-- Components -->
 		<script src="javascripts/core.js"></script>
 		<script src="javascripts/partial/home/home.js"></script>
 		<script src="javascripts/partial/fellows/fellows.js"></script>
