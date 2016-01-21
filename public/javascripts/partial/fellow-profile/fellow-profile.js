@@ -14,6 +14,8 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, $localStora
 	$scope.createdCases = [];
 
 	api.fellows.getFellow($scope.fellowId).then(function( data ){		
+		console.log("fellow before assignment:", $scope.fellow);
+		console.log("data received from server:", data);
 		$scope.fellow = data;
 		$scope.cases = $scope.fellow.cases;
 		_.forEach($scope.fellow.companyEval, function(value, index) {
