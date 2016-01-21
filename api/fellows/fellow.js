@@ -101,6 +101,8 @@ module.exports = function(app) {
                                     .limit(5)
                                     .execute(function(err, cases) {
                                         if(err) { return console.error(err); }
+                                            console.log("self eval", fellowSelfEvals);
+                                            console.log("companyEval", companyEval);
                                             res.status(200).json({
                                                 profile:     fellowData,
                                                 surveySelfEvals: fellowSelfEvals,

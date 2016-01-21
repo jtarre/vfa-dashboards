@@ -1,6 +1,6 @@
 vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, $localStorage, casesApi, surveysApi, activitiesApi, slackApi, api) {
 
-	$scope.fellow;
+	$scope.fellow = {};
 	$scope.fellowId = $stateParams.fellowId;
 	$scope.cases;
 
