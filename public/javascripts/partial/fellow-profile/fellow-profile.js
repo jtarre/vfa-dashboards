@@ -16,6 +16,9 @@ vfaDashboard.controller("fellowCtrl", function($scope, $stateParams, $localStora
 	api.fellows.getFellow($scope.fellowId).then(function( data ){		
 		$scope.fellow = data;
 		$scope.cases = $scope.fellow.cases;
+		_.forEach($scope.fellow.companyEval, function(value, index) {
+			console.log("company eval at index contact id and name:", index, value.Contact__c, value.Name);
+		})
 
 	});
 	
