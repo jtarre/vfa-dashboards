@@ -1,17 +1,20 @@
 module.exports = function(app) {
     var jsforce = require('jsforce');
     var Q       = require('q');
-    var _       = require('underscore');
-
-    var fellowSelfEvals = {};
-    var alumniEval      = {};
-    var companyEval     = {};
-
-    var caseArray       = [];
+    var _       = require('lodash');
+    
 
     var companyPartnerRecordId = "012d0000000SwwyAAC";
     var selfEvalRecordId       = "012d0000000SxCNAA0";
     var alumniEvalRecordId     = "012d0000000T6aDAAS";
+
+     var conn = new jsforce.Connection({    
+            loginUrl : process.env.LOGIN_URL,
+            clientSecret: process.env.CLIENT_SECRET, 
+            redirectUri: process.env.REDIRECT_URI,
+            clientId: process.env.CLIENT_ID,
+            instanceUrl: process.env.INSTANCE_URL
+        }); 
 
     app.get("/api/fellows/:id", isAuthenticated, function(req, res) {
         console.log("request paramaters:");
@@ -19,16 +22,18 @@ module.exports = function(app) {
             console.log(element);
             console.log(index);
         });
+
+        if(conn) {
+            console.log("already opened connection")
+        }
+
         var fellowId = req.params.id;
         // console.log("userId: " + fellowId);
 
-        var conn = new jsforce.Connection({    
-            loginUrl : process.env.LOGIN_URL,
-            clientSecret: process.env.CLIENT_SECRET, 
-            redirectUri: process.env.REDIRECT_URI,
-            clientId: process.env.CLIENT_ID,
-            instanceUrl: process.env.INSTANCE_URL
-        }); 
+        var fellowSelfEvals = {};
+        var alumniEval      = {};
+        var companyEval     = {};
+        var caseArray       = [];       
         
         // 012d0000000SxCN 012d0000000SyBP 012d0000000T6aD
         // 012d0000000SyBP 012d0000000SyBP
@@ -48,34 +53,23 @@ module.exports = function(app) {
                     .execute(function(err, surveys) {
                         if (err) { return console.error(err); }
 
-                        _.each(surveys, function(value, index, list) {
-                            console.log("Contact Id for survey index:", index, value.Contact__c, value.Name);
-                        });
-
-                        // console.log("contact id and survey record type at index:", i, surveys[0].Contact__c, surveys[0].RecordTypeId);
-                        // console.log("contact id and survey record type at index:", i, surveys[1].Contact__c, surveys[1].RecordTypeId);
-                        // console.log("contact id and survey record type at index:", i, surveys[2].Contact__c, surveys[2].RecordTypeId);
-                        // console.log("contact id and survey record type at index:", i, surveys[3].Contact__c, surveys[3].RecordTypeId);
-                        // console.log("contact id and survey record type at index:", i, surveys[4].Contact__c, surveys[4].RecordTypeId);
-                        // console.log("contact id and survey record type at index:", i, surveys[5].Contact__c, surveys[5].RecordTypeId);
                         // really need to divide up 
-                        _.each(surveys, function (value, key, list) {
-                            console.log("survey record type id", value.Name, value.RecordTypeId, value.Record_Type_Id);
+                        _.forEach(surveys, function (value, index) {
+                            // console.log("survey reallycord type id", index, value.Name, value.RecordTypeId, value.Record_Type_Id);
     
                             if(value.RecordTypeId === companyPartnerRecordId) {
                                 // var name = value.Name;
+                                console.log("company Eval", value.Name, value.Contact__c);
                                 companyEval[value.Name] = value;
-                            } 
-
-                            if(value.RecordTypeId === selfEvalRecordId) {
+                            } else if(value.RecordTypeId === selfEvalRecordId) {
                                 // var name = value.Name;
+                                console.log("self eval", value.Name, value.Contact__c);
                                 fellowSelfEvals[value.Name] = value;
                             } else if(value.RecordTypeId === "012d0000000SyBPAA0" || value.RecordTypeId === "012d0000000SxCN") {
                                 // var name = value.Name;
+                                console.log("unknown eval", value.Name, value.Contact__c);
                                 fellowSelfEvals[value.Name] = value;
-                            }
-
-                            if(value.RecordTypeId === alumniEvalRecordId) {
+                            } else if(value.RecordTypeId === alumniEvalRecordId) {
                                 alumniEval[value.Name] = value;
                             }
                         });
@@ -90,7 +84,6 @@ module.exports = function(app) {
                             .limit(3)
                             .execute(function(err, activities){
 
-
                                 // CASES // 
                                 conn.sobject("Case")
                                     .find({
@@ -100,6 +93,9 @@ module.exports = function(app) {
                                     .sort({ CreatedDate: -1 })
                                     .limit(5)
                                     .execute(function(err, cases) {
+                                        _.forEach(companyEval, function(value, index) {
+                                            console.log("c eval case", value.Name, value.Contact__c);
+                                        });
                                         if(err) { return console.error(err); }
                                             res.status(200).json({
                                                 profile:     fellowData,
