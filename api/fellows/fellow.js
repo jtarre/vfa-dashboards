@@ -72,6 +72,7 @@ module.exports = function(app) {
                                 fellowSelfEvals[value.Name] = value;
                             } else if(value.RecordTypeId === "012d0000000SyBPAA0" || value.RecordTypeId === "012d0000000SxCN") {
                                 // var name = value.Name;
+                                console.log(value.Name, value);
                                 fellowSelfEvals[value.Name] = value;
                             } else if(value.RecordTypeId === alumniEvalRecordId) {
                                 alumniEval[value.Name] = value;
