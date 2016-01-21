@@ -51,6 +51,13 @@ module.exports = function(app) {
                         _.each(surveys, function(value, index, list) {
                             console.log("Contact Id for survey index:", index, value.Contact__c);
                         });
+
+                        console.log("contact id and survey record type at index:", i, surveys[0].Contact__c, surveys[0].RecordTypeId);
+                        console.log("contact id and survey record type at index:", i, surveys[1].Contact__c, surveys[1].RecordTypeId);
+                        console.log("contact id and survey record type at index:", i, surveys[2].Contact__c, surveys[2].RecordTypeId);
+                        console.log("contact id and survey record type at index:", i, surveys[3].Contact__c, surveys[3].RecordTypeId);
+                        console.log("contact id and survey record type at index:", i, surveys[4].Contact__c, surveys[4].RecordTypeId);
+                        console.log("contact id and survey record type at index:", i, surveys[5].Contact__c, surveys[5].RecordTypeId);
                         // really need to divide up 
                         _.each(surveys, function (value, key, list) {
                             console.log("survey record type id", value.Name, value.RecordTypeId, value.Record_Type_Id);
