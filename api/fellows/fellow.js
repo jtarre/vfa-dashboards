@@ -59,23 +59,21 @@ module.exports = function(app) {
                         // console.log("contact id and survey record type at index:", i, surveys[4].Contact__c, surveys[4].RecordTypeId);
                         // console.log("contact id and survey record type at index:", i, surveys[5].Contact__c, surveys[5].RecordTypeId);
                         // really need to divide up 
-                        _.each(surveys, function (value, key, list) {
-                            console.log("survey record type id", value.Name, value.RecordTypeId, value.Record_Type_Id);
+                        _.each(surveys, function (value, index) {
+                            console.log("survey record type id", index, value.Name, value.RecordTypeId, value.Record_Type_Id);
     
                             if(value.RecordTypeId === companyPartnerRecordId) {
                                 // var name = value.Name;
+                                console.log(value.Name, value);
                                 companyEval[value.Name] = value;
-                            } 
-
-                            if(value.RecordTypeId === selfEvalRecordId) {
+                            } else if(value.RecordTypeId === selfEvalRecordId) {
                                 // var name = value.Name;
+                                console.log(value.Name, value);
                                 fellowSelfEvals[value.Name] = value;
                             } else if(value.RecordTypeId === "012d0000000SyBPAA0" || value.RecordTypeId === "012d0000000SxCN") {
                                 // var name = value.Name;
                                 fellowSelfEvals[value.Name] = value;
-                            }
-
-                            if(value.RecordTypeId === alumniEvalRecordId) {
+                            } else if(value.RecordTypeId === alumniEvalRecordId) {
                                 alumniEval[value.Name] = value;
                             }
                         });
