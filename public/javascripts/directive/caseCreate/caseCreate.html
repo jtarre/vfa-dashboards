@@ -1,0 +1,47 @@
+
+<form>
+					<div class="form-group">
+						<label>Subject</label>
+						<input type="text" ng-model="newCase.Subject" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea ng-model="newCase.Description" class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Type</label>
+						<select ng-options="type for type in caseTypes" ng-model="newCase.type" class="form-control"></select>
+					</div>
+
+				            <div class="form-group">
+				              <label>Select User</label>
+				              <select ng-options="vfa.name for vfa in vfaTeam" ng-model="newCase.user" class="form-control"></select>
+				            </div>
+				            <div class="form-group">
+								<div layout="row">	
+				              		<button type="button" class="btn btn-default" ng-click="createCase(newCase)">Create Case</button>
+									<md-progress-circular ng-if="caseInProgress" md-mode="indeterminate"></md-progress-circular>
+									<md-progress-circular ng-if="!caseInProgress" md-mode=""></md-progress-circular>
+						</div>
+				            </div>
+				          </form>
+
+<div class="input-group">
+				<input type="text" ng-model="contactSearch" placeholder="Contact Name" class="form-control">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="searchContacts(contactSearch)">Search</button>
+				</span>
+			</div>
+
+			
+			<div layout="row">
+				<md-progress-circular ng-if="!isContactSearchInProgress && !contacts.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
+				<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
+				<div class="form-group" ng-if="contacts.length">
+					<label>Select Contact</label>
+					<select ng-model="notes.contact" ng-options="contact.Name for contact in contacts" class="form-control"></select>
+				</div>
+				<div ng-if="noContactsFound">
+					<p>{{noContactsFoundMessage}}</p>
+				</div>
+			</div>
