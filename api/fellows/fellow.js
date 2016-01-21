@@ -48,6 +48,9 @@ module.exports = function(app) {
                     .execute(function(err, surveys) {
                         if (err) { return console.error(err); }
 
+                        _.each(surveys, function(value, index, list) {
+                            console.log("Contact Id for survey index:", index, value.Contact__c);
+                        });
                         // really need to divide up 
                         _.each(surveys, function (value, key, list) {
                             console.log("survey record type id", value.Name, value.RecordTypeId, value.Record_Type_Id);
