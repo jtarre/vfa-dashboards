@@ -1,6 +1,6 @@
 angular.module('vfaDashboard').factory('casesApi', function($http) {
 	return {
-		create: function create(subject, description, user, fellowId, type) {
+		create: function create(subject, description, user, fellow, type) {
 			var newCase = {
 				Subject: subject,
 				Description: description,
@@ -8,7 +8,7 @@ angular.module('vfaDashboard').factory('casesApi', function($http) {
 				Status: "In Progress",
 				Type: type,
 				OwnerId: user.Id,
-				ContactId: fellowId
+				ContactId: fellow.Id
 			}; 
 			return $http.post("/api/cases", newCase)
 				.then( function (response) {

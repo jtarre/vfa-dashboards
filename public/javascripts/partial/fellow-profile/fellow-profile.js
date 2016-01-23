@@ -89,7 +89,7 @@ vfaDashboard.controller("fellowCtrl", function($scope, _, $stateParams, $localSt
 
 	$scope.createCase = function createCase(newCase) {
 		$scope.caseInProgress = true;
-		casesApi.create(newCase.Subject, newCase.Description, newCase.user, $scope.fellowId, newCase.type)
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, $scope.fellow, newCase.type)
 			.then( function (data) {
 				// add the link to the case as a toast
 				$scope.caseInProgress = false;

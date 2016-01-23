@@ -4,6 +4,16 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 	});
 
 	$scope.createCase = function createCase(newCase) {
-		casesApi.create(subject);
+		newCase = _.map(newCase, function(newCaseInput) {
+						if(_.isNull(newCaseInput)) {
+							newCaseInput = "";
+						}
+					});
+		// let's think about this in the lodash way. 
+		// i want to check if each input is null
+		// and make them "" for the ones that are
+		// and do nothing for the ones that aren't. 
+
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.type);
 	}
 })
