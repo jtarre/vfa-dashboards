@@ -3,6 +3,13 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 		$scope.users = data;
 	});
 
+	casesApi.getTypes().then(function(data) {
+		$scope.caseTypes = _.map(data.picklistValues, 'value');
+		console.log("case types: ", $scope.caseTypes);
+		}, function(error) { 
+			console.log(error);
+		});
+
 	$scope.contacts = [];
 	$scope.contactSearch = "";
 	$scope.isContactSearchInProgress = false;

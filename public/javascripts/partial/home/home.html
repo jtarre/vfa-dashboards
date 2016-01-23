@@ -3,14 +3,14 @@
 		Welcome to the VFA Logger. This is a site for VFA team members to manage their salesforce information and activities.
 	</div>
 	<div ng-if="auth">
-		<div class="nav nav-tabs" id="tabs">
+		<ul class="nav nav-tabs" id="tabs">
 			<li class="active">
 				<a href="#notes">Create Note</a>
 			</li>
 			<li>
 				<a href="#cases">Create Case</a>
 			</li>
-		</div>
+		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="notes">
 				<note-logger></note-logger>
