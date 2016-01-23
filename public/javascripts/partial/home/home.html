@@ -3,8 +3,8 @@
 		Welcome to the VFA Logger. This is a site for VFA team members to manage their salesforce information and activities.
 	</div>
 	<div ng-if="auth">
-		<div class="nav nav-tab">
-			<li>
+		<div class="nav nav-tabs" id="tabs">
+			<li class="active">
 				<a href="#notes">Create Note</a>
 			</li>
 			<li>
@@ -12,13 +12,18 @@
 			</li>
 		</div>
 		<div class="tab-content">
-
+			<div class="tab-pane active" id="notes">
+				<note-logger></note-logger>
+			</div>
+			<div class="tab-pane" id="cases">
+				<case-create></case-create>
+			</div>
 		</div>
-		<div class="tab-pane" id="notes">
-			<note-logger></note-logger>
-		</div>
-		<div class="tab-pane" id="cases">
-			<case-create></case-create>
-		</div>
+		<script>
+		$('#tabs a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+		</script>
 	</div>
 </div>
