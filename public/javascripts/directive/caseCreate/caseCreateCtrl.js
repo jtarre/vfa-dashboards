@@ -17,7 +17,7 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 	$scope.noContactsFoundMessage = "No Contacts Found. Search Again";
 	$scope.$watch('contactSearch', function(newValue) {
 		if(newValue.length > 5) { 
-			if($scope.isContactSearchInProgress) {
+			if(!$scope.isContactSearchInProgress) {
 				$scope.searchContacts(newValue);	
 			}	
 		}
@@ -48,10 +48,14 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 	$scope.createCase = function createCase(newCase) {
 		console.log("new case before map", newCase);
 
-		newCase = _.map(newCase, function(newCaseInput) {
+		newCase = _.map(newCase, function(newCaseInput, inputKey) { // i think i'm confused by references and actual values. 
+			console.log("input value:",newCaseInput);
 			if(_.isNull(newCaseInput)) {
+				console.log("input is null");
 				newCaseInput = "";
-			}
+			} 
+			console.log("input value after checking null status:", newCaseInput);
+			return newCaseInput;
 		});
 		console.log("new case after map", newCase);
 
