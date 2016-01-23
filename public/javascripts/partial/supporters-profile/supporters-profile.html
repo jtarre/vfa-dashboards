@@ -1,0 +1,96 @@
+<div ng-controller="SupporterProfileCtrl" ng-cloak>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>{{supporterInfo.Name}}</h2>
+			<span flex></span>
+			<!-- <md-button class="md-raised">+Contact</md-button>
+			<md-button class="md-raised">+Opportunity</md-button> -->
+		</div>
+	</md-toolbar>
+	<md-tabs md-dynamic-height="true">
+		<md-tab label="Log Notes">
+			<div layout="column">
+				<md-autocomplete md-selected-item="notes.contact" md-items="contact in contacts" md-item-text="contact.Name" md-search-text="contactSearchText" md-floating-label="Contact">
+					<md-item-template>
+						{{contact.Name}}
+					</md-item-template>
+				</md-autocomplete>
+				<md-autocomplete md-selected-item="notes.relatedTo" md-items="listItem in filteredList = (relatedToList | filter:relatedToSearch)" md-item-text="listItem.name" md-search-text="relatedToSearch" md-floating-label="Related To (Account or Opportunity)">
+					<md-item-template>
+						{{listItem.name}}
+					</md-item-template>
+				</md-autocomplete>
+				<md-input-container>
+					<label>Subject</label>
+					<input ng-model="notes.Subject" type="text">
+				</md-input-container>
+				<md-input-container>
+					<label>Notes</label>
+					<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
+				</md-input-container>
+				<md-autocomplete md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+					<md-item-template>
+						{{user.Name}}
+					</md-item-template>
+				</md-autocomplete>
+				<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
+			</div>
+		</md-tab>
+		<md-tab label="Background">
+			<md-content layout-padding>
+				<h4>City</h4>
+				<p>{{supporterInfo.VFA_City__c}}</p>
+				<h4>Website</h4>
+				<p>{{supporterInfo.Website}}</p>
+				<h4>Description</h4>
+				<p>{{supporterInfo.Description || "No Description Found"}}</p>
+				<h4>Mailing Address</h4>
+				<p>{{supporterInfo.BillingAddress || supporterInfo.ShippingAddress || "No Address Found"}}</p>
+			</md-content>
+		</md-tab>
+		<md-tab label="Contacts">
+			<div ui-view="supporterContacts"></div>
+			<md-list>
+				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> <!-- add ui-sref="contact({contactId: contact.Id})" when ready to make profiles -->
+					<div class="md-line-item-text">
+						<h3>{{contact.Name}}</h3>
+						<h4>{{contact.Title}}</h4>
+						<p>{{contact.Email}}</p>
+						<p>{{contact.Phone}}</p>
+
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab>
+		<md-tab label="Opportunities">
+			<md-list>
+				<md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column" > <!-- add ui-sref="opportunity({opportunityId: opportunity.Id})" when ready to add opportunity -->
+					<div class="md-line-item-text">	
+						<h4>{{opportunity.Name}}</h4>
+						<p><strong>Primary Contact:</strong> {{getUser(contacts, opportunity.Primary_Contact__c).Name}}</p>
+						<p><strong>VFA Contact:</strong> {{getUser(users, opportunity.OwnerId).Name}}</p>
+						<p><strong>Stage:</strong> {{opportunity.StageName}}</p>
+						<p><strong> Amount Requested:</strong> {{(opportunity.Amount_Requested__c | currency) || "None Requested"}}</p>
+						<p><strong> Amount Approved:</strong> {{(opportunity.Amount_Approved__c | currency)|| "None Approved"}}</p>
+						<p><strong> Amount Received:</strong> {{(opportunity.Amount_Received__c | currency) || "None Received"}}</p>
+						<p><strong>Purpose:</strong></p>
+						<p>{{opportunity.Purpose_MSPicklist__c || "Not found"}}</p>
+						<p><strong>Description:</strong></p>
+						<p>{{opportunity.Description || "No Description"}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab>
+		<md-tab label="Recent Activities">
+			<md-list>
+				<md-list-item class="md-2-line" ng-repeat="activity in activities" layout="column" > <!-- add ui-sref="opportunity({opportunityId: opportunity.Id})" when ready to add opportunity -->
+					<div class="md-line-item-text">	
+						<h4>{{activity.Subject}}</h4>
+						<p><strong>Created By:</strong> {{getUser(users, activity.OwnerId).Name}}	</p>
+						<p>{{activity.Description}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab>
+	</md-tabs>
+</div>

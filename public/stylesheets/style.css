@@ -1,11 +1,85 @@
-body{
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+/*------------------------------------*\
+    #JASON'S CSS
+\*------------------------------------*/
+
+
+.virtualRepeatdemoInfiniteScroll #vertical-container {
+    height: 292px;
+    width: 400px;
+}
+
+.virtualRepeatdemoInfiniteScroll .repeated-item {
+    /*border-bottom: 1px solid #ddd;*/
+    box-sizing: border-box;
+    height: 80px;
+    padding-top: 10px;
+}
+
+.virtualRepeatdemoInfiniteScroll md-content {
+    margin: 16px;
+}
+
+.virtualRepeatdemoInfiniteScroll md-virtual-repeat-container {
+    /*border: solid 1px grey;*/
+}
+
+.virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter {
+    padding-left: 16px;
+}
+
+/*------------------------------------*\
+    #MIKE'S CSS
+\*------------------------------------*/
+
+/*--- Adding border to tabs ---*/
+
+.tab-pane {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+/*--- Navbar ---*/
+
+.navbar-btn {
+  background-color: #b0bec5;
+  border: 0px;
+}
+
+.navbar-btn:hover {
+  background-color: #90a4ae;
+}
+
+/*- Removing navbar border -*/
+.navbar-inner, .navbar {
+  border: 0px;
+}
+
+.navbar {
+  border-top: 4px solid #90a4ae;
+}
+
+/*--- Text Styling ---*/
+
+html {
+  background-color: #fafafa;
+}
+
+body {
   color:#1d1f1d;
-  padding-bottom: 0px;
+  /* padding-bottom: 0px; */
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -25,6 +99,26 @@ a{
   color: #0091e5;
 }
 
+/*--- BOOTSTRAP FIXES ---*/
+
+/*- fellows.html -*/
+
+.vfa-margin-fix {
+  margin-right: 0px;
+}
+
+/*- fellow-profile.html -*/
+
+.vfa-item-header {
+  margin-bottom: 5px;
+}
+
+/*------------------------------------*\
+    #NO LONGER USING
+\*------------------------------------*/
+
+
+/*
 .navbar-mike-top{
   border-top: 5px solid #264b72;
   border-radius: 0px;
@@ -45,3 +139,4 @@ a{
   margin-right:15px;
   }
 }
+*/

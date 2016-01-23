@@ -1,0 +1,86 @@
+<div ng-controller="NoteLoggerCtrl">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 col-xs-offset-1 col-xs-10">
+		<form>
+			<div class="input-group">
+				<input type="text" ng-model="contactSearch" placeholder="Contact Name" class="form-control">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="searchContacts(contactSearch)">Search</button>
+				</span>
+			</div>
+
+			
+			<div layout="row">
+				<md-progress-circular ng-if="!isContactSearchInProgress && !contacts.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
+				<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
+				<div class="form-group" ng-if="contacts.length">
+					<label>Select Contact</label>
+					<select ng-model="notes.contact" ng-options="contact.Name for contact in contacts" class="form-control"></select>
+				</div>
+				<div ng-if="noContactsFound">
+					<p>{{noContactsFoundMessage}}</p>
+				</div>
+			</div>
+
+			
+			<div class="input-group">
+				<input type="text" ng-model="relatedToSearch" placeholder="Account Name" class="form-control">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="searchAccounts(relatedToSearch)">Search</button>
+				</span>
+			</div>
+
+			<div layout="row">
+				<md-progress-circular ng-if="!isRelatedToSearchInProgress && !relatedTo.length && !noCompaniesFound" md-mode=""></md-progress-circular>
+				<md-progress-circular ng-if="isRelatedToSearchInProgress" md-mode="indeterminate"></md-progress-circular>
+				<div ng-if="relatedTo.length" class="form-group">
+					<label>Select Account</label>
+					<select ng-model="notes.relatedTo" ng-options="account.Name for account in relatedTo" class="form-control"></select>
+				</div>
+				<div ng-if="noCompaniesFound">
+					<p>{{noCompaniesFoundMessage}}</p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Subject</label>
+				<input type="text" ng-model="notes.Subject" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label>Notes</label>
+				<textarea ng-model="notes.Description" class="form-control"></textarea>
+			</div>
+
+			<div layout="column">
+				<label>Post to Slack Channels</label>
+				<md-checkbox ng-model="slackChannels.copa.active" ng-true-value="true" ng-false-value="false">
+					#copa-notifications
+				</md-checkbox>
+				<md-checkbox ng-model="slackChannels.fellows.active" ng-true-value="true" ng-false-value="false">
+					#fellow-updates
+				</md-checkbox>
+				<md-checkbox ng-model="slackChannels.money.active" ng-true-value="true" ng-false-value="false">
+					#team-money-notes
+				</md-checkbox>
+			</div>
+
+			<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+				<md-item-template>
+					{{user.Name}}
+				</md-item-template>
+			</md-autocomplete>
+			
+			<div layout="row">
+					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
+					<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
+					<md-progress-circular ng-if="!inProgress" md-mode=""></md-progress-circular>
+			</div>
+			
+			<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
+				<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">Logged Note Id: {{noteId}}</a>
+			</div>
+		</form>
+	</div>
+	</div>		
+</div>

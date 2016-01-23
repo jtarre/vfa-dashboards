@@ -46,6 +46,29 @@ app.use( session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Angular API routes //
+var test = require('./api/fellows/fellow')(app);
+console.log("test", test);
+require('./api/fellows/fellows')(app);
+require('./api/accounts/accounts')(app);
+require('./api/companies/companies')(app);
+require('./api/campaigns/campaigns')(app);
+require('./api/contacts/contacts')(app);
+require('./api/opportunities/opportunities')(app);
+require('./api/data/data')(app);
+require('./api/notes/notes')(app);
+require('./api/cases/cases')(app);
+require('./api/companies/fields')(app);
+require('./api/users/users')(app);
+require('./api/supporters')(app);
+require('./api/slack/slack')(app);
+
+require('./api/helpers/salesforce');
+
+// Fellow Offer Docusign //
+require('./routes/docusign')(app);
+
+// Express Jade Routes //
 require('./routes/index')(app, passport);
 require('./features/companies/companies')(app, passport);
 require('./features/fellows/fellows')(app, passport);
@@ -89,6 +112,10 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+app.get('/loggedin', function(req, res) {
+  res.send(req.isAuthenticated() ? req.user : '0');
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

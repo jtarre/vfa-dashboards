@@ -1,0 +1,303 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<div ng-controller="fellowCtrl">
+
+				<h2>{{fellow.profile.Name}}</h2>
+				<hr>
+				
+			<ul class="nav nav-tabs" id="tabs">
+				<li class="active">
+					<a href="#notes">Log Notes</a>
+				</li>
+				<li>
+					<a href="#case">Create Case</a>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+	  			<div class="tab-pane active" id="notes">  
+		       		<h3>Log Notes</h3>
+			          <form>
+			            <div class="form-group">
+			              <label>Subject</label>
+			              <input type="text" ng-model="notes.Subject" class="form-control">
+			            </div>
+			            <div class="form-group">
+			              <label>Notes</label>
+			              <textarea ng-model="notes.Description" class="form-control"></textarea>
+			            </div>
+			            <div class="form-group">
+			              <label>Select Case</label>
+			              <select ng-options="case.Subject for case in cases" ng-model="notes.activeCase" class="form-control"></select>
+			            </div>
+			            <div class="form-group">
+			              <label>Select User</label>
+			              <select ng-options="vfa.name for vfa in vfaTeam" ng-model="notes.user" class="form-control"></select>
+			            </div>
+			            <div class="form-group">
+				      <div layout="row">
+				              <button type="button" class="btn btn-default" ng-click="logNotes(notes)">Log Notes</button>
+					      <md-progress-circular ng-if="logNotesInProgress" md-mode="indeterminate"></md-progress-circular>
+					      <md-progress-circular ng-if="!logNotesInProgress" md-mode=""></md-progress-circular>
+				      </div>
+			            </div>
+			          </form>
+				<div ng-repeat="noteId in loggedNotes">
+					<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">https://na14.salesforce.com/{{noteId}}</a>
+				</div>
+		        </div>
+		        <div class="tab-pane" id="case">
+		        	<h3>Create Case</h3>
+					<form>
+					<div class="form-group">
+						<label>Subject</label>
+						<input type="text" ng-model="newCase.Subject" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea ng-model="newCase.Description" class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Type</label>
+						<select ng-options="type for type in caseTypes" ng-model="newCase.type" class="form-control"></select>
+					</div>
+
+				            <div class="form-group">
+				              <label>Select User</label>
+				              <select ng-options="vfa.name for vfa in vfaTeam" ng-model="newCase.user" class="form-control"></select>
+				            </div>
+				            <div class="form-group">
+								<div layout="row">	
+				              		<button type="button" class="btn btn-default" ng-click="createCase(newCase)">Create Case</button>
+									<md-progress-circular ng-if="caseInProgress" md-mode="indeterminate"></md-progress-circular>
+									<md-progress-circular ng-if="!caseInProgress" md-mode=""></md-progress-circular>
+						</div>
+				            </div>
+				          </form>
+					<div ng-repeat="caseId in createdCases">
+						<a ng-href="https://na14.salesforce.com/{{caseId}}" target="_blank">https://na14.salesforce.com/{{caseId}}</a>
+					</div>
+		        </div>
+			</div>
+			
+			<script>
+				$('#tabs a').click(function(e) {
+					e.preventDefault();
+					$(this).tab('show');
+				});
+			</script>
+
+		<hr>
+
+		<h3 id="fellowInfo">Fellow Info</h3>
+
+
+        <!-- FELLOW OVERVIEW -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Fellow Overview</div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Name</small></h5>
+                <p>{{fellow.profile.Name}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Year</small></h5>
+                <p>{{fellow.profile.Years__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>City</small></h5>
+                <p>{{fellow.profile.VFA_City__c}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Company</small></h5>
+                <p>{{fellow.profile.Account_Name_for_SurveyGizmo__c}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Bio</small></h5>
+                <p>{{fellow.profile.Description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACT INFO & SOCIAL -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Contact Info & Social</div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Email</small></h5>
+                <p>{{fellow.profile.Email}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Twitter</small></h5>
+                <p>{{fellow.profile.Twitter_Handle__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Mailing Address</small></h5>
+                <p>{{fellow.profile.MailingStreet}}<br>{{fellow.profile.MailingCity}}, {{fellow.profile.MailingState}} {{fellow.profile.MailingPostalCode}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Instagram</small></h5>
+                <p>{{fellow.profile.Instagram_Handle__c}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JOB INFO -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Job Info</div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Company</small></h5>
+                <p>{{fellow.profile.Account_Name_for_SurveyGizmo__c}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Supervisor Name</small></h5>
+                <p>{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Title</small></h5>
+                <p>{{fellow.profile.Title}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Supervisor Email</small></h5>
+                <p>{{fellow.profile.Supervisor_Email__c}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPANY EVALS -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Company Evaluations</div>
+          <div class="panel-body" ng-repeat="eval in fellow.companyEval">
+            <h5>{{eval.Name}}<small> - Submitted -  {{eval.CreatedDate}}</small></h5>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Overall Performance</small></h5>
+                <p>{{eval.CPS_Overall__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Strengths</small></h5>
+                <p>{{eval.CPS_Strengths__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Areas to Improve</small></h5>
+                <p>{{eval.CPS_Improvement__c}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SELF EVALS -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Self Evaluations</div>
+          <div class="panel-body" ng-repeat="eval in fellow.surveySelfEvals">
+            <h5>{{eval.Name}}<small> - Submitted -  {{eval.CreatedDate}}</small></h5>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Job Performance</small></h5>
+                <p>{{eval.FSE_Job_Performance__c}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Job Happiness</small></h5>
+                <p>{{eval.FSE_Job_Happiness__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Highlight</small></h5>
+                <p>{{eval.FSE_Highlight__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Areas to Improve</small></h5>
+                <p>{{eval.FSE_Improve_at_Work__c}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Activities</div>
+          <div class="panel-body" ng-repeat="activity in fellow.activities">
+            <h5>{{activity.Subject}}<small> - Created -  {{activity.CreatedDate}}</small></h5>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Type</small></h5>
+                <p>{{activity.Type__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Activity Description</small></h5>
+                <p>{{activity.Description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASES -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Cases</div>
+          <div class="panel-body" ng-repeat="case in fellow.cases">
+            <h5>{{case.Subject}}<small> - Created -  {{case.CreatedDate}}</small></h5>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Description</small></h5>
+                <p>{{case.Description}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h5 class="vfa-item-header"><small>Activity Description</small></h5>
+                <p>{{activity.Description}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Facts of the situation</small></h5>
+                <p>{{case.Facts_of_the_Situation_Fellow_input__c}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Potential Solutions</small></h5>
+                <p>{{case.Potential_Solutions_Fellow_Input__c}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Mentor Qualities</small></h5>
+                <p>{{case.Mentor_Qualities_Fellow_Input__c}}</p>
+              </div>
+              <div class="col-xs-6">
+                <h5 class="vfa-item-header"><small>Potential Solutions Attempted</small></h5>
+                <p>{{case.Previous_Solutions_Attempted__c}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+			
+			</div>
+		</div>
+	</div>
+</div>

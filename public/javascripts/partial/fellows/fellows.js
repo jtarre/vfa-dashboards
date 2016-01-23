@@ -1,0 +1,101 @@
+	vfaDashboard.controller("fellowsCtrl", function($scope, $localStorage, api, _) {
+	console.log("initializing Fellow controller");
+	
+	$scope.fellows;
+	$scope.query;
+	$scope.sortProp = "name";
+	$scope.reverse  = false;
+
+	$scope.$storage = $localStorage;
+	$scope.initFellowQuery = function initFellowQuery() {
+		console.log("initFellowQuery run");
+		console.log($scope.$storage.fellowQuery);
+		if($scope.$storage.fellowQuery) {
+			$scope.query = $scope.$storage.fellowQuery;
+		} else {
+			$scope.query = "";
+		}
+	};
+	$scope.initFellowQuery();
+
+	// console.log("fellow value: " + $scope.fellow);
+	api.fellows.get().then(function( data ){
+		console.log("Data received:");
+		// console.log(data);
+		$scope.fellows = data;
+		console.log($scope.fellows);
+	});
+
+	$scope.filterFunction = function filterFunction() {
+		console.log("searchQuery", $scope.searchQuery);
+		return $scope.searchQuery;
+	}
+	
+	$scope.logNotes = function(noteSubject, noteDescription, vfaId, fellowId) {
+		console.log("Let's log notes!")
+		console.log(noteSubject + "\n" + noteDescription + "\n" + vfaId + "\n" + fellowId);
+		var noteData = 
+		{
+			noteDescription: noteDescription,
+			noteSubject:     noteSubject,
+			vfaId:           vfaId, 
+			fellowId:        fellowId,
+			type:            "fellow"
+		}
+		
+		api.notes.post(noteData).then(function( data ) {
+			console.log("Note data received: ", data);
+			$scope.noteSubject     = ""; // reset note form values
+			$scope.noteDescription = "";
+		})
+	}
+
+	$scope.sort = function sort(newSort) {
+		if(newSort === $scope.sortProp) {
+			$scope.reverse = !$scope.reverse;
+		} else {
+			$scope.sortProp = newSort;
+			$scope.reverse = false;
+		}
+	}
+
+	// STORE SEARCHES AS LOCAL STORAGE FOR PERSISTENCE //
+	$scope.$watch('query', function(newValue, oldValue) {
+		$scope.$storage.fellowQuery = newValue;
+		console.log("fellow query local storage:", $scope.$storage.fellowQuery);
+	})
+	
+
+	
+	$scope.vfaTeam = 
+	[	
+		{ name: "", id : ""},
+		{ name: "Amy Nelson", id : "005d0000001QfTE"},	
+		{ name: "Andrew Yang", id : "005d0000001OKLG"},	
+		{ name: "Barrie Grinberg", id : "005d0000003h7Sp"},	
+		{ name: "Caroline Toch", id : "005d0000004fYCj"},	
+		{ name: "Cathlin Olszewski", id : "005d00000031mtf"},	
+		{ name: "Connor Schake", id : "005d0000004czLN"},	
+		{ name: "Eileen Lee", id : "005d0000001OKLf"},	
+		{ name: "Elisabeth Deogracias", id : "005d0000001Nsrm"},	
+		{ name: "Hannah Steinhardt", id : "005d0000004czLI"},	
+		{ name: "Helen Lynch", id : "005d0000004q79a"},	
+		{ name: "Isa Ballard", id : "005d00000031mtk"},	
+		{ name: "Jackie Miller", id : "005d0000001O6g0"},	
+		{ name: "Jason Tarre", id : "005d0000001OzTa"},	
+		{ name: "Joe Guy", id : "005d0000002h82C"},	
+		{ name: "Katie Bloom", id : "005d00000048Li7"},	
+		{ name: "Laila Selim", id : "005d00000033SpB"},	
+		{ name: "Lauren Gill", id : "005d0000001OKMY"},	
+		{ name: "Leandra Elberger", id : "005d0000002hE6F"},	
+		{ name: "Mandy Marcus", id : "005d0000004e7gk"},	
+		{ name: "Megan Hurlburt", id : "005d0000001OKMT"},	
+		{ name: "Mike Tarullo", id : "005d0000001OKLz"},	
+		{ name: "Mike Henrich", id : "005d0000004KHDY"},	
+		{ name: "Rachel Greenspan", id : "005d0000004HrpD"},	
+		{ name: "Seonhye Moon", id : "005d0000001OKMd"},	
+		{ name: "Tom Griffin", id : "005d00000045mKQ"},	
+		{ name: "Victor Bartash", id : "005d0000004KHDd"},	
+		{ name: "Will Geary", id : "005d00000048iYF"}
+	]
+});

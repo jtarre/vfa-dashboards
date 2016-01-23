@@ -1,0 +1,27 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+			<div ng-controller="dataCtrl">
+				<h2>Data</h2>
+				<hr>
+				<div class="row">
+					<div class="col-md-4">
+						<h2>Data Results</h2>
+					</div>
+					<div class="col-md-8">
+						<h2>Chart Data</h2>
+						<a ui-sref=".companies">Companies</a>
+						<a ui-sref=".fundraising">Fundraising</a>
+						<a ui-sref=".recruiting">Recruiting</a>
+						<br>
+						<input ng-model="query"></input>
+						<button ng-click="filterData(query)">Filter</button>
+						<nvd3 options="options" data="graphData"></nvd3>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
