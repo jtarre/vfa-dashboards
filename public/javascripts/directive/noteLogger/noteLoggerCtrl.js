@@ -4,7 +4,7 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 	$scope.loggedNotes = [];
 	$scope.slackChannels = {
 		"copa": {name: "#copa-notifications", active: false},
-		"fellows": {name: "#fellow-status-update", active: false},
+		"fellows": {name: "#fellow-workflows", active: false},
 		"money": {name: "#team-money-notes", active: false}
 	};
 	/*
@@ -149,6 +149,12 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 			}
 			
 		});
-		
+
+		$scope.notes = "";
+		$scope.contactSearch = "";
+		$scope.userSearch = "";
+		_.forEach($scope.slackChannels, function(value) {
+			value.active = false;
+		});
 	}
 });
