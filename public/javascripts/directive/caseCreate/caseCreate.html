@@ -1,42 +1,42 @@
 <div ng-controller="CaseCtrl">
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
-	<form>
-		<!-- Search for a Fellow -->
-		<div class="input-group">
-			<input type="text" ng-model="contactSearch" placeholder="Contact Name" class="form-control">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" ng-click="searchContacts(contactSearch)">Search</button>
-			</span>
-		</div>
+			<form>
+				<!-- Search for a Fellow -->
+				<div class="input-group">
+					<input type="text" ng-model="contactSearch" placeholder="Contact Name" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="searchContacts(contactSearch)">Search</button>
+					</span>
+				</div>
 
-		<!-- Select a Fellow -->
-		<div layout="row">
-			<md-progress-circular ng-if="!isContactSearchInProgress && !contacts.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
-			<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
-			<div class="form-group" ng-if="contacts.length">
-				<label>Select Contact</label>
-				<select ng-model="newCase.contact" ng-options="contact.Name for contact in contacts" class="form-control"></select>
-			</div>
-			<div ng-if="noContactsFound">
-				<p>{{noContactsFoundMessage}}</p>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Subject</label>
-			<input type="text" ng-model="newCase.Subject" class="form-control">
-		</div>
-		<div class="form-group">
-			<label>Description</label>
-			<textarea ng-model="newCase.Description" class="form-control"></textarea>
-		</div>
-		<div class="form-group">
-			<label>Type</label>
-			<select ng-options="type for type in caseTypes" ng-model="newCase.caseType" class="form-control"></select>
-		</div>
+				<!-- Select a Fellow -->
+				<div layout="row">
+					<md-progress-circular ng-if="!isContactSearchInProgress && !contacts.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
+					<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
+					<div class="form-group" ng-if="contacts.length">
+						<label>Select Contact</label>
+						<select ng-model="newCase.contact" ng-options="contact.Name for contact in contacts" class="form-control"></select>
+					</div>
+					<div ng-if="noContactsFound">
+						<p>{{noContactsFoundMessage}}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Subject</label>
+					<input type="text" ng-model="newCase.Subject" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Description</label>
+					<textarea ng-model="newCase.Description" class="form-control"></textarea>
+				</div>
+				<div class="form-group">
+					<label>Type</label>
+					<select ng-options="type for type in caseTypes" ng-model="newCase.caseType" class="form-control"></select>
+				</div>
 
-		<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
-			<md-item-template>
+				<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+				<md-item-template>
 				{{user.Name}}
 			</md-item-template>
 		</md-autocomplete>
