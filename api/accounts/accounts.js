@@ -20,7 +20,7 @@ module.exports = function(app) {
 			conn.sobject('Account')
 				.find({
 					Name: {$like: search + '%'}
-				}, "Name, Id")
+				}, "Name, Id, VFA_City__c, CoPa_Association__c, Website")
 				.sort( { Name: 1} )
 				.execute(function(err, accounts) {
 					if(err) {
