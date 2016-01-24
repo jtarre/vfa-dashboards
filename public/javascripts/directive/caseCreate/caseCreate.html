@@ -46,6 +46,10 @@
 				<md-progress-circular ng-if="!caseInProgress" md-mode=""></md-progress-circular>
 			</div>
 		</div>
+
+		<div ng-if="createdCases.length" ng-repeat="noteId in createdCases">
+			<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">Logged Note Id: {{noteId}}</a>
+		</div>
 	</form>
 </div>
 </div>

@@ -1,14 +1,25 @@
 angular.module('vfaDashboard').factory('casesApi', function($http) {
 	return {
 		create: function create(subject, description, user, fellow, type) {
+			var fellowId = '';
+			var userId = '';
+
+			if(fellow) {
+				fellowId = '';
+			}
+
+			if(user) {
+				userId = '';
+			}
+
 			var newCase = {
 				Subject: subject,
 				Description: description,
 				Origin: "Email",
 				Status: "In Progress",
 				Type: type,
-				OwnerId: user.Id,
-				ContactId: fellow.Id
+				OwnerId: userId,
+				ContactId: fellowId
 			}; 
 			return $http.post("/api/cases", newCase)
 				.then( function (response) {

@@ -45,6 +45,7 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 		});
 	}
 
+	$scope.createdCases = [];
 	$scope.newCase = {
 		Subject: '',
 		Description: '',
@@ -62,6 +63,7 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 				contact: '',
 				type: '',
 			}
+			$scope.createdCases.push(data);
 		}, function(error) {
 			console.error(error);
 		});
