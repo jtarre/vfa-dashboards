@@ -58,29 +58,30 @@
 					#copa-notifications
 				</md-checkbox>
 				<md-checkbox ng-model="slackChannels.fellows.active" ng-true-value="true" ng-false-value="false">
-				#fellow-updates
-			</md-checkbox>
-			<md-checkbox ng-model="slackChannels.money.active" ng-true-value="true" ng-false-value="false">
-			#team-money-notes
-		</md-checkbox>
-	</div>
+					#gramz-notifications
+				</md-checkbox>
+				<md-checkbox ng-model="slackChannels.money.active" ng-true-value="true" ng-false-value="false">
+					#team-money-notes
+				</md-checkbox>
+			</div>
 
-	<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
-	<md-item-template>
-	{{user.Name}}
-</md-item-template>
-</md-autocomplete>
+			<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+				<md-item-template>
+					{{user.Name}}
+				</md-item-template>
+			</md-autocomplete>
+			
+			<div layout="row">
+					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
+					<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
+					<md-progress-circular ng-if="!inProgress" md-mode=""></md-progress-circular>
+			</div>
+			
+			<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
+				<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">Logged Note Id: {{noteId}}</a>
+			</div>
+		</form>
 
-<div layout="row">
-	<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
-	<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
-	<md-progress-circular ng-if="!inProgress" md-mode=""></md-progress-circular>
-</div>
-
-<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
-	<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">Logged Note Id: {{noteId}}</a>
-</div>
-</form>
 </div>
 </div>		
 </div>
