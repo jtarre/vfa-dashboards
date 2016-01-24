@@ -91,6 +91,12 @@
 					console.log("response: ", response.data);
 					return response.data;
 				})
+			},
+
+			getCities: function getCities() {
+				return $http.get('/api/contacts/cities').then(function(response) {
+					response.data;
+				})
 			}
 		},
 

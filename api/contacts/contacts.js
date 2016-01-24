@@ -24,6 +24,16 @@ module.exports = function(app) {
 				});
 		});
 	});
+	app.get("/api/contacts/cities", function(req, res) {
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {	
+			conn.sobject('Contact').describe(function(err, meta) {
+				if (err) { return console.error(err); }
+				var cities = _.find(meta.fields, { label: 'VFA City'});
+				cities = cities.picklistValues;
+				res.status(200).json(cities);
+			});
+		});
+	});
 
 	app.get("/api/contacts/:search", function (req, res) {
 		var search = req.params.search;
@@ -63,4 +73,6 @@ module.exports = function(app) {
 				});
 		});
 	});
+
+	
 }
