@@ -12,7 +12,7 @@ module.exports = function(app) {
 	});
 
 	app.post("/api/contacts", function (req, res) {
-		var contactData = req.Body;
+		var contactData = req.body;
 
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if (err) { return console.error(err); }
@@ -32,6 +32,23 @@ module.exports = function(app) {
 				cities = _.filter(cities.picklistValues, 'active');
 				cities = _.map(cities, function (value) { return value.value; });
 				res.status(200).json(cities);
+			});
+		});
+	});
+
+	app.get("/api/contacts/types", function(req, res) {
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {	
+			conn.sobject('Contact').describe(function(err, meta) {
+				if (err) { return console.error(err); }
+				_.forEach(meta.fields, function(value) {
+					console.log(value.label);
+				});
+
+				var types = _.find(meta.fields, { label: 'Record Type ID'});
+				console.log(types);
+				// types = _.filter(types.picklistValues, 'active');
+				// types = _.map(types, function (value) { return value.value; });
+				res.status(200).json(types);
 			});
 		});
 	});
