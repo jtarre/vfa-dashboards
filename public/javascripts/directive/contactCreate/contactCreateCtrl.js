@@ -1,4 +1,4 @@
-angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api) {
+angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api, accountsApi) {
 
 	$scope.userSearch = '';
 	$scope.citySearch = '';
@@ -58,26 +58,43 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 		FirstName: '',
 		LastName: '',
 		Email: '',
-		Account: 0,
+		Title: '',
+		AccountId: '',
+		OwnerId: '',
 		VFA_City: ''
 
 	}
 
+	$scope.user = 0;
+	$scope.account = 0;
+
 	$scope.mostRecentContact = 0;
 	$scope.contactInProgress = false;
-	$scope.contactErrorMessage = 0;
-	$scope.createContact = function createContact(contact, account) {
+	$scope.contactFailed = 0;
+	$scope.createContact = function createContact(contact, user, account) {
 		$scope.contactInProgress = true;
-		$scope.contactErrorMessage = 0;
+		$scope.contactFailed = 0;
 		$scope.mostRecentContact = 0;
+		
+		if(user) {
+			contact.OwnerId = user.Id;
+		}
 
+		if(account) {
+			contact.AccountId = account.Id;
+		}
+		console.log('contact data', contact);
 		api.contacts.create(contact).then(function(data) {
 			$scope.contactInProgress = false;
+			$scope.mostRecentContact = data.id;
+
 			$scope.contact = {
 				FirstName: '',
 				LastName: '',
 				Email: '',
-				Account: 0,
+				Title: '',
+				AccountId: '',
+				OwnerId: '',
 				VFA_City: ''
 
 			}
@@ -85,7 +102,8 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 			$scope.citySearch = '';
 			$scope.relatedToSearch = '';
 		}, function(error) {
-			$scope.contactErrorMessage("Sorry, please try again or contact JTD");
+			$scope.contactInProgress = false;
+			$scope.contactFailed = "Sorry, please try again or contact JTD";
 		})
 	}
 })

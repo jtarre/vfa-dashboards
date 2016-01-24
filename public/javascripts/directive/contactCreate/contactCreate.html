@@ -21,11 +21,12 @@
 					<label>Email</label>
 					<input type="text" ng-model="Email" class="form-control">
 				</div>
-				
+
 				<div class="input-group">
 					<label>Title</label>
 					<input type="text" ng-model="contact.Title" class="form-control">
 				</div>
+				<br>
 				<!-- Account Search -->
 				<div class="input-group">
 					<input type="text" ng-model="relatedToSearch" placeholder="Account Name" class="form-control">
@@ -39,19 +40,17 @@
 					<md-progress-circular ng-if="isRelatedToSearchInProgress" md-mode="indeterminate"></md-progress-circular>
 					<div ng-if="relatedTo.length" class="form-group">
 						<label>Select Account</label>
-						<select ng-model="Account" ng-options="account.Name for account in relatedTo" class="form-control"></select>
+						<select ng-model="account" ng-options="account.Name for account in relatedTo" class="form-control"></select>
 					</div>
 					<div ng-if="noCompaniesFound">
 						<p>{{noCompaniesFoundMessage}}</p>
 					</div>
 				</div>
 
-				
-
 				<!-- VFA City -->
-				<md-autocomplete md-min-length="3" md-search-text="citySearch" md-selected-item="VFA_City__c" md-items="city in filteredCities = (cities | filter:citySearch)" md-item-text="city" md-floating-label="You">
+				<md-autocomplete md-min-length="3" md-search-text="citySearch" md-selected-item="contact.VFA_City__c" md-items="city in filteredCities = (cities | filter:citySearch)" md-item-text="city" md-floating-label="City">
 					<md-item-template>
-						{{city.Name}}
+						{{city}}
 					</md-item-template>
 				</md-autocomplete>
 
@@ -65,13 +64,13 @@
 
 				<div class="form-group">
 			<div layout="row">	
-				<md-button ng-click="createCase(newCase)">Create Case</md-button>
-				<md-progress-circular ng-if="caseInProgress" md-mode="indeterminate"></md-progress-circular>
-				<md-progress-circular ng-if="!caseInProgress && !mostRecentCase" md-mode=""></md-progress-circular>
-				<div ng-if="mostRecentCase">
-					<a ng-href="https://na14.salesforce.com/{{mostRecentCase}}" target="_blank">See Case</a>
+				<md-button class="md-raised" ng-click="createContact(contact, user, account)">Create Contact</md-button>
+				<md-progress-circular ng-if="contactInProgress" md-mode="indeterminate"></md-progress-circular>
+				<md-progress-circular ng-if="!contactInProgress && !mostRecentContact" md-mode=""></md-progress-circular>
+				<div ng-if="mostRecentContact">
+					<a ng-href="https://na14.salesforce.com/{{mostRecentContact}}" target="_blank">See Contact</a>
 				</div>
-				<p ng-if="caseFailed">{{caseFailed}}</p>
+				<p ng-if="contactFailed">{{contactFailed}}</p>
 			</div>
 		</div>
 

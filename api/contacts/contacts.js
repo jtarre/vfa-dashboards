@@ -12,16 +12,17 @@ module.exports = function(app) {
 	});
 
 	app.post("/api/contacts", function (req, res) {
-		var contactData = req.body;
-
+		var contact = req.body;
+		console.log('contact body', contact);
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if (err) { return console.error(err); }
-			conn.sobject('Contact')
-				.create(contactData, function(err, ret) {
-					if(err) { return console.error(err); }
-					// console.log("created contact return data", ret);
-					res.status(200).json(ret);
-				});
+			res.send("test");
+			// conn.sobject('Contact')
+			// 	.create(contact, function(err, ret) {
+			// 		if(err) { return console.error(err); }
+			// 		// console.log("created contact return data", ret);
+			// 		res.status(200).json(ret);
+			// 	});
 		});
 	});
 	app.get("/api/contacts/cities", function(req, res) {
