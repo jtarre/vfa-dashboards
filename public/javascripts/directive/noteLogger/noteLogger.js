@@ -7,9 +7,9 @@ angular.module('vfaDashboard').directive('noteLogger', function(_) {
 		},
 		controllerUrl: "javascripts/directive/noteLogger/noteLoggerCtrl.js",
 		link: function (scope, element, attrs) {
-			console.log("elements: ", element);
-			console.log("attrs: ", attrs);
-			console.log("scope: ", scope);
+			// console.log("elements: ", element);
+			// console.log("attrs: ", attrs);
+			// console.log("scope: ", scope);
 		}	
 	}
 	

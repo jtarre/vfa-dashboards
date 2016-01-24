@@ -8,6 +8,9 @@
 				<a href="#notes">Create Note</a>
 			</li>
 			<li>
+				<a href="#contacts">Create Contact</a>
+			</li>
+			<li>
 				<a href="#cases">Create Case</a>
 			</li>
 		</ul>
@@ -15,11 +18,13 @@
 			<div class="tab-pane active" id="notes">
 				<note-logger></note-logger>
 			</div>
+			<div class="tab-pane" id="contacts">
+				<contact-create></contact-create>
+			</div>
 			<div class="tab-pane" id="cases">
 				<case-create></case-create>
 			</div>
 		</div>
-
 
 		<script>
 		$('#tabs a').click(function(e) {

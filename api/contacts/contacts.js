@@ -12,16 +12,45 @@ module.exports = function(app) {
 	});
 
 	app.post("/api/contacts", function (req, res) {
-		var contactData = req.Body;
-
+		var contact = req.body;
+		console.log('contact body', contact);
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if (err) { return console.error(err); }
+			// res.send("test");
 			conn.sobject('Contact')
-				.create(contactData, function(err, ret) {
+				.create(contact, function(err, ret) {
 					if(err) { return console.error(err); }
 					// console.log("created contact return data", ret);
 					res.status(200).json(ret);
 				});
+		});
+	});
+	app.get("/api/contacts/cities", function(req, res) {
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {	
+			conn.sobject('Contact').describe(function(err, meta) {
+				if (err) { return console.error(err); }
+				var cities = _.find(meta.fields, { label: 'VFA City'});
+				cities = _.filter(cities.picklistValues, 'active');
+				cities = _.map(cities, function (value) { return value.value; });
+				res.status(200).json(cities);
+			});
+		});
+	});
+
+	app.get("/api/contacts/types", function(req, res) {
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {	
+			conn.sobject('Contact').describe(function(err, meta) {
+				if (err) { return console.error(err); }
+				_.forEach(meta.fields, function(value) {
+					console.log(value.label);
+				});
+
+				var types = _.find(meta.fields, { label: 'Record Type ID'});
+				console.log(types);
+				// types = _.filter(types.picklistValues, 'active');
+				// types = _.map(types, function (value) { return value.value; });
+				res.status(200).json(types);
+			});
 		});
 	});
 
@@ -63,4 +92,6 @@ module.exports = function(app) {
 				});
 		});
 	});
+
+	
 }

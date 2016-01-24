@@ -92,6 +92,7 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 			}
 		});
 	}
+	
 	$scope.notes = {
 		Subject: '',
 		Description: '',
