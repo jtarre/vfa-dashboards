@@ -35,13 +35,15 @@
 			<select ng-options="type for type in caseTypes" ng-model="newCase.caseType" class="form-control"></select>
 		</div>
 
-		<div class="form-group">
-			<label>Select User</label>
-			<select ng-options="user.Name for user in users" ng-model="newCase.user" class="form-control"></select>
-		</div>
+		<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
+			<md-item-template>
+				{{user.Name}}
+			</md-item-template>
+		</md-autocomplete>
+		
 		<div class="form-group">
 			<div layout="row">	
-				<button type="button" class="btn btn-default" ng-click="createCase(newCase)">Create Case</button>
+				<md-button ng-click="createCase(newCase)">Create Case</md-button>
 				<md-progress-circular ng-if="caseInProgress" md-mode="indeterminate"></md-progress-circular>
 				<md-progress-circular ng-if="!caseInProgress && !mostRecentCase" md-mode=""></md-progress-circular>
 				<div ng-if="mostRecentCase">
