@@ -56,23 +56,20 @@
 
 				
 
-				<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="notes.user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="Contact Owner">
+				<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="Contact Owner">
 					<md-item-template>
 						{{user.Name}}
 					</md-item-template>
 				</md-autocomplete>
 
-				<div class="form-group">
 			<div layout="row">	
 				<md-button class="md-raised" ng-click="createContact(contact, user, account)">Create Contact</md-button>
 				<md-progress-circular ng-if="contactInProgress" md-mode="indeterminate"></md-progress-circular>
-				<md-progress-circular ng-if="!contactInProgress && !mostRecentContact" md-mode=""></md-progress-circular>
 				<div ng-if="mostRecentContact">
 					<a ng-href="https://na14.salesforce.com/{{mostRecentContact}}" target="_blank">See Contact</a>
 				</div>
 				<p ng-if="contactFailed">{{contactFailed}}</p>
 			</div>
-		</div>
 
 			</form>
 		</div>

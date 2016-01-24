@@ -61,7 +61,7 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 		Title: '',
 		AccountId: '',
 		OwnerId: '',
-		VFA_City: ''
+		VFA_City__c: ''
 
 	}
 
@@ -75,7 +75,8 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 		$scope.contactInProgress = true;
 		$scope.contactFailed = 0;
 		$scope.mostRecentContact = 0;
-		
+
+		// console.log('user data', user);
 		if(user) {
 			contact.OwnerId = user.Id;
 		}
@@ -83,7 +84,7 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 		if(account) {
 			contact.AccountId = account.Id;
 		}
-		console.log('contact data', contact);
+		// console.log('contact data', contact);
 		api.contacts.create(contact).then(function(data) {
 			$scope.contactInProgress = false;
 			$scope.mostRecentContact = data.id;
@@ -95,7 +96,7 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 				Title: '',
 				AccountId: '',
 				OwnerId: '',
-				VFA_City: ''
+				VFA_City__c: ''
 
 			}
 			$scope.userSearch = '';
