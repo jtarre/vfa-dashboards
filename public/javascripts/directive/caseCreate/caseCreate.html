@@ -43,13 +43,14 @@
 			<div layout="row">	
 				<button type="button" class="btn btn-default" ng-click="createCase(newCase)">Create Case</button>
 				<md-progress-circular ng-if="caseInProgress" md-mode="indeterminate"></md-progress-circular>
-				<md-progress-circular ng-if="!caseInProgress" md-mode=""></md-progress-circular>
+				<md-progress-circular ng-if="!caseInProgress && !mostRecentCase" md-mode=""></md-progress-circular>
+				<div ng-if="mostRecentCase">
+					<a ng-href="https://na14.salesforce.com/{{mostRecentCase}}" target="_blank">See Case</a>
+				</div>
 			</div>
 		</div>
 
-		<div ng-if="createdCases.length" ng-repeat="caseId in createdCases">
-			<a ng-href="https://na14.salesforce.com/{{caseId}}" target="_blank">Case Id: {{caseId}}</a>
-		</div>
+		
 	</form>
 </div>
 </div>

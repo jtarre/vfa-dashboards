@@ -1,15 +1,16 @@
 angular.module('vfaDashboard').factory('casesApi', function($http) {
 	return {
 		create: function create(subject, description, user, fellow, type) {
+			console.log('case type', type);
 			var fellowId = '';
 			var userId = '';
 
 			if(fellow) {
-				fellowId = '';
+				fellowId = fellow.Id;
 			}
-
+			console.log('user', user);
 			if(user) {
-				userId = '';
+				userId = user.Id;
 			}
 
 			var newCase = {

@@ -45,7 +45,7 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 		});
 	}
 
-	$scope.createdCases = [];
+	$scope.mostRecentCase = 0;
 	$scope.newCase = {
 		Subject: '',
 		Description: '',
@@ -53,8 +53,11 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 		contact: '',
 		type: '',
 	}
-	$scope.createCase = function createCase(newCase) {		
-		casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.type)
+	$scope.caseInProgress = false;
+	$scope.createCase = function createCase(newCase) {	
+		console.log("new case", newCase);	
+		$scope.caseInProgress = true;
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.caseType)
 		.then(function(data) {
 			$scope.newCase = {
 				Subject: '',
@@ -63,10 +66,12 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 				contact: '',
 				type: '',
 			}
+			$scope.caseInProgress = false;
 			console.log('new case', data);
-			$scope.createdCases.push(data.id);
+			$scope.mostRecentCase = data.id;
 		}, function(error) {
 			console.error(error);
+			$scope.mostRecentCase = "Sorry, please try again or get in touch with JTD."
 		});
 	}
 })
