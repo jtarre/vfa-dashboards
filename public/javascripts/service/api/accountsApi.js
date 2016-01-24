@@ -6,7 +6,7 @@ angular.module('vfaDashboard').factory('accountsApi', function($http) {
 			})
 		},
 
-		getActivities: function(accountId) {
+		getActivities: function getActivities(accountId) {
 				return $http.get('/api/companies/' + accountId + '/activities').then(function(response) {
 					return response.data;
 				})
