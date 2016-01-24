@@ -142,7 +142,7 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 			console.log("key:", key);
 			console.log("value:", value);
 			if(value.active) {
-				slackApi.create(subject, description, vfaName, contactName, relatedToName, value.name)
+				slackApi.create(notes.Subject, notes.Description, userName, contactName, relatedToName, value.name)
 				.then( function(data) {
 					console.log("slack response for channel: ", value, data);
 				});				
