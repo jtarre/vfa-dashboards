@@ -54,7 +54,7 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 		type: '',
 	}
 	$scope.createCase = function createCase(newCase) {		
-		casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.type);
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.type)
 		.then(function(data) {
 			$scope.newCase = {
 				Subject: '',
@@ -63,7 +63,8 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 				contact: '',
 				type: '',
 			}
-			$scope.createdCases.push(data);
+			console.log('new case', data);
+			$scope.createdCases.push(data.id);
 		}, function(error) {
 			console.error(error);
 		});
