@@ -45,20 +45,25 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 		});
 	}
 
-	$scope.createCase = function createCase(newCase) {
-		console.log("new case before map", newCase);
-
-		newCase = _.map(newCase, function(newCaseInput, inputKey) { // i think i'm confused by references and actual values. 
-			console.log("input value:",newCaseInput);
-			if(_.isNull(newCaseInput)) {
-				console.log("input is null");
-				newCaseInput = "";
-			} 
-			console.log("input value after checking null status:", newCaseInput);
-			return newCaseInput;
+	$scope.newCase = {
+		Subject: '',
+		Description: '',
+		user: '',
+		contact: '',
+		type: '',
+	}
+	$scope.createCase = function createCase(newCase) {		
+		casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.type);
+		.then(function(data) {
+			$scope.newCase = {
+				Subject: '',
+				Description: '',
+				user: '',
+				contact: '',
+				type: '',
+			}
+		}, function(error) {
+			console.error(error);
 		});
-		console.log("new case after map", newCase);
-
-		// casesApi.create(newCase.Subject, newCase.Description, newCase.user, newCase.contact, newCase.type);
 	}
 })
