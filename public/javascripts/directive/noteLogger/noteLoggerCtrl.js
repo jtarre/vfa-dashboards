@@ -1,7 +1,8 @@
 angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, accountsApi, slackApi, api, _) {
 	
 	$scope.inProgress = false;
-	$scope.loggedNotes = [];
+	$scope.errorLogMessage = 0;
+	$scope.loggedNote = 0;
 	$scope.slackChannels = {
 		"copa": {name: "#copa-notifications", active: false},
 		"fellows": {name: "#gramz-notifications", active: false},
@@ -91,33 +92,30 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 			}
 		});
 	}
+	$scope.notes = {
+		Subject: '',
+		Description: '',
+		user: 0,
+		contact: 0,
+		relatedTo: 0
+	}
 
 	$scope.logNotes = function logNotes(notes) {
-		console.log("note logger logging note.");
+		console.log("note logger logging note.", notes);
 		$scope.inProgress = true;
-		var subject = "";
-		var description = "";
-		
-		var vfaId = "";
-		var vfaName = "";
-		
-		var contactId = "";
-		var contactName = "";
+		$scope.errorLogMessage = 0;
+		$scope.loggedNote = 0;
 
-		var relatedToId = "";
-		var relatedToName = "";
-
-		if(notes.Subject) {
-			subject = notes.Subject;
-		}
-
-		if(notes.Description) {
-			description = notes.Description;
-		}
+		var userId = '';
+		var userName = '';
+		var contactId = '';
+		var contactName = '';
+		var relatedToId = '';
+		var relatedToName = '';
 
 		if(notes.user) {
-			vfaId = notes.user.Id;
-			vfaName = notes.user.Name;
+			userId = notes.user.Id;
+			userName = notes.user.Name;
 		}
 
 		if(notes.contact) {
@@ -130,12 +128,13 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 			relatedToName = notes.relatedTo.Name;
 		}
 
-		api.notes.post(subject, description, vfaId, contactId, relatedToId).then(function(data) {
+		api.notes.post(notes.Subject, notes.Description, userId, contactId, relatedToId).then(function(data) {
 			$scope.inProgress = false;
-			$scope.loggedNotes.push(data.id);
+			$scope.loggedNote = data.id;
 		}, function(error) {
 			$scope.inProgress = false;
 			console.error("error: ", error);
+			$scope.errorLogMessage = "Sorry, please try again or contact JTD"
 		});
 		
 		_.forEach($scope.slackChannels, function(value, key) {
@@ -150,7 +149,13 @@ angular.module('vfaDashboard').controller('NoteLoggerCtrl', function($scope, acc
 			
 		});
 
-		$scope.notes = "";
+		$scope.notes = {
+			Subject: '',
+			Description: '',
+			user: 0,
+			contact: 0,
+			relatedTo: 0
+		}
 		$scope.contactSearch = "";
 		$scope.userSearch = "";
 		_.forEach($scope.slackChannels, function(value) {
