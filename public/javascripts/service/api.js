@@ -56,7 +56,9 @@
 			},
 
 			// getActivities: function(companyId) {
-			// 	return
+			// 	return $http.get('/api/companies/activities').then(function(response) {
+			// 		return response.data
+			// 	})
 			// }
 
 			update: function(data) {

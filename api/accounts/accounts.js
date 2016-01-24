@@ -15,7 +15,7 @@ module.exports = function(app) {
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if(err) { 
 				console.error(err);
-				res.send("something went wrong"); 
+				res.status(500).send({error: "something went wrong"}); 
 			}
 			conn.sobject('Account')
 				.find({
@@ -31,4 +31,40 @@ module.exports = function(app) {
 				});
 		});
 	});
+
+	app.get('/api/accounts/:id/activities', function(req, res) {
+		var accountId = req.params.id;
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			if(err) { 
+				console.error(err);
+				res.status(500).send({error: "something went wrong"}); 
+			}
+			conn.sobject('Task')
+				.find({
+					AccountId: accountId,
+					Status: "Completed"
+				}, "*")
+				.limit(5)
+				.sort({ CreatedDate: 1})
+				.execute( function(err, activities) {
+					if(err) {
+						console.error(error);
+						res.status(500).send({error: 'something went wrong'});
+					} else {
+						res.status(200).json(activities);
+					}
+				});
+		});
+	})
 }
+
+
+
+
+
+
+
+
+
+
+

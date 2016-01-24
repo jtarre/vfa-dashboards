@@ -58,7 +58,7 @@
 			</md-content>
 		</md-tab>
 		<md-tab label="Contacts">
-			<md-list>
+			<md-list ng-if="contacts">
 				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> 
 					<div class="md-line-item-text">
 						<h3>{{contact.Name}}</h3>
@@ -69,12 +69,23 @@
 			</md-list>
 		</md-tab>
 		<md-tab label="Opportunities">
-			<md-list>
+			<md-list ng-if="opportunities">
 				<md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column" > 
 					<div class="md-line-item-text">	
 						<h3>{{opportunity.Name}}</h3>
 						<h4>{{opportunity.Description}}</h4>
 						<p>Expected Close Date: {{opportunity.CloseDate}}</p>
+					</div>
+				</md-list-item>
+			</md-list>
+		</md-tab>
+		<md-tab label="Recent Activities">
+			<md-list>
+				<md-list-item class="md-2-line" ng-repeat="activity in activities" layout="column" > 
+					<div class="md-line-item-text">	
+						<h4>{{activity.Subject}}</h4>
+						<p><strong>Created By:</strong> {{getUser(users, activity.OwnerId).Name}}	</p>
+						<p>{{activity.Description}}</p>
 					</div>
 				</md-list-item>
 			</md-list>
