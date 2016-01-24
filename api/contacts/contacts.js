@@ -29,7 +29,8 @@ module.exports = function(app) {
 			conn.sobject('Contact').describe(function(err, meta) {
 				if (err) { return console.error(err); }
 				var cities = _.find(meta.fields, { label: 'VFA City'});
-				cities = cities.picklistValues;
+				cities = _.filter(cities.picklistValues, 'active');
+				cities = _.map(cities, function (value) { return value.value; });
 				res.status(200).json(cities);
 			});
 		});
