@@ -35,7 +35,7 @@ angular.module('vfaDashboard').controller('AccountCtrl', function($scope, _, api
 	$scope.mostRecentAccount = 0;
 	$scope.accountInProgress = false;
 	$scope.accountFailed = 0;
-	$scope.createAccount = function createAccount(account, user, account) {
+	$scope.createAccount = function createAccount(account, user) {
 		$scope.accountInProgress = true;
 		$scope.accountFailed = 0;
 		$scope.mostRecentAccount = 0;

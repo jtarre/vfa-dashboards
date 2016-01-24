@@ -15,7 +15,7 @@
 
 				<div class="form-group">
 					<label>Department Type</label>
-					<select ng-model="account.Department__c" ng-options="department in departmentTypes" class="form-control"></select>
+					<select ng-model="account.Department__c" ng-options="department for department in departmentTypes" class="form-control"></select>
 				</div>
 
 				<!-- VFA City -->
@@ -32,10 +32,10 @@
 				</md-autocomplete>
 
 				<div layout="row">	
-					<md-button class="md-raised" ng-click="createContact(contact, user, account)">Create Contact</md-button>
-					<md-progress-circular ng-if="contactInProgress" md-mode="indeterminate"></md-progress-circular>
+					<md-button class="md-raised" ng-click="createAccount(account, user)">Create Account</md-button>
+					<md-progress-circular ng-if="accountInProgress" md-mode="indeterminate"></md-progress-circular>
 					<div ng-if="mostRecentAccount">
-						<a ng-href="https://na14.salesforce.com/{{mostRecentAccount}}" target="_blank">See Contact</a>
+						<a ng-href="https://na14.salesforce.com/{{mostRecentAccount}}" target="_blank">See Account</a>
 					</div>
 					<p ng-if="accountFailed">{{accountFailed}}</p>
 				</div>
