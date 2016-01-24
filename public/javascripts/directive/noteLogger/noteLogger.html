@@ -72,13 +72,13 @@
 			</md-autocomplete>
 			
 			<div layout="row">
-					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
-					<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
-					<md-progress-circular ng-if="!inProgress" md-mode=""></md-progress-circular>
-			</div>
-			
-			<div ng-if="loggedNotes.length" ng-repeat="noteId in loggedNotes">
-				<a ng-href="https://na14.salesforce.com/{{noteId}}" target="_blank">Logged Note Id: {{noteId}}</a>
+				<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
+				<md-progress-circular ng-if="inProgress" md-mode="indeterminate"></md-progress-circular>
+				<md-progress-circular ng-if="!inProgress && !loggedNote" md-mode=""></md-progress-circular>
+				<div ng-if="loggedNote">
+					<a ng-href="https://na14.salesforce.com/{{loggedNote}}" target="_blank">See Note</a>
+				</div>
+				<p ng-if="logErrorMessage">{{logErrorMessage}}</p>
 			</div>
 		</form>
 

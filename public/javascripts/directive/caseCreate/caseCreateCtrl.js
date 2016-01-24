@@ -73,6 +73,7 @@ angular.module('vfaDashboard').controller('CaseCtrl', function($scope, _, api, c
 			console.log('new case', data);
 			$scope.mostRecentCase = data.id;
 		}, function(error) {
+			$scope.caseInProgress = false;
 			console.error(error);
 			$scope.caseFailed = "Sorry, please try again or get in touch with JTD."
 		});
