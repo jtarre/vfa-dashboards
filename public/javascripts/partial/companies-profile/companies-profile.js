@@ -1,4 +1,4 @@
-vfaDashboard.controller("companyCtrl", function($scope, $stateParams, accountsApi, slackApi, api, _) {
+vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accountsApi, slackApi, api, _) {
 	
 	$scope.isEdit = false;
 	$scope.relatedTo = [];
@@ -28,67 +28,40 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, accountsAp
 		"Twitter_Handle__c"
 	];
 
-	$scope.companyInfo = [
-		{name: "Id", type: "hidden", value: "", label: ""},
-		{name: "CoPa_Association__c", type: "picklist", value: "", label: ""},
-		{name: "Website", type: "text", value: "", label: ""},
-		{name: "VFA_City__c", type: "picklist", value: "", label: ""},
-		{name: "Description", type: "textarea", value: "", label: ""},
-		{name: "Year_Founded__c", type: "text", value: "", label: ""},
-		{name: "NumberOfEmployees", type: "text", value: "", label: ""},
-		{name: "Industry_USE__c", type: "picklist", value: "", label: ""},
-		{name: "Funding_Type__c", type: "picklist", value: "", label: ""},
-		{name: "Funding_Amount__c", type: "picklist", value: "", label: ""},
-		{name: "Company_Type__c", type: "picklist", value: "", label: ""},
-		{name: "Product_Type__c", type: "picklist", value: "", label: ""},
-		{name: "Customer_Type__c", type: "picklist", value: "", label: ""},
-		{name: "Female_Founder__c", type: "picklist", value: "", label: ""},
-		{name: "URM_Founder__c", type: "picklist", value: "", label: ""},
-		{name: "Twitter_Handle__c", type: "text", value: "", label: ""}
-	];
-
+	$scope.companyInfo = [];
 	api.companies.getFields().then(function(data) {
-		// console.log("salesforce data fields", response.fields);
-		console.log('data post pull', data);
-		 var fields = _.map(data.fields, function(field) {
+		 var allFields = _.map(data.fields, function(field) { // trim the meta fields to a subset of values.
 		 	return {name: field.name, type: field.type, label: field.label, picklistValues: field.picklistValues}
 		 });
-		 console.log('fields after map', fields);
 
-		 fields = _.remove(fields, function(field) {
-		 	return _.findIndex(fields, $scope.companyInfo2) !== -1;
+		 var activeFields = _.filter(allFields, function(field) { // trim the fields to the ones I want to display
+		 	return _.indexOf($scope.companyInfo2, field.name) >= 0;
 		 });
 
-		 console.log('fields after remove', fields);
-
-
-		// _.forEach(response.fields, function(salesforceField, index) {
-		// 	_.forEach($scope.companyInfo, function(field, index) {
-		// 		if(field.name === salesforceField.name) {
-		// 			field.label = salesforceField.label;
-		// 			if(salesforceField.picklistValues.length) {
-		// 				field.picklist = [];
-		// 				_.forEach(salesforceField.picklistValues, function(value, index) {
-		// 					field.picklist.push(value.value);
-		// 				});
-		// 				field.picklistSearchText = salesforceField.name + 'Search'; // for the md-autocomplete
-		// 			}
-		// 		}	
-		// 	});
-		// });
-		// console.log("company info after field api:\n", $scope.companyInfo);
-	});
-	api.companies.getCompany($scope.companyId).then(function(data) {
-		$scope.relatedTo.push({name: data.Name, id: data.Id});
-		_.forEach(data, function(salesforceValue, key) {
-			_.forEach($scope.companyInfo, function(value, index) {
-				if(value.name === key) {		
-					value.value = salesforceValue;
-				}
+		$scope.companyInfo = activeFields;
+		api.companies.getCompany($scope.companyId).then(function(data) {
+			$scope.relatedTo.push({name: data.Name, id: data.Id});
+			var liveData = _.filter(data, function(value) {
+				return _.indexOf($scope.companyInfo2, field.name) >= 0;
 			});
-		});
-		console.log("company info after company api:\n", $scope.companyInfo);
+
+			var liveCompanyInfo = _.map(liveData, function(sfData, index) {
+				var index = _.indexOf(activeFields, value.name);
+				return activeFields[index].value = sfData;
+			})
+			_.forEach(data, function(salesforceValue, key) {
+				_.forEach($scope.companyInfo, function(value, index) {
+					if(value.name === key) {		
+						value.value = salesforceValue;
+					}
+				});
+			});
+			console.log("company info after company api:\n", $scope.companyInfo);
+		}); 
+
 	});
+
+		
 
 	$scope.contacts;
 	api.companies.getContacts($scope.companyId)
