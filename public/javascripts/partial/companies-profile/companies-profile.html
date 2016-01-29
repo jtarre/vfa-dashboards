@@ -44,16 +44,17 @@
 				</div>
 				<div layout="column" ng-repeat="field in companyInfo">
 					<p ng-if="!isEdit"><strong>{{field.label}}</strong>: {{field.value}}</p>
-					<md-input-container ng-if="isEdit && field.type === 'text'" class="md-block">
+					<md-input-container ng-show="isEdit && (field.type === 'text' || field.type === 'string' || field.type === 'int' || field.type === 'double')" class="md-block">
 						<label>{{field.label}}</label>
 						<input type="text" ng-model="field.value">
 					</md-input-container>
-					<md-input-container ng-if="isEdit && field.type === 'textarea'" class="md-block">
+					<md-input-container ng-show="isEdit && field.type === 'textarea'" class="md-block">
 						<label>{{field.label}}</label>
 						<textarea ng-model="field.value" columns="1" rows="5"></textarea>
 					</md-input-container>
-					<label ng-if="isEdit && field.type === 'picklist'">{{field.label}}</label>
-					<select ng-if="isEdit && field.type === 'picklist'" ng-model="field.value" ng-options="item as item for item in field.picklist"></select>
+					<label ng-show="isEdit && (field.type === 'picklist' || field.type === 'multipicklist')">{{field.label}}</label>
+					<select ng-show="isEdit && (field.type === 'picklist' || field.type === 'multipicklist')" ng-model="field.value" ng-options="item.label as item.value for item in field.picklistValues"></select>
+					<md-checkbox ng-show="isEdit && field.type === 'boolean'">{{field.label}}</md-checkbox>
 				</div>
 			</md-content>
 		</md-tab>
