@@ -127,7 +127,7 @@
 					</md-input-container>
 					<label ng-show="isEdit && (field.type === 'picklist' || field.type === 'multipicklist')">{{field.label}}</label>
 					<select ng-show="isEdit && (field.type === 'picklist' || field.type === 'multipicklist')" ng-model="field.value" ng-options="item.label as item.value for item in field.picklistValues"></select>
-					<md-checkbox ng-show="isEdit && field.type === 'boolean'">{{field.label}}</md-checkbox>
+					<md-checkbox ng-show="isEdit && field.type === 'boolean'" ng-model="field.value" ng-true-value="true" ng-false-value="false">{{field.label}}</md-checkbox>
 				</div>
 			</md-content>
 		</md-tab>
