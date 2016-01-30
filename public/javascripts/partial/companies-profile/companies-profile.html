@@ -107,9 +107,13 @@
 			<md-content layout-padding>
 				<div layout="column">
 					<md-checkbox ng-model="isEdit" ng-change="!isEdit">Editable</md-checkbox>
-					<md-button ng-if="isEdit" class="md-raised" ng-click="update(companyInfo)">
-						Update Account
-					</md-button>
+					<div layout="row">
+						<md-button ng-if="isEdit" class="md-raised" ng-click="update(companyInfo)">
+							Update Account
+						</md-button>
+						<md-progress-circular ng-if="updateInProgress" md-mode="indeterminate"></md-progress-circular>
+						<a ng-if="!updateInProgress && recentlyUpdated" ng-href="{{recentlyUpdated}}" target="_blank">See Updated Account</a>
+						<p ng-if="updateErrorMessage">{{updateErrorMessage}}</p>	
 				</div>
 				<div layout="column" ng-repeat="field in companyInfo">
 					<p ng-if="!isEdit"><strong>{{field.label}}</strong>: {{field.value}}</p>

@@ -113,7 +113,13 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 		$scope.activities = data;
 	})
 
+	$scope.recentlyUpdated = false;
+	$scope.updateInProgress = false;
+	$scope.updateErrorMessage = false;
 	$scope.update = function update(companyInfo) {
+		$scope.recentlyUpdate = false;
+		$scope.updateInProgress = true;
+		$scope.updateErrorMessage = false;
 		var salesforceData = {};
 		_.forEach(companyInfo, function(salesforceField, index) {
 			salesforceData[salesforceField.name] = salesforceField.value;
@@ -121,6 +127,10 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 		console.log("id and data on client", salesforceData);
 		api.companies.update(salesforceData).then(function(response) {
 			console.log("response from server after update", response);
+			$scope.updateInProgress = false;
+			$scope.recentlyUpdated = "https://na14.salesforce.com/" + response.id;
+		}, function(error) {
+			$scope.updateErrorMessage = "Sorry, please try again or contact JTD.";
 		});
 	};
 })
