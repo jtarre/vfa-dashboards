@@ -80,13 +80,19 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 	api.companies.getContacts($scope.accountId)
 		.then( function(contacts) {
 			console.log("contacts", contacts);
-			$scope.contacts = contacts;
+			if(contacts.length) {
+				$scope.contacts = contacts;	
+			}
+			
 		});
 
 	$scope.opportunities;
 	api.opportunities.getForCompany($scope.accountId)
 		.then( function(opportunities) {
-			$scope.opportunities = opportunities;
+			if(opportunities.length) {
+				$scope.opportunities = opportunities;	
+			}
+			
 			_.forEach(opportunities, function(value, index) {
 				$scope.relatedTo.push({name: value.Name, id: value.Id });	
 			});
@@ -110,7 +116,10 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 
 	$scope.activities = [];
 	supportersApi.getActivities($scope.accountId).then(function(data) {
-		$scope.activities = data;
+		if(data.length) {
+			$scope.activities = data;	
+		}
+		
 	})
 
 	$scope.recentlyUpdated = false;
@@ -133,4 +142,78 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 			$scope.updateErrorMessage = "Sorry, please try again or contact JTD.";
 		});
 	};
+
+	$scope.notes = {
+		Subject: '',
+		Description: '',
+		user: 0,
+		contact: 0,
+		relatedTo: 0
+	}
+
+	$scope.noteInProgress = false;
+	$scope.errorLogMessage = 0;
+	$scope.loggedNote = 0;
+	$scope.logNotes = function logNotes(notes) {
+		console.log("note logger logging note.", notes);
+		$scope.noteInProgress = true;
+		$scope.errorLogMessage = 0;
+		$scope.loggedNote = 0;
+
+		var userId = '';
+		var userName = '';
+		var contactId = '';
+		var contactName = '';
+		var relatedToId = '';
+		var relatedToName = '';
+
+		if(notes.user) {
+			userId = notes.user.Id;
+			userName = notes.user.Name;
+		}
+
+		if(notes.contact) {
+			contactId = notes.contact.Id;
+			contactName = notes.contact.Name;
+		}
+
+		if(notes.relatedTo) {
+			relatedToId = notes.relatedTo.Id;
+			relatedToName = notes.relatedTo.Name;
+		}
+
+		api.notes.post(notes.Subject, notes.Description, userId, contactId, relatedToId).then(function(data) {
+			$scope.noteInProgress = false;
+			$scope.loggedNote = "https://na14.salesforce.com/" + data.id;
+		}, function(error) {
+			$scope.noteInProgress = false;
+			console.error("error: ", error);
+			$scope.errorLogMessage = "Sorry, please try again or contact JTD"
+		});
+		
+		// _.forEach($scope.slackChannels, function(value, key) {
+		// 	console.log("key:", key);
+		// 	console.log("value:", value);
+		// 	if(value.active) {
+		// 		slackApi.create(notes.Subject, notes.Description, userName, contactName, relatedToName, value.name)
+		// 		.then( function(data) {
+		// 			console.log("slack response for channel: ", value, data);
+		// 		});				
+		// 	}
+			
+		// });
+
+		$scope.notes = {
+			Subject: '',
+			Description: '',
+			user: 0,
+			contact: 0,
+			relatedTo: 0
+		}
+		$scope.contactSearch = "";
+		$scope.userSearch = "";
+		_.forEach($scope.slackChannels, function(value) {
+			value.active = false;
+		});
+	}
 })

@@ -77,7 +77,7 @@
 	<md-tabs md-dynamic-height="true">
 		<md-tab label="Log Notes">
 			<div layout="column">
-				<md-autocomplete md-selected-item="notes.contact" md-items="contact in filteredContacts = (contacts | filter:contactSearchText)" md-item-text="contact.Name" md-search-text="contactSearchText" md-floating-label="Contact">
+				<md-autocomplete md-selected-item="notes.contact" md-items="contact in filteredContacts = (contacts | filter:contactSearch)" md-item-text="contact.Name" md-search-text="contactSearch" md-floating-label="Contact">
 					<md-item-template>
 						{{contact.Name}}
 					</md-item-template>
@@ -95,12 +95,17 @@
 					<label>Notes</label>
 					<textarea ng-model="notes.Description" columns="1" rows="5"></textarea>
 				</md-input-container>
-				<md-autocomplete md-selected-item="notes.user" md-min-length="2" md-search-text="userNoteSearch" md-items="user in filteredUsers = ( users | filter:userNoteSearch)" md-item-text="user.Name" md-floating-label="You">
+				<md-autocomplete md-selected-item="notes.user" md-min-length="2" md-search-text="userSearch" md-items="user in filteredUsers = ( users | filter:userSearch)" md-item-text="user.Name" md-floating-label="You">
 					<md-item-template>
 						{{user.Name}}
 					</md-item-template>
 				</md-autocomplete>
-				<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</button>
+				<div layout="row">
+					<md-button class="md-raised" ng-click="logNotes(notes)">Log Notes</md-button>
+					<md-progress-circular ng-if="noteInProgress" md-mode="indeterminate"></md-progress-circular>
+					<a ng-if="!noteInProgress && loggedNote" ng-href="{{loggedNote}}" target="_blank">See Note</a>
+					<p ng-if="errorLogMessage">{{errorLogMessage}}</p>
+				</div>
 			</div>
 		</md-tab>
 		<md-tab label="Background">
@@ -116,7 +121,7 @@
 						<p ng-if="updateErrorMessage">{{updateErrorMessage}}</p>	
 				</div>
 				<div layout="column" ng-repeat="field in companyInfo">
-					<p ng-if="!isEdit"><strong>{{field.label}}</strong>: {{field.value}}</p>
+					<p ng-if="!isEdit && field.type !== 'id'"><strong>{{field.label}}</strong>: {{field.value}}</p>
 					<md-input-container ng-show="isEdit && (field.type === 'text' || field.type === 'string' || field.type === 'int' || field.type === 'double')" class="md-block">
 						<label>{{field.label}}</label>
 						<input type="text" ng-model="field.value">
@@ -132,7 +137,7 @@
 			</md-content>
 		</md-tab>
 		<md-tab label="Contacts">
-			<p ng-if="!contacts">No Contacts in this Account</p>
+			<p ng-if="!contacts">No Contacts in Salesforce</p>
 			<md-list ng-if="contacts">
 				<md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column"> 
 					<div class="md-line-item-text">
@@ -144,6 +149,7 @@
 			</md-list>
 		</md-tab>
 		<md-tab label="Opportunities">
+			<p ng-if="!opportunities">No Opportunities in Salesforce</p>
 			<md-list ng-if="opportunities">
 				<md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column" > 
 					<div class="md-line-item-text">	
@@ -155,6 +161,7 @@
 			</md-list>
 		</md-tab>
 		<md-tab label="Recent Activities">
+			<p ng-if="!activities">No Activities in Salesforce</p>
 			<md-list>
 				<md-list-item class="md-2-line" ng-repeat="activity in activities" layout="column" > 
 					<div class="md-line-item-text">	
