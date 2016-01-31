@@ -1,4 +1,4 @@
-vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accountsApi, slackApi, api, _) {
+vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accountsApi, supportersApi, slackApi, api, _) {
 	
 	$scope.isEdit = false;
 	$scope.relatedTo = [];
@@ -83,15 +83,15 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 			$scope.contacts = contacts;
 		});
 
-	// $scope.opportunities;
-	// api.opportunities.getForCompany($scope.companyId)
-	// 	.then( function(opportunities) {
-	// 		$scope.opportunities = opportunities;
-	// 		_.forEach(opportunities, function(value, index) {
-	// 			$scope.relatedTo.push({name: value.Name, id: value.Id });	
-	// 		});
+	$scope.opportunities;
+	api.opportunities.getForCompany($scope.accountId)
+		.then( function(opportunities) {
+			$scope.opportunities = opportunities;
+			_.forEach(opportunities, function(value, index) {
+				$scope.relatedTo.push({name: value.Name, id: value.Id });	
+			});
 			
-	// 	});
+		});
 
 	
 	
@@ -102,17 +102,16 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 		});
 
 	$scope.getUser = function getUser(userList, id) {
-	    var user = {};
-	    _.find(userList, function(value) {
+	    var user = _.find(userList, function(value) {
 	    	return value.Id === id;
 	    });
 	    return user;
 	}
 
-	// $scope.activities = [];
-	// accountsApi.getActivities($scope.accountId).then(function(data) {
-	// 	$scope.activities = data;
-	// })
+	$scope.activities = [];
+	supportersApi.getActivities($scope.accountId).then(function(data) {
+		$scope.activities = data;
+	})
 
 	$scope.recentlyUpdated = false;
 	$scope.updateInProgress = false;

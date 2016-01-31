@@ -56,11 +56,11 @@
 					});
 			},
 
-			// getActivities: function(companyId) {
-			// 	return $http.get('/api/companies/activities').then(function(response) {
-			// 		return response.data
-			// 	})
-			// }
+			getActivities: function(companyId) {
+				return $http.get('/api/companies/activities').then(function(response) {
+					return response.data
+				})
+			},
 
 			update: function(data) {
 				return $http.post("/api/companies/" + data.Id, data).then(function(response) {
