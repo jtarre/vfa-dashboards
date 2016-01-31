@@ -169,17 +169,3 @@ module.exports.getContactsForAccount = function getContactsForAccount(obj) {
 			});
 	return deferred.promise;
 };
-
-// what am i trying to figure out
-// what helpers i'll need
-// getAccountById
-// getContactById
-// getOpportunityById
-
-// getAccounts (conditions, fields)
-// getContacts (conditions, fields)
-// getOpportunities (conditions, fields)
-
-//it's two separate chains
-// why doesn't jsforce just do this?
-// dead simple wrapper around jsforce library

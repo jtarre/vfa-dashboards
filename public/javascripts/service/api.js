@@ -40,6 +40,7 @@
 			},
 
 			getContacts: function(companyId) {
+				console.log('get contacts');
 				return $http.get("/api/companies/" + companyId + "/contacts")
 					.then( function(response) {
 						console.log("get contacts response", response);
@@ -55,9 +56,11 @@
 					});
 			},
 
-			// getActivities: function(companyId) {
-			// 	return
-			// }
+			getActivities: function(companyId) {
+				return $http.get('/api/companies/activities').then(function(response) {
+					return response.data
+				})
+			},
 
 			update: function(data) {
 				return $http.post("/api/companies/" + data.Id, data).then(function(response) {
