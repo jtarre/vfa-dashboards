@@ -40,6 +40,7 @@
 			},
 
 			getContacts: function(companyId) {
+				console.log('get contacts');
 				return $http.get("/api/companies/" + companyId + "/contacts")
 					.then( function(response) {
 						console.log("get contacts response", response);

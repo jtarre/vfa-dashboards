@@ -76,11 +76,12 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 	mergeCompanyData(getCompanyFields(), getCompanyInfo());
 		
 
-	// $scope.contacts;
-	// api.companies.getContacts($scope.companyId)
-	// 	.then( function(contacts) {
-	// 		$scope.contacts = contacts;
-	// 	});
+	$scope.contacts;
+	api.companies.getContacts($scope.accountId)
+		.then( function(contacts) {
+			console.log("contacts", contacts);
+			$scope.contacts = contacts;
+		});
 
 	// $scope.opportunities;
 	// api.opportunities.getForCompany($scope.companyId)
@@ -108,10 +109,10 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 	    return user;
 	}
 
-	$scope.activities = [];
-	accountsApi.getActivities($scope.accountId).then(function(data) {
-		$scope.activities = data;
-	})
+	// $scope.activities = [];
+	// accountsApi.getActivities($scope.accountId).then(function(data) {
+	// 	$scope.activities = data;
+	// })
 
 	$scope.recentlyUpdated = false;
 	$scope.updateInProgress = false;

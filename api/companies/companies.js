@@ -64,6 +64,28 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get("/api/companies/:id/contacts", function(req,res) {
+		var id = req.params.id;
+		// console.log("company id", id);
+		
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			conn.sobject('Contact')
+				.find({
+					AccountId: id
+				}, "*")
+				.sort({Name: 1})
+				.execute(function(err, contacts) {
+					if(err) {
+						console.error(error);
+						res.send({error: "something went wrong"});
+					} else {
+						res.status(200).json(contacts);
+					}
+
+				});
+		});
+	});
+
 	app.post("/api/companies", function(req, res) {
 		var accountData = req.body;
 
