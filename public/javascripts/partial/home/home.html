@@ -4,6 +4,9 @@
 	</div>
 	<div ng-if="auth">
 		<ul class="nav nav-tabs" id="tabs">
+			<li>
+				<a href="#info">Get Info / Update</a>
+			</li>
 			<li class="active">
 				<a href="#notes">Create Note</a>
 			</li>
@@ -18,6 +21,31 @@
 			</li>
 		</ul>
 		<div class="tab-content">
+			<div class="tab-pane" id="info">
+
+				<div class="input-group">
+					<input type="text" ng-model="search" placeholder="Search for a Fellow, contact, or company" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="search(Search)">Search</button>
+					</span>
+				</div>
+
+				
+				<div layout="row">
+					<md-progress-circular ng-if="!isContactSearchInProgress && !contacts.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
+					<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
+					<div class="form-group" ng-if="contacts.length">
+						<label>Select Contact</label>
+						<select ng-model="notes.contact" ng-options="contact.Name for contact in contacts" class="form-control"></select>
+					</div>
+					<div ng-if="noContactsFound">
+						<p>{{noContactsFoundMessage}}</p>
+					</div>
+				</div>
+
+				<fellow-profile ng-if="isFellow" id="id"></fellow-profile>
+				<contact-profile ng-if="isContact" id="id"></contact-profile>
+				<company-profile ng-if="isCompany" id="id"></company-profile>
 			<div class="tab-pane active" id="notes">
 				<note-logger></note-logger>
 			</div>

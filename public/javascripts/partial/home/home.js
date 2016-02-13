@@ -7,6 +7,10 @@ vfaDashboard.controller("homeCtrl", function($scope, auth, api, accountsApi) {
 		}
 	});
 
+	$scope.isFellow = false;
+	$scope.isContact = false;
+	$scope.isCompany = false;
+
 	
 
 });
