@@ -11,6 +11,10 @@ vfaDashboard.controller("homeCtrl", function($scope, auth, api, accountsApi) {
 	$scope.isContact = false;
 	$scope.isCompany = false;
 
+	$scope.getRecords = function getRecords() {
+		// TODO
+	}
+
 	
 
 });

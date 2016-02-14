@@ -2,7 +2,32 @@
 	<div ng-if="!auth">
 		Welcome to the VFA Logger. This is a site for VFA team members to manage their salesforce information and activities.
 	</div>
+
+
 	<div ng-if="auth">
+		<script type="text/ng-template" id="customPopupTemplate.html">
+			<div class="custom-popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;" ng-show="isOpen() && !moveInProgress" aria-hidden="{{!isOpen()}}">
+
+			<ul class="dropdown-menu" role="listbox">
+				<li class="dropdown-header">Fellow</li>
+				<li ng-if="match.model.type==='fellow'" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+				<div ng-if="match.model.region==='southeast'" uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+				</li>
+
+				<li class="dropdown-header">Contact</li>
+				<li ng-if="match.model.type==='contact'" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+				<div ng-if="match.model.region==='southeast'" uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+				</li>
+
+				<li class="dropdown-header">Account</li>
+				<li ng-if="match.model.type==='account'"ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+				<div ng-if="match.model.region==='southeast'" uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+				</li>
+				
+			</ul>
+			</div>
+		</script>
+
 		<ul class="nav nav-tabs" id="tabs">
 			<li>
 				<a href="#info">Get Info / Update</a>
@@ -24,47 +49,37 @@
 			<div class="tab-pane" id="info">
 
 				<div class="input-group">
-					<input type="text" ng-model="search" placeholder="Search for a Fellow, contact, or company" class="form-control">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" ng-click="search(Search)">Search</button>
-					</span>
+					<input type="text" ng-model="asyncSelected" typeahead-popup-template-url="customPopupTemplate.html" placeholder="Locations loaded via $http" uib-typeahead="record as record.name for record in getRecords($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+					<i ng-show="loadingRecords" class="glyphicon glyphicon-refresh"></i>
+				    <div ng-show="noResults">
+				      <i class="glyphicon glyphicon-remove"></i> No Results Found
+				    </div>
 				</div>
 
-				
-				<div layout="row">
-					<md-progress-circular ng-if="!isSearchInProgress && !records.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
-					<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
-					<div class="form-group" ng-if="records.length">
-						<label>Select Record</label>
-						<select ng-model="record" ng-options="record.Name for record in records" class="form-control"></select>
-					</div>
-					<div ng-if="noRecordsFound">
-						<p>{{noRecordsFoundMessage}}</p>
-					</div>
-				</div>
 
 				<fellow-profile ng-if="isFellow" id="id"></fellow-profile>
 				<contact-profile ng-if="isContact" id="id"></contact-profile>
 				<company-profile ng-if="isCompany" id="id"></company-profile>
-			<div class="tab-pane active" id="notes">
-				<note-logger></note-logger>
+				<div class="tab-pane active" id="notes">
+					<note-logger></note-logger>
+				</div>
+				<div class="tab-pane" id="contacts">
+					<contact-create></contact-create>
+				</div>
+				<div class="tab-pane" id="accounts">
+					<account-create></account-create>
+				</div>
+				<div class="tab-pane" id="cases">
+					<case-create></case-create>
+				</div>
 			</div>
-			<div class="tab-pane" id="contacts">
-				<contact-create></contact-create>
-			</div>
-			<div class="tab-pane" id="accounts">
-				<account-create></account-create>
-			</div>
-			<div class="tab-pane" id="cases">
-				<case-create></case-create>
-			</div>
-		</div>
 
-		<script>
-		$('#tabs a').click(function(e) {
-			e.preventDefault();
-			$(this).tab('show');
-		});
-		</script>
+			<script>
+			$('#tabs a').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+			</script>
+		</div>
 	</div>
 </div>
