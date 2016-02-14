@@ -76,7 +76,7 @@
 		},
 
 		contacts: {
-			create: function(contactInfo) {
+			create: function create(contactInfo) {
 				return $http.post("/api/contacts", contactInfo).then( function(response) {
 					return response.data;
 				})

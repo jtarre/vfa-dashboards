@@ -61,7 +61,7 @@ module.exports = function(app) {
 			conn.sobject('Contact')
 				.find({
 					Name: {$like: search + '%'}
-				}, "Name, Id")
+				}, "Name, Id, RecordTypeId")
 				.sort( {Name: 1})
 				.execute(function(err, contacts) {
 					if(err) {
