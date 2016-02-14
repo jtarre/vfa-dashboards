@@ -32,14 +32,14 @@
 
 				
 				<div layout="row">
-					<md-progress-circular ng-if="!isContactSearchInProgress && !contacts.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
+					<md-progress-circular ng-if="!isSearchInProgress && !records.length && !noContactsFound" md-mode=""></md-progress-circular> <!-- Essentially serves a placeholder function -->
 					<md-progress-circular ng-if="isContactSearchInProgress" md-mode="indeterminate"></md-progress-circular>
-					<div class="form-group" ng-if="contacts.length">
-						<label>Select Contact</label>
-						<select ng-model="notes.contact" ng-options="contact.Name for contact in contacts" class="form-control"></select>
+					<div class="form-group" ng-if="records.length">
+						<label>Select Record</label>
+						<select ng-model="record" ng-options="record.Name for record in records" class="form-control"></select>
 					</div>
-					<div ng-if="noContactsFound">
-						<p>{{noContactsFoundMessage}}</p>
+					<div ng-if="noRecordsFound">
+						<p>{{noRecordsFoundMessage}}</p>
 					</div>
 				</div>
 
