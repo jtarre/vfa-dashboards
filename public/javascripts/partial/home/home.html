@@ -28,7 +28,7 @@
 			<div class="tab-pane" id="info">
 
 				<div class="input-group">
-					<input type="text" ng-model="record" typeahead-popup-template-url="javascripts/partial/home/typeaheadTemplate.html" placeholder="Search Fellow, contact, or company" uib-typeahead="record as record.name for record in getRecords($viewValue)" typeahead-wait-ms="250" typeahead-min-length="3" typeahead-loading="loadingRecords" typeahead-no-results="noResults" class="form-control">
+					<input type="text" ng-model="record" typeahead-template-url="javascripts/partial/home/typeaheadTemplate.html" placeholder="Search Fellow, contact, or company" uib-typeahead="record as record.Name for record in getRecords($viewValue)" typeahead-wait-ms="250" typeahead-min-length="3" typeahead-loading="loadingRecords" typeahead-no-results="noResults" class="form-control">
 					<i ng-show="loadingRecords" class="glyphicon glyphicon-refresh"></i>
 					<div ng-show="noResults">
 						<i class="glyphicon glyphicon-remove"></i> No Results Found

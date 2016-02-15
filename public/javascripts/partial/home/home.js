@@ -20,13 +20,14 @@ vfaDashboard.controller("homeCtrl", function($scope, $q, _, auth, api, accountsA
 		return $q.all([salesforcePromise1, salesforcePromise2]).then(function(values) {
 			console.log('search results: ', values[0], values[1]);
 			$scope.records = _.concat(values[0], values[1]);
+			return $scope.records;
 			console.log('records result: ', $scope.records);
 			
 		})
 	}
 
 	$scope.getRecords = function getRecords(search) {
-		joinRecords(getRecordsPromise(api.contacts.getBySearch(search)), getRecordsPromise(accountsApi.getBySearch(search)));
+		return joinRecords(getRecordsPromise(api.contacts.getBySearch(search)), getRecordsPromise(accountsApi.getBySearch(search)));
 	}
 
 });
