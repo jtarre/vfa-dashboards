@@ -21,8 +21,6 @@ vfaDashboard.controller("homeCtrl", function($scope, $q, _, auth, api, accountsA
 			console.log('search results: ', values[0], values[1]);
 			$scope.records = _.concat(values[0], values[1]);
 			return $scope.records;
-			console.log('records result: ', $scope.records);
-			
 		})
 	}
 
