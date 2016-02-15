@@ -9,8 +9,9 @@
 
 			getFellow: function(id) {
 				// console.log("getting individual Fellow by id");
+				console.log("fellow id: ", id);
 				return $http.get("/api/fellows/" + id).then( function(response) {
-					// console.log('response', response);
+					console.log('fellow result', response);
 					return response.data;
 				});
 			}
