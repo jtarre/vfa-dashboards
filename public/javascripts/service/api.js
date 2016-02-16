@@ -89,6 +89,13 @@
 				})
 			},
 
+			getFields: function getFields() {
+				return $http.get("/api/fields/contacts").then( function(response) {
+					console.log("company fields", response.data);
+					return response.data;
+				});
+			},
+
 			getBySearch: function getBySearch(search) {
 				console.log("searching by value:", search);
 				return $http.get("/api/contacts/" + search).then(function(response) {
