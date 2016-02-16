@@ -18,26 +18,17 @@
                     </div>
                 </div>
             </div>
-            <!-- OVERVIEW -->
-            <div class="panel panel-default">
-                <div class="panel-heading">Overview</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div ng-repeat="field in companyInfo">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                <p>{{field.value}}</p>
-                            </div>
+            <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts">
+                <div class="row">
+                    <div ng-repeat="(key, value) in contact">
+                        <div class="col-xs-6">
+                            <h5 class="vfa-item-header"><small>{{contact.label}}</small></h5>
+                            <p>{{field.value}}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <md-toolbar>
-                <div class="md-toolbar-tools">
-                    <h2>{{companyInfo.Name}}</h2>
-                    <span flex></span>
-                </div>
-            </md-toolbar>
+            </uib-accordion-group>
+
             <md-tabs md-dynamic-height="true">
                 <md-content ng-repeat="contact in contacts">
                     <md-tab label="contact.Name">
@@ -54,6 +45,7 @@
                     </md-tab>
                 </md-content>
             </md-tabs>
+
             <!-- CONTACTS -->
             <div class="panel panel-default">
                 <!-- ng-repeat -->

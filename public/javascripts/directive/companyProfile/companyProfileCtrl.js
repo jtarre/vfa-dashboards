@@ -21,6 +21,38 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 		"Twitter_Handle__c"
 	];
 
+	var getMetaFieldsPromise = function getMetaFieldsPromise(fields, apiPromise) {
+		var deferred = $q.defer();
+		apiPromise.then(function(data) {
+			 var allFields = _.map(data.fields, function(field) { // trim the meta fields to a subset of values.
+			 	return {name: field.name, type: field.type, label: field.label, picklistValues: field.picklistValues}
+			 });
+
+			 var activeFields = _.filter(allFields, function(field) { // trim the fields to the ones I want to display
+			 	return _.indexOf(fields, field.name) >= 0;
+			 });
+			 deferred.resolve(activeFields);
+		});
+		return deferred.promise;
+	};
+
+	var getRecordInfo = function getRecordInfo(fields, apiPromise) {
+		var deferred = $q.defer();
+		apiPromise.then(function(data) {
+			var allData = _.map(data, function(field, key) {
+				return {name: key, value: field};
+			});
+			// console.log('all data', allData);
+			var liveData = _.filter(allData, function(field) {
+				return _.indexOf(fields, field.name) >= 0;
+			})
+			// console.log('company data', liveData);
+			deferred.resolve(liveData);
+			// console.log('company data', allData);
+		}); 
+		return deferred.promise;
+	};
+
 	var getCompanyFields = function getCompanyFields() {
 		var deferred = $q.defer();
 		api.companies.getFields().then(function(data) {
@@ -55,7 +87,9 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 		return deferred.promise;
 	};
 
-	var mergeCompanyData = function mergeCompanyData(fieldsPromise, companyInfoPromise) {
+
+
+	var getRecordData = function getRecordData(fieldsPromise, companyInfoPromise) {
 	    	return $q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
 	    		// console.log('values', values[0], values[1]);
 	    		var data = _.map(values[0], function(field, index) {
@@ -71,7 +105,15 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	    	})
 	}
 
-	mergeCompanyData(getCompanyFields(), getCompanyInfo());
+	getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
+	.then(function(data) {
+		$scope.companyData = data;
+	})
+
+	getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
+	.then(function(contacts) {
+		$scope.contacts = contacts;
+	})
 		
 
 	$scope.contacts;
