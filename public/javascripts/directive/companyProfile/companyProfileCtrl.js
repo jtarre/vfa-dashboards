@@ -1,9 +1,8 @@
 angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope, _, api, supportersApi, $q) {
-		$scope.isEdit = false;
+	$scope.isEdit = false;
 	$scope.relatedTo = [];
-	$scope.accountId = $stateParams.companyId;
 
-	$scope.companyInfo2 = [
+	$scope.companyInfo = [
 		"Id",
 		"CoPa_Association__c",
 		"Website",
@@ -30,7 +29,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 			 });
 
 			 var activeFields = _.filter(allFields, function(field) { // trim the fields to the ones I want to display
-			 	return _.indexOf($scope.companyInfo2, field.name) >= 0;
+			 	return _.indexOf($scope.companyInfo, field.name) >= 0;
 			 });
 			 deferred.resolve(activeFields);
 		});
@@ -39,7 +38,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 
 	var getCompanyInfo = function getCompanyInfo() {
 		var deferred = $q.defer();
-		api.companies.getCompany($scope.accountId).then(function(data) {
+		api.companies.getCompany($scope.id).then(function(data) {
 			$scope.relatedTo.push({name: data.Name, id: data.Id});
 			// console.log('data', data);
 			var allData = _.map(data, function(field, key) {
@@ -47,7 +46,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 			});
 			// console.log('all data', allData);
 			var liveData = _.filter(allData, function(field) {
-				return _.indexOf($scope.companyInfo2, field.name) >= 0;
+				return _.indexOf($scope.companyInfo, field.name) >= 0;
 			})
 			// console.log('company data', liveData);
 			deferred.resolve(liveData);
@@ -76,7 +75,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 		
 
 	$scope.contacts;
-	api.companies.getContacts($scope.accountId)
+	api.companies.getContacts($scope.id)
 		.then( function(contacts) {
 			console.log("contacts", contacts);
 			if(contacts.length) {
@@ -86,7 +85,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 		});
 
 	$scope.opportunities;
-	api.opportunities.getForCompany($scope.accountId)
+	api.opportunities.getForCompany($scope.id)
 		.then( function(opportunities) {
 			if(opportunities.length) {
 				$scope.opportunities = opportunities;	
@@ -114,7 +113,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	}
 
 	$scope.activities = [];
-	supportersApi.getActivities($scope.accountId).then(function(data) {
+	supportersApi.getActivities($scope.id).then(function(data) {
 		if(data.length) {
 			$scope.activities = data;	
 		}

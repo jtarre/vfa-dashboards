@@ -1,6 +1,9 @@
 angular.module('vfaDashboard').directive('fellowProfile', function(_) {
 	return {
 		restrict: "E",
+		scope: {
+			id: "=id"
+		},
 		templateUrl: "javascripts/directive/fellowProfile/fellowProfile.html",
 		controllerUrl: "javascripts/directive/fellowProfile/fellowProfileCtrl.js",
 		link: function (scope, element, attrs) {
