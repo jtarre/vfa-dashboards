@@ -72,21 +72,19 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	var getChildRecords = function getChildRecords(activeFields, apiPromise) {
 		var deferred = $q.defer();
 		apiPromise.then(function(children) {
-			// console.log('return children: ', children);
-			var slimChildren = _.map(children, function(values) {
-				var cf = _.map(values, function(value, key) {
-					return {name: key, value: value};
-				});
+			console.log('return children: ', children);
 
-				console.log('cf: ', cf);
-
-				return _.filter(cf, function(contactField) {
-					return _.includes(activeFields, contactField.name);
-				})
+			var filteredChildren = _.map(children, function(child) {
+				return _.pick(child, contactFields);
 			});
 
-			// console.log('children fix: ', childrenFix);
-			deferred.resolve(slimChildren);
+			// var filteredChildren = _.filter(children, function(fieldValue, fieldName) {
+			// 	console.log('field name: ', fieldName);
+			// 	return _.includes(contactFields, fieldName);
+			// });
+
+			console.log('children filtered: ', filteredChildren);
+			deferred.resolve(filteredChildren);
 		});	
 		return deferred.promise;	
 	}; 
@@ -111,29 +109,29 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	    			return field;
 	    		})
 
-	    		console.log('array of values: ', arrayOfFieldNValues);
+	    		// console.log('array of values: ', arrayOfFieldNValues);
 
-	    		console.log('merge field and values: ', mergeFieldNValues);
+	    		// console.log('merge field and values: ', mergeFieldNValues);
 
 	  			deferred.resolve(arrayOfFieldNValues);
 	    	});
 	    	return deferred.promise;
 	}
 
-	getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
-	.then(function(data) {
-		// console.log('data out of record promise: ', data);
-		$scope.companyData = data;
-		// console.log('company data: ', $scope.companyData);
-	}, function(error) {
-		return console.error(error);
-	});
+	// getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
+	// .then(function(data) {
+	// 	// console.log('data out of record promise: ', data);
+	// 	$scope.companyData = data;
+	// 	// console.log('company data: ', $scope.companyData);
+	// }, function(error) {
+	// 	return console.error(error);
+	// });
 
-	// getRecordData(getMetaFieldsPromise(contactFields, api.contacts.getFields()), getChildRecords(contactFields, api.companies.getContacts($scope.id)))
-	// .then(function(contacts) {
-	// 	$scope.contacts = contacts;
-	// })
-		
+	getRecordData(getMetaFieldsPromise(contactFields, api.contacts.getFields()), getChildRecords(contactFields, api.companies.getContacts($scope.id)))
+	.then(function(contacts) {
+		$scope.contacts = contacts;
+	})
+		// $scope.contacts = [{test: 'seven', jeepers: 'creepers'}, {fun: 'in a bun', six: 'went tix'}];
 
 	// $scope.contacts;
 	// api.companies.getContacts($scope.id)

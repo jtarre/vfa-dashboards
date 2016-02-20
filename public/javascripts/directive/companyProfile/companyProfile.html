@@ -12,197 +12,25 @@
                         <div class="row">
                             <div ng-repeat="field in companyData">
                                 <div class="col-xs-6">
-                                    <h5 ng-hide="field[0].type ==='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                    <p ng-hide="field[0].type ==='id'">{{field.value}}</p>
+                                    <h5 ng-hide="field.type ==='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                    <p ng-hide="field.type ==='id'">{{field.value}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts">
-                    <div class="row">
-                        <div ng-repeat="field in contact">
-                            <div class="col-xs-6">
-                                <h5 ng-hide="field[0].type ==='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                <p ng-hide="field[0].type ==='id'">{{field.value}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </uib-accordion-group>
-                
-
-
-
-
-
-
-
-                <!-- CONTACTS -->
-                <div class="panel panel-default">
-                    <!-- ng-repeat -->
-                    <div class="panel-heading">Contact Info & Social</div>
-                    <div class="panel-body">
+                <uib-accordion>
+                    <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts">
                         <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Email</small></h5>
-                                <p>{{fellow.profile.Email}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Twitter</small></h5>
-                                <p>{{fellow.profile.Twitter_Handle__c}}</p>
+                            <div ng-repeat="field in contact">
+                                <div class="col-xs-6">
+                                    <h5 ng-hide="field.type ==='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                    <p ng-hide="field.type ==='id'">{{field.value}}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Mailing Address</small></h5>
-                                <p>{{fellow.profile.MailingStreet}}
-                                    <br>{{fellow.profile.MailingCity}}, {{fellow.profile.MailingState}} {{fellow.profile.MailingPostalCode}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Instagram</small></h5>
-                                <p>{{fellow.profile.Instagram_Handle__c}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- JOB INFO -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Job Info</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Company</small></h5>
-                                <p>{{fellow.profile.Account_Name_for_SurveyGizmo__c}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Supervisor Name</small></h5>
-                                <p>{{fellow.profile.Supervisor_First_Name__c}} {{fellow.profile.Supervisor_Last_Name__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Title</small></h5>
-                                <p>{{fellow.profile.Title}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Supervisor Email</small></h5>
-                                <p>{{fellow.profile.Supervisor_Email__c}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- COMPANY EVALS -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Company Evaluations</div>
-                    <div class="panel-body" ng-repeat="eval in fellow.companyEval">
-                        <h5>{{eval.Name}}<small> - Submitted -  {{eval.CreatedDate}}</small></h5>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Overall Performance</small></h5>
-                                <p>{{eval.CPS_Overall__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Strengths</small></h5>
-                                <p>{{eval.CPS_Strengths__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Areas to Improve</small></h5>
-                                <p>{{eval.CPS_Improvement__c}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- SELF EVALS -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Self Evaluations</div>
-                    <div class="panel-body" ng-repeat="eval in fellow.surveySelfEvals">
-                        <h5>{{eval.Name}}<small> - Submitted -  {{eval.CreatedDate}}</small></h5>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Job Performance</small></h5>
-                                <p>{{eval.FSE_Job_Performance__c}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Job Happiness</small></h5>
-                                <p>{{eval.FSE_Job_Happiness__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Highlight</small></h5>
-                                <p>{{eval.FSE_Highlight__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Areas to Improve</small></h5>
-                                <p>{{eval.FSE_Improve_at_Work__c}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ACTIVITIES -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Activities</div>
-                    <div class="panel-body" ng-repeat="activity in fellow.activities">
-                        <h5>{{activity.Subject}}<small> - Created -  {{activity.CreatedDate}}</small></h5>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Type</small></h5>
-                                <p>{{activity.Type__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Activity Description</small></h5>
-                                <p>{{activity.Description}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- CASES -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Cases</div>
-                    <div class="panel-body" ng-repeat="case in fellow.cases">
-                        <h5>{{case.Subject}}<small> - Created -  {{case.CreatedDate}}</small></h5>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Description</small></h5>
-                                <p>{{case.Description}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h5 class="vfa-item-header"><small>Activity Description</small></h5>
-                                <p>{{activity.Description}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Facts of the situation</small></h5>
-                                <p>{{case.Facts_of_the_Situation_Fellow_input__c}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Potential Solutions</small></h5>
-                                <p>{{case.Potential_Solutions_Fellow_Input__c}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Mentor Qualities</small></h5>
-                                <p>{{case.Mentor_Qualities_Fellow_Input__c}}</p>
-                            </div>
-                            <div class="col-xs-6">
-                                <h5 class="vfa-item-header"><small>Potential Solutions Attempted</small></h5>
-                                <p>{{case.Previous_Solutions_Attempted__c}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </uib-accordion-group>
+                <uib-accordion>
             </div>
         </div>
     </div>
