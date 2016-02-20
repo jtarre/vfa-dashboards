@@ -54,14 +54,29 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get("/api/contacts/:search", function (req, res) {
+	app.get("/api/contacts/:id", function (req, res) {
+		var id = req.params.id;
+		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
+			conn.sobject('Contact').retrieve(id, function(err, contact) {
+				if(err) {
+					console.error(err);
+					res.send('something went wrong!');
+				} else {
+					console.log('contact info: ', contact);
+					res.status(200).json(contact);
+				}
+			});
+		});
+	});
+
+	app.get("/api/contacts/search/:search", function (req, res) {
 		var search = req.params.search;
 		console.log("search term:", search);
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			conn.sobject('Contact')
 				.find({
 					Name: {$like: search + '%'}
-				}, "Name, Id")
+				}, "Name, Id, RecordTypeId, AccountId, Department_Type__c")
 				.sort( {Name: 1})
 				.execute(function(err, contacts) {
 					if(err) {

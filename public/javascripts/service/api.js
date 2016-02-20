@@ -9,8 +9,9 @@
 
 			getFellow: function(id) {
 				// console.log("getting individual Fellow by id");
+				console.log("fellow id: ", id);
 				return $http.get("/api/fellows/" + id).then( function(response) {
-					// console.log('response', response);
+					console.log('fellow result', response);
 					return response.data;
 				});
 			}
@@ -76,7 +77,7 @@
 		},
 
 		contacts: {
-			create: function(contactInfo) {
+			create: function create(contactInfo) {
 				return $http.post("/api/contacts", contactInfo).then( function(response) {
 					return response.data;
 				})
@@ -88,9 +89,23 @@
 				})
 			},
 
+			getFields: function getFields() {
+				return $http.get("/api/fields/contacts").then( function(response) {
+					console.log("company fields", response.data);
+					return response.data;
+				});
+			},
+
+			getOne: function getOne(id) {
+				return $http.get("/api/contacts/" + id).then(function(response) {
+					console.log('contact info: ', response);
+					return response.data;
+				})
+			},
+
 			getBySearch: function getBySearch(search) {
 				console.log("searching by value:", search);
-				return $http.get("/api/contacts/" + search).then(function(response) {
+				return $http.get("/api/contacts/search/" + search).then(function(response) {
 					console.log("response: ", response.data);
 					return response.data;
 				})

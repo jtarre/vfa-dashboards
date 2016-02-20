@@ -20,7 +20,7 @@ module.exports = function(app) {
 			conn.sobject('Account')
 				.find({
 					Name: {$like: search + '%'}
-				}, "Name, Id, VFA_City__c, CoPa_Association__c, Website")
+				}, "Name, Id, VFA_City__c, CoPa_Association__c, Website, Department__c")
 				.sort( { Name: 1} )
 				.execute(function(err, accounts) {
 					if(err) {
@@ -44,7 +44,7 @@ module.exports = function(app) {
 					AccountId: accountId,
 					Status: "Completed"
 				}, "*")
-				.limit(5)
+				.limit(10)
 				.sort({ CreatedDate: 1})
 				.execute( function(err, activities) {
 					if(err) {

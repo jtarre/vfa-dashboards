@@ -23,34 +23,34 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 		"Twitter_Handle__c"
 	];
 
-	var getCompanyFields = function getCompanyFields() {
+	var metaFieldsPromise = function metaFieldsPromise(fields, apiPromise) {
 		var deferred = $q.defer();
-		api.companies.getFields().then(function(data) {
+		apiPromise.then(function(data) {
+			console.log('api promise return', data);
 			 var allFields = _.map(data.fields, function(field) { // trim the meta fields to a subset of values.
 			 	return {name: field.name, type: field.type, label: field.label, picklistValues: field.picklistValues}
 			 });
 
 			 var activeFields = _.filter(allFields, function(field) { // trim the fields to the ones I want to display
-			 	return _.indexOf($scope.companyInfo2, field.name) >= 0;
+			 	return _.indexOf(fields, field.name) >= 0;
 			 });
+			 console.log('active fields: ', activeFields);
 			 deferred.resolve(activeFields);
 		});
 		return deferred.promise;
 	};
 
-	var getCompanyInfo = function getCompanyInfo() {
+	var getRecordInfo = function getRecordInfo(fields, apiPromise) {
 		var deferred = $q.defer();
-		api.companies.getCompany($scope.accountId).then(function(data) {
-			$scope.relatedTo.push({name: data.Name, id: data.Id});
-			// console.log('data', data);
+		apiPromise.then(function(data) {
 			var allData = _.map(data, function(field, key) {
 				return {name: key, value: field};
 			});
 			// console.log('all data', allData);
 			var liveData = _.filter(allData, function(field) {
-				return _.indexOf($scope.companyInfo2, field.name) >= 0;
+				return _.indexOf(fields, field.name) >= 0;
 			})
-			// console.log('company data', liveData);
+			console.log('company data', liveData);
 			deferred.resolve(liveData);
 			// console.log('company data', allData);
 		}); 
@@ -58,7 +58,8 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 	};
 
 	var mergeCompanyData = function mergeCompanyData(fieldsPromise, companyInfoPromise) {
-	    	return $q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
+	    	var deferred = $q.defer();
+	    	$q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
 	    		// console.log('values', values[0], values[1]);
 	    		var data = _.map(values[0], function(field, index) {
 	    			var val = _.find(values[1], function(value) {
@@ -69,11 +70,15 @@ vfaDashboard.controller("companyCtrl", function($scope, $stateParams, $q, accoun
 	    			return field;
 	    		})
 	    		console.log('data', data);
-	    		$scope.companyInfo = data;
-	    	})
+	    		deferred.resolve(data);
+	    	});
+	    	return deferred.promise;
 	}
 
-	mergeCompanyData(getCompanyFields(), getCompanyInfo());
+	 mergeCompanyData(metaFieldsPromise($scope.companyInfo2, api.companies.getFields()), getRecordInfo($scope.companyInfo2, api.companies.getCompany($scope.accountId)))
+	 .then(function(data) {
+	 	$scope.companyInfo = data;
+	 });
 		
 
 	$scope.contacts;

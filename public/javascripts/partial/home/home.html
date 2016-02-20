@@ -1,42 +1,72 @@
 <div ng-controller="homeCtrl" ng-cloak>
-	<div ng-if="!auth">
-		Welcome to the VFA Logger. This is a site for VFA team members to manage their salesforce information and activities.
-	</div>
-	<div ng-if="auth">
-		<ul class="nav nav-tabs" id="tabs">
-			<li class="active">
-				<a href="#notes">Create Note</a>
-			</li>
-			<li>
-				<a href="#contacts">Create Contact</a>
-			</li>
-			<li>
-				<a href="#accounts">Create Account</a>
-			</li>
-			<li>
-				<a href="#cases">Create Case</a>
-			</li>
-		</ul>
-		<div class="tab-content">
-			<div class="tab-pane active" id="notes">
-				<note-logger></note-logger>
-			</div>
-			<div class="tab-pane" id="contacts">
-				<contact-create></contact-create>
-			</div>
-			<div class="tab-pane" id="accounts">
-				<account-create></account-create>
-			</div>
-			<div class="tab-pane" id="cases">
-				<case-create></case-create>
-			</div>
-		</div>
-
-		<script>
-		$('#tabs a').click(function(e) {
-			e.preventDefault();
-			$(this).tab('show');
-		});
-		</script>
-	</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div ng-if="!auth">
+                    Welcome to the VFA Logger. This is a site for VFA team members to manage their salesforce information and activities.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-if="auth">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <ul class="nav nav-tabs" id="tabs">
+                        <li>
+                            <a href="#info">Get Info</a>
+                        </li>
+                        <li class="active">
+                            <a href="#notes">Create Note</a>
+                        </li>
+                        <li>
+                            <a href="#contacts">Create Contact</a>
+                        </li>
+                        <li>
+                            <a href="#accounts">Create Account</a>
+                        </li>
+                        <li>
+                            <a href="#cases">Create Case</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="tab-content">
+                        <div class="tab-pane" id="info">
+                            <div class="input-group">
+                                <input type="text" ng-model="record" typeahead-template-url="javascripts/partial/home/typeaheadTemplate.html" placeholder="Search Fellow, contact, or company" uib-typeahead="record as record.Name for record in getRecords($viewValue)" typeahead-wait-ms="250" typeahead-min-length="1" typeahead-loading="loadingRecords" typeahead-no-results="noResults" class="form-control" typeahead-on-select='onSelect($item, $model, $label, $event)'>
+                                <!-- <i ng-show="loadingRecords" class="glyphicon glyphicon-refresh"></i> -->
+                                <p ng-show="loadingRecords">Loading records...</p>
+                                <div ng-show="noResults">
+                                    <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                </div>
+                            </div>
+                            <div ng-hide="record.Name || isCompany || isContact || isFellow">
+                                <hr> Record info here...
+                            </div>
+                            <fellow-profile ng-if="record.Department_Type__c === 'Fellow' || isFellow" id="record.Id"></fellow-profile>
+                            <contact-profile ng-if="record.RecordTypeId === '012d0000000StyNAAS' || record.RecordTypeId === '012d0000000StyMAAS' || isContact" id="record.Id"></contact-profile>
+                            <company-profile ng-if="record.attributes.type === 'Account' || isCompany" id="record.Id"></company-profile>
+                        </div>
+                        <div class="tab-pane active" id="notes">
+                            <note-logger></note-logger>
+                        </div>
+                        <div class="tab-pane" id="contacts">
+                            <contact-create></contact-create>
+                        </div>
+                        <div class="tab-pane" id="accounts">
+                            <account-create></account-create>
+                        </div>
+                        <div class="tab-pane" id="cases">
+                            <case-create></case-create>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                $('#tabs a').click(function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                </script>
+            </div>
+        </div>
+    </div>
 </div>

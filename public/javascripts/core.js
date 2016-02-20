@@ -3,7 +3,7 @@ lodash.factory('_', ['$window', function($window) {
   return $window._; // assumes lodash has already been loaded on the page
 }]);
 
-var vfaDashboard = angular.module("vfaDashboard", ["ui.router", "lodash", "nvd3", "ngStorage", "ngMaterial"]);
+var vfaDashboard = angular.module("vfaDashboard", ["ui.router","ui.bootstrap", "lodash", "nvd3", "ngStorage", "ngMaterial"]);
 
 vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
 
