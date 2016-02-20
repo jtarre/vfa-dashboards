@@ -35,14 +35,17 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	var getMetaFieldsPromise = function getMetaFieldsPromise(fields, apiPromise) {
 		var deferred = $q.defer();
 		apiPromise.then(function(data) {
+			// console.log('the real meta fields: ', data.fields);
 			 var allFields = _.map(data.fields, function(field) { // trim the meta fields to a subset of values.
 			 	return {name: field.name, type: field.type, label: field.label, picklistValues: field.picklistValues}
 			 });
 
 			 var activeFields = _.filter(allFields, function(field) { // trim the fields to the ones I want to display
+			 	// console.log('field in filter: ', field);
 			 	return _.indexOf(fields, field.name) >= 0;
 			 });
-			 console.log('meta fields: ', activeFields);
+
+			 // console.log('meta fields v2: ', activeFields);
 			 deferred.resolve(activeFields);
 		});
 		return deferred.promise;
@@ -51,15 +54,15 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	var getRecordInfo = function getRecordInfo(fields, apiPromise) {
 		var deferred = $q.defer();
 		apiPromise.then(function(data) {
-			console.log('record promise data: ', data);
+			// console.log('record promise data: ', data);
 			var allData = _.map(data, function(field, key) {
 				return {name: key, value: field};
 			});
-			console.log('all data', allData);
+			// console.log('all data', allData);
 			var liveData = _.filter(allData, function(field) {
 				return _.indexOf(fields, field.name) >= 0;
 			})
-			console.log('record data: ', liveData);
+			// console.log('record data: ', liveData);
 			deferred.resolve(liveData);
 			// console.log('company data', allData);
 		}); 
@@ -92,30 +95,44 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 
 	var getRecordData = function getRecordData(fieldsPromise, companyInfoPromise) {
 	  		var deferred = $q.defer();
-	    	return $q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
-	    		console.log('values', values[0], values[1]);
-	    		var data = _.map(values[0], function(field, index) {
-	    			var val = _.find(values[1], function(value) {
-	    				return value.name === field.name;
-	    			});
-	    			// console.log('val', val);
-	    			field.value = val.value;
+	    	$q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
+	    		// console.log('values', values[0], values[1]);
+	    		// console.log('fields promise in all: ', values[0]);
+	    		// console.log('record value promise in all: ', values[1]);
+	    		var fieldsGroupedByName = _.keyBy(values[0], 'name');
+	    		var valuesGroupedByName = _.keyBy(values[1], 'name');
+	    		
+	    		// console.log('fields grouped: ', fieldsGroupedByName);
+	    		// console.log('values grouped: ', valuesGroupedByName);
+	    		
+	    		var mergeFieldNValues = _.merge(fieldsGroupedByName, valuesGroupedByName);
+
+	    		var arrayOfFieldNValues = _.map(mergeFieldNValues, function(field, name) {
 	    			return field;
 	    		})
-	  			deferred.resolve(data);
-	    	})
+
+	    		console.log('array of values: ', arrayOfFieldNValues);
+
+	    		console.log('merge field and values: ', mergeFieldNValues);
+
+	  			deferred.resolve(arrayOfFieldNValues);
+	    	});
 	    	return deferred.promise;
 	}
 
 	getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
 	.then(function(data) {
+		// console.log('data out of record promise: ', data);
 		$scope.companyData = data;
-	})
+		// console.log('company data: ', $scope.companyData);
+	}, function(error) {
+		return console.error(error);
+	});
 
-	getRecordData(getMetaFieldsPromise(contactFields, api.contacts.getFields()), getChildRecords(contactFields, api.companies.getContacts($scope.id)))
-	.then(function(contacts) {
-		$scope.contacts = contacts;
-	})
+	// getRecordData(getMetaFieldsPromise(contactFields, api.contacts.getFields()), getChildRecords(contactFields, api.companies.getContacts($scope.id)))
+	// .then(function(contacts) {
+	// 	$scope.contacts = contacts;
+	// })
 		
 
 	// $scope.contacts;
