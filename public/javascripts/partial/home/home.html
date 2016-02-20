@@ -31,9 +31,6 @@
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="tab-content">
                         <div class="tab-pane" id="info">
-                            <p>Record: {{record | json}}</p>
-                            <p>{{record.Department_Type__c === 'Fellow'}}</p>
-                            <p>Has Account Id: {{record.AccountId}}</p>
                             <div class="input-group">
                                 <input type="text" ng-model="record" typeahead-template-url="javascripts/partial/home/typeaheadTemplate.html" placeholder="Search Fellow, contact, or company" uib-typeahead="record as record.Name for record in getRecords($viewValue)" typeahead-wait-ms="250" typeahead-min-length="1" typeahead-loading="loadingRecords" typeahead-no-results="noResults" class="form-control" typeahead-on-select='onSelect($item, $model, $label, $event)'>
                                 <!-- <i ng-show="loadingRecords" class="glyphicon glyphicon-refresh"></i> -->
