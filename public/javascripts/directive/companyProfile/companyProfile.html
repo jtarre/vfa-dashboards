@@ -1,74 +1,69 @@
 <div ng-controller="companyProfileCtrl">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h2>{{companyInfo.Name}}</h2>
-                <hr>
-                <h3 id="fellowInfo">Company Info</h3>
-                <!-- OVERVIEW -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Overview</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div ng-repeat="field in companyData">
-                                <div class="col-xs-6">
-                                    <h5 ng-if="field.type !=='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                    <p ng-if="field.type !=='id' && field.name !== 'OwnerId'">{{field.value}}</p>
-                                    <p ng-if="field.name === 'OwnerId'">{{getUser(users, field.value)}}</p>
-                                </div>
+            <h2>{{companyInfo.Name}}</h2>
+            <hr>
+            <h3 id="fellowInfo">Company Info</h3>
+            <!-- OVERVIEW -->
+            <div class="panel panel-default">
+                <div class="panel-heading">Overview</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div ng-repeat="field in companyData">
+                            <div class="col-xs-6">
+                                <h5 ng-if="field.type !=='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                <p ng-if="field.type !=='id' && field.name !== 'OwnerId'">{{field.value}}</p>
+                                <p ng-if="field.name === 'OwnerId'">{{getUser(users, field.value)}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <h3 id="fellowInfo">Contacts</h3>
-                <uib-accordion>
-                    <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts | orderBy: 'Name'">
-                        <div class="row">
-                            <div ng-repeat="(fieldName, fieldValue) in contact">
-                                <div class="col-xs-6">
-                                    <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
-                                    <p>{{fieldValue}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </uib-accordion-group>
-                <uib-accordion>
-
-                <h3 id="fellowInfo">Opportunities</h3>
-                <uib-accordion>
-                    <uib-accordion-group heading="{{opportunity.CloseDate}} | {{opportunity.Name}}: {{opportunity.StageName}}" ng-repeat="opportunity in opportunities | orderBy : 'CloseDate' : reverse">
-                        <div class="row">
-                            <div ng-repeat="(fieldName, fieldValue) in opportunity">
-                                <div class="col-xs-6">
-                                    <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
-                                    <p ng-if="fieldName !== 'OwnerId'">{{fieldValue}}</p>
-                                    <p ng-if="fieldName === 'OwnerId'">{{getUser(users, fieldValue)}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </uib-accordion-group>
-                <uib-accordion>
-
-                <h3 id="fellowInfo">Activities</h3>
-                <uib-accordion>
-                    <uib-accordion-group heading="{{activity.ActivityDate}} | {{activity.Subject}}" ng-repeat="activity in activities | orderBy : 'ActivityDate' : reverse">
-                        <div class="row">
-                            <div ng-repeat="(fieldName, fieldValue) in activity">
-                                <div class="col-xs-6">
-                                    <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
-                                    <p ng-if="fieldName !== 'OwnerId' && fieldName !== 'Description'">{{fieldValue}}</p>
-                                    <p ng-if="fieldName === 'OwnerId'">{{getUser(users, fieldValue)}}</p>
-                                </div>
-                                <div class="col-xs-12">
-                                	<h5 ng-if="fieldName === 'Description'" class="vfa-item-header"><small>{{fieldName}}</small></h5>
-                                	<p ng-if="fieldName === 'Description'">{{fieldValue}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </uib-accordion-group>
-                <uib-accordion>
             </div>
+            <h3 id="fellowInfo">Contacts</h3>
+            <uib-accordion>
+                <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts | orderBy: 'Name'">
+                    <div class="row">
+                        <div ng-repeat="(fieldName, fieldValue) in contact">
+                            <div class="col-xs-6">
+                                <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
+                                <p>{{fieldValue}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </uib-accordion-group>
+                <uib-accordion>
+                    <h3 id="fellowInfo">Opportunities</h3>
+                    <uib-accordion>
+                        <uib-accordion-group heading="{{opportunity.CloseDate}} | {{opportunity.Name}}: {{opportunity.StageName}}" ng-repeat="opportunity in opportunities | orderBy : 'CloseDate' : reverse">
+                            <div class="row">
+                                <div ng-repeat="(fieldName, fieldValue) in opportunity">
+                                    <div class="col-xs-6">
+                                        <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
+                                        <p ng-if="fieldName !== 'OwnerId'">{{fieldValue}}</p>
+                                        <p ng-if="fieldName === 'OwnerId'">{{getUser(users, fieldValue)}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+                    </uib-accordion>
+                    <h3 id="fellowInfo">Activities</h3>
+                    <uib-accordion>
+                        <uib-accordion-group heading="{{activity.ActivityDate}} | {{activity.Subject}}" ng-repeat="activity in activities | orderBy : 'ActivityDate' : reverse">
+                            <div class="row">
+                                <div ng-repeat="(fieldName, fieldValue) in activity">
+                                    <div class="col-xs-6">
+                                        <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
+                                        <p ng-if="fieldName !== 'OwnerId' && fieldName !== 'Description'">{{fieldValue}}</p>
+                                        <p ng-if="fieldName === 'OwnerId'">{{getUser(users, fieldValue)}}</p>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <h5 ng-if="fieldName === 'Description'" class="vfa-item-header"><small>{{fieldName}}</small></h5>
+                                        <p ng-if="fieldName === 'Description'">{{fieldValue}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+                        <uib-accordion>
         </div>
     </div>
 </div>

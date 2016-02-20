@@ -42,7 +42,7 @@
                                     <i class="glyphicon glyphicon-remove"></i> No Results Found
                                 </div>
                             </div>
-                            <div ng-show="!record.Name">
+                            <div ng-hide="record.Name || isCompany || isContact || isFellow">
                                 <hr> Record info here...
                             </div>
                             <fellow-profile ng-if="record.Department_Type__c === 'Fellow' || isFellow" id="record.Id"></fellow-profile>
