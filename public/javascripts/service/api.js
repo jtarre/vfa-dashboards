@@ -96,9 +96,16 @@
 				});
 			},
 
+			getOne: function getOne(id) {
+				return $http.get("/api/contacts/" + id).then(function(response) {
+					console.log('contact info: ', response);
+					return response.data;
+				})
+			},
+
 			getBySearch: function getBySearch(search) {
 				console.log("searching by value:", search);
-				return $http.get("/api/contacts/" + search).then(function(response) {
+				return $http.get("/api/contacts/search/" + search).then(function(response) {
 					console.log("response: ", response.data);
 					return response.data;
 				})

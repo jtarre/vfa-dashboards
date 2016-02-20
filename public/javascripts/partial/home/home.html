@@ -27,9 +27,10 @@
 		<div class="tab-content">
 			<div class="tab-pane" id="info">
 				<p>Record: {{record | json}}</p>
-				<p>{{record.Department_Type__c === 'Fellow'}}
+				<p>{{record.Department_Type__c === 'Fellow'}}</p>
+				<p>Has Account Id: {{record.AccountId}}</p>
 				<div class="input-group">
-					<input type="text" ng-model="record" typeahead-template-url="javascripts/partial/home/typeaheadTemplate.html" placeholder="Search Fellow, contact, or company" uib-typeahead="record as record.Name for record in getRecords($viewValue)" typeahead-wait-ms="250" typeahead-min-length="3" typeahead-loading="loadingRecords" typeahead-no-results="noResults" class="form-control">
+					<input type="text" ng-model="record" typeahead-template-url="javascripts/partial/home/typeaheadTemplate.html" placeholder="Search Fellow, contact, or company" uib-typeahead="record as record.Name for record in getRecords($viewValue)" typeahead-wait-ms="250" typeahead-min-length="1" typeahead-loading="loadingRecords" typeahead-no-results="noResults" class="form-control">
 					<!-- <i ng-show="loadingRecords" class="glyphicon glyphicon-refresh"></i> -->
 					<p ng-show="loadingRecords">Loading records...</p>
 					<div ng-show="noResults">
