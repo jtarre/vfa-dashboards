@@ -12,20 +12,36 @@
                         <div class="row">
                             <div ng-repeat="field in companyData">
                                 <div class="col-xs-6">
-                                    <h5 ng-hide="field.type ==='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                    <p ng-hide="field.type ==='id'">{{field.value}}</p>
+                                    <h5 ng-if="field.type !=='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                    <p ng-if="field.type !=='id'">{{field.value}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <h3 id="fellowInfo">Contacts</h3>
                 <uib-accordion>
                     <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts">
                         <div class="row">
-                            <div ng-repeat="field in contact">
+                            <div ng-repeat="(fieldName, fieldValue) in contact">
                                 <div class="col-xs-6">
-                                    <h5 ng-hide="field.type ==='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                    <p ng-hide="field.type ==='id'">{{field.value}}</p>
+                                    <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
+                                    <p>{{fieldValue}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-accordion-group>
+                <uib-accordion>
+
+                <h3 id="fellowInfo">Opportunities</h3>
+                <uib-accordion>
+                    <uib-accordion-group heading="{{contact.Name}}" ng-repeat="contact in contacts">
+                        <div class="row">
+                            <div ng-repeat="(fieldName, fieldValue) in contact">
+                                <div class="col-xs-6">
+                                    <h5 class="vfa-item-header"><small>{{fieldName}}</small></h5>
+                                    <p>{{fieldValue}}</p>
                                 </div>
                             </div>
                         </div>
@@ -34,71 +50,4 @@
             </div>
         </div>
     </div>
-</div>
-####
-<h2>{{company.Name}}</h2>
-<h3>Background</h3>
-<md-content layout-padding>
-    <div layout="column">
-        <md-checkbox ng-model="isEdit" ng-change="!isEdit">Editable</md-checkbox>
-        <div layout="row">
-            <md-button ng-if="isEdit" class="md-raised" ng-click="update(companyInfo)">
-                Update Account
-            </md-button>
-            <md-progress-circular ng-if="updateInProgress" md-mode="indeterminate"></md-progress-circular>
-            <a ng-if="!updateInProgress && recentlyUpdated" ng-href="{{recentlyUpdated}}" target="_blank">See Updated Account</a>
-            <p ng-if="updateErrorMessage">{{updateErrorMessage}}</p>
-        </div>
-        <div layout="column" ng-repeat="field in companyInfo">
-            <p ng-if="!isEdit && field.type !== 'id'"><strong>{{field.label}}</strong>: {{field.value}}</p>
-            <md-input-container ng-show="isEdit && (field.type === 'text' || field.type === 'string' || field.type === 'int' || field.type === 'double')" class="md-block">
-                <label>{{field.label}}</label>
-                <input type="text" ng-model="field.value">
-            </md-input-container>
-            <md-input-container ng-show="isEdit && field.type === 'textarea'" class="md-block">
-                <label>{{field.label}}</label>
-                <textarea ng-model="field.value" columns="1" rows="5"></textarea>
-            </md-input-container>
-            <label ng-show="isEdit && (field.type === 'picklist' || field.type === 'multipicklist')">{{field.label}}</label>
-            <select ng-show="isEdit && (field.type === 'picklist' || field.type === 'multipicklist')" ng-model="field.value" ng-options="item.label as item.value for item in field.picklistValues"></select>
-            <md-checkbox ng-show="isEdit && field.type === 'boolean'" ng-model="field.value" ng-true-value="true" ng-false-value="false">{{
-                <field class="label"></field>}}</md-checkbox>
-        </div>
-</md-content>
-</md-tab>
-<h3>Contacts</h3>
-<p ng-if="!contacts">No Contacts in Salesforce</p>
-<md-list ng-if="contacts">
-    <md-list-item class="md-3-line" ng-repeat="contact in contacts" layout="column">
-        <div class="md-line-item-text">
-            <h3>{{contact.Name}}</h3>
-            <h4>{{contact.Title}}</h4>
-            <p>{{contact.Email}}</p>
-        </div>
-    </md-list-item>
-</md-list>
-<h3>Opportunities</h3>
-<p ng-if="!opportunities">No Opportunities in Salesforce</p>
-<md-list ng-if="opportunities">
-    <md-list-item class="md-3-line" ng-repeat="opportunity in opportunities" layout="column">
-        <div class="md-line-item-text">
-            <h3>{{opportunity.Name}}</h3>
-            <h4>{{opportunity.Description}}</h4>
-            <p>Expected Close Date: {{opportunity.CloseDate}}</p>
-        </div>
-    </md-list-item>
-</md-list>
-</md-tab>
-<h3>Recent Activities</h3>
-<p ng-if="!activities">No Activities in Salesforce</p>
-<md-list>
-    <md-list-item class="md-2-line" ng-repeat="activity in activities" layout="column">
-        <div class="md-line-item-text">
-            <h4>{{activity.Subject}}</h4>
-            <p><strong>Created By:</strong> {{getUser(users, activity.OwnerId).Name}} </p>
-            <p>{{activity.Description}}</p>
-        </div>
-    </md-list-item>
-</md-list>
-</div>
 </div>

@@ -29,7 +29,8 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 		'Phone',
 		'Email',
 		'Title',
-		'Description'
+		'Description',
+		'VFA_Association__c'
 	];
 
 	var getMetaFieldsPromise = function getMetaFieldsPromise(fields, apiPromise) {
@@ -72,7 +73,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	var getChildRecords = function getChildRecords(activeFields, apiPromise) {
 		var deferred = $q.defer();
 		apiPromise.then(function(children) {
-			console.log('return children: ', children);
+			// console.log('return children: ', children);
 
 			var filteredChildren = _.map(children, function(child) {
 				return _.pick(child, contactFields);
@@ -83,7 +84,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 			// 	return _.includes(contactFields, fieldName);
 			// });
 
-			console.log('children filtered: ', filteredChildren);
+			// console.log('children filtered: ', filteredChildren);
 			deferred.resolve(filteredChildren);
 		});	
 		return deferred.promise;	
@@ -95,13 +96,13 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	  		var deferred = $q.defer();
 	    	$q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
 	    		// console.log('values', values[0], values[1]);
-	    		// console.log('fields promise in all: ', values[0]);
-	    		// console.log('record value promise in all: ', values[1]);
+	    		console.log('fields promise in all: ', values[0]);
+	    		console.log('record value promise in all: ', values[1]);
 	    		var fieldsGroupedByName = _.keyBy(values[0], 'name');
 	    		var valuesGroupedByName = _.keyBy(values[1], 'name');
 	    		
-	    		// console.log('fields grouped: ', fieldsGroupedByName);
-	    		// console.log('values grouped: ', valuesGroupedByName);
+	    		console.log('fields grouped: ', fieldsGroupedByName);
+	    		console.log('values grouped: ', valuesGroupedByName);
 	    		
 	    		var mergeFieldNValues = _.merge(fieldsGroupedByName, valuesGroupedByName);
 
@@ -109,39 +110,27 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 	    			return field;
 	    		})
 
-	    		// console.log('array of values: ', arrayOfFieldNValues);
-
-	    		// console.log('merge field and values: ', mergeFieldNValues);
+	    		console.log('merge field and values: ', mergeFieldNValues);
+	    		console.log('array of values: ', arrayOfFieldNValues);
 
 	  			deferred.resolve(arrayOfFieldNValues);
 	    	});
 	    	return deferred.promise;
 	}
 
-	// getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
-	// .then(function(data) {
-	// 	// console.log('data out of record promise: ', data);
-	// 	$scope.companyData = data;
-	// 	// console.log('company data: ', $scope.companyData);
-	// }, function(error) {
-	// 	return console.error(error);
-	// });
+	getRecordData(getMetaFieldsPromise($scope.companyInfo, api.companies.getFields()), getRecordInfo($scope.companyInfo, api.companies.getCompany($scope.id)))
+	.then(function(data) {
+		// console.log('data out of record promise: ', data);
+		$scope.companyData = data;
+		// console.log('company data: ', $scope.companyData);
+	}, function(error) {
+		return console.error(error);
+	});
 
-	getRecordData(getMetaFieldsPromise(contactFields, api.contacts.getFields()), getChildRecords(contactFields, api.companies.getContacts($scope.id)))
+	getChildRecords(contactFields, api.companies.getContacts($scope.id))
 	.then(function(contacts) {
 		$scope.contacts = contacts;
 	})
-		// $scope.contacts = [{test: 'seven', jeepers: 'creepers'}, {fun: 'in a bun', six: 'went tix'}];
-
-	// $scope.contacts;
-	// api.companies.getContacts($scope.id)
-	// 	.then( function(contacts) {
-	// 		console.log("contacts", contacts);
-	// 		if(contacts.length) {
-	// 			$scope.contacts = contacts;	
-	// 		}
-			
-	// 	});
 
 	$scope.opportunities;
 	api.opportunities.getForCompany($scope.id)
