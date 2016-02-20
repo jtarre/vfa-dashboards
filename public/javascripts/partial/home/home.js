@@ -40,7 +40,7 @@ vfaDashboard.controller("homeCtrl", function($scope, $q, _, auth, api, accountsA
 		$scope.isContact = false;
 		$scope.isCompany = false;
 		$scope.isFellow = false;
-		if($item.AccountId) {$scope.isContact = true;}
+		if($item.RecordTypeId === '012d0000000StyNAAS' || $item.RecordTypeId === '012d0000000StyMAAS') {$scope.isContact = true;}
 		else if($item.Department__c) {$scope.isCompany = true;}
 		else if($item.Department_Type__c === 'Fellow') {$scope.isFellow = true;}
 	}
