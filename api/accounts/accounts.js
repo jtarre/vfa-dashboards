@@ -44,7 +44,7 @@ module.exports = function(app) {
 					AccountId: accountId,
 					Status: "Completed"
 				}, "*")
-				.limit(5)
+				.limit(10)
 				.sort({ CreatedDate: 1})
 				.execute( function(err, activities) {
 					if(err) {
