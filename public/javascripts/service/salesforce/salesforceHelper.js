@@ -17,7 +17,7 @@ angular.module('vfaDashboard').factory('salesforceHelper', function($q, _) {
         getChildRecords: function getChildRecords(activeFields, apiPromise) {
             var deferred = $q.defer();
             apiPromise.then(function(children) {
-
+                console.log('child records: ', children);
                 var filteredChildren = _.map(children, function(child) {
                     return _.pick(child, activeFields);
                 });
@@ -46,9 +46,9 @@ angular.module('vfaDashboard').factory('salesforceHelper', function($q, _) {
             return deferred.promise;
         },
 
-        getRecordData: function getRecordData(fieldsPromise, companyInfoPromise) {
+        getRecordData: function getRecordData(fieldsPromise, valuesPromise) {
             var deferred = $q.defer();
-            $q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
+            $q.all([fieldsPromise, valuesPromise]).then(function(values) {
                 // console.log('values', values[0], values[1]);
                 // console.log('fields promise in all: ', values[0]);
                 // console.log('record value promise in all: ', values[1]);
@@ -89,7 +89,7 @@ angular.module('vfaDashboard').factory('salesforceHelper', function($q, _) {
 
                     return _.indexOf(fields, field.name) >= 0;
                 });
-
+                console.log('active meta fields: ', activeFields);
 
                 deferred.resolve(activeFields);
             });

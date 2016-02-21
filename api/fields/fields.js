@@ -1,18 +1,22 @@
 module.exports = function(app) {
 	var jsforce = require('jsforce');
-	var _       = require('underscore');
+	var _       = require('lodash');
 	console.log("something");
 	app.get("/api/fields/:type", function(req, res) {
 
 		var type = req.params.type;
-		var sobject;
-		console.log("FIELD TYPE", type);
-		if(type === "companies") {
-			sobject = "Account";
-		} else { // fellow (for now)
-			sobject = "Contact";
-		}
-		console.log("getting company field data");
+		var sobjectEnum = {
+			companies: 'Account',
+			contacts: 'Contact',
+			oppportunities: 'Opportunity',
+			candidates: 'Lead',
+			campaigns: 'Campaign',
+			activities: 'Task'
+		};
+
+		var sobject = sobjectEnum[type];
+		
+		console.log("getting field meta data...");
 		var conn = new jsforce.Connection({
 			clientSecret: process.env.CLIENT_SECRET,
 			clientId:     process.env.CLIENT_ID,

@@ -23,6 +23,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
     ];
 
     var contactFields = [
+        'Id',
         'Name',
         'FirstName',
         'LastName',
@@ -53,6 +54,53 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
         'Description'
     ]
 
+    var getChildRecordData = function getChildRecordData(fieldsPromise, valuesPromise) {
+        var deferred = $q.defer();
+
+        $q.all([fieldsPromise, valuesPromise]).then(function(values) {
+            // console.log('values', values[0], values[1]);
+            console.log('meta fields: ', values[0]);
+            console.log('child values: ', values[1]);
+
+            var mergeFieldNValues = function mergeFieldNValues(fields, value) {
+                // var fieldsForGrouping = _.create(fields);
+                // var valuesForMapping = _.create(value);
+                // console.log('field for grouping: ', fieldsForGrouping);
+                // console.log('values for mapping: ', valuesForMapping);
+
+                var fieldsGroupedByName = _.keyBy(fields, 'name');
+
+                var valuesMapped = _.map(value, function(value, field) {
+                    return { name: field, value: value };
+                });
+                console.log('values mapped: ', valuesMapped);
+                var valuesGroupedByName = _.keyBy(valuesMapped, 'name');
+
+                console.log('fields grouped: ', fieldsGroupedByName);
+                console.log('values grouped: ', valuesGroupedByName);
+
+                var mergeFieldNValues = _.merge(valuesGroupedByName, fieldsGroupedByName);
+                console.log('merge field n values: ', mergeFieldNValues);
+                var arrayOfFieldNValues = _.map(mergeFieldNValues, function(field, name) {
+                    return field;
+                })
+
+                return arrayOfFieldNValues;
+            }
+
+
+            var valuesNFields = _.map(values[1], function(value, index) {
+                console.log('mapped value: ', value);
+                return mergeFieldNValues(values[0], value);
+            })
+
+            console.log('contact array of values and fields: ', valuesNFields);
+
+            deferred.resolve(valuesNFields);
+        });
+        return deferred.promise;
+    }
+
     $scope.$watch('id', function(newId) {
         console.log('new Id: ', newId);
         if (!newId) {
@@ -60,14 +108,21 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
         } else {
             salesforceHelper.getRecordData(salesforceHelper.getMetaFields($scope.companyInfo, api.companies.getFields()), salesforceHelper.getRecordInfo($scope.companyInfo, api.companies.getCompany(newId)))
                 .then(function(data) {
-                    console.log('company data: ', data);
+                    // console.log('company data: ', data);
                     $scope.companyData = data;
                 }, function(error) {
                     console.error(error);
                 });
-
-            salesforceHelper.getChildRecords(contactFields, api.companies.getContacts(newId))
+            getChildRecordData(salesforceHelper.getMetaFields(contactFields, api.contacts.getFields()), salesforceHelper.getChildRecords(contactFields, api.companies.getContacts(newId)))
+                // salesforceHelper.getChildRecords(contactFields, api.companies.getContacts(newId))
                 .then(function(contacts) {
+                    // i'd like to assign an is edit property here.
+                    // to each contact
+                    console.log('contacts pre edit: ', contacts);
+                    _.forEach(contacts, function(contact) {
+                        _.assign(contact, { isContactEdit: false });
+                    });
+                    console.log('contacts post edit: ', contacts);
                     $scope.contacts = contacts;
                 });
 
@@ -84,7 +139,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
                 })
         }
     })
-    
+
     $scope.isCompanyEdit = false;
     $scope.companyEdit = function companyEdit() {
         $scope.updateCompanyMessage = false;
@@ -92,7 +147,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
         $scope.updateCompanyInProgress = false;
     }
 
-    $scope.onUpdate = function onUpdate (data) {
+    $scope.onUpdate = function onUpdate(data) {
         $scope.updateCompanyMessage = false;
         $scope.updateCompanyError = false;
         $scope.updateCompanyInProgress = true;
@@ -107,7 +162,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
             $scope.updateCompanyInProgress = false;
             $scope.updateCompanyMessage = "Account updated!";
             $
-        }, function(error) { 
+        }, function(error) {
             console.error(error);
             $scope.updateCompanyInProgress = false;
             $scope.updateCompanyError = "Please try again or contact JTD";

@@ -44,7 +44,7 @@
 				console.log('get contacts');
 				return $http.get("/api/companies/" + companyId + "/contacts")
 					.then( function(response) {
-						console.log("get contacts response", response);
+						console.log("contacts for company", response.data);
 						return response.data;
 					});
 			},
@@ -98,7 +98,7 @@
 
 			getOne: function getOne(id) {
 				return $http.get("/api/contacts/" + id).then(function(response) {
-					console.log('contact info: ', response);
+					console.log('contact meta fields: ', response.data);
 					return response.data;
 				})
 			},
