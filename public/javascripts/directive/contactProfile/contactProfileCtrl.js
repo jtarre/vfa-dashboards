@@ -1,4 +1,4 @@
-angular.module('vfaDashboard').controller('contactProfileCtrl', function($scope, $q, _, api, supportersApi) {
+angular.module('vfaDashboard').controller('contactProfileCtrl', function($scope, $q, _, api, salesforceHelper, supportersApi) {
     // $scope.id
     // 2 versions: when you've gotten from child versions and when you haven't
 
