@@ -10,7 +10,7 @@ module.exports = function(app) {
 		clientId:    process.env.CLIENT_ID
 	});
 
-	app.get("/api/accounts/:search", function(req, res) {
+	app.get("/api/accounts/search/:search", function(req, res) {
 		var search = req.params.search;
 		conn.login(process.env.USER_EMAIL, process.env.PASSWORD, function(err, userInfo) {
 			if(err) { 

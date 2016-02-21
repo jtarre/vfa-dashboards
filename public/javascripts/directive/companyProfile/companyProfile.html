@@ -11,8 +11,10 @@
                     <div class="row">
                         <div ng-repeat="field in companyData">
                             <div class="col-xs-6">
-                                <h5 ng-if="field.type !=='id'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                <h5 ng-if="field.type !=='id' && field.name !== 'OwnerId'" class="vfa-item-header"><small>{{field.label}}</small></h5>
                                 <p ng-if="field.type !=='id' && field.name !== 'OwnerId'">{{field.value}}</p>
+                                
+                                <h5 ng-if="field.name === 'OwnerId'" class="vfa-item-header"><small>Owner</small></h5>
                                 <p ng-if="field.name === 'OwnerId'">{{getUser(users, field.value)}}</p>
                             </div>
                         </div>
