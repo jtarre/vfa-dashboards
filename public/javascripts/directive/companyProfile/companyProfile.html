@@ -9,15 +9,35 @@
                 <div class="panel-heading">Overview</div>
                 <div class="panel-body">
                     <div class="row">
+                        <div class="input-group col-xs-4">
+                            <input type="checkbox" ng-model="isCompanyEdit" ng-click="companyEdit()"aria-label="Edit Company">
+                            <label>Edit</label>
+                        </div>
+                        <button ng-show="isCompanyEdit" class="btn btn-primary col-xs-4" ng-click="onUpdate(companyData)">Update</button>
+                        <md-progress-circular class="col-xs-4" ng-if="isCompanyEdit && updateCompanyInProgress" mode="indefinite"></md-progress-circular>
+                        <p ng-if="isCompanyEdit && updateCompanyMessage" class="col-xs-4">{{updateCompanyMessage}}</p>
+                        <p ng-if="isCompanyEdit && updateCompanyError" class="col-xs-4">{{updateCompanyError}}</p>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-sm-offset-1 col-xs-offset-1 col-md-offset-1"> -->
                         <div ng-repeat="field in companyData">
-                            <div class="col-xs-6">
-                                <h5 ng-if="field.type !=='id' && field.name !== 'OwnerId'" class="vfa-item-header"><small>{{field.label}}</small></h5>
-                                <p ng-if="field.type !=='id' && field.name !== 'OwnerId'">{{field.value}}</p>
-                                
-                                <h5 ng-if="field.name === 'OwnerId'" class="vfa-item-header"><small>Owner</small></h5>
-                                <p ng-if="field.name === 'OwnerId'">{{getUser(users, field.value)}}</p>
+                            <div ng-if="!isCompanyEdit" class="col-xs-6">
+                                <h5 ng-if="!isCompanyEdit && field.type !=='id' && field.name !== 'OwnerId'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                <p ng-if="!isCompanyEdit && field.type !=='id' && field.name !== 'OwnerId'">{{field.value}}</p>
+                                <h5 ng-if="!isCompanyEdit && field.name === 'OwnerId'" class="vfa-item-header"><small>Owner</small></h5>
+                                <p ng-if="!isCompanyEdit && field.name === 'OwnerId'">{{getUser(users, field.value)}}</p>
+                            </div>
+                            <div ng-if="isCompanyEdit" class="col-sm-6 col-md-6">
+                                <!-- For Editing -->
+                                <h5 ng-if="isCompanyEdit && field.type !=='id' && field.name !== 'OwnerId'" class="vfa-item-header"><small>{{field.label}}</small></h5>
+                                <h5 ng-if="isCompanyEdit && field.name === 'OwnerId'" class="vfa-item-header"><small>Owner</small></h5>
+                                <input type="text" ng-if="isCompanyEdit && (field.type === 'int' || field.type === 'url' || field.type === 'string' || field.type === 'double')" ng-model="field.value">
+                                <textarea ng-if="isCompanyEdit && field.type ==='textarea'" ng-model="field.value"></textarea>
+                                <select ng-if="isCompanyEdit && (field.type ==='multipicklist' || field.type ==='picklist')" ng-model="field.value" ng-options="option.label as option.value for option in field.picklistValues"></select>
+                                <md-checkbox ng-if="isCompanyEdit && field.type === 'boolean'" ng-model="field.value" ng-model="field.value"></md-checkbox>
                             </div>
                         </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
