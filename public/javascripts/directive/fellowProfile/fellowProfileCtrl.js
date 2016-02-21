@@ -1,12 +1,6 @@
 angular.module('vfaDashboard').controller('fellowProfileCtrl', function($scope, $attrs, _, api) {
 
     $scope.fellowError = false;
-    api.fellows.getFellow($scope.id).then(function(data) {
-            $scope.fellow = data;
-            console.log('fellow data: ', $scope.fellow);
-        }, function(error) {
-            $scope.fellowError = "Sorry, please try again or contact JTD"
-        }) // need to have id
 
     $scope.$watch('id', function(newId) {
         if (!newId) {
