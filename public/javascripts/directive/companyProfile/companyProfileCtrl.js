@@ -75,16 +75,17 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
     var getRecordInfo = function getRecordInfo(fields, apiPromise) {
         var deferred = $q.defer();
         apiPromise.then(function(data) {
+            var activeData = _.pick(data, fields);
             // console.log('record promise data: ', data);
-            var allData = _.map(data, function(field, key) {
-                return { name: key, value: field };
-            });
+            // var allData = _.map(data, function(field, key) {
+            //     return { name: key, value: field };
+            // });
             // console.log('all data', allData);
-            var liveData = _.filter(allData, function(field) {
-                    return _.indexOf(fields, field.name) >= 0;
-                })
-                // console.log('record data: ', liveData);
-            deferred.resolve(liveData);
+            // var activeData = _.filter(allData, function(field) {
+            //     return _.indexOf(fields, field.name) >= 0;
+            // })
+            console.log('active data: ', activeData);
+            deferred.resolve(activeData);
             // console.log('company data', allData);
         });
         return deferred.promise;
@@ -111,13 +112,18 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
         var deferred = $q.defer();
         $q.all([fieldsPromise, companyInfoPromise]).then(function(values) {
             // console.log('values', values[0], values[1]);
-            // console.log('fields promise in all: ', values[0]);
-            // console.log('record value promise in all: ', values[1]);
+            console.log('fields promise in all: ', values[0]);
+            console.log('record value promise in all: ', values[1]);
             var fieldsGroupedByName = _.keyBy(values[0], 'name');
-            var valuesGroupedByName = _.keyBy(values[1], 'name');
+            
 
-            // console.log('fields grouped: ', fieldsGroupedByName);
-            // console.log('values grouped: ', valuesGroupedByName);
+            var valuesMapped = _.map(values[1], function(value, field) {
+                return {name: field, value: value};
+            });
+            var valuesGroupedByName = _.keyBy(valuesMapped, 'name');
+
+            console.log('fields grouped: ', fieldsGroupedByName);
+            console.log('values grouped: ', valuesGroupedByName);
 
             var mergeFieldNValues = _.merge(fieldsGroupedByName, valuesGroupedByName);
 
@@ -125,10 +131,11 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
                 return field;
             })
 
-            // console.log('merge field and values: ', mergeFieldNValues);
-            // console.log('array of values: ', arrayOfFieldNValues);
+            console.log('merge field and values: ', mergeFieldNValues);
+            console.log('array of values: ', arrayOfFieldNValues);
 
             deferred.resolve(arrayOfFieldNValues);
+            // deferred.resolve();
         });
         return deferred.promise;
     }

@@ -16,11 +16,11 @@ angular.module('vfaDashboard').controller('contactProfileCtrl', function($scope,
         apiPromise.then(function(data) {
             console.log('record promise data: ', data);
 
-            var activeData = _.pick(data, contactFields);
+            var activeData = _.pick(data, fields);
             // var allData = _.map(data, function(field, key) {
             // 	return {name: key, value: field};
             // });
-            console.log('all data', data);
+            // console.log('all data', data);
             // var liveData = _.filter(allData, function(field) {
             // 	return _.indexOf(fields, field.name) >= 0;
             // })
