@@ -60,9 +60,8 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
         } else {
             salesforceHelper.getRecordData(salesforceHelper.getMetaFields($scope.companyInfo, api.companies.getFields()), salesforceHelper.getRecordInfo($scope.companyInfo, api.companies.getCompany(newId)))
                 .then(function(data) {
-                    // console.log('company data: ', data);
+                    console.log('company data: ', data);
                     $scope.companyData = data;
-                    recordTransformForUpdate(data);
                 }, function(error) {
                     console.error(error);
                 });
@@ -87,8 +86,17 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
     })
     
     $scope.isCompanyEdit = false;
-    
+    $scope.companyEdit = function companyEdit() {
+        $scope.updateCompanyMessage = false;
+        $scope.updateCompanyError = false;
+        $scope.updateCompanyInProgress = false;
+    }
+
     $scope.onUpdate = function onUpdate (data) {
+        $scope.updateCompanyMessage = false;
+        $scope.updateCompanyError = false;
+        $scope.updateCompanyInProgress = true;
+
         updateRecord(data, api.companies.update);
     }
 
@@ -96,6 +104,13 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
         var recordForUpdate = recordTransformForUpdate(record);
         apiPromise(recordForUpdate).then(function(data) {
             console.log('update response: ', data);
+            $scope.updateCompanyInProgress = false;
+            $scope.updateCompanyMessage = "Account updated!";
+            $
+        }, function(error) { 
+            console.error(error);
+            $scope.updateCompanyInProgress = false;
+            $scope.updateCompanyError = "Please try again or contact JTD";
         });
     }
 
