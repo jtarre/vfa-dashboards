@@ -103,8 +103,6 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
 
     }
 
-
-
     $scope.recentlyUpdated = false;
     $scope.updateInProgress = false;
     $scope.updateErrorMessage = false;
