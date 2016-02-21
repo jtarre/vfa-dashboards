@@ -70,7 +70,7 @@ angular.module('vfaDashboard').factory('salesforceHelper', function($q, _) {
                 })
 
                 // console.log('merge field and values: ', mergeFieldNValues);
-                // console.log('array of values: ', arrayOfFieldNValues);
+                console.log('array of values: ', arrayOfFieldNValues);
 
                 deferred.resolve(arrayOfFieldNValues);
             });

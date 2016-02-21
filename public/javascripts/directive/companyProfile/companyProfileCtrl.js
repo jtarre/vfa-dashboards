@@ -62,6 +62,7 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
                 .then(function(data) {
                     // console.log('company data: ', data);
                     $scope.companyData = data;
+                    recordTransformForUpdate(data);
                 }, function(error) {
                     console.error(error);
                 });
@@ -84,6 +85,31 @@ angular.module('vfaDashboard').controller('companyProfileCtrl', function($scope,
                 })
         }
     })
+    
+    $scope.isCompanyEdit = false;
+    
+    $scope.onUpdate = function onUpdate (data) {
+        updateRecord(data, api.companies.update);
+    }
+
+    var updateRecord = function updateRecord(record, apiPromise) {
+        var recordForUpdate = recordTransformForUpdate(record);
+        apiPromise(recordForUpdate).then(function(data) {
+            console.log('update response: ', data);
+        });
+    }
+
+    var recordTransformForUpdate = function recordTransformForUpdate(record) {
+        var keyValueArray = _.map(record, function(field) {
+            return [field.name, field.value];
+        });
+
+        console.log('key value array of array: ', keyValueArray);
+
+        var keyValuePair = _.fromPairs(keyValueArray);
+        console.log('key value pairing: ', keyValuePair);
+        return keyValuePair;
+    }
 
     $scope.users;
     api.users.getAll()
