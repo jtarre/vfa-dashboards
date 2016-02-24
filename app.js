@@ -114,6 +114,9 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/loggedin', function(req, res) {
+  console.log('checking log in status...');
+  console.log('req.user: ', req.user );
+  console.log('authenticated: ', req.isAuthenticated());
   res.send(req.isAuthenticated() ? req.user : '0');
 })
 

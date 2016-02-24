@@ -65,25 +65,15 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 
 	}
 
-	$scope.user = 0;
-	$scope.account = 0;
-
 	$scope.mostRecentContact = 0;
 	$scope.contactInProgress = false;
 	$scope.contactFailed = 0;
-	$scope.createContact = function createContact(contact, user, account) {
+	$scope.createContact = function createContact(contact) {
 		$scope.contactInProgress = true;
 		$scope.contactFailed = 0;
 		$scope.mostRecentContact = 0;
 
-		// console.log('user data', user);
-		if(user) {
-			contact.OwnerId = user.Id;
-		}
-
-		if(account) {
-			contact.AccountId = account.Id;
-		}
+		
 		// console.log('contact data', contact);
 		api.contacts.create(contact).then(function(data) {
 			$scope.contactInProgress = false;

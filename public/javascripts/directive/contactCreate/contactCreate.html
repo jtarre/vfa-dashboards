@@ -19,7 +19,7 @@
 
 				<div class="input-group">
 					<label>Email</label>
-					<input type="text" ng-model="Email" class="form-control">
+					<input type="text" ng-model="contact.Email" class="form-control">
 				</div>
 
 				<div class="input-group">
@@ -40,7 +40,7 @@
 					<md-progress-circular ng-if="isRelatedToSearchInProgress" md-mode="indeterminate"></md-progress-circular>
 					<div ng-if="relatedTo.length" class="form-group">
 						<label>Select Account</label>
-						<select ng-model="account" ng-options="account.Name for account in relatedTo" class="form-control"></select>
+						<select ng-model="contact.AccountId" ng-options="account.Id as account.Name for account in relatedTo" class="form-control"></select>
 					</div>
 					<div ng-if="noCompaniesFound">
 						<p>{{noCompaniesFoundMessage}}</p>
@@ -54,16 +54,13 @@
 					</md-item-template>
 				</md-autocomplete>
 
-				
-
-				<md-autocomplete md-min-length="3" md-search-text="userSearch" md-selected-item="user" md-items="user in filteredUsers = (users | filter:userSearch)" md-item-text="user.Name" md-floating-label="Contact Owner">
-					<md-item-template>
-						{{user.Name}}
-					</md-item-template>
-				</md-autocomplete>
+				<div class="form-group">
+					<label>User</label>
+					<select ng-model="contact.OwnerId" ng-options="user.Id as user.Name for user in users" class="form-control"></select>
+				</div>
 
 			<div layout="row">	
-				<md-button class="md-raised" ng-click="createContact(contact, user, account)">Create Contact</md-button>
+				<md-button class="md-raised" ng-click="createContact(contact)">Create Contact</md-button>
 				<md-progress-circular ng-if="contactInProgress" md-mode="indeterminate"></md-progress-circular>
 				<div ng-if="mostRecentContact">
 					<a ng-href="https://na14.salesforce.com/{{mostRecentContact}}" target="_blank">See Contact</a>
