@@ -69,6 +69,7 @@ angular.module('vfaDashboard').controller('ContactCtrl', function($scope, _, api
 	$scope.contactInProgress = false;
 	$scope.contactFailed = 0;
 	$scope.createContact = function createContact(contact) {
+		console.log('contact client-side: ', contact);
 		$scope.contactInProgress = true;
 		$scope.contactFailed = 0;
 		$scope.mostRecentContact = 0;
