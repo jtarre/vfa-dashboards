@@ -99,13 +99,13 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
              
         // })
 
-        .state('data', {
-            url: '/data',
-            templateUrl: 'javascripts/partial/data/data.counts.html',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        });
+        // .state('data', {
+        //     url: '/data',
+        //     templateUrl: 'javascripts/partial/data/data.counts.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //     }
+        // });
 
     /* Add New States Above */
     $urlRouterProvider.otherwise('/home');
