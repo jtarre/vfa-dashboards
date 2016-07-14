@@ -13,45 +13,45 @@ vfaDashboard.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'javascripts/partial/home/home.html',
         })
 
-        .state('fellows', {
-            url: '/fellows',
-            templateUrl: 'javascripts/partial/fellows/fellows.html',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        })
+        // .state('fellows', {
+        //     url: '/fellows',
+        //     templateUrl: 'javascripts/partial/fellows/fellows.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //     }
+        // })
 
-        .state('fellow', {
-            url: '/fellows/:fellowId',
-            templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        })
+        // .state('fellow', {
+        //     url: '/fellows/:fellowId',
+        //     templateUrl: 'javascripts/partial/fellow-profile/fellow-profile.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //     }
+        // })
 
-        .state('campaigns', {
-            url: '/campaigns',
-            templateUrl: 'javascripts/partial/campaigns/campaigns.html',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        })
+        // .state('campaigns', {
+        //     url: '/campaigns',
+        //     templateUrl: 'javascripts/partial/campaigns/campaigns.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //     }
+        // })
 
-        .state('companies', {
-            url: '/companies',
-            templateUrl: 'javascripts/partial/companies/companies.html',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        })
+        // .state('companies', {
+        //     url: '/companies',
+        //     templateUrl: 'javascripts/partial/companies/companies.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //     }
+        // })
 
-        .state('company', {
-            url: '/companies/:companyId',
-            templateUrl: 'javascripts/partial/companies-profile/companies-profile.html',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        })
+        // .state('company', {
+        //     url: '/companies/:companyId',
+        //     templateUrl: 'javascripts/partial/companies-profile/companies-profile.html',
+        //     resolve: {
+        //         loggedin: checkLoggedin
+        //     }
+        // })
 
         // .state('companyContact', {
         //     url: '/companies/:companyId/contacts/:contactId',
